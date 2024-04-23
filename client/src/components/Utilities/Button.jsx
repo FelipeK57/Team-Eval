@@ -10,7 +10,7 @@ function Button(props) {
     return (
         <div className="Boton">
             {props.LineaBoton ? <hr /> : null}
-            <button>{props.Boton}</button>
+            <button style={{backgroundColor: props.color, color: props.fontColor}}>{props.Boton}</button>
         </div>
     )
 }

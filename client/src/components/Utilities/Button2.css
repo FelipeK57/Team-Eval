@@ -1,4 +1,4 @@
-.Boton {
+.Boton2 {
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -8,23 +8,24 @@
     width: 69%;
 }
 
-.Boton button {
-    height: 35px;
-    width: 125px;
-    border-radius: 15px;
+.Boton2 button {
+    height: 50px;
+    width: 200px;
+    border-radius: 25px;
     border: none;
-    font-size: 1.1rem;
+    font-size: 1.4rem;
     padding: 0px 1px;
     cursor: pointer;
     transition: 0.3s;
 }
 
-.Boton button:hover {
+.Boton2 button:hover {
     box-shadow: 0 0 0.5rem 0.5rem rgba(255, 255, 255, 0.1);
     transition: all 0.3s;
+    transform: scale(1.1);
 }
 
-.Boton button:active {
+.Boton2 button:active {
     transform: scale(1.1);
     transition: 0.1s;
 }

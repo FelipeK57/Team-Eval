@@ -1,13 +1,12 @@
 import React from 'react';
+import './Utilities/NavBar.css';
+import "../../public/carlos.jpeg";
 
 const NavBar = () => {
   return (
-    <nav style={{ backgroundColor: 'blue', color: 'white' }}>
-      <ul>
-        <li>Home</li>
-        <li>About</li>
-        <li>Contact</li>
-      </ul>
+    <nav className="navbar" >
+      <div className='imagen'><img src="../../public/carlos.jpeg" alt="logo" /></div>
+      <a href="#" className="navbara"><b>Iniciar Sesion</b></a>
     </nav>
   );
 };
