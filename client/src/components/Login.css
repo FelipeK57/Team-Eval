@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;700&display=swap');
+
+:root {
+  background-color: #D9D9D9 !important;
+  font-family: Mulish !important;
+}
+
+.MainContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.Container {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background-color: #D9D9D9;
+  font-family: Mulish;
+}
+
+.TextContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  height: 100%;
+  width: 100%;
+  background-color: #D9D9D9;
+  padding-left: 10%;
+  flex-wrap: nowrap;
+}
+
+.CardSwitcher {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  width: 90%;
+  
+}
+
+.CardSwitcher button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: none;
+  outline: none;
+  background-color: #053466;
+  width: 50%;
+  height: 50px;
+  border-radius: 25px 25px 0 0;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 1.2rem;
+}
+
+.CardSwitcher .Left {
+  border-radius: 25px 0 0 0;
+}
+
+.CardSwitcher .active {
+  background-color: #0f4175;
+  color: White;
+}
+
+.CardSwitcher .Right {
+  border-radius: 0 25px 0 0;
+}
+
+.CardContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  padding-right: 10%;
+}
+
+.Card {
+  width: 90%;
+  height: 40vh;
+  position: relative;
+  
+}
+
+.In {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 40vh;
+  width: 100%;
+  background-color: rgb(15, 65, 118);
+  border-radius: 0 0 25px 25px;
+  transition: all 1s;
+  justify-content: center;
+  outline: none;
+  backface-visibility: hidden;
+}
+
+.Estudiante {
+  transform: perspective(500px) rotateY(180deg);
+}
+
+.Profesor {
+  transform: perspective(500px) rotateY(180deg);
+}
+
+.In.Estudiante.ActiveCard{
+  transform: perspective(500px) rotateY(0deg);
+}
+
+.In.Profesor.ActiveCard{
+  transform: perspective(500px) rotateY(360deg);
+}
+
+@media screen and (max-width: 900px) {
+
+  .InputContenedor {
+    width: 100%;
+  }
+
+}
+
+@media screen and (max-width: 640px) {
+  .Volver {
+    left: 5px;
+    height: 30px;
+    width: 30px;
+    transition: 0.1s;
+    font-size: 500rem;
+  }
+
+}
+
+.Formulario {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: auto;
+  width: 100%;
+}
+
+.Formulario form {
+  width: 100%;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+
+
+.Linea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 69%;
+}
+
+
+
+hr {
+  width: 100%;
+  border: 1px solid #ffffff;
+  margin: 10px;
+}
+
+.Linea a {
+  color: #ffffff;
+}
+
+@media screen and (max-height: 770px) {
+
+  .Card {
+    border-radius: 0;
+  }
+
+}
+
+@media screen and (max-width: 390px) {
+  .MuiDialogContent-root {
+    width: 100vw !important;
+  }
+
+  .MuiDialog-root {
+    width: 100vw !important;
+  }
+
+  .Card {
+    width: 90vw !important;
+  }
+}
+
+button {
+  font-family: Mulish !important;
+}
+
+a{
+  color: White;
+}
+
+.Admin{
+  position: absolute;
+  top: 90%;
+  left: 80%;
+}
+
+
