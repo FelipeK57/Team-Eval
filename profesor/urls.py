@@ -1,10 +1,12 @@
 from django.contrib import admin
-from django.urls import path, re_path
+from django.urls import path, re_path,include
 from . import views
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register(r'profesor', views.profesorViewSet, 'profesor.views')   
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    re_path('login', views.login),
-    re_path('profile', views.profile),
-    re_path('create', views.create)
+    path('api/v1/', include(router.urls))
 ]
