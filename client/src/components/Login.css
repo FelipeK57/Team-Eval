@@ -9,8 +9,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
+  padding-top: 27vh;
 }
 
 .Container {
@@ -215,4 +216,21 @@ a{
   left: 80%;
 }
 
+.Volver{
+  position: absolute;
+  bottom: 92%;
+  left: 5%;
+  height: 30px;
+  width: 30px;
+  transition: 0.1s;
+  font-size: 500rem;
+}
 
+.Back{
+  position: absolute;
+  top: 90%;
+  left: 80%;
+  height: 30px;
+  width: 30px;
+  transition: 0.1s;
+}

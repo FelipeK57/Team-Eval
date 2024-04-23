@@ -4,7 +4,7 @@ import "./TypeWriter.css"
 function TypeWriter(prop) {
     const [text] = useTypewriter({
       words: [`${prop.text}`],
-      typeSpeed: 50,
+      typeSpeed: 170,
     });
   
     // Separa las letras que deseas cambiar de color del resto del texto

@@ -3,6 +3,7 @@ import Field from "./Utilities/Field.jsx";
 import Button from "./Utilities/Button.jsx";
 import { useState } from "react";
 import TypeWriter from "./Utilities/TypeWriter.jsx";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 function Login() {
   const [activeButton, setActiveButton] = useState("Estudiante");
@@ -10,6 +11,9 @@ function Login() {
   return (
     <div className="MainContainer">
       <div className="Container">
+        <div className="Back">
+          <button className="btn"><ArrowBackIcon sx={{color:"red"}}/></button>
+        </div>
         <div className="TextContainer">
           <TypeWriter
             text="TeamEval"
