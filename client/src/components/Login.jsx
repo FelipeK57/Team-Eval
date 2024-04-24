@@ -4,90 +4,95 @@ import Button from "./Utilities/Button.jsx";
 import { useState } from "react";
 import TypeWriter from "./Utilities/TypeWriter.jsx";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import axios from 'axios';
 
 function Login() {
   const [activeButton, setActiveButton] = useState("Estudiante");
+  const [codigo, setCodigo] = useState("");  // Estado para el código del estudiante
+  const [password, setPassword] = useState("");  // Estado para la contraseña
+  const [error, setError] = useState("");  // Estado para almacenar errores de autenticación
+
+  // Esta función maneja el envío del formulario
+  const handleSubmit = async (e) => {
+    e.preventDefault();  // Prevenir la acción por defecto del formulario
+
+    try {
+      // Enviar solicitud POST al endpoint de autenticación
+      const response = await axios.post("http://localhost:8000/api/token/", {
+        username: codigo,  // Ajusta el campo según tu modelo
+        password,
+      });
+
+      // Almacenar el token y redirigir al usuario si la autenticación es exitosa
+      const { access, refresh } = response.data;
+      localStorage.setItem("accessToken", access);
+      localStorage.setItem("refreshToken", refresh);
+
+      // Redirigir al usuario a la página principal o a donde quieras
+      window.location.href = "http://localhost:5173/home";
+    } catch (err) {
+      // Si hay un error, mostrar un mensaje de error
+      setError("Nombre de usuario o contraseña incorrectos");
+    }
+  };
 
   return (
     <div className="MainContainer">
       <div className="Container">
         <div className="Back">
-          <button className="BackButton"><ArrowBackIcon sx={{color:"#0f4175", fontSize:"3rem"}}/></button>
+          <button className="BackButton"><ArrowBackIcon /></button>
         </div>
         <div className="TextContainer">
           <TypeWriter
             text="TeamEval"
-            letterColor="rgb(15, 65, 118)"
-            letterToChange1="T"
-            letterToChange2="E"
             fontSize="3rem"
           />
           <h2 className="Text">
-            ¡Bienvenido a TeamEval, haz que cada evaluación cuente en tu viaje
-            educativo!
+            ¡Bienvenido a TeamEval!
           </h2>
         </div>
         <div className="CardContainer">
-          <div className="CardSwitcher">
+          <div class="CardSwitcher">
             <button
-              className={`Left${
-                activeButton === "Estudiante" ? " active" : ""
-              }`}
+              className={`Left${activeButton === "Estudiante" ? " active" : ""}`}
               onClick={() => setActiveButton("Estudiante")}
-              style={
-                activeButton === "Estudiante"
-                  ? { pointerEvents: "none" }
-                  : { pointerEvents: "auto" }
-              }
             >
               Estudiante
             </button>
             <button
               className={`Right${activeButton === "Profesor" ? " active" : ""}`}
               onClick={() => setActiveButton("Profesor")}
-              style={
-                activeButton === "Profesor"
-                  ? { pointerEvents: "none" }
-                  : { pointerEvents: "auto" }
-              }
             >
               Profesor
             </button>
           </div>
-          
+
           <div className="Card">
-            <div
-              className={`In Estudiante`}
+            <form
+              className={`Formulario${activeButton === "Estudiante" ? " ActiveCard" : ""}`}
+              onSubmit={handleSubmit}  // Aquí vinculamos el envío del formulario con la función
             >
-              <form className={`Formulario${
-                activeButton === "Estudiante" ? " ActiveCard" : " NotActive"
-              }`}>
-                <br />
-                <Field Campo="Codigo" Tipo="Number" />
-                <Field Campo="Contrasena" Tipo="password" />
-                <a href="/">Olvido su contrasena?</a>
-                <Button LineaBoton={true} Boton="Iniciar sesión" />
-                <a className="Admin" href="/">
-                  Administrador
-                </a>
-              </form>
-            </div>
-            <div
-              className={`In Profesor`}
-            >
-              <form className={`Formulario${
-                activeButton === "Profesor" ? " ActiveCard" : " NotActive"
-              }`}>
-                <br />
-                <Field Campo="Identificacion" Tipo="Number" />
-                <Field Campo="Contrasena" Tipo="password" />
-                <a href="/">Olvido su contrasena?</a>
-                <Button LineaBoton={true} Boton="Iniciar sesión" />
-                <a className="Admin" href="/">
-                  Administrador
-                </a>
-              </form>
-            </div>
+              <br />
+              <Field
+                Campo="Código"
+                Tipo="Number"
+                value={codigo}
+                onChange={(e) => setCodigo(e.target.value)}  // Capturar el valor del código
+              />
+              <Field
+                Campo="Contraseña"
+                Tipo="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}  // Capturar el valor de la contraseña
+              />
+              <a href="/">¿Olvidó su contraseña?</a>
+              <Button
+                Boton="Iniciar sesión"
+                onClick={handleSubmit}  // Llamar a la función de manejo del formulario
+              />
+              {error && <p className="error-message">{error}</p>} 
+              <a className="Admin" href="/">Administrador</a>
+            </form>
           </div>
         </div>
       </div>

@@ -1,10 +1,10 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-class Profesor(models.Model):
+class Estudiante(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    telefono = models.BigIntegerField(null=True)
     nombre = models.CharField(max_length=150, null=True, editable=False)  # Cambiado a CharField
+    correo = models.CharField(max_length=100, null=True, )
     contraseña = models.CharField(max_length=15, null=True)
 
     def save(self, *args, **kwargs):
