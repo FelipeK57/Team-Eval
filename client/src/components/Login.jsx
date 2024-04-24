@@ -12,7 +12,7 @@ function Login() {
     <div className="MainContainer">
       <div className="Container">
         <div className="Back">
-          <button className="btn"><ArrowBackIcon sx={{color:"red"}}/></button>
+          <button className="BackButton"><ArrowBackIcon sx={{color:"#0f4175", fontSize:"3rem"}}/></button>
         </div>
         <div className="TextContainer">
           <TypeWriter
@@ -54,33 +54,34 @@ function Login() {
               Profesor
             </button>
           </div>
+          
           <div className="Card">
             <div
-              className={`In Estudiante${
-                activeButton === "Estudiante" ? " ActiveCard" : " NotActive"
-              }`}
+              className={`In Estudiante`}
             >
-              <form className="Formulario">
+              <form className={`Formulario${
+                activeButton === "Estudiante" ? " ActiveCard" : " NotActive"
+              }`}>
                 <br />
                 <Field Campo="Codigo" Tipo="Number" />
                 <Field Campo="Contrasena" Tipo="password" />
                 <a href="/">Olvido su contrasena?</a>
                 <Button LineaBoton={true} Boton="Iniciar sesión" />
-                <a className="Admin" href="#">
+                <a className="Admin" href="/">
                   Administrador
                 </a>
               </form>
             </div>
             <div
-              className={`In Profesor${
-                activeButton === "Profesor" ? " ActiveCard" : " NotActive"
-              }`}
+              className={`In Profesor`}
             >
-              <form className="Formulario">
+              <form className={`Formulario${
+                activeButton === "Profesor" ? " ActiveCard" : " NotActive"
+              }`}>
                 <br />
                 <Field Campo="Identificacion" Tipo="Number" />
                 <Field Campo="Contrasena" Tipo="password" />
-                <a>Olvido su contrasena?</a>
+                <a href="/">Olvido su contrasena?</a>
                 <Button LineaBoton={true} Boton="Iniciar sesión" />
                 <a className="Admin" href="/">
                   Administrador
