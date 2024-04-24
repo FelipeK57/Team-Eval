@@ -9,8 +9,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
+  padding-top: 27vh;
 }
 
 .Container {
@@ -42,7 +43,8 @@
   align-items: center;
   height: auto;
   width: 90%;
-  
+  box-shadow: 8px 8px 8px 0px rgba(0, 0, 0, 0.3);
+  border-radius: 25px 25px 0 0;
 }
 
 .CardSwitcher button {
@@ -89,6 +91,8 @@
   width: 90%;
   height: 40vh;
   position: relative;
+  box-shadow: 8px 8px 8px 0px rgba(0, 0, 0, 0.3);
+  border-radius: 0 0 25px 25px;
   
 }
 
@@ -107,20 +111,19 @@
   backface-visibility: hidden;
 }
 
-.Estudiante {
-  transform: perspective(500px) rotateY(180deg);
+
+.Formulario.ActiveCard{
+  transform: perspective(500px);
+  background-color: rgb(15, 65, 118);
+  z-index: 1;
+  transition: all 1.7s;
+  opacity: 1;
 }
 
-.Profesor {
-  transform: perspective(500px) rotateY(180deg);
-}
-
-.In.Estudiante.ActiveCard{
-  transform: perspective(500px) rotateY(0deg);
-}
-
-.In.Profesor.ActiveCard{
-  transform: perspective(500px) rotateY(360deg);
+.NotActive{
+  opacity: 0;
+  z-index: -1;
+  transition: all 2.5s;
 }
 
 @media screen and (max-width: 900px) {
@@ -188,14 +191,6 @@ hr {
 }
 
 @media screen and (max-width: 390px) {
-  .MuiDialogContent-root {
-    width: 100vw !important;
-  }
-
-  .MuiDialog-root {
-    width: 100vw !important;
-  }
-
   .Card {
     width: 90vw !important;
   }
@@ -216,3 +211,20 @@ a{
 }
 
 
+.Back{
+  position: absolute;
+  bottom: 87%;
+  right: 90%;
+  height: 60px;
+  width: 60px;
+  transition: 0.1s;
+}
+
+.BackButton{
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: White;
+  font-size: 1.2rem;
+} 

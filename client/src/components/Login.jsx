@@ -2,14 +2,52 @@ import "./Login.css";
 import Field from "./Utilities/Field.jsx";
 import Button from "./Utilities/Button.jsx";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import TypeWriter from "./Utilities/TypeWriter.jsx";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import axios from "axios";
 
 function Login() {
+  const navigate = useNavigate();
   const [activeButton, setActiveButton] = useState("Estudiante");
+  const [username, setUsername] = useState("");
+  const [contraseña, setContraseña] = useState("");
+
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
+  };
+
+  const handleContraseñaChange = (e) => {
+    setContraseña(e.target.value);
+  };
+
+  const handleClick = async () => {
+    console.log(username + " " + contraseña);
+    try {
+      const response = await axios.post("http://localhost:8000/login", {
+        username: username,
+        password: contraseña,
+      });
+      console.log("Solicitud post hecha");
+      localStorage.setItem("token", response.data.token);
+      navigate("/StudentHome");
+    } catch (error) {
+      console.error("Error al realizar la solicitud:", error);
+    }
+  };
+
+  const volverClick = () => {
+    navigate("/");
+  };
 
   return (
     <div className="MainContainer">
       <div className="Container">
+        <div className="Back">
+          <button onClick={volverClick} className="BackButton">
+            <ArrowBackIcon sx={{ color: "#0f4175", fontSize: "3rem" }} />
+          </button>
+        </div>
         <div className="TextContainer">
           <TypeWriter
             text="TeamEval"
@@ -50,33 +88,48 @@ function Login() {
               Profesor
             </button>
           </div>
+
           <div className="Card">
-            <div
-              className={`In Estudiante${
-                activeButton === "Estudiante" ? " ActiveCard" : " NotActive"
-              }`}
-            >
-              <form className="Formulario">
+            <div className={`In Estudiante`}>
+              <form
+                className={`Formulario${
+                  activeButton === "Estudiante" ? " ActiveCard" : " NotActive"
+                }`}
+              >
                 <br />
-                <Field Campo="Codigo" Tipo="Number" />
-                <Field Campo="Contrasena" Tipo="password" />
+                <Field
+                  onChange={handleUsernameChange}
+                  value={username}
+                  Campo="Username"
+                  Tipo="text"
+                />
+                <Field
+                  onChange={handleContraseñaChange}
+                  value={contraseña}
+                  Campo="Password"
+                  Tipo="password"
+                />
                 <a href="/">Olvido su contrasena?</a>
-                <Button LineaBoton={true} Boton="Iniciar sesión" />
-                <a className="Admin" href="#">
+                <Button
+                  onClick={handleClick}
+                  LineaBoton={true}
+                  Boton="Iniciar sesión"
+                />
+                <a className="Admin" href="/">
                   Administrador
                 </a>
               </form>
             </div>
-            <div
-              className={`In Profesor${
-                activeButton === "Profesor" ? " ActiveCard" : " NotActive"
-              }`}
-            >
-              <form className="Formulario">
+            <div className={`In Profesor`}>
+              <form
+                className={`Formulario${
+                  activeButton === "Profesor" ? " ActiveCard" : " NotActive"
+                }`}
+              >
                 <br />
                 <Field Campo="Identificacion" Tipo="Number" />
                 <Field Campo="Contrasena" Tipo="password" />
-                <a>Olvido su contrasena?</a>
+                <a href="/">Olvido su contrasena?</a>
                 <Button LineaBoton={true} Boton="Iniciar sesión" />
                 <a className="Admin" href="/">
                   Administrador
