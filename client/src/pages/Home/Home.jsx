@@ -1,6 +1,5 @@
 import "./Home.css"
 import NavBar from '../../components/NavBar';
-import Button from '../../components/Utilities/Button';
 import Button2 from "../../components/Utilities/Button2";
 
 function Home() {
