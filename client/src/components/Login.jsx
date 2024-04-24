@@ -2,17 +2,40 @@ import "./Login.css";
 import Field from "./Utilities/Field.jsx";
 import Button from "./Utilities/Button.jsx";
 import { useState } from "react";
+import {useNavigate } from "react-router-dom";
 import TypeWriter from "./Utilities/TypeWriter.jsx";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 function Login() {
+  const navigate = useNavigate(); 
   const [activeButton, setActiveButton] = useState("Estudiante");
+  const [codigo, setCodigo] = useState("");
+  const [contraseña, setContraseña] = useState("");
+
+  const handleCodigoChange = (e) => {
+    setCodigo(e.target.value);
+  };
+
+  const handleContraseñaChange = (e) => {
+    setContraseña(e.target.value);
+  };
+
+  const handleClick = (e) => {
+    console.log(e)
+  };
+
+  const volverClick = (e) => {
+    navigate('/')
+  };
+
 
   return (
     <div className="MainContainer">
       <div className="Container">
         <div className="Back">
-          <button className="BackButton"><ArrowBackIcon sx={{color:"#0f4175", fontSize:"3rem"}}/></button>
+          <button onClick={volverClick} className="BackButton">
+            <ArrowBackIcon sx={{ color: "#0f4175", fontSize: "3rem" }} />
+          </button>
         </div>
         <div className="TextContainer">
           <TypeWriter
@@ -54,30 +77,44 @@ function Login() {
               Profesor
             </button>
           </div>
-          
+
           <div className="Card">
-            <div
-              className={`In Estudiante`}
-            >
-              <form className={`Formulario${
-                activeButton === "Estudiante" ? " ActiveCard" : " NotActive"
-              }`}>
+            <div className={`In Estudiante`}>
+              <form
+                className={`Formulario${
+                  activeButton === "Estudiante" ? " ActiveCard" : " NotActive"
+                }`}
+              >
                 <br />
-                <Field Campo="Codigo" Tipo="Number" />
-                <Field Campo="Contrasena" Tipo="password" />
+                <Field
+                  onChange={handleCodigoChange}
+                  value={codigo}
+                  Campo="Codigo"
+                  Tipo="Number"
+                />
+                <Field
+                  onChange={handleContraseñaChange}
+                  value={contraseña}
+                  Campo="Contrasena"
+                  Tipo="password"
+                />
                 <a href="/">Olvido su contrasena?</a>
-                <Button LineaBoton={true} Boton="Iniciar sesión" />
+                <Button
+                  onClick={handleClick}
+                  LineaBoton={true}
+                  Boton="Iniciar sesión"
+                />
                 <a className="Admin" href="/">
                   Administrador
                 </a>
               </form>
             </div>
-            <div
-              className={`In Profesor`}
-            >
-              <form className={`Formulario${
-                activeButton === "Profesor" ? " ActiveCard" : " NotActive"
-              }`}>
+            <div className={`In Profesor`}>
+              <form
+                className={`Formulario${
+                  activeButton === "Profesor" ? " ActiveCard" : " NotActive"
+                }`}
+              >
                 <br />
                 <Field Campo="Identificacion" Tipo="Number" />
                 <Field Campo="Contrasena" Tipo="password" />
