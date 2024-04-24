@@ -1,0 +1,48 @@
+.Boton2 {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    margin: 10px;
+    width: 69%;
+}
+
+.Boton2 button {
+    height: 50px;
+    width: 200px;
+    border-radius: 25px;
+    border: none;
+    font-size: 1.4rem;
+    padding: 0px 1px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.Boton2 button:hover {
+    box-shadow: 0 0 0.5rem 0.5rem rgba(255, 255, 255, 0.1);
+    transition: all 0.3s;
+    transform: scale(1.1);
+}
+
+.Boton2 button:active {
+    transform: scale(1.1);
+    transition: 0.1s;
+}
+
+.Open {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+    width: fit-content;
+    height: fit-content;
+    padding: 10px;
+    border-radius: 25px;
+    border: none;
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
