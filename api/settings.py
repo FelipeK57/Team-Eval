@@ -83,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'bd_Team-Eval',
         'USER': 'postgres',
-        'PASSWORD': 'sebas13',
+        'PASSWORD': 'lucaskatty20',
         'HOST': 'localhost',
         'PORT': '5432'
     }
