@@ -2,32 +2,43 @@ import "./Login.css";
 import Field from "./Utilities/Field.jsx";
 import Button from "./Utilities/Button.jsx";
 import { useState } from "react";
-import {useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import TypeWriter from "./Utilities/TypeWriter.jsx";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import axios from "axios";
 
 function Login() {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [activeButton, setActiveButton] = useState("Estudiante");
-  const [codigo, setCodigo] = useState("");
+  const [username, setUsername] = useState("");
   const [contraseña, setContraseña] = useState("");
 
-  const handleCodigoChange = (e) => {
-    setCodigo(e.target.value);
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
   };
 
   const handleContraseñaChange = (e) => {
     setContraseña(e.target.value);
   };
 
-  const handleClick = (e) => {
-    console.log(e)
+  const handleClick = async () => {
+    console.log(username + " " + contraseña);
+    try {
+      const response = await axios.post("http://localhost:8000/login", {
+        username: username,
+        password: contraseña,
+      });
+      console.log("Solicitud post hecha");
+      localStorage.setItem("token", response.data.token);
+      navigate("/StudentHome");
+    } catch (error) {
+      console.error("Error al realizar la solicitud:", error);
+    }
   };
 
-  const volverClick = (e) => {
-    navigate('/')
+  const volverClick = () => {
+    navigate("/");
   };
-
 
   return (
     <div className="MainContainer">
@@ -87,15 +98,15 @@ function Login() {
               >
                 <br />
                 <Field
-                  onChange={handleCodigoChange}
-                  value={codigo}
-                  Campo="Codigo"
-                  Tipo="Number"
+                  onChange={handleUsernameChange}
+                  value={username}
+                  Campo="Username"
+                  Tipo="text"
                 />
                 <Field
                   onChange={handleContraseñaChange}
                   value={contraseña}
-                  Campo="Contrasena"
+                  Campo="Password"
                   Tipo="password"
                 />
                 <a href="/">Olvido su contrasena?</a>
