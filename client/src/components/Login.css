@@ -116,13 +116,23 @@
   transform: perspective(500px);
   background-color: rgb(15, 65, 118);
   z-index: 1;
-  transition: all 1.5s;
+  transition: all 2s;
+  animation: fadeOut 2s reverse;
 }
 
 .NotActive{
-  opacity: 0;
+  animation: fadeOut 2s;
   z-index: -1;
-  transition: ease-in-out 1.5s;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+  
 }
 
 @media screen and (max-width: 900px) {
