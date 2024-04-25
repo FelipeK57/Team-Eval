@@ -11,24 +11,25 @@ function Login() {
   const navigate = useNavigate();
   const [activeButton, setActiveButton] = useState("Estudiante");
   const [username, setUsername] = useState("");
-  const [contraseña, setContraseña] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
   };
 
   const handleContraseñaChange = (e) => {
-    setContraseña(e.target.value);
+    setPassword(e.target.value);
   };
 
-  const handleClick = async () => {
-    console.log(username + " " + contraseña);
+  const handleClick = async (e) => {
+    e.preventDefault(); 
+    console.log(username + "   " + password);
     try {
       const response = await axios.post("http://localhost:8000/login", {
         username: username,
-        password: contraseña,
+        password: password,
       });
-      console.log("Solicitud post hecha");
+      console.log(response);
       localStorage.setItem("token", response.data.token);
       navigate("/StudentHome");
     } catch (error) {
@@ -105,7 +106,7 @@ function Login() {
                 />
                 <Field
                   onChange={handleContraseñaChange}
-                  value={contraseña}
+                  value={password}
                   Campo="Password"
                   Tipo="password"
                 />
