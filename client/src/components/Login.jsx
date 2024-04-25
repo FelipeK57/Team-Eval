@@ -24,7 +24,7 @@ function Login() {
   const handleClick = async () => {
     console.log(username + " " + contraseña);
     try {
-      const response = await axios.post("http://localhost:8000/login", {
+      const response = await axios.post("http://localhost:8000/login/", {
         username: username,
         password: contraseña,
       });

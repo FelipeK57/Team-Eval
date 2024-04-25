@@ -39,11 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
-<<<<<<< HEAD
-    'coreapi',
-=======
     'rest_framework.authtoken',
->>>>>>> origin/implementacion-auth
     'cursos',
     'profesor'
 ]
