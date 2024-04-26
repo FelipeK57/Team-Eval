@@ -20,11 +20,14 @@ function Login() {
     setContraseña(e.target.value);
   };
 
-  const handleClick = (e) => {
-    console.log(e)
+  const handleClick = () => {
+    if(codigo.length != 0 && contraseña.length){
+      navigate("/loginIniciado"); 
+    }
+    console.log(codigo)
   };
 
-  const volverClick = (e) => {
+  const volverClick = () => {
     navigate('/')
   };
 

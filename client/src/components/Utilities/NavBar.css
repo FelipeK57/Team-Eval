@@ -49,3 +49,30 @@
     width: 40%;
     height: 80%;
 }
+
+.navbarain{
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    text-decoration: none;
+    color: #ffffff;
+    position: absolute;
+    left: 75%;
+    transition: all 0.3s;
+}
+
+.navbarain:hover{
+    transform: scale(1.1);
+}
+
+.navbaraE{
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    text-decoration: none;
+    color: #ffffff;
+    position: absolute;
+    left: 45%;
+    transition: all 0.3s;
+    pointer-events: none;
+}
