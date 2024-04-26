@@ -116,9 +116,9 @@ function Login() {
                   LineaBoton={true}
                   Boton="Iniciar sesión"
                 />
-                <a className="Admin" href="/">
-                  Administrador
-                </a>
+                <div className="AdminContainer">
+                  <a className="Admin" href="/">Administrador</a>
+                </div>
               </form>
             </div>
             <div className={`In Profesor`}>
@@ -132,9 +132,9 @@ function Login() {
                 <Field Campo="Contrasena" Tipo="password" />
                 <a href="/">Olvido su contrasena?</a>
                 <Button LineaBoton={true} Boton="Iniciar sesión" />
-                <a className="Admin" href="/">
-                  Administrador
-                </a>
+                <div className="AdminContainer">
+                  <a className="Admin" href="/">Administrador</a>
+                </div>
               </form>
             </div>
           </div>

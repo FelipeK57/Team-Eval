@@ -42,7 +42,8 @@
   justify-content: center;
   align-items: center;
   height: auto;
-  width: 90%;
+  width: 70%;
+  height: 50px;
   box-shadow: 8px 8px 8px 0px rgba(0, 0, 0, 0.3);
   border-radius: 25px 25px 0 0;
 }
@@ -55,13 +56,13 @@
   outline: none;
   background-color: #053466;
   width: 50%;
-  height: 50px;
+  height: 55px;
   border-radius: 25px 25px 0 0;
   border: none;
   color: #ffffff;
   cursor: pointer;
   transition: all 0.3s;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
 }
 
 .CardSwitcher .Left {
@@ -84,12 +85,11 @@
   flex-direction: column;
   height: 100%;
   width: 100%;
-  padding-right: 10%;
 }
 
 .Card {
-  width: 90%;
-  height: 40vh;
+  width: 70%;
+  height: 50vh;
   position: relative;
   box-shadow: 8px 8px 8px 0px rgba(0, 0, 0, 0.3);
   border-radius: 0 0 25px 25px;
@@ -101,7 +101,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 40vh;
+  height: 50vh;
   width: 100%;
   background-color: rgb(15, 65, 118);
   border-radius: 0 0 25px 25px;
@@ -149,7 +149,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: auto;
+  justify-content: space-between;
+  height: 90%;
   width: 100%;
 }
 
@@ -202,12 +203,13 @@ button {
 
 a{
   color: White;
+  font-size: 1.1rem;
 }
 
 .Admin{
   position: absolute;
-  top: 90%;
-  left: 80%;
+  top: 97%;
+  left: 75%;
 }
 
 
@@ -228,3 +230,10 @@ a{
   color: White;
   font-size: 1.2rem;
 } 
+
+@media screen and (max-width: 1600px) {
+
+  .Admin{
+    position: inherit;
+  }
+}
