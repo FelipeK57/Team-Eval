@@ -12,6 +12,7 @@ function Login() {
   const [activeButton, setActiveButton] = useState("Estudiante");
   const [codigo, setCodigo] = useState("");
   const [password, setPassword] = useState("");
+  const[identificacion, setIdentificacion] = useState("");  
 
   const handleCodigoChange = (e) => {
     setCodigo(e.target.value);
@@ -24,13 +25,8 @@ function Login() {
   const handleClick = async (e) => {
     e.preventDefault(); 
     try {
-<<<<<<< HEAD
       const response = await axios.post("http://localhost:8000/login/", {
-        username: username,
-=======
-      const response = await axios.post("http://localhost:8000/login", {
         codigo: codigo,
->>>>>>> origin/usuarios-personalizados
         password: password,
       });
       localStorage.setItem("token", response.data.token);
@@ -43,6 +39,24 @@ function Login() {
   const volverClick = () => {
     navigate("/");
   };
+
+  const handleIdentificacionChange = (e) => {
+    setIdentificacion(e.target.value);
+  }
+
+  const handleClick2 = async (e) => {
+    e.preventDefault(); 
+    try {
+      const response = await axios.post("http://localhost:8000/loginProfesor/", {
+        identificacion : identificacion,
+        password: password,
+      });
+      localStorage.setItem("token", response.data.token);
+      navigate("/ProfesorHome");
+    } catch (error) {
+      console.error("Error al realizar la solicitud:", error);
+    }
+  }
 
   return (
     <div className="MainContainer">
@@ -131,10 +145,16 @@ function Login() {
                 }`}
               >
                 <br />
-                <Field Campo="Identificacion" Tipo="Number" />
-                <Field Campo="Contrasena" Tipo="password" />
+                <Field Campo="Identificacion" 
+                Tipo="Number" 
+                onChange={handleIdentificacionChange}
+                value={identificacion}/>
+                <Field Campo="Contrasena" 
+                Tipo="password" 
+                onChange={handleContraseñaChange}
+                value={password}/>
                 <a href="/">Olvido su contrasena?</a>
-                <Button LineaBoton={true} Boton="Iniciar sesión" />
+                <Button LineaBoton={true} Boton="Iniciar sesión" onClick={handleClick2} />
                 <div className="AdminContainer">
                   <a className="Admin" href="/">Administrador</a>
                 </div>

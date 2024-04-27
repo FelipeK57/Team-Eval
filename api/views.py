@@ -10,6 +10,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from estudiantes.models import Estudiante 
 from estudiantes.serializers import EstudianteSerializer
+from profesor.serializers import ProfesorSerializer
+from profesor.models import Profesor
 
 @api_view(['POST'])
 def login(request):
@@ -25,6 +27,36 @@ def login(request):
 
 @api_view(['POST'])
 def register(request):
+    
+    serializer = UserSerializer(data=request.data)
+    
+    if serializer.is_valid():
+        serializer.save()
+        
+        user = User.objects.get(username=serializer.data['username'])
+        user.set_password(serializer.data['user.password'])
+        user.save()
+        
+        token = Token.objects.create(user=user)
+        return Response({'token': token.key, 'user': serializer.data}, status=status.HTTP_201_CREATED)
+          
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def loginProfesor(request):
+    identificacion = request.data.get('identificacion')
+    profesor = get_object_or_404(Profesor, identificacion=identificacion)
+
+    if not profesor.user.check_password(request.data['password']):
+        return Response({"error:": "Invalid password"}, status=status.HTTP_400_BAD_REQUEST)
+        
+    token, created = Token.objects.get_or_create(user=profesor.user)
+    serializer = ProfesorSerializer(profesor)
+    return Response({"token": token.key, "user": serializer.data}, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+def registerProfesor(request):
     
     serializer = UserSerializer(data=request.data)
     
