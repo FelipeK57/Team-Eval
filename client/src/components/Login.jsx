@@ -10,11 +10,11 @@ import axios from "axios";
 function Login() {
   const navigate = useNavigate();
   const [activeButton, setActiveButton] = useState("Estudiante");
-  const [username, setUsername] = useState("");
+  const [codigo, setCodigo] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
+  const handleCodigoChange = (e) => {
+    setCodigo(e.target.value);
   };
 
   const handleContraseñaChange = (e) => {
@@ -23,13 +23,16 @@ function Login() {
 
   const handleClick = async (e) => {
     e.preventDefault(); 
-    console.log(username + "   " + password);
     try {
+<<<<<<< HEAD
       const response = await axios.post("http://localhost:8000/login/", {
         username: username,
+=======
+      const response = await axios.post("http://localhost:8000/login", {
+        codigo: codigo,
+>>>>>>> origin/usuarios-personalizados
         password: password,
       });
-      console.log(response);
       localStorage.setItem("token", response.data.token);
       navigate("/StudentHome");
     } catch (error) {
@@ -99,15 +102,15 @@ function Login() {
               >
                 <br />
                 <Field
-                  onChange={handleUsernameChange}
-                  value={username}
-                  Campo="Username"
+                  onChange={handleCodigoChange}
+                  value={codigo}
+                  Campo="Codigo"
                   Tipo="text"
                 />
                 <Field
                   onChange={handleContraseñaChange}
                   value={password}
-                  Campo="Password"
+                  Campo="Contraseña"
                   Tipo="password"
                 />
                 <a href="/">Olvido su contrasena?</a>
@@ -116,9 +119,9 @@ function Login() {
                   LineaBoton={true}
                   Boton="Iniciar sesión"
                 />
-                <a className="Admin" href="/">
-                  Administrador
-                </a>
+                <div className="AdminContainer">
+                  <a className="Admin" href="/">Administrador</a>
+                </div>
               </form>
             </div>
             <div className={`In Profesor`}>
@@ -132,9 +135,9 @@ function Login() {
                 <Field Campo="Contrasena" Tipo="password" />
                 <a href="/">Olvido su contrasena?</a>
                 <Button LineaBoton={true} Boton="Iniciar sesión" />
-                <a className="Admin" href="/">
-                  Administrador
-                </a>
+                <div className="AdminContainer">
+                  <a className="Admin" href="/">Administrador</a>
+                </div>
               </form>
             </div>
           </div>

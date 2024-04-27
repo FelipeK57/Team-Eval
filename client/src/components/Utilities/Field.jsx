@@ -15,6 +15,8 @@ function Field(props) {
     Field.propTypes = {
         Campo: PropTypes.string.isRequired,
         Tipo: PropTypes.string.isRequired,
+        onChange: PropTypes.func,
+        value: PropTypes.string
     };
 
     return(
