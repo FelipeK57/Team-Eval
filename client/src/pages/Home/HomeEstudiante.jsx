@@ -1,11 +1,11 @@
 import "./Home.css"
-import NavBar from '../../components/Utilities/NavBar.jsx';
+import NavBar from '../../components/Utilities/NavBar';
 import Button2 from "../../components/Utilities/Button2";
 
-function Home() {
+function HomeEstudiante() {
     return (
         <div className="Home">
-            <NavBar sesion="Iniciar sesion" />
+            <NavBar informes = "Informes" sesion = "mi cuenta" Estudiante ='Estudiante!'/>
             <div className="container">
                 <h1>Bienvenido a <b>T</b>eam <b>E</b>val</h1>
             </div>
@@ -19,4 +19,4 @@ function Home() {
     );
 }
 
-export default Home
+export default HomeEstudiante;
