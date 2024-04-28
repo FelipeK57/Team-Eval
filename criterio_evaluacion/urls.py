@@ -1,4 +1,4 @@
-from django import path, include 
+from django.urls import path, include 
 from rest_framework import routers
 from criterio_evaluacion import views
 
