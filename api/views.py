@@ -13,6 +13,7 @@ from estudiantes.serializers import EstudianteSerializer
 from profesor.serializers import ProfesorSerializer
 from profesor.models import Profesor
 
+
 @api_view(['POST'])
 def login(request):
     codigo = request.data.get('codigo')
@@ -71,6 +72,7 @@ def registerProfesor(request):
         return Response({'token': token.key, 'user': serializer.data}, status=status.HTTP_201_CREATED)
           
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['POST'])
 @authentication_classes([TokenAuthentication])
