@@ -1,33 +1,30 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
+import Cookies from 'js-cookie';
 
 function ProfesorHome(){
-    const history = useNavigate();
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-  
+    const navigate = useNavigate();
+
     useEffect(() => {
-      const checkAuth = async () => {
-        const response = await axios.get('http://localhost:8000/permisos/');
-        if (response.status === 200) {
-          setIsLoggedIn(true);
-        } else {
-          history("/login");
-        }
-      };
-      checkAuth();
-    }, []);
-  
-    if (!isLoggedIn) {
-      return <div>Redirecting to login...</div>;
-    }
-  
-    // Contenido de la página principal
+        const verificarSesion = () => {
+            const loggedIn = Cookies.get('loggedIn');
+            const userId = Cookies.get('identificacion');
+
+            if (loggedIn === 'true' && userId) {
+                console.log("El usuario ha iniciado sesión. ID de usuario:", userId);
+            } else {
+                console.log("El usuario no ha iniciado sesión.");
+                navigate('/Login');
+            }
+        };
+
+        verificarSesion();
+    }, [navigate]);
+
     return (
-      <div>
-        <h1>Página principal</h1>
-        {/* ... */}
-      </div>
+        <div>
+            <h1>Hola Profe</h1>
+        </div>
     );
 }
 
