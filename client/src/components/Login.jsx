@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import TypeWriter from "./Utilities/TypeWriter.jsx";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
+import Cookies from 'js-cookie';
 
 function Login() {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ function Login() {
         codigo: codigo,
         password: password,
       });
-      localStorage.setItem("token", response.data.token);
+      Cookies.set("token", response.data.token,{ expires: 7 }); // Guarda el token en una cookie que expira en 7 días
       navigate("/StudentHome");
     } catch (error) {
       console.error("Error al realizar la solicitud:", error);
