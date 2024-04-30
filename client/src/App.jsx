@@ -1,8 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./components/Login";
 import Home from "./pages/Home/Home";
-import EstudianteHome from "./components/EstudianteHome";
-import ProfesorHome from "./components/Professor";
+import PrivateP from "./components/PrivateP";
 
 function App() {
   return (
@@ -10,8 +9,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login/>} />
         <Route path="/" element={<Home />} />
-        <Route path="/StudentHome" element={<EstudianteHome />} />
-        <Route path="/ProfesorHome" element={<ProfesorHome/>} />
+        <Route path="/ProfesorHome" element={<PrivateP/>} />
       </Routes>
     </BrowserRouter>
   );
