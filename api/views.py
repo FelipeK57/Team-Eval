@@ -74,14 +74,6 @@ def registerProfesor(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def permissions(request):
-    if request.user.is_authenticated:
-            return Response({"message": "Bienvenido a la página de inicio"})
-    else:
-            return Response({"message": "Debes iniciar sesión primero"}, status=status.HTTP_401_UNAUTHORIZED)
 @api_view(['POST'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
