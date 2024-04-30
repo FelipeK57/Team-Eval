@@ -152,7 +152,8 @@ function Login() {
                 <Field Campo="Contrasena" 
                 Tipo="password" 
                 onChange={handleContraseñaChange}
-                value={password}/>
+                value={password}
+              />
                 <a href="/">Olvido su contrasena?</a>
                 <Button LineaBoton={true} Boton="Iniciar sesión" onClick={handleClick2} />
                 <div className="AdminContainer">
