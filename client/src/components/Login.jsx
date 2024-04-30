@@ -33,7 +33,7 @@ function Login() {
       Cookies.set("token", response.data.token, { expires: 1 }); // Guarda el token en una cookie que expira en 7 días
       Cookies.set("loggedIn", "true", { expires: 7 }); // Indica que el usuario ha iniciado sesión
       Cookies.set("codigo", response.data.userId); 
-      navigate("/StudentHome");
+      navigate("/Student");
     } catch (error) {
       console.error("Error al realizar la solicitud:", error);
     }
@@ -57,7 +57,7 @@ function Login() {
       Cookies.set("token", response.data.token, { expires: 1 }); // Guarda el token en una cookie que expira en 1 dia
       Cookies.set("loggedIn", "true", { expires: 1 }); // Indica que el usuario ha iniciado sesión
       Cookies.set("identificacion", response.data.userId); 
-      navigate("/ProfesorHome");
+      navigate("/Profesor");
     } catch (error) {
       console.error("Error al realizar la solicitud:", error);
     }
