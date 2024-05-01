@@ -1,11 +1,13 @@
 from django.db import models
+from profesor.models import Profesor
 
 # Create your models here.
 class Cursos(models.Model):
-    codigo = models.CharField(max_length=200)
-    nombre = models.CharField(max_length=200)
-    estado = models.BooleanField(default=True)
-    periodoAcademico = models.CharField(max_length=7)
+    codigo = models.CharField(max_length=200, null=False)
+    nombre = models.CharField(max_length=200, null=False)
+    estado = models.BooleanField(default=True, null=False)
+    periodoAcademico = models.CharField(max_length=7, default=2024-1)
+    profesor = models.ForeignKey(Profesor, on_delete=models.CASCADE, default=1)
 
 
     def __str__(self):
