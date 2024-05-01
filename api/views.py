@@ -82,8 +82,17 @@ def permissions(request):
             return Response({"message": "Bienvenido a la página de inicio"})
     else:
             return Response({"message": "Debes iniciar sesión primero"}, status=status.HTTP_401_UNAUTHORIZED)
-@api_view(['POST'])
+@api_view(['GET'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
-def profile(request):
-    return Response("Estas iniciado con {}".format(request.user.username), status=status.HTTP_200_OK)
+def profile_student(request):
+    return Response("Datos: {}, {}, {}".format(request.user.username, request.data.get('codigo'), request.user.email), status=status.HTTP_200_OK)
+
+@api_view(['PUT'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def change_email(request):
+    student = get_object_or_404(Estudiante, codigo=request.data.get('codigo'))
+    student.user.email = request.data.get('email')
+    student.user.save()
+    return Response('Correo actualizado correctamente a {}'.format(request.user.email), status=status.HTTP_200_OK)
