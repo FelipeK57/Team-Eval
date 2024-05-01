@@ -6,14 +6,14 @@ import { useNavigate } from "react-router-dom";
 import TypeWriter from "./Utilities/TypeWriter.jsx";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 function Login() {
   const navigate = useNavigate();
   const [activeButton, setActiveButton] = useState("Estudiante");
   const [codigo, setCodigo] = useState("");
   const [password, setPassword] = useState("");
-  const[identificacion, setIdentificacion] = useState("");  
+  const [identificacion, setIdentificacion] = useState("");
 
   const handleCodigoChange = (e) => {
     setCodigo(e.target.value);
@@ -24,7 +24,7 @@ function Login() {
   };
 
   const handleClick = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     try {
       const response = await axios.post("http://localhost:8000/login/", {
         codigo: codigo,
@@ -32,7 +32,7 @@ function Login() {
       });
       Cookies.set("token", response.data.token, { expires: 1 }); // Guarda el token en una cookie que expira en 7 días
       Cookies.set("loggedIn", "true", { expires: 7 }); // Indica que el usuario ha iniciado sesión
-      Cookies.set("codigo", response.data.userId); 
+      Cookies.set("codigo", response.data.userId);
       navigate("/StudentHome");
     } catch (error) {
       console.error("Error al realizar la solicitud:", error);
@@ -45,23 +45,26 @@ function Login() {
 
   const handleIdentificacionChange = (e) => {
     setIdentificacion(e.target.value);
-  }
+  };
 
-  const handleClick2 = async (e) => {
-    e.preventDefault(); 
+  const handleClick2 = async () => {
+    e.preventDefault()
     try {
-      const response = await axios.post("http://localhost:8000/loginProfesor/", {
-        identificacion : identificacion,
-        password: password,
-      });
+      const response = await axios.post(
+        "http://localhost:8000/loginProfesor/",
+        {
+          identificacion: identificacion,
+          password: password,
+        }
+      );
       Cookies.set("token", response.data.token, { expires: 1 }); // Guarda el token en una cookie que expira en 1 dia
       Cookies.set("loggedIn", "true", { expires: 1 }); // Indica que el usuario ha iniciado sesión
-      Cookies.set("identificacion", response.data.userId); 
+      Cookies.set("identificacion", response.data.userId);
       navigate("/ProfesorHome");
     } catch (error) {
       console.error("Error al realizar la solicitud:", error);
     }
-  }
+  };
 
   return (
     <div className="MainContainer">
@@ -139,7 +142,9 @@ function Login() {
                   Boton="Iniciar sesión"
                 />
                 <div className="AdminContainer">
-                  <a className="Admin" href="/">Administrador</a>
+                  <a className="Admin" href="/">
+                    Administrador
+                  </a>
                 </div>
               </form>
             </div>
@@ -150,19 +155,28 @@ function Login() {
                 }`}
               >
                 <br />
-                <Field Campo="Identificacion" 
-                Tipo="Number" 
-                onChange={handleIdentificacionChange}
-                value={identificacion}/>
-                <Field Campo="Contrasena" 
-                Tipo="password" 
-                onChange={handleContraseñaChange}
-                value={password}
-              />
+                <Field
+                  Campo="Identificacion"
+                  Tipo="Number"
+                  onChange={handleIdentificacionChange}
+                  value={identificacion}
+                />
+                <Field
+                  Campo="Contrasena"
+                  Tipo="password"
+                  onChange={handleContraseñaChange}
+                  value={password}
+                />
                 <a href="/">Olvido su contrasena?</a>
-                <Button LineaBoton={true} Boton="Iniciar sesión" onClick={handleClick2} />
+                <Button
+                  LineaBoton={true}
+                  Boton="Iniciar sesión"
+                  onClick={handleClick2}
+                />
                 <div className="AdminContainer">
-                  <a className="Admin" href="/">Administrador</a>
+                  <a className="Admin" href="/">
+                    Administrador
+                  </a>
                 </div>
               </form>
             </div>
