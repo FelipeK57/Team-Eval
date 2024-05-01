@@ -1,4 +1,5 @@
 from django.db import models
+#from rubrica.models import rubrica_Evaluacion
 
 # Create your models here.
 class criterio_Evaluacion(models.Model):
