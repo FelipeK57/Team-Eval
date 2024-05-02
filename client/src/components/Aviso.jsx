@@ -7,13 +7,6 @@ import Button from "./Utilities/Button";
 import "./Aviso.css";
 
 function Aviso(props) {
-
-    const navigate = useNavigate();
-
-    const VolverClick = () => {
-        navigate(`/${props.NavigateRoute}`);
-    };
-
     return (
         <div className="MainContainerAviso">
           <div className="ContainerAviso">
