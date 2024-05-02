@@ -13,6 +13,8 @@ import ActualizacionCorreo from "./pages/ActualizacionCorreo/ActualizacionCorreo
 import AvisoCorreo from "./pages/ActualizacionCorreo/AvisoCorreo.jsx";
 import AvisoContrasena from "./pages/CambiarContraseña/AvisoContraseña.jsx";
 import CambiarContrasena from "./pages/CambiarContraseña/CambiarContraseña.jsx";
+import CodigoVerificacion from "./pages/CambiarContraseña/CodigoVerificacion.jsx";
+import VerificacionCorreo from "./pages/CambiarContraseña/VerificacionCorreo.jsx";
 function App() {
   return (
     <BrowserRouter>
@@ -21,6 +23,8 @@ function App() {
         <Route path="/LoginAdmin" element={<LoginAdmin/>} />
         <Route path="/ActualizacionCorreo" element={<ActualizacionCorreo />} />
         <Route path="/AvisoCorreo" element={<AvisoCorreo />} />
+        <Route path="/VerificacionCorreo" element={<VerificacionCorreo/>} />
+        <Route path="/CodigoVerificacion" element={<CodigoVerificacion/>} />
         <Route path="/CambiarContraseña" element={<CambiarContrasena />} />
         <Route path="/AvisoContraseña" element={<AvisoContrasena />} />
         <Route path="/" element={<Home />} />

@@ -133,7 +133,7 @@ function Login() {
                   Campo="Contraseña"
                   Tipo="password"
                 />
-                <a href="/">Olvido su contrasena?</a>
+                <Link to={"/VerificacionCorreo"}>Olvido su contrasena?</Link>
                 <Button
                   onClick={handleClick}
                   LineaBoton={true}
@@ -164,7 +164,7 @@ function Login() {
                   onChange={handleContraseñaChange}
                   value={password}
                 />
-                <a href="/">Olvido su contrasena?</a>
+                <Link to={"/VerificacionCorreo"}>Olvido su contrasena?</Link>
                 <Button
                   LineaBoton={true}
                   Boton="Iniciar sesión"
