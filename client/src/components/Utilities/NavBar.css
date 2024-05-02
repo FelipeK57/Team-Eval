@@ -29,7 +29,7 @@
     text-decoration: none;
     color: #ffffff;
     position: absolute;
-    left: 85%;
+    left: 85vw !important;
     transition: all 0.3s;
 }
 .navbara:hover {
