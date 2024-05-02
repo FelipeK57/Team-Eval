@@ -2,7 +2,7 @@ import "./Login.css";
 import Field from "./Utilities/Field.jsx";
 import Button from "./Utilities/Button.jsx";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import TypeWriter from "./Utilities/TypeWriter.jsx";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
@@ -47,7 +47,7 @@ function Login() {
     setIdentificacion(e.target.value);
   };
 
-  const handleClick2 = async () => {
+  const handleClick2 = async (e) => {
     e.preventDefault()
     try {
       const response = await axios.post(
@@ -90,9 +90,8 @@ function Login() {
         <div className="CardContainer">
           <div className="CardSwitcher">
             <button
-              className={`Left${
-                activeButton === "Estudiante" ? " active" : ""
-              }`}
+              className={`Left${activeButton === "Estudiante" ? " active" : ""
+                }`}
               onClick={() => setActiveButton("Estudiante")}
               style={
                 activeButton === "Estudiante"
@@ -118,9 +117,8 @@ function Login() {
           <div className="Card">
             <div className={`In Estudiante`}>
               <form
-                className={`Formulario${
-                  activeButton === "Estudiante" ? " ActiveCard" : " NotActive"
-                }`}
+                className={`Formulario${activeButton === "Estudiante" ? " ActiveCard" : " NotActive"
+                  }`}
               >
                 <br />
                 <Field
@@ -142,17 +140,16 @@ function Login() {
                   Boton="Iniciar sesión"
                 />
                 <div className="AdminContainer">
-                  <a className="Admin" href="/">
+                  <Link className="Admin" to={"/LoginAdmin"}>
                     Administrador
-                  </a>
+                  </Link>
                 </div>
               </form>
             </div>
             <div className={`In Profesor`}>
               <form
-                className={`Formulario${
-                  activeButton === "Profesor" ? " ActiveCard" : " NotActive"
-                }`}
+                className={`Formulario${activeButton === "Profesor" ? " ActiveCard" : " NotActive"
+                  }`}
               >
                 <br />
                 <Field
@@ -174,9 +171,9 @@ function Login() {
                   onClick={handleClick2}
                 />
                 <div className="AdminContainer">
-                  <a className="Admin" href="/">
+                  <Link className="Admin" to={"/LoginAdmin"}>
                     Administrador
-                  </a>
+                  </Link>
                 </div>
               </form>
             </div>
