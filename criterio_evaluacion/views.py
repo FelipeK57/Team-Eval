@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from serializers import criterio_EvaluacionSerializer
+from .serializers import criterio_EvaluacionSerializer
 from .models import criterio_Evaluacion
 
 # Create your views here.

@@ -1,9 +1,5 @@
 from django.db import models
-<<<<<<< HEAD
-from profesor.models import Profesor
 from grupo.models import Grupo
-=======
->>>>>>> modelos_actualizados
 
 # Create your models here.
 class Cursos(models.Model):
@@ -11,12 +7,8 @@ class Cursos(models.Model):
     nombre = models.CharField(max_length=200, null=False)
     estado = models.BooleanField(default=True, null=False)
     periodoAcademico = models.CharField(max_length=7, default=2024-1)
-<<<<<<< HEAD
-    profesor = models.ForeignKey(Profesor, on_delete=models.CASCADE, default=1)
     grupos = models.ManyToManyField(Grupo)
-=======
     
->>>>>>> modelos_actualizados
 
 
     def __str__(self):

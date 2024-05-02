@@ -1,9 +1,5 @@
 from django.db import models
-<<<<<<< HEAD
-#from rubrica.models import rubrica_Evaluacion
-=======
 from rubrica.models import rubrica_Evaluacion
->>>>>>> modelos_actualizados
 
 # Create your models here.
 class criterio_Evaluacion(models.Model):
