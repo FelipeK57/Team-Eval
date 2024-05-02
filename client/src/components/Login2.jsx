@@ -66,7 +66,7 @@ function Login2 (props) {
                       Campo={`${props.Field2}`}
                       Tipo={`${props.Type2}`}
                     />
-                    {props.ForgotPassword ? <Link to={"/"}>Olvido su contrasena?</Link>: null}
+                    {props.ForgotPassword ? <Link to={"/VerificacionCorreo"}>Olvido su contrasena?</Link>: null}
                     <Button
                       onClick={"#"}
                       LineaBoton={true}
