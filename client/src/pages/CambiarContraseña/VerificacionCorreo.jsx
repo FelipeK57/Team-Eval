@@ -23,13 +23,13 @@ function VerificacionCorreo() {
                     <div className="CardVerificacion">
                         <div className={`InVerificacion EstudianteVerificacion`}>
                             <div className="TitleVerificacion">
-                                <h1>Codigo de verificacion</h1>
+                                <h1>Verificacion de correo</h1>
                             </div>
                             <form
                                 className="FormularioVerificacion"
                             >
                                 <br />
-                                <h2>Se ha enviado un codigo de verificacion al correo que ingreso anteriormente por favor digitelo a continuacion</h2>
+                                <h2>Ingrese el correo al cual pertenece la contraseña que desea actualizar</h2>
                                 <div className="CampoVerificacion">
                                     <input type="mail" />
                                 </div>
