@@ -3,16 +3,27 @@ import Button from "./Utilities/Button";
 import TypeWriter from "./Utilities/TypeWriter";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Link, useNavigate } from "react-router-dom";
-import "./LoginAdmin.css";
+import PropTypes from "prop-types";
+import "./Login2.css";
 
-function LoginAdmin () {
+function Login2 (props) {
 
     const navigate = useNavigate();
 
     const VolverClick = () => {
-        navigate("/Login");
+        navigate(`/${props.NavigateRoute}`);
     };
 
+    Login2.propsTypes = {
+      Title: PropTypes.string.isRequired,
+      Type1: PropTypes.string.isRequired,
+      Type2: PropTypes.string.isRequired,
+      Field1: PropTypes.string.isRequired,
+      Field2: PropTypes.string.isRequired,
+      Button: PropTypes.string.isRequired,
+      ForgotPassword: PropTypes.bool.isRequired,
+      NavigateRoute: PropTypes.string.isRequired
+    }
 
     return (
         <div className="MainContainerAdmin">
@@ -39,7 +50,7 @@ function LoginAdmin () {
               <div className="CardAdmin">
                 <div className={`InAdmin EstudianteAdmin`}>
                     <div className="TitleAdmin">
-                      <h1>Administrador</h1>
+                      <h1>{`${props.Title}`}</h1>
                     </div>
                   <form
                     className="FormularioAdmin"
@@ -47,21 +58,19 @@ function LoginAdmin () {
                     <br />
                     <Field
                       onChange={"#"}
-                      value={""}
-                      Campo="Codigo"
-                      Tipo="text"
+                      Campo={`${props.Field1}`}
+                      Tipo={`${props.Type1}`}
                     />
                     <Field
                       onChange={"#"}
-                      value={""}
-                      Campo="Contraseña"
-                      Tipo="password"
+                      Campo={`${props.Field2}`}
+                      Tipo={`${props.Type2}`}
                     />
-                    <a href="/">Olvido su contrasena?</a>
+                    {props.ForgotPassword ? <Link to={"/"}>Olvido su contrasena?</Link>: null}
                     <Button
                       onClick={"#"}
                       LineaBoton={true}
-                      Boton="Iniciar sesión"
+                      Boton={`${props.Button}`}
                     />
                   </form>
                 </div>
@@ -72,4 +81,4 @@ function LoginAdmin () {
       );
 }
 
-export default LoginAdmin;
+export default Login2;

@@ -8,14 +8,16 @@ import ProfesorHome from "./components/Professor";
 import HomeStudent from "./pages/HomeStudent/HomeStudent";
 import HomeProfesor from "./pages/HomeProfesor/HomeProfesor";
 import MiCuenta from "./pages/MiCuenta/MiCuenta";
-import LoginAdmin from "./components/LoginAdmin";
+import LoginAdmin from "./pages/LoginAdmin/LoginAdmin.jsx";
+import ActualizacionCorreo from "./pages/ActualizacionCorreo/ActualizacionCorreo.jsx";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/LoginAdmin" element={<LoginAdmin />} />
+        <Route path="/LoginAdmin" element={<LoginAdmin/>} />
+        <Route path="/ActualizacionCorreo" element={<ActualizacionCorreo />} />
         <Route path="/" element={<Home />} />
         <Route path="/Student" element={<HomeStudent />} />
         <Route path="/Profesor" element={<HomeProfesor />} />
