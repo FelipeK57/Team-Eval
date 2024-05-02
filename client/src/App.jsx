@@ -23,7 +23,7 @@ function App() {
         <Route path="/LoginAdmin" element={<LoginAdmin/>} />
         <Route path="/ActualizacionCorreo" element={<ActualizacionCorreo />} />
         <Route path="/AvisoCorreo" element={<AvisoCorreo />} />
-        <Route path="/VerificacionCorreo" element={<VerificacionCorreo/>} />
+        <Route path="/VerificacionCorreo" element={<VerificacionCorreo NavigateRoute="Login"/>} />
         <Route path="/CodigoVerificacion" element={<CodigoVerificacion/>} />
         <Route path="/CambiarContraseña" element={<CambiarContrasena />} />
         <Route path="/AvisoContraseña" element={<AvisoContrasena />} />

@@ -1,11 +1,25 @@
 import TypeWriter from "../../components/Utilities/TypeWriter.jsx";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Button from "../../components/Utilities/Button";
+import { useNavigate } from "react-router-dom";
 import "./VerificacionCorreo.css";
 
 function VerificacionCorreo() {
+
+    const navigate = useNavigate();
+
+    const VolverClick = () => {
+        navigate(-1);
+    };
+
     return (
         <div className="MainContainerVerificacion">
             <div className="ContainerVerificacion">
+                <div className="BackAdmin">
+                    <button onClick={VolverClick} className="BackButtonAdmin">
+                        <ArrowBackIcon sx={{ color: "#0f4175", fontSize: "3rem" }} />
+                    </button>
+                </div>
                 <div className="TextContainerVerificacion">
                     <TypeWriter
                         text="TeamEval"
