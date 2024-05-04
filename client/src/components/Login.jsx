@@ -38,7 +38,7 @@ function Login() {
         password: password,
       });
       Cookies.set("token", response.data.token, { expires: 1 });
-      Cookies.set("loggedIn", "true", { expires: 7 });
+      Cookies.set("loggedIn", "true", { expires: 1 });
       Cookies.set("codigo", response.data.userId);
       navigate("/Student");
     } catch (error) {
