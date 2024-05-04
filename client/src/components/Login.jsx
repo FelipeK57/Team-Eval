@@ -13,29 +13,37 @@ function Login() {
   const [activeButton, setActiveButton] = useState("Estudiante");
   const [codigo, setCodigo] = useState("");
   const [password, setPassword] = useState("");
-  const[identificacion, setIdentificacion] = useState("");  
+  const [identificacion, setIdentificacion] = useState("");
+  const [error, setError] = useState(""); // Estado para almacenar el mensaje de error
 
   const handleCodigoChange = (e) => {
     setCodigo(e.target.value);
+    setError(""); // Limpiar el mensaje de error cuando cambia el código
   };
 
   const handleContraseñaChange = (e) => {
     setPassword(e.target.value);
+    setError(""); // Limpiar el mensaje de error cuando cambia la contraseña
   };
 
   const handleClick = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
+    if (!codigo || !password) {
+      setError("Por favor, ingresa tu código y contraseña.");
+      return;
+    }
     try {
       const response = await axios.post("http://localhost:8000/login/", {
         codigo: codigo,
         password: password,
       });
-      Cookies.set("token", response.data.token, { expires: 1 }); // Guarda el token en una cookie que expira en 7 días
-      Cookies.set("loggedIn", "true", { expires: 7 }); // Indica que el usuario ha iniciado sesión
-      Cookies.set("codigo", response.data.userId); 
+      Cookies.set("token", response.data.token, { expires: 1 });
+      Cookies.set("loggedIn", "true", { expires: 7 });
+      Cookies.set("codigo", response.data.userId);
       navigate("/Student");
     } catch (error) {
       console.error("Error al realizar la solicitud:", error);
+      setError("Usuario o contraseña incorrectos."); // Establecer el mensaje de error
     }
   };
 
@@ -45,23 +53,29 @@ function Login() {
 
   const handleIdentificacionChange = (e) => {
     setIdentificacion(e.target.value);
-  }
+    setError(""); // Limpiar el mensaje de error cuando cambia la identificación
+  };
 
   const handleClick2 = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
+    if (!identificacion || !password) {
+      setError("Por favor, ingresa tu identificación y contraseña.");
+      return;
+    }
     try {
       const response = await axios.post("http://localhost:8000/loginProfesor/", {
-        identificacion : identificacion,
+        identificacion: identificacion,
         password: password,
       });
-      Cookies.set("token", response.data.token, { expires: 1 }); // Guarda el token en una cookie que expira en 1 dia
-      Cookies.set("loggedIn", "true", { expires: 1 }); // Indica que el usuario ha iniciado sesión
-      Cookies.set("identificacion", response.data.userId); 
+      Cookies.set("token", response.data.token, { expires: 1 });
+      Cookies.set("loggedIn", "true", { expires: 1 });
+      Cookies.set("identificacion", response.data.userId);
       navigate("/Profesor");
     } catch (error) {
       console.error("Error al realizar la solicitud:", error);
+      setError("Usuario o contraseña incorrectos."); // Establecer el mensaje de error
     }
-  }
+  };
 
   return (
     <div className="MainContainer">
@@ -132,7 +146,7 @@ function Login() {
                   Campo="Contraseña"
                   Tipo="password"
                 />
-                <a href="/">Olvido su contrasena?</a>
+                <a href="/">Olvido su contraseña?</a>
                 <Button
                   onClick={handleClick}
                   LineaBoton={true}
@@ -150,17 +164,24 @@ function Login() {
                 }`}
               >
                 <br />
-                <Field Campo="Identificacion" 
-                Tipo="Number" 
-                onChange={handleIdentificacionChange}
-                value={identificacion}/>
-                <Field Campo="Contrasena" 
-                Tipo="password" 
-                onChange={handleContraseñaChange}
-                value={password}
-              />
-                <a href="/">Olvido su contrasena?</a>
-                <Button LineaBoton={true} Boton="Iniciar sesión" onClick={handleClick2} />
+                <Field
+                  Campo="Identificación"
+                  Tipo="number"
+                  onChange={handleIdentificacionChange}
+                  value={identificacion}
+                />
+                <Field
+                  Campo="Contraseña"
+                  Tipo="password"
+                  onChange={handleContraseñaChange}
+                  value={password}
+                />
+                <a href="/">Olvido su contraseña?</a>
+                <Button
+                  LineaBoton={true}
+                  Boton="Iniciar sesión"
+                  onClick={handleClick2}
+                />
                 <div className="AdminContainer">
                   <a className="Admin" href="/">Administrador</a>
                 </div>
@@ -169,6 +190,13 @@ function Login() {
           </div>
         </div>
       </div>
+      {/* Alerta de error */}
+      {error && (
+        <div className="ErrorAlert">
+          <p>{error}</p>
+          <button onClick={() => setError("")}>Cerrar</button>
+        </div>
+      )}
     </div>
   );
 }
