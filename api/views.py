@@ -73,6 +73,27 @@ def registerProfesor(request):
           
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['POST'])
+def change_password(request):
+    nueva_contraseña = request.data.get('nueva_contraseña')
+    identificacion = request.COOKIES.get('identificacion')
+    
+    try:
+        profesor = Profesor.objects.get(identificacion=identificacion)
+        usuario = profesor.user
+        
+        if not usuario:
+            raise ValueError('Usuario no encontrado')
+
+        usuario.set_password(nueva_contraseña)
+        usuario.save()
+
+        return Response({'mensaje': 'Contraseña cambiada con éxito'})
+    except Profesor.DoesNotExist:
+        return Response({'error': 'Profesor no encontrado'}, status=404)
+    except (ValueError, Exception) as e:
+        return Response({'error': str(e)}, status=400)
+        
 
 @api_view(['POST'])
 @authentication_classes([TokenAuthentication])

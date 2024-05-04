@@ -17,12 +17,12 @@ function Login() {
 
   const handleCodigoChange = (e) => {
     setCodigo(e.target.value);
-    setError(""); // Limpiar el mensaje de error cuando cambia el código
+ 
   };
 
   const handleContraseñaChange = (e) => {
     setPassword(e.target.value);
-    setError(""); // Limpiar el mensaje de error cuando cambia la contraseña
+  
   };
 
   const handleClick = async (e) => {
@@ -35,10 +35,11 @@ function Login() {
       Cookies.set("token", response.data.token, { expires: 1 }); // Guarda el token en una cookie que expira en 7 días
       Cookies.set("loggedIn", "true", { expires: 7 }); // Indica que el usuario ha iniciado sesión
       Cookies.set("codigo", response.data.userId);
-      navigate("/StudentHome");
+      Cookies.set("user", response.data.user);
+      navigate("/Student");
     } catch (error) {
       console.error("Error al realizar la solicitud:", error);
-      setError("Usuario o contraseña incorrectos."); // Establecer el mensaje de error
+     
     }
   };
 
@@ -62,11 +63,12 @@ function Login() {
       );
       Cookies.set("token", response.data.token, { expires: 1 }); // Guarda el token en una cookie que expira en 1 dia
       Cookies.set("loggedIn", "true", { expires: 1 }); // Indica que el usuario ha iniciado sesión
-      Cookies.set("identificacion", response.data.userId);
-      navigate("/ProfesorHome");
+      Cookies.set("identificacion", response.data.user.identificacion);
+      console.log("El usuario ha iniciado sesión. ID de usuario:", response.data.user.identificacion);
+      navigate("/Profesor");
     } catch (error) {
       console.error("Error al realizar la solicitud:", error);
-      setError("Usuario o contraseña incorrectos."); // Establecer el mensaje de error
+      
     }
   };
 
@@ -184,13 +186,7 @@ function Login() {
           </div>
         </div>
       </div>
-      {/* Alerta de error */}
-      {error && (
-        <div className="ErrorAlert">
-          <p>{error}</p>
-          <button onClick={() => setError("")}>Cerrar</button>
-        </div>
-      )}
+      
     </div>
   );
 }

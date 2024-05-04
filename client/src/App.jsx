@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./components/Login2.jsx";
+import Login from "./components/Login.jsx";
 import Home from "./pages/Home/Home";
 import HomeStudent from "./pages/HomeStudent/HomeStudent";
 import HomeProfesor from "./pages/HomeProfesor/HomeProfesor";
@@ -10,12 +10,12 @@ import AvisoContrasena from "./pages/CambiarContraseña/AvisoContraseña.jsx";
 import CambiarContrasena from "./pages/CambiarContraseña/CambiarContraseña.jsx";
 import CodigoVerificacion from "./pages/CambiarContraseña/CodigoVerificacion.jsx";
 import VerificacionCorreo from "./pages/CambiarContraseña/VerificacionCorreo.jsx";
-import Login2 from "./components/Login2.jsx";
+
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Login2 />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/LoginAdmin" element={<LoginAdmin/>} />
         <Route path="/ActualizacionCorreo" element={<ActualizacionCorreo />} />
         <Route path="/AvisoCorreo" element={<AvisoCorreo />} />
