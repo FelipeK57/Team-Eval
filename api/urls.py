@@ -33,16 +33,11 @@ urlpatterns = [
     re_path(r'^login/$', views.login),
     re_path(r'^register/$', views.register),
     re_path(r'^profile/$', views.profile),
-<<<<<<< HEAD
-   
-=======
-    re_path(r'^permisos/$', views.permissions),
     re_path('login', views.login),
     re_path('register', views.register),
     re_path('profile', views.profile),
         
 
->>>>>>> origin/modelos_relaciones_2.0
 ]
 
 
