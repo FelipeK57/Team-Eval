@@ -7,5 +7,5 @@ class Profesor(models.Model):
     identificacion = models.PositiveBigIntegerField(null=True)
 
     def __str__(self):
-        return self.user.username
+        return self.user.username 
 
