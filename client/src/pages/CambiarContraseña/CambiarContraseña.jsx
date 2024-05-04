@@ -1,54 +1,80 @@
-import Login2 from "../../components/Login2";
 import { useState } from "react";
 import axios from "axios";
-import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import Cookies from 'js-cookie';
+import Login2 from "../../components/Login2";
 
 function CambiarContraseña() {
     const navigate = useNavigate();
-    const [activeButton, setActiveButton] = useState("hecho");
-    const[new_password, setPassword] = useState("");
-    const[confirm_password, setConfirmPassword] = useState("");
-    
+    const [newPassword, setNewPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
-    const handlenew_passwordChange = (e) => {
-        setPassword(e.target.value);
+    useEffect(() => {
+
+        const verificarSesion = () => {
+            const loggedIn = Cookies.get('loggedIn');
+            const userId = Cookies.get('identificacion');
+
+            if (loggedIn === 'true' && userId) {
+                console.log("El usuario ha iniciado sesión. ID de usuario:", userId);
+            } else {
+                console.log("El usuario no ha iniciado sesión.");
+                navigate('/Login');
+            }
+        };
+
+        verificarSesion();
+    }, [navigate]);
+
+    
+    const handlenewPasswordChange = (e) => {
+        setNewPassword(e.target.value);
     }
 
-    const handleconfirm_passwordChange = (e) => {
-        setConfirmPassword(e.target.value); 
+    const handleconfirmPasswordChange = (e) => {
+        setConfirmPassword(e.target.value);
     }
 
     const handleClick = async (e) => {
         e.preventDefault();
 
-        const user = Cookies.get('user');
+        if (newPassword !== confirmPassword) {
+           
+            return  alert("Las contraseñas no coinciden");
+        }
+
         try {
             const response = await axios.post("http://localhost:8000/change/", {
-                user: user,
-                new_password: new_password,
-                confirm_password: confirm_password
+                identificacion: Cookies.get('identificacion'),
+                nueva_contraseña: newPassword,
             });
             console.log(response.data);
             navigate("/Login");
             
-    }catch (error) {
+    } catch (error) {
         console.error("Error al realizar la solicitud:", error);
     }
 }
 
+return (
+    <Login2
+      Title="cambiar contraseña"
+      Type1="password"
+      Field1="Nueva contraseña"
+      onChangeField1={handlenewPasswordChange}
+      onChangeField2={handleconfirmPasswordChange}
+      valueField1={newPassword}
+      valueField2={confirmPassword}
+      onClick={handleClick}
+      Type2="password"
+      Field2="confirmar nueva contraseña"
+      ForgotPassword={false}
+      Button="Hecho"
+      NavigateRoute="/login"
+    />
+)
 
-
-    return (
-        <Login2 Title="Cambiar Contraseña"
-                Type1="password" 
-                Field1="Nueva Contraseña"
-                Type2="password"
-                Field2="Confirmar Contraseña"
-                ForgotPassword={false}
-                Button="Hecho"
-        />
-    )
 }
 
 export default CambiarContraseña;

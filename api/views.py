@@ -76,7 +76,7 @@ def registerProfesor(request):
 @api_view(['POST'])
 def change_password(request):
     nueva_contraseña = request.data.get('nueva_contraseña')
-    identificacion = request.COOKIES.get('identificacion')
+    identificacion = request.data.get('identificacion')
     
     try:
         profesor = Profesor.objects.get(identificacion=identificacion)
