@@ -32,11 +32,11 @@ urlpatterns = [
     re_path(r'^registerProfesor/$', views.registerProfesor),
     re_path(r'^login/$', views.login),
     re_path(r'^register/$', views.register),
-    re_path(r'^profile/$', views.profile),
+    re_path(r'^profile/$', views.profile_student),
     re_path(r'^permisos/$', views.permissions),
+    re_path(r'^change_email/$', views.change_email),
     re_path('login', views.login),
     re_path('register', views.register),
-    re_path('profile', views.profile),
         
 
 ]

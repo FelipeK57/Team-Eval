@@ -40,7 +40,7 @@ def register(request):
         
         token = Token.objects.create(user=user)
         return Response({'token': token.key, 'user': serializer.data}, status=status.HTTP_201_CREATED)
-          
+    
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
@@ -70,10 +70,8 @@ def registerProfesor(request):
         
         token = Token.objects.create(user=user)
         return Response({'token': token.key, 'user': serializer.data}, status=status.HTTP_201_CREATED)
-          
+    
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -82,8 +80,25 @@ def permissions(request):
             return Response({"message": "Bienvenido a la página de inicio"})
     else:
             return Response({"message": "Debes iniciar sesión primero"}, status=status.HTTP_401_UNAUTHORIZED)
-@api_view(['POST'])
+        
+@api_view(['GET'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
-def profile(request):
-    return Response("Estas iniciado con {}".format(request.user.username), status=status.HTTP_200_OK)
+def profile_student(request):
+    return Response("Datos: {}, {}, {}".format(request.user.username, request.data.get('codigo'), request.user.email), status=status.HTTP_200_OK)
+
+@api_view(['PUT'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def change_email(request):
+    codigo = request.data.get('codigo')
+    estudiante = get_object_or_404(Estudiante, codigo=codigo)
+    new_email = request.data.get('email')
+    
+    if new_email == estudiante.user.email:
+        return Response({"error:": "Email is not valid"}, status=status.HTTP_400_BAD_REQUEST)
+    
+    estudiante.user.email = new_email
+    estudiante.user.save()
+    serializer = EstudianteSerializer(estudiante)
+    return Response({'user': serializer.data}, status=status.HTTP_200_OK)
