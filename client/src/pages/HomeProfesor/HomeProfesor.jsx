@@ -27,15 +27,15 @@ function HomeProfesor() {
     }, [navigate]);
 
     return (
-        <div className="Home">
+        <div className="Home1">
             <NavbarProfesor />
-            <div className="container">
+            <div className="cont">
                 <h1>Bienvenido a <b>T</b>eam <b>E</b>val</h1>
             </div>
-            <div className="container2">
+            <div className="cont2">
                 <p>Facilitando la evaluación por pares para mejorar el trabajo en equipo</p>
             </div>
-            <div className="container3">
+            <div className="cont3">
                 <Button2 Boton2="Configurar Cursos" color="rgb(15, 65, 118)" fontColor="white" width="250px"/>
             </div>
         </div>

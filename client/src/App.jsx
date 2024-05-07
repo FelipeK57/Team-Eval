@@ -3,6 +3,7 @@ import Login from "./components/Login.jsx";
 import Home from "./pages/Home/Home";
 import HomeStudent from "./pages/HomeStudent/HomeStudent";
 import HomeProfesor from "./pages/HomeProfesor/HomeProfesor";
+<<<<<<< HEAD
 import LoginAdmin from "./pages/LoginAdmin/LoginAdmin.jsx";
 import ActualizacionCorreo from "./pages/ActualizacionCorreo/ActualizacionCorreo.jsx";
 import AvisoCorreo from "./pages/ActualizacionCorreo/AvisoCorreo.jsx";
@@ -11,6 +12,11 @@ import CambiarContrasena from "./pages/CambiarContraseña/CambiarContraseña.jsx
 import CodigoVerificacion from "./pages/CambiarContraseña/CodigoVerificacion.jsx";
 import VerificacionCorreo from "./pages/CambiarContraseña/VerificacionCorreo.jsx";
 
+=======
+import MiCuenta from "./pages/MiCuenta/MiCuenta";
+import Curso from "./pages/CursosStudent/Curso";
+import CursoP from "./pages/CursosProfe/CursoP";
+>>>>>>> origin/Home2
 function App() {
   return (
     <BrowserRouter>
@@ -26,6 +32,12 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/Student" element={<HomeStudent />} />
         <Route path="/Profesor" element={<HomeProfesor />} />
+<<<<<<< HEAD
+=======
+        <Route path="/MiCuenta" element={<MiCuenta />} />
+        <Route path="/Curso" element={<Curso />} />
+        <Route path="/CursoP" element={<CursoP />} />
+>>>>>>> origin/Home2
       </Routes>
     </BrowserRouter>
   );

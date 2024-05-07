@@ -1,4 +1,4 @@
-.container{
+.cont{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -10,28 +10,28 @@
     color: #000;
 
 }
-.container b{
+.cont b{
     color: rgb(15, 65, 118);
 }
 
-.container2{
+.cont2{
     position: absolute;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     top: 44%;
-    width: auto;
+    left: 31%;
     font-family: Mulish;
     font-size: 1.5rem;
     color: #000;
 }
 
-.container3 {
+.cont3 {
     position: absolute;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     top: 55%;
-    width: auto;
+    left: 44.5%;
 
 }

@@ -29,7 +29,11 @@
     text-decoration: none;
     color: #ffffff;
     position: absolute;
+<<<<<<< HEAD
     left: 85vw !important;
+=======
+    left: 85% !important;
+>>>>>>> origin/Home2
     transition: all 0.3s;
 }
 .navbara:hover {
