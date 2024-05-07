@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 function Button2(props) {
 
     Button2.propTypes = {
-        LineaBoton: PropTypes.bool.isRequired,
+        LineaBoton2: PropTypes.bool.isRequired,
         Boton2: PropTypes.string.isRequired
     }
 

@@ -79,7 +79,6 @@ function Login() {
       Cookies.set("token", response.data.token, { expires: 1 }); // Guarda el token en una cookie que expira en 1 dia
       Cookies.set("loggedIn", "true", { expires: 1 }); // Indica que el usuario ha iniciado sesión
       Cookies.set("identificacion", response.data.user.identificacion);
-      console.log("El usuario ha iniciado sesión. ID de usuario:", response.data.user.identificacion);
       navigate("/Profesor");
     } catch (error) {
       alert(error.response.data.error);

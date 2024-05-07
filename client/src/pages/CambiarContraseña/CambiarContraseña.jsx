@@ -69,9 +69,9 @@ function CambiarContraseña() {
 
     alert(response2.data);
     navigate("/Login");
-    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    document.cookie = "identificacion=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
-    document.cookie = "loggedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    Cookies.remove('token');
+    Cookies.remove('loggedIn');
+    Cookies.remove('identificacion');
 }catch(error){  
     console.error("Error al realizar la solicitud:" + error.response2.data.error);
 }
