@@ -4,7 +4,6 @@ import axios from "axios";
 
 function CursosEstudiante() {
   const [cursos, setCursos] = useState([]);
-  const [usuario, setUsuario] = useState("");
 
   useEffect(() => {
     const fetchStudentCourses = async () => {
@@ -16,7 +15,6 @@ function CursosEstudiante() {
           }
         );
         setCursos(response.data.cursos);
-        setUsuario(response.data.user.username);
       } catch (error) {
         console.error("Error al obtener los cursos del estudiante:", error);
       }
@@ -26,7 +24,7 @@ function CursosEstudiante() {
 
   return (
     <div>
-      <h1>Cursos Inscritos de {usuario}</h1>
+      <h1>Cursos Inscritos de {Cookies.get("nombre")}</h1>
       <ul>
         {cursos.map((curso) => (
           <li key={curso.id}>

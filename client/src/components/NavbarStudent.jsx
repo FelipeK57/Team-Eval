@@ -12,10 +12,10 @@ const NavbarStudent = () => {
       <h1 href="#" className="navbarh1">
         <b>¡Estudiante!</b>
       </h1>
-      <Link to="/MiCuenta" className="navbara">
+      <Link to="/MiCuenta" className="nava">
         <b>Mi Cuenta</b>
       </Link>
-      <Link href="#" className="navbarb">
+      <Link to="/" className="naveb">
         <b>Informes</b>
       </Link>
     </nav>

@@ -58,8 +58,8 @@ function ActualizacionCorreo() {
           },
         }
       );
-      console.log(response.data);
-      navigate("/login");
+      Cookies.set("email", email);
+      navigate("/MiCuenta");
     } catch (error) {
       console.error("Error al realizar la solicitud:", error);
       alert("Error al hacer la solicitud al servidor");
@@ -80,7 +80,7 @@ function ActualizacionCorreo() {
       Field2="Confirmar Correo"
       ForgotPassword={false}
       Button="Hecho"
-      NavigateRoute="/login"
+      NavigateRoute="MiCuenta"
     />
   );
 }

@@ -1,10 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./components/Login";
 import Home from "./pages/Home/Home";
-
-import EstudianteHome from "./components/EstudianteHome";
-import ProfesorHome from "./components/Professor";
-
 import HomeStudent from "./pages/HomeStudent/HomeStudent";
 import HomeProfesor from "./pages/HomeProfesor/HomeProfesor";
 import MiCuenta from "./pages/MiCuenta/MiCuenta";
