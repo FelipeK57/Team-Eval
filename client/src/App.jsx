@@ -15,22 +15,27 @@ import AvisoContrasena from "./pages/CambiarContraseña/AvisoContraseña.jsx";
 import CambiarContrasena from "./pages/CambiarContraseña/CambiarContraseña.jsx";
 import CodigoVerificacion from "./pages/CambiarContraseña/CodigoVerificacion.jsx";
 import VerificacionCorreo from "./pages/CambiarContraseña/VerificacionCorreo.jsx";
+import CursosEstudiante from "./pages/HomeStudent/CursosEstudiante.jsx";
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/LoginAdmin" element={<LoginAdmin/>} />
+        <Route path="/LoginAdmin" element={<LoginAdmin />} />
         <Route path="/ActualizacionCorreo" element={<ActualizacionCorreo />} />
         <Route path="/AvisoCorreo" element={<AvisoCorreo />} />
-        <Route path="/VerificacionCorreo" element={<VerificacionCorreo NavigateRoute="Login"/>} />
-        <Route path="/CodigoVerificacion" element={<CodigoVerificacion/>} />
+        <Route
+          path="/VerificacionCorreo"
+          element={<VerificacionCorreo NavigateRoute="Login" />}
+        />
+        <Route path="/CodigoVerificacion" element={<CodigoVerificacion />} />
         <Route path="/CambiarContraseña" element={<CambiarContrasena />} />
         <Route path="/AvisoContraseña" element={<AvisoContrasena />} />
         <Route path="/" element={<Home />} />
         <Route path="/Student" element={<HomeStudent />} />
         <Route path="/Profesor" element={<HomeProfesor />} />
         <Route path="/MiCuenta" element={<MiCuenta />} />
+        <Route path="/Cursos" element={<CursosEstudiante />} />
       </Routes>
     </BrowserRouter>
   );

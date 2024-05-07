@@ -12,6 +12,7 @@ from estudiantes.models import Estudiante
 from estudiantes.serializers import EstudianteSerializer
 from profesor.serializers import ProfesorSerializer
 from profesor.models import Profesor
+from cursos.serializer import CursosSerializer
 
 
 @api_view(['POST'])
@@ -24,7 +25,7 @@ def login(request):
         
     token, created = Token.objects.get_or_create(user=estudiante.user)
     serializer = EstudianteSerializer(estudiante)
-    return Response({"token": token.key, "user": serializer.data}, status=status.HTTP_200_OK)
+    return Response({"token": token.key, "estudiante": serializer.data}, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 def register(request):
@@ -102,3 +103,11 @@ def change_email(request):
     estudiante.user.save()
     serializer = EstudianteSerializer(estudiante)
     return Response({'user': serializer.data}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def student_courses(request):
+    codigo = request.data.get('codigo')
+    student = get_object_or_404(Estudiante, codigo=codigo)
+    user_serializer = UserSerializer(student.user)
+    serializer = CursosSerializer(student.cursos_inscritos(), many=True)
+    return Response({"cursos": serializer.data, "user": user_serializer.data}, status=status.HTTP_200_OK)
