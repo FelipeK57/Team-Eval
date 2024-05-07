@@ -16,6 +16,8 @@ import CambiarContrasena from "./pages/CambiarContraseña/CambiarContraseña.jsx
 import CodigoVerificacion from "./pages/CambiarContraseña/CodigoVerificacion.jsx";
 import VerificacionCorreo from "./pages/CambiarContraseña/VerificacionCorreo.jsx";
 import CursosEstudiante from "./pages/HomeStudent/CursosEstudiante.jsx";
+import Curso from "./pages/CursosStudent/Curso";
+import CursoP from "./pages/CursosProfe/CursoP";
 function App() {
   return (
     <BrowserRouter>
@@ -36,6 +38,8 @@ function App() {
         <Route path="/Profesor" element={<HomeProfesor />} />
         <Route path="/MiCuenta" element={<MiCuenta />} />
         <Route path="/Cursos" element={<CursosEstudiante />} />
+        <Route path="/Curso" element={<Curso />} />
+        <Route path="/CursoP" element={<CursoP />} />
       </Routes>
     </BrowserRouter>
   );
