@@ -11,6 +11,5 @@ class Cursos(models.Model):
     profesor = models.ForeignKey(Profesor, on_delete=models.CASCADE, default=1)
     grupos = models.ManyToManyField(Grupo)
 
-
     def __str__(self):
         return self.nombre
