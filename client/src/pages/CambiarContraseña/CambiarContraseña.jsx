@@ -49,11 +49,11 @@ function CambiarContraseña() {
                 identificacion: Cookies.get('identificacion'),
                 nueva_contraseña: newPassword,
             });
-            console.log(response.data);
+            alert(response.data);
             navigate("/Login");
             
     } catch (error) {
-        console.error("Error al realizar la solicitud:", error);
+        console.error("Error al realizar la solicitud:" + error);
     }
 }
 

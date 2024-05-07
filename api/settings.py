@@ -58,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'api.urls'
@@ -139,3 +140,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOWED_ORIGINS = ["http://localhost:5173"]
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+
+# Duración de la sesión en segundos (opcional)
+SESSION_COOKIE_AGE = 3600  # Duración de la sesión en segundos (por ejemplo, 1 hora)

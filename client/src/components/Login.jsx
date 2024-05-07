@@ -53,6 +53,21 @@ function Login() {
 
   const handleClick2 = async (e) => {
     e.preventDefault()
+
+    if (identificacion === "") {
+
+      return alert("Por favor, ingrese su identificación");
+
+    }
+
+    if (password === "") {
+
+      return alert("Por favor, ingrese su contraseña");
+
+    }
+
+
+
     try {
       const response = await axios.post(
         "http://localhost:8000/loginProfesor/",
@@ -67,7 +82,7 @@ function Login() {
       console.log("El usuario ha iniciado sesión. ID de usuario:", response.data.user.identificacion);
       navigate("/Profesor");
     } catch (error) {
-      console.error("Error al realizar la solicitud:", error);
+      alert(error.response.data.error);
       
     }
   };
