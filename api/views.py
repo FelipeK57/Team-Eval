@@ -172,6 +172,22 @@ def change_email(request):
     serializer = EstudianteSerializer(estudiante)
     return Response({'user': serializer.data}, status=status.HTTP_200_OK)
 
+@api_view(['PUT'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def change_emaiP(request):
+    identificacion = request.data.get('identificacion')
+    profesor = get_object_or_404(Profesor, identificacion=identificacion)
+    new_email = request.data.get('email')
+    
+    if new_email == profesor.user.email:
+        return Response({"error:": "Email is not valid"}, status=status.HTTP_400_BAD_REQUEST)
+    
+    profesor.user.email = new_email
+    profesor.user.save()
+    serializer = ProfesorSerializer(profesor)
+    return Response({'user': serializer.data}, status=status.HTTP_200_OK)
+
 @api_view(['POST'])
 def student_courses(request):
     codigo = request.data.get('codigo')

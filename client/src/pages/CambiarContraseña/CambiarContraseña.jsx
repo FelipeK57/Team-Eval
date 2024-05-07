@@ -91,7 +91,7 @@ return (
       Field2="confirmar nueva contraseña"
       ForgotPassword={false}
       Button="Hecho"
-      NavigateRoute="/login"
+      NavigateRoute="MiCuentaP"
     />
 )
 

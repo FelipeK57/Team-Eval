@@ -8,7 +8,7 @@ const NavbarProfesor = () => {
     <nav className="navb" >
       <div className='ima'><img src="../../public/Logo.png" alt="logo" /></div>
       <h1 href="#" className="navbh1"><b>¡Profesor!</b></h1>
-      <a href="MiCuenta" className="navba"><b>Mi Cuenta</b></a>
+      <a href="MiCuentaP" className="navba"><b>Mi Cuenta</b></a>
       <a href="#" className="navbb"><b>Informes</b></a>
     </nav>
   );
