@@ -48,13 +48,33 @@ function CambiarContraseña() {
             const response = await axios.post("http://localhost:8000/change/", {
                 identificacion: Cookies.get('identificacion'),
                 nueva_contraseña: newPassword,
-            });
+            }
+        
+        );
+            
             alert(response.data);
-            navigate("/Login");
+            
             
     } catch (error) {
         console.error("Error al realizar la solicitud:" + error);
     }
+
+    try{
+
+        const response2 = await axios.post("http://localhost:8000/logout/", null, {
+                headers: {
+                    'Authorization': `Token ${Cookies.get('token')}`,
+                }
+    });
+
+    alert(response2.data);
+    navigate("/Login");
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "identificacion=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+    document.cookie = "loggedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}catch(error){  
+    console.error("Error al realizar la solicitud:" + error.response2.data.error);
+}
 }
 
 return (
@@ -75,6 +95,6 @@ return (
     />
 )
 
-}
+    }
 
 export default CambiarContraseña;

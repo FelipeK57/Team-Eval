@@ -12,8 +12,9 @@ from estudiantes.models import Estudiante
 from estudiantes.serializers import EstudianteSerializer
 from profesor.serializers import ProfesorSerializer
 from profesor.models import Profesor
-from django.contrib.auth import logout, login, authenticate
+from django.contrib.auth import login, authenticate
 from django.http import QueryDict
+from django.http import JsonResponse
 
 
 @api_view(['POST'])
@@ -66,9 +67,6 @@ def loginProfesor(request):
     if user is None:
         return Response({"error": "Error de autenticación"}, status=status.HTTP_400_BAD_REQUEST)
 
-    # Loguear al usuario
-    login(request._request)
-
     # Generar o recuperar el token de autenticación
     token, created = Token.objects.get_or_create(user=user)
 
@@ -77,6 +75,15 @@ def loginProfesor(request):
 
     # Devolver respuesta con el token y los datos del usuario
     return Response({"token": token.key, "user": serializer.data}, status=status.HTTP_200_OK)
+
+@api_view(['POST']) 
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def logout(request):
+     request.user.auth_token.delete()
+     response = JsonResponse({'message': 'Logout successful'})
+     response.delete_cookie('token')
+     return response
 
 @api_view(['POST'])
 def registerProfesor(request):
@@ -109,8 +116,6 @@ def change_password(request):
 
         usuario.set_password(nueva_contraseña)
         usuario.save()
-
-        logout(request)
 
         return Response({'mensaje': 'Contraseña cambiada con éxito'},status=status.HTTP_200_OK)
     except Profesor.DoesNotExist:
