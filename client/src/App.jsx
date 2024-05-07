@@ -4,6 +4,8 @@ import Home from "./pages/Home/Home";
 import HomeStudent from "./pages/HomeStudent/HomeStudent";
 import HomeProfesor from "./pages/HomeProfesor/HomeProfesor";
 import MiCuenta from "./pages/MiCuenta/MiCuenta";
+import Curso from "./pages/CursosStudent/Curso";
+import CursoP from "./pages/CursosProfe/CursoP";
 function App() {
   return (
     <BrowserRouter>
@@ -13,6 +15,8 @@ function App() {
         <Route path="/Student" element={<HomeStudent />} />
         <Route path="/Profesor" element={<HomeProfesor />} />
         <Route path="/MiCuenta" element={<MiCuenta />} />
+        <Route path="/Curso" element={<Curso />} />
+        <Route path="/CursoP" element={<CursoP />} />
       </Routes>
     </BrowserRouter>
     
