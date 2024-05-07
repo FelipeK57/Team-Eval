@@ -122,6 +122,27 @@ def change_password(request):
         return Response({'error': 'Profesor no encontrado'}, status=404)
     except (ValueError, Exception) as e:
         return Response({'error': str(e)}, status=400)
+    
+@api_view(['POST'])
+def change_email(request):
+    nuevo_email = request.data.get('nuevo_email')
+    identificacion = request.data.get('identificacion')
+    
+    try:
+        profesor = Profesor.objects.get(identificacion=identificacion)
+        usuario = profesor.user
+        
+        if not usuario:
+            raise ValueError('Usuario no encontrado')
+
+        usuario.email = nuevo_email
+        usuario.save()
+
+        return Response({'mensaje': 'Email cambiado con éxito'},status=status.HTTP_200_OK)
+    except Profesor.DoesNotExist:
+        return Response({'error': 'Profesor no encontrado'}, status=404)
+    except (ValueError, Exception) as e:
+        return Response({'error': str(e)}, status=400)
 
 
 
@@ -130,3 +151,15 @@ def change_password(request):
 @permission_classes([IsAuthenticated])
 def profile(request):
     return Response("Estas iniciado con {}".format(request.user.username), status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def profesorProfile(request):  
+    identificacion = request.data.get('identificacion') 
+    profesor = Profesor.objects.get(identificacion=identificacion)
+    
+    user = profesor.user
+
+    return Response({'nombre': user.first_name, 'apellidos': user.last_name, 'email': user.email}, status=status.HTTP_200_OK)
+

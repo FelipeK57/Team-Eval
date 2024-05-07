@@ -10,7 +10,7 @@ function Login2(props) {
   const navigate = useNavigate();
 
   const VolverClick = () => {
-    navigate(`/${props.NavigateRoute}`);
+    navigate('/MiCuenta');
   };
 
   Login2.propsTypes = {
