@@ -44,6 +44,10 @@ function CambiarContraseña() {
             return  alert("Las contraseñas no coinciden");
         }
 
+        if (newPassword === "") {   
+            return alert("Por favor, ingrese una nueva contraseña");
+        }
+
         try {
             const response = await axios.post("http://localhost:8000/change/", {
                 identificacion: Cookies.get('identificacion'),
@@ -52,7 +56,7 @@ function CambiarContraseña() {
         
         );
             
-            alert(response.data);
+            alert(response.data.mensaje);
             
             
     } catch (error) {
@@ -67,7 +71,7 @@ function CambiarContraseña() {
                 }
     });
 
-    alert(response2.data);
+    alert(response2.data.mensaje);
     navigate("/Login");
     Cookies.remove('token');
     Cookies.remove('loggedIn');

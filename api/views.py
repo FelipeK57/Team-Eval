@@ -82,8 +82,8 @@ def loginProfesor(request):
 @permission_classes([IsAuthenticated])
 def logout(request):
      request.user.auth_token.delete()
-     response = JsonResponse({'message': 'Logout successful'})
-     response.delete_cookie('token')
+     response = Response({'mensaje': 'Cerrando sesión'}, status=status.HTTP_200_OK)
+     
      return response
 
 @api_view(['POST'])
