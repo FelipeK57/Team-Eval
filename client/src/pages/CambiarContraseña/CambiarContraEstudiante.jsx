@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import Cookies from "js-cookie";
 import Login2 from "../../components/Login2";
 
-function CambiarContraseña() {
+function CambiarContraEstudiante() {
   const navigate = useNavigate();
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -13,7 +13,7 @@ function CambiarContraseña() {
   useEffect(() => {
     const verificarSesion = () => {
       const loggedIn = Cookies.get("loggedIn");
-      const userId = Cookies.get("identificacion");
+      const userId = Cookies.get("codigo");
 
       if (loggedIn === "true" && userId) {
         console.log("El usuario ha iniciado sesión. ID de usuario:", userId);
@@ -43,7 +43,7 @@ function CambiarContraseña() {
 
     try {
       const response = await axios.post("http://localhost:8000/change/", {
-        identificacion: Cookies.get("identificacion"),
+        codigo: Cookies.get("codigo"),
         nueva_contraseña: newPassword,
       });
     } catch (error) {
@@ -63,7 +63,7 @@ function CambiarContraseña() {
       navigate("/Login");
       Cookies.remove("token");
       Cookies.remove("loggedIn");
-      Cookies.remove("identificacion");
+      Cookies.remove("codigo");
     } catch (error) {
       console.error("Error al realizar la solicitud:" + error);
     }
@@ -71,7 +71,7 @@ function CambiarContraseña() {
 
   return (
     <Login2
-      Title="cambiar contraseña"
+      Title="Cambiar contraseña"
       Type1="password"
       Field1="Nueva contraseña"
       onChangeField1={handlenewPasswordChange}
@@ -88,4 +88,4 @@ function CambiarContraseña() {
   );
 }
 
-export default CambiarContraseña;
+export default CambiarContraEstudiante;
