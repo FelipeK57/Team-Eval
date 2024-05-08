@@ -1,13 +1,36 @@
-
 import React from "react";
 import "./MiCuenta.css";
 import NavbarStudent from "../../components/NavbarStudent";
 import Button2 from "../../components/Utilities/Button2";
+import Button from "../../components/Utilities/Button";
 import "../../../public/219969.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import axios from "axios";
 
 function MiCuenta() {
+  const navigate = useNavigate();
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:8000/logout/", null, {
+        headers: {
+          Authorization: `Token ${Cookies.get("token")}`,
+        },
+      });
+      Cookies.remove("token");
+      Cookies.remove("loggedIn");
+      Cookies.remove("nombre");
+      Cookies.remove("apellido");
+      Cookies.remove("email");
+      Cookies.remove("codigo");
+      navigate("/Login");
+    } catch (error) {
+      console.error("Error al cerrar sesión:", error.response.error);
+    }
+  };
+
   return (
     <div className="MiCuenta">
       <NavbarStudent />
@@ -39,16 +62,19 @@ function MiCuenta() {
         </Link>
       </div>
       <div className="coso3">
-        <Button2
-          Boton2="Contraseña"
-          color="rgb(15, 65, 118)"
-          fontColor="white"
-          width="200px"
-        />
+        <Link to="/CambioContraEstudiante">
+          <Button2
+            Boton2="Contraseña"
+            color="rgb(15, 65, 118)"
+            fontColor="white"
+            width="200px"
+          />
+        </Link>
       </div>
       <div className="coso4">
-        <Button2
-          Boton2="Cerrar Sesión"
+        <Button
+          onClick={handleClick}
+          Boton="Cerrar Sesión"
           color="Brown"
           fontColor="white"
           width="200px"

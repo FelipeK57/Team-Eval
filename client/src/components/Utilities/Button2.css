@@ -1,47 +1,47 @@
 .Boton2 {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px 0;
-    margin: 0px;
-    width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 0;
+  margin: 0px;
+  width: 100%;
 }
 
 .Boton2 button {
-    height: 50px;
-    border-radius: 25px;
-    border: none;
-    font-size: 1.4rem;
-    padding: 0px 3rem;
-    cursor: pointer;
-    transition: 0.3s;
+  height: 50px;
+  border-radius: 25px;
+  border: none;
+  font-size: 1.4rem;
+  padding: 0px 3rem;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
 .Boton2 button:hover {
-    box-shadow: 0 0 0.5rem 0.5rem rgba(255, 255, 255, 0.1);
-    transition: all 0.3s;
-    transform: scale(1.1);
+  box-shadow: 0 0 0.5rem 0.5rem rgba(255, 255, 255, 0.1);
+  transition: all 0.3s;
+  transform: scale(1.1);
 }
 
 .Boton2 button:active {
-    transform: scale(1.1);
-    transition: 0.1s;
+  transform: scale(1.1);
+  transition: 0.1s;
 }
 
 .Open {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: auto;
-    width: fit-content;
-    height: fit-content;
-    padding: 10px;
-    border-radius: 25px;
-    border: none;
-    background-color: #ffffff;
-    color: #000000;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+  width: fit-content;
+  height: fit-content;
+  padding: 10px;
+  border-radius: 25px;
+  border: none;
+  background-color: #ffffff;
+  color: #000000;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
 }

@@ -15,6 +15,7 @@ import CodigoVerificacion from "./pages/CambiarContraseña/CodigoVerificacion.js
 import VerificacionCorreo from "./pages/CambiarContraseña/VerificacionCorreo.jsx";
 import CursosEstudiante from "./pages/HomeStudent/CursosEstudiante.jsx";
 import MiCuentaP from "./pages/MiCuenta/MiCuentaP.jsx";
+import CambiarContraEstudiante from "./pages/CambiarContraseña/CambiarContraEstudiante.jsx";
 
 function App() {
   return (
@@ -23,7 +24,10 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/LoginAdmin" element={<LoginAdmin />} />
         <Route path="/ActualizacionCorreo" element={<ActualizacionCorreo />} />
-        <Route path="/ActualizacionCorreoP" element={<ActualizacionCorreoP />} />
+        <Route
+          path="/ActualizacionCorreoP"
+          element={<ActualizacionCorreoP />}
+        />
         <Route path="/AvisoCorreo" element={<AvisoCorreo />} />
         <Route
           path="/VerificacionCorreo"
@@ -35,10 +39,14 @@ function App() {
         <Route path="/Student" element={<HomeStudent />} />
         <Route path="/Profesor" element={<HomeProfesor />} />
         <Route path="/MiCuenta" element={<MiCuenta />} />
-        <Route path="/MiCuentaP" element={<MiCuentaP/>} />
+        <Route path="/MiCuentaP" element={<MiCuentaP />} />
         <Route path="/Cursos" element={<CursosEstudiante />} />
         <Route path="/Curso" element={<Curso />} />
         <Route path="/CursoP" element={<CursoP />} />
+        <Route
+          path="/CambioContraEstudiante"
+          element={<CambiarContraEstudiante />}
+        />
       </Routes>
     </BrowserRouter>
   );
