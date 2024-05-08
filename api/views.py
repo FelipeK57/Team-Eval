@@ -58,6 +58,8 @@ def loginProfesor(request):
     except Profesor.DoesNotExist:
         return Response({"error": "Profesor no encontrado"}, status=status.HTTP_404_NOT_FOUND)
 
+    print(profesor.courses_teacher())
+
     # Verificar la contraseña
     user = profesor.user
     if not user.check_password(password):
@@ -193,6 +195,13 @@ def student_courses(request):
     codigo = request.data.get('codigo')
     student = get_object_or_404(Estudiante, codigo=codigo)
     serializer = CursosSerializer(student.cursos_inscritos(), many=True)
+    return Response({"cursos": serializer.data}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def teacher_courses(request):
+    identificacion = request.data.get('identificacion')
+    profesor = get_object_or_404(Profesor, identificacion=identificacion)
+    serializer = CursosSerializer(profesor.courses_teacher(), many=True)
     return Response({"cursos": serializer.data}, status=status.HTTP_200_OK)
 
 @api_view(['POST'])

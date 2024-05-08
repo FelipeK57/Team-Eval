@@ -40,8 +40,9 @@ urlpatterns = [
     re_path(r'^profile/$', views.profile_student),
     re_path(r'^permisos/$', views.permissions),
     re_path(r'^change_email/$', views.change_email),
-     re_path(r'^change_emailP/$', views.change_emaiP),
+    re_path(r'^change_emailP/$', views.change_emaiP),
     re_path(r'^student_courses/$', views.student_courses),
+    re_path(r'^teacher_courses/$', views.teacher_courses),
     re_path('login', views.login),
     re_path('register', views.register),
         

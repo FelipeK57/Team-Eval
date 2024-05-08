@@ -23,7 +23,6 @@ function HomeStudent() {
             Boton2="Ir a Calificar"
             color="rgb(15, 65, 118)"
             fontColor="white"
-            width="200px"
           />
         </Link>
       </div>
