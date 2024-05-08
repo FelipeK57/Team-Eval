@@ -1,26 +1,46 @@
 import "./Curso.css";
 import NavbarStudent from "../../components/NavbarStudent";
-import Button2 from "../../components/Utilities/Button2";
-
+import Cookies from "js-cookie";
+import CursoModelo from "../../components/CursoModulo";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 function CursosStudent() {
+  const [cursos, setCursos] = useState([]);
 
-    return (
-        <div className="Curso"> 
-            <NavbarStudent />
-            <div className="cursi"><h1>Cursos de <b>Ejemplo</b></h1></div>
-            <div className="cardi">
-            <div className="cardi12"><h1>Ejemplo Completado</h1></div> 
-            <div className="cardi13"><h1>¡Terminado!</h1></div> 
-            </div>
-            <div className="cardi2">
-            <div className="cardi22"><h1>Ejemplo por Completar</h1></div> 
-            <div className="cardi23">
-                <Button2 Boton2="Ir" color="white" fontColor="black" width="150px"/>
-            </div>
-            </div>
-        </div>
+  useEffect(() => {
+    const fetchStudentCourses = async () => {
+      try {
+        const response = await axios.post(
+          "http://localhost:8000/student_courses/",
+          {
+            codigo: Cookies.get("codigo"),
+          }
+        );
+        setCursos(response.data.cursos);
+      } catch (error) {
+        console.error("Error al obtener los cursos del estudiante:", error);
+      }
+    };
+    fetchStudentCourses();
+  }, []);
 
-    )
+  return (
+    <div className="Curso">
+      <NavbarStudent />
+      <div className="cursi">
+        <h1>
+          Cursos de <b>{Cookies.get("nombre")}</b>
+        </h1>
+      </div>
+      <div className="cardi">
+        {cursos.map((curso) => (
+          <div key={curso.id}>
+            <CursoModelo name={curso.nombre} state={curso.estado} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
 
-export default CursosStudent
+export default CursosStudent;
