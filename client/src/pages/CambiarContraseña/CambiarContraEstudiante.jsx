@@ -46,7 +46,7 @@ function CambiarContraEstudiante() {
     }
 
     try {
-      const response = await axios.post("http://localhost:8000/change/", {
+      const response = await axios.post("http://localhost:8000/changeE/", {
         codigo: Cookies.get("codigo"),
         nueva_contraseña: newPassword,
       });

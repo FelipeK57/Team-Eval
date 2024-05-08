@@ -42,9 +42,8 @@ function CambiarContraseña() {
     }
 
     if (newPassword === "") {
-        return alert("Por favor, ingrese su nueva contraseña");
-      }
-  
+      return alert("Por favor, ingrese su nueva contraseña");
+    }
 
     try {
       const response = await axios.post("http://localhost:8000/change/", {

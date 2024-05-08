@@ -79,6 +79,7 @@ function Login() {
       Cookies.set("identificacion", response.data.user.identificacion);
       navigate("/Profesor");
     } catch (error) {
+      console.error("Error al realizar la solicitud:", error);
       return alert("No se encontro usuario con estas credenciales");
     }
   };

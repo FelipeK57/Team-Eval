@@ -196,7 +196,7 @@ def student_courses(request):
     return Response({"cursos": serializer.data}, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
-def change_password(request):
+def change_passwordE(request):
     nueva_contraseña = request.data.get('nueva_contraseña')
     codigo = request.data.get('codigo')
     
