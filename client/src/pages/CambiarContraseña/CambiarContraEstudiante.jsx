@@ -41,6 +41,10 @@ function CambiarContraEstudiante() {
       return alert("Las contraseñas no coinciden");
     }
 
+    if (newPassword === "") {
+      return alert("Por favor, ingrese su nueva contraseña");
+    }
+
     try {
       const response = await axios.post("http://localhost:8000/change/", {
         codigo: Cookies.get("codigo"),
@@ -83,7 +87,7 @@ function CambiarContraEstudiante() {
       Field2="confirmar nueva contraseña"
       ForgotPassword={false}
       Button="Hecho"
-      NavigateRoute="MiCuentaP"
+      NavigateRoute="MiCuenta"
     />
   );
 }
