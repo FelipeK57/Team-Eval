@@ -25,10 +25,10 @@ function Login() {
 
   const handleClick = async (e) => {
     if (codigo.trim() === "") {
-      return alert("Ingrese un codigo");
+      return;
     }
     if (password.trim() === "") {
-      return alert("Ingrese una contraseña");
+      return;
     }
     e.preventDefault();
     try {
@@ -58,16 +58,14 @@ function Login() {
   };
 
   const handleClick2 = async (e) => {
-    e.preventDefault();
-
     if (identificacion === "") {
-      return alert("Por favor, ingrese su identificación");
+      return;
     }
 
     if (password === "") {
-      return alert("Por favor, ingrese su contraseña");
+      return;
     }
-
+    e.preventDefault();
     try {
       const response = await axios.post(
         "http://localhost:8000/loginProfesor/",
@@ -81,7 +79,7 @@ function Login() {
       Cookies.set("identificacion", response.data.user.identificacion);
       navigate("/Profesor");
     } catch (error) {
-      alert(error.response.data.error);
+      return alert("No se encontro usuario con estas credenciales");
     }
   };
 
