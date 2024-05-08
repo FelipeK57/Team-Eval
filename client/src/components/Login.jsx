@@ -17,16 +17,19 @@ function Login() {
 
   const handleCodigoChange = (e) => {
     setCodigo(e.target.value);
- 
   };
 
   const handleContraseñaChange = (e) => {
     setPassword(e.target.value);
-  
   };
 
   const handleClick = async (e) => {
-    
+    if (codigo.trim() === "") {
+      return alert("Ingrese un codigo");
+    }
+    if (password.trim() === "") {
+      return alert("Ingrese una contraseña");
+    }
     e.preventDefault();
     try {
       const response = await axios.post("http://localhost:8000/login/", {
@@ -42,7 +45,7 @@ function Login() {
       navigate("/Student");
     } catch (error) {
       console.error("Error al realizar la solicitud:", error);
-     
+      return alert("No se encontro usuario con estas credenciales");
     }
   };
 
@@ -55,21 +58,15 @@ function Login() {
   };
 
   const handleClick2 = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (identificacion === "") {
-
       return alert("Por favor, ingrese su identificación");
-
     }
 
     if (password === "") {
-
       return alert("Por favor, ingrese su contraseña");
-
     }
-
-
 
     try {
       const response = await axios.post(
@@ -85,7 +82,6 @@ function Login() {
       navigate("/Profesor");
     } catch (error) {
       alert(error.response.data.error);
-      
     }
   };
 
@@ -206,7 +202,6 @@ function Login() {
           </div>
         </div>
       </div>
-      
     </div>
   );
 }
