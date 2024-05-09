@@ -13,11 +13,7 @@ function Button(props) {
     <div className="Boton">
       {props.LineaBoton ? <hr /> : null}
       <button
-        onClick={props.onClick}
-        style={{
-          backgroundColor: props.color,
-          color: props.fontColor,
-        }}
+        onClick={props.onClick}style={{backgroundColor: `${props.color ? props.color : "white" }`, color: `${props.fontColor? props.fontColor : "black"}`}}
       >
         {props.Boton}
       </button>

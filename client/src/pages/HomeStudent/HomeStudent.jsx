@@ -18,12 +18,11 @@ function HomeStudent() {
         </p>
       </div>
       <div className="conte3">
-        <Link style={{ textDecoration: "none" }} to="/curso">
+        <Link style={{ display: "flex", height: "auto", textDecoration: "none",width:"fit-content", margin:"auto" }} to="/curso">
           <Button2
             Boton2="Ir a Calificar"
             color="rgb(15, 65, 118)"
             fontColor="white"
-            width="200px"
           />
         </Link>
       </div>

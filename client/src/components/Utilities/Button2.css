@@ -4,8 +4,8 @@
   flex-direction: column;
   align-items: center;
   padding: 10px 0;
-  margin: 0px;
-  width: 100%;
+  margin: auto;
+  max-width: fit-content !important;
 }
 
 .Boton2 button {
