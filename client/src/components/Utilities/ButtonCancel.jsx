@@ -1,7 +1,7 @@
-import "./Button.css";
+import "./ButtonCancel.css";
 import PropTypes from "prop-types";
-function Button(props) {
-  Button.propTypes = {
+function ButtonCancel(props) {
+  ButtonCancel.propTypes = {
     LineaBoton: PropTypes.bool.isRequired,
     Boton: PropTypes.string.isRequired,
     fontColor: PropTypes.string,
@@ -10,7 +10,7 @@ function Button(props) {
   };
 
   return (
-    <div className="Boton">
+    <div className="BotonCancel">
       {props.LineaBoton ? <hr /> : null}
       <button
         onClick={props.onClick}
@@ -25,4 +25,4 @@ function Button(props) {
   );
 }
 
-export default Button;
+export default ButtonCancel;
