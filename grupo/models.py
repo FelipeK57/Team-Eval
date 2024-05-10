@@ -4,7 +4,7 @@ from estudiantes.models import Estudiante
 # Create your models here.
 class Grupo(models.Model):
     nombre = models.CharField(max_length=200, null=False)
-    proyectoAsignado = models.CharField(max_length=200, null=False)
+    proyectoasignado = models.CharField(max_length=200, null=False)
     estudiantes = models.ManyToManyField(Estudiante)
 
 
