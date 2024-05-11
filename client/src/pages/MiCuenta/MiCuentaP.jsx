@@ -97,7 +97,6 @@ function MiCuentaP() {
             fontColor="white"
             width="200px"
           />
-          /
         </Link>
       </div>
       <div className="coso3">
