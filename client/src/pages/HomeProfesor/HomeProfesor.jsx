@@ -9,6 +9,10 @@ import Cookies from 'js-cookie';
 function HomeProfesor() {
     const navigate = useNavigate();
 
+    const configurarCursos = () => {
+        navigate('/CursoP');
+    };
+
     useEffect(() => {
 
         const verificarSesion = () => {
@@ -36,7 +40,7 @@ function HomeProfesor() {
                 <p>Facilitando la evaluación por pares para mejorar el trabajo en equipo</p>
             </div>
             <div className="cont3">
-                <Button2 Boton2="Configurar Cursos" color="rgb(15, 65, 118)" fontColor="white"/>
+                <Button Boton="Configurar Cursos" color="rgb(15, 65, 118)" fontColor="white" onClick={configurarCursos}/>
             </div>
         </div>
     );

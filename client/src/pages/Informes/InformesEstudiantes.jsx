@@ -1,8 +1,12 @@
 import NavbarStudent from "../../components/NavbarStudent";
-import CursoModelo from "../../components/CursoModulo";
 import Cookies from "js-cookie";
+import CursoModelo from "../../components/CursoModulo";
+import { useState} from "react";
 
 function InformesEstudiantes() {
+
+    const [cursos, setCursos] = useState([]);
+
     return (
         <div className="Contenedor">
             <NavbarStudent />
@@ -12,9 +16,11 @@ function InformesEstudiantes() {
                 </h1>
             </div>
             <div className="cardi">
-                <div key={"#"}>
-                    <CursoModelo name={"#"} state={true} />
-                </div>
+                {cursos.map((curso) => (
+                    <div key={curso.id}>
+                        <CursoModelo name={curso.nombre} state={curso.estado} />
+                    </div>
+                ))}
             </div>
         </div>
     );
