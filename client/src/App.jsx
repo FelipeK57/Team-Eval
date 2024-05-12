@@ -17,6 +17,7 @@ import CursosEstudiante from "./pages/HomeStudent/CursosEstudiante.jsx";
 import MiCuentaP from "./pages/MiCuenta/MiCuentaP.jsx";
 import CambiarContraEstudiante from "./pages/CambiarContraseña/CambiarContraEstudiante.jsx";
 import AgregarCurso from "./pages/Admin/AgregarCurso.jsx";
+import AgregarProfesor from "./pages/Admin/AgregarProfesor.jsx";
 
 function App() {
   return (
@@ -50,6 +51,7 @@ function App() {
         />
         
         <Route path="/AgregarCurso" element={<AgregarCurso />} />
+        <Route path="/AgregarProfesor" element={<AgregarProfesor />} />
       </Routes>
     </BrowserRouter>
   );
