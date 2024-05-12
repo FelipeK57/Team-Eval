@@ -18,6 +18,7 @@ import MiCuentaP from "./pages/MiCuenta/MiCuentaP.jsx";
 import CambiarContraEstudiante from "./pages/CambiarContraseña/CambiarContraEstudiante.jsx";
 import AgregarCurso from "./pages/Admin/AgregarCurso.jsx";
 import AgregarProfesor from "./pages/Admin/AgregarProfesor.jsx";
+import InformesEstudiantes from "./pages/Informes/InformesEstudiantes.jsx";
 
 function App() {
   return (
@@ -38,7 +39,10 @@ function App() {
         <Route path="/CodigoVerificacion" element={<CodigoVerificacion />} />
         <Route path="/CambiarContraseña" element={<CambiarContraseña />} />
         <Route path="/" element={<Home />} />
+
         <Route path="/Student" element={<HomeStudent />} />
+        <Route path="/InformesEstudiante" element={<InformesEstudiantes />} />
+        
         <Route path="/Profesor" element={<HomeProfesor />} />
         <Route path="/MiCuenta" element={<MiCuenta />} />
         <Route path="/MiCuentaP" element={<MiCuentaP />} />

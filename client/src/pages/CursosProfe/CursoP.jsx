@@ -1,6 +1,5 @@
 import "./CursoP.css";
 import NavbarProfesor from "../../components/NavbarProfesor";
-import Button2 from "../../components/Utilities/Button2";
 
 import SettingsIcon from '@mui/icons-material/Settings';
 import AddIcon from '@mui/icons-material/Add';
