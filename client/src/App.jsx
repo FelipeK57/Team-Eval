@@ -19,6 +19,7 @@ import CambiarContraEstudiante from "./pages/CambiarContraseña/CambiarContraEst
 import AgregarCurso from "./pages/Admin/AgregarCurso.jsx";
 import AgregarProfesor from "./pages/Admin/AgregarProfesor.jsx";
 import InformesEstudiantes from "./pages/Informes/InformesEstudiantes.jsx";
+import AvisoContraseña from "./pages/CambiarContraseña/AvisoContraseña.jsx";
 
 function App() {
   return (
@@ -38,6 +39,8 @@ function App() {
         />
         <Route path="/CodigoVerificacion" element={<CodigoVerificacion />} />
         <Route path="/CambiarContraseña" element={<CambiarContraseña />} />
+        <Route path="/AvisoContraseña" element={<AvisoContraseña/>} />
+
         <Route path="/" element={<Home />} />
 
         <Route path="/Student" element={<HomeStudent />} />
