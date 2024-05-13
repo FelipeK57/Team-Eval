@@ -5,14 +5,13 @@ class Estudiante(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     codigo = models.CharField(max_length=20)
     
-    def cursos_inscritos(self):
-        grupos = self.grupo_set.all()
-        cursos = []
+    def courses_student(self):
+        courses = self.cursos_set.all()
+        courses_s = []
         
-        for grupo in grupos:
-            cursos_grupo = grupo.cursos_set.all()
-            cursos.extend(cursos_grupo)
-        return cursos
+        for course in courses:
+            courses_s.append(course)
+        return courses_s
     
     def __str__(self):
         return self.user.username

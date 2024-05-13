@@ -55,11 +55,25 @@
     align-items: center;
     width: 15%;
     height: 100%;
-    margin-left: 5rem;
+    margin-left: -7rem;
     margin-top: 1.5rem;
 }
 
 .ima img {
+    width: 38.5%;
+    height: 80%;
+}
+
+.imaf {
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+    height: 100%;
+    margin-left: 5rem;
+    margin-top: 1.5rem;
+}
+
+.imaf img {
     width: 38.5%;
     height: 80%;
 }

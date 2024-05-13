@@ -55,11 +55,25 @@
     align-items: center;
     width: 15%;
     height: 100%;
-    margin-left: 5rem;
+    margin-left: -5rem;
     margin-top: 1.5rem;
 }
 
 .image img {
+    width: 38.5%;
+    height: 80%;
+}
+
+.imagef {
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+    height: 100%;
+    margin-left: 5rem;
+    margin-top: 1.5rem;
+}
+
+.imagef img {
     width: 38.5%;
     height: 80%;
 }

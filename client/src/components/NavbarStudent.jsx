@@ -6,9 +6,12 @@ import { Link } from "react-router-dom";
 const NavbarStudent = () => {
   return (
     <nav className="navbar">
-      <div className="imagen">
+      <a href="/Student" className='imagef'>
+        <img src ="../../public/flecha_volver.png" alt ="flecha_volver" />
+      </a>
+      <a href="/Student" className="image">
         <img src="../../public/Logo.png" alt="logo" />
-      </div>
+      </a>
       <h1 href="#" className="navbarh1">
         <b>¡Estudiante!</b>
       </h1>
