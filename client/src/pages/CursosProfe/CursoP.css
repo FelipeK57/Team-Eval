@@ -1,4 +1,5 @@
 .cursed {
+<<<<<<< HEAD
   position: fixed;
   justify-content: center;
   align-items: center;
@@ -9,8 +10,22 @@
   left: 4.2%;
   position: absolute;
   font-family: Mulish !important;
+=======
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    text-decoration: none;
+    color: #000000;
+    top: 20%;
+    left: 4.2%;
+    position: absolute;
+    font-family: Mulish !important;
+>>>>>>> origin/Cursos_profesor
 }
+
 .linea-vertical {
+<<<<<<< HEAD
   position: absolute;
   left: 50%;
   top: 17%;
@@ -69,9 +84,92 @@
   justify-content: center;
   align-items: center;
   left: 55%;
+=======
+    position: absolute;
+    left: 50%;
+    top: 17%;
+    border-left: 2px solid rgb(26, 25, 25);
+    height: 40vh;
+}
+
+.cursed2 {
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    text-decoration: none;
+    color: #000000;
+    top: 20%;
+    left: 55%;
+    position: absolute;
+    font-family: Mulish !important;
+}
+
+.cardex {
+    display: flex;
+    position: absolute;
+    width: 180px;
+    height: 0;
+    padding: 90px !important;
+    background-color: rgb(15, 65, 118);
+    border-radius: 40px;
+    top: 37%;
+    left: 4.2%;
+}
+
+.cardex button {
+    color: black;
+    border: none;
+    border-radius: 100%;
+    height: 5rem;
+    width: 5rem;
+    margin: auto;
+    cursor: pointer;
+    transition: 0.3s;
+    position: relative;
+    bottom: 2.5rem;
+    background-color: white;
+}
+
+.cardex button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 0.5rem 0.5rem rgba(255, 255, 255, 0.1);
+}
+
+.cardex2 {
+    display: flex;
+    position: absolute;
+    width: 180px;
+    height: 0;
+    padding: 90px !important;
+    background-color: rgb(15, 65, 118);
+    border-radius: 40px;
+    top: 37%;
+    left: 55%;
+>>>>>>> origin/Cursos_profesor
+}
+
+.cardex2 button {
+    color: black;
+    border: none;
+    border-radius: 100%;
+    height: 5rem;
+    width: 5rem;
+    margin: auto;
+    cursor: pointer;
+    transition: 0.3s;
+    position: relative;
+    bottom: 2.5rem;
+    background-color: white;
+}
+
+.CursosProfe button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 0.5rem 0.5rem rgba(255, 255, 255, 0.1);
 }
 
 .linea-horizontal {
+<<<<<<< HEAD
   position: absolute;
   top: 60%;
   left: 4.2%;
@@ -124,6 +222,86 @@
   left: 10%;
   position: absolute;
   font-family: Mulish !important;
+=======
+    position: absolute;
+    top: 60%;
+    left: 4.2%;
+    border-top: 2px solid black;
+    width: 92.2%;
+}
+
+.corsel {
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    text-decoration: none;
+    color: #000000;
+    top: 60%;
+    left: 4.2%;
+    position: absolute;
+    font-family: Mulish !important;
+}
+
+.corsel b {
+    color: rgb(15, 65, 118);
+}
+
+.cardex3 {
+    position: absolute;
+    width: 180px;
+    padding: 90px !important;
+    background-color: rgb(51, 99, 150);
+    border-radius: 40px;
+    top: 73%;
+    left: 4.2%;
+}
+
+.line-horizonte {
+    position: absolute;
+    left: 67%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: white;
+    height: 100%;
+}
+
+.cardex32 {
+    text-align: center;
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: #ffffff;
+    top: 20%;
+    left: 10%;
+    position: absolute;
+    font-family: Mulish !important;
+
+}
+
+.cardex32 button {
+    color: black;
+    border: none;
+    border-radius: 100%;
+    height: 3.5rem;
+    width: 3.5rem;
+    margin: auto;
+    cursor: pointer;
+    transition: 0.3s;
+    position: relative;
+    bottom: 5.5rem;
+    left: 107%;
+    background-color: white;
+}
+
+.cardex4 {
+    position: absolute;
+    width: 180px;
+    padding: 90px !important;
+    background-color: rgb(15, 65, 118);
+    border-radius: 40px;
+    top: 73%;
+    left: 24%;
+>>>>>>> origin/Cursos_profesor
 }
 
 .cardex4 {
@@ -137,6 +315,7 @@
 }
 
 .cardex42 {
+<<<<<<< HEAD
   text-align: center;
   font-size: 0.9rem;
   text-decoration: none;
@@ -146,3 +325,40 @@
   position: absolute;
   font-family: Mulish !important;
 }
+=======
+    text-align: center;
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: #ffffff;
+    top: 20%;
+    left: 10%;
+    position: absolute;
+    font-family: Mulish !important;
+
+}
+
+.cardex42 button {
+    color: black;
+    border: none;
+    border-radius: 100%;
+    height: 3.5rem;
+    width: 3.5rem;
+    margin: auto;
+    cursor: pointer;
+    transition: 0.3s;
+    background-color: white;
+
+}
+
+.cardex42 .button1 {
+    position: relative;
+    bottom: 8rem;
+    left: 131%;
+}
+
+.cardex42 .button2 {
+    position: relative;
+    bottom: 3rem;
+    left: 97%;
+}
+>>>>>>> origin/Cursos_profesor
