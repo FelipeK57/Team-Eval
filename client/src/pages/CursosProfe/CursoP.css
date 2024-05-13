@@ -55,6 +55,7 @@
     transition: 0.3s;
     position: relative;
     bottom: 2.5rem;
+    background-color: white;
 }
 
 .cardex button:hover {
@@ -85,6 +86,7 @@
     transition: 0.3s;
     position: relative;
     bottom: 2.5rem;
+    background-color: white;
 }
 
 .CursosProfe button:hover {
@@ -160,6 +162,7 @@
     position: relative;
     bottom: 5.5rem;
     left: 107%;
+    background-color: white;
 }
 
 .cardex4 {
@@ -194,6 +197,7 @@
     margin: auto;
     cursor: pointer;
     transition: 0.3s;
+    background-color: white;
 
 }
 
