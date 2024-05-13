@@ -17,13 +17,9 @@ import CursosEstudiante from "./pages/HomeStudent/CursosEstudiante.jsx";
 import MiCuentaP from "./pages/MiCuenta/MiCuentaP.jsx";
 import CambiarContraEstudiante from "./pages/CambiarContraseña/CambiarContraEstudiante.jsx";
 import AgregarCurso from "./pages/Admin/AgregarCurso.jsx";
-<<<<<<< HEAD
-import ImportarCursos from "./pages/Home/ImportarCursos.jsx";
-=======
 import AgregarProfesor from "./pages/Admin/AgregarProfesor.jsx";
 import InformesEstudiantes from "./pages/Informes/InformesEstudiantes.jsx";
 import AvisoContraseña from "./pages/CambiarContraseña/AvisoContraseña.jsx";
->>>>>>> origin/Cursos_profesor
 
 function App() {
   return (
@@ -55,16 +51,7 @@ function App() {
         <Route path="/Cursos" element={<CursosEstudiante />} />
         <Route path="/Curso" element={<Curso />} />
         <Route path="/CursoP" element={<CursoP />} />
-<<<<<<< HEAD
-        <Route path="/ImportarCursos" element={<ImportarCursos />} />
-        <Route
-          path="/CambioContraEstudiante"
-          element={<CambiarContraEstudiante />}
-        />
-
-=======
         
->>>>>>> origin/Cursos_profesor
         <Route path="/AgregarCurso" element={<AgregarCurso />} />
         <Route path="/AgregarProfesor" element={<AgregarProfesor />} />
       </Routes>
