@@ -1,5 +1,14 @@
 import psycopg2
 from datetime import date
+from django.contrib.auth.hashers import make_password
+import os
+import django
+
+# Establecer la variable de entorno DJANGO_SETTINGS_MODULE
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'api.settings')
+
+# Configurar Django
+django.setup()
 
 # Connect to the database
 try:
@@ -31,20 +40,29 @@ try:
     # Define the data to insert
     nota = 777
     comentarios = 'Hey muy buenas a todos guapisimos'
-
+    passwords = [
+    make_password('d123456d'),
+    make_password('j123456j'),
+    make_password('se12345se'),
+    make_password('s123456s'),
+    make_password('k123456k'),
+    make_password('j123456j'),
+    make_password('a123456a'),
+    make_password('n123456n'),
+]
     # Create a cursor
     cursor = conexion.cursor()
 
     # Execute the INSERT query with data values
     cursor.execute(sql_informes, (nota, comentarios))
-    cursor.execute(sql_user, (2, 'd123456d', False, 'David', 'David', 'Palacios', 'david@gmail.com', False, True, '2024-05-03 11:30:50-05'))
-    cursor.execute(sql_user, (3, 'j123456j', False, 'Diego', 'Diego', 'Leon', 'diego@gmail.com', False, True, '2024-05-03 11:35:50-05'))
-    cursor.execute(sql_user, (4, 'se12345se', False, 'Sebastian', 'Sebastian', 'Hernandez', 'sebastian@gmail.com', False, True, '2024-05-03 11:30:50-05'))
-    cursor.execute(sql_user, (5, 's123456s', False, 'Santiago', 'Santiago', 'Sanchez', 'santiago@gmail.com', False, True, '2024-05-03 11:35:50-05'))
-    cursor.execute(sql_user, (6, 'k123456k', False, 'Kevin', 'Kevin', 'Bolaños', 'kevin@gmail.com', False, True, '2024-05-03 11:30:50-05'))
-    cursor.execute(sql_user, (7, 'j123456j', False, 'Camilo', 'Camilo', 'Gonzalez', 'camilo@gmail.com', False, True, '2024-05-03 11:35:50-05'))
-    cursor.execute(sql_user, (8, 'a123456a', False, 'Antonio', 'Antonio', 'Veléz', 'antonio@gmail.com', False, True, '2024-05-03 11:35:50-05'))
-    cursor.execute(sql_user, (9, 'n123456n', False, 'Nathalia', 'Nathalia', 'Henao', 'nathalia@gmail.com', False, True, '2024-05-03 11:35:50-05'))
+    cursor.execute(sql_user, (2, passwords[0], False, 'David', 'David', 'Palacios', 'david@gmail.com', False, True, '2024-05-03 11:30:50-05'))
+    cursor.execute(sql_user, (3, passwords[1], False, 'Diego', 'Diego', 'Leon', 'diego@gmail.com', False, True, '2024-05-03 11:35:50-05'))
+    cursor.execute(sql_user, (4, passwords[2], False, 'Sebastian', 'Sebastian', 'Hernandez', 'sebastian@gmail.com', False, True, '2024-05-03 11:30:50-05'))
+    cursor.execute(sql_user, (5, passwords[3], False, 'Santiago', 'Santiago', 'Sanchez', 'santiago@gmail.com', False, True, '2024-05-03 11:35:50-05'))
+    cursor.execute(sql_user, (6, passwords[4], False, 'Kevin', 'Kevin', 'Bolaños', 'kevin@gmail.com', False, True, '2024-05-03 11:30:50-05'))
+    cursor.execute(sql_user, (7, passwords[5], False, 'Camilo', 'Camilo', 'Gonzalez', 'camilo@gmail.com', False, True, '2024-05-03 11:35:50-05'))
+    cursor.execute(sql_user, (8, passwords[6], False, 'Antonio', 'Antonio', 'Veléz', 'antonio@gmail.com', False, True, '2024-05-03 11:35:50-05'))
+    cursor.execute(sql_user, (9, passwords[7], False, 'Nathalia', 'Nathalia', 'Henao', 'nathalia@gmail.com', False, True, '2024-05-03 11:35:50-05'))
 
     cursor.execute(sql_estudiante, (1, '2255802', 2))
     cursor.execute(sql_estudiante, (2, '2255418', 3))
