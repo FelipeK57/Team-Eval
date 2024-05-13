@@ -12,23 +12,41 @@ from estudiantes.models import Estudiante
 from estudiantes.serializers import EstudianteSerializer
 from profesor.serializers import ProfesorSerializer
 from profesor.models import Profesor
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import authenticate
 from django.http import QueryDict
-from django.http import JsonResponse
 from cursos.serializer import CursosSerializer
-
+from administrador.models import administrador
+from administrador.serializer import AdministradorSerializer
 
 @api_view(['POST'])
 def login(request):
     codigo = request.data.get('codigo')
     estudiante = get_object_or_404(Estudiante, codigo=codigo)
-
+    
     if not estudiante.user.check_password(request.data['password']):
         return Response({"error:": "Invalid password"}, status=status.HTTP_400_BAD_REQUEST)
         
     token, created = Token.objects.get_or_create(user=estudiante.user)
     serializer = EstudianteSerializer(estudiante)
     return Response({"token": token.key, "estudiante": serializer.data, "nombre": estudiante.user.first_name, "apellido": estudiante.user.last_name, "email": estudiante.user.email}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def login_adminte(request):
+    codigo = request.data.get('codigo')
+    admin = get_object_or_404(administrador, codigo=codigo)
+    
+    if not admin.user.check_password(request.data['password']):
+        return Response({"error:": "Invalid password"}, status=status.HTTP_400_BAD_REQUEST)
+        
+    token, created = Token.objects.get_or_create(user=admin.user)
+    serializer = AdministradorSerializer(admin)
+    return Response({"token": token.key, "user": serializer.data }, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def import_cursos(request):
+    admin = get_object_or_404(administrador, codigo='5775')
+    admin.read_file(request.FILES['file'])
+    return Response(status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 def register(request):
@@ -57,6 +75,8 @@ def loginProfesor(request):
         profesor = Profesor.objects.get(identificacion=identificacion)
     except Profesor.DoesNotExist:
         return Response({"error": "Profesor no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+
+    print(profesor.courses_teacher())
 
     # Verificar la contraseña
     user = profesor.user
@@ -192,7 +212,14 @@ def change_emaiP(request):
 def student_courses(request):
     codigo = request.data.get('codigo')
     student = get_object_or_404(Estudiante, codigo=codigo)
-    serializer = CursosSerializer(student.cursos_inscritos(), many=True)
+    serializer = CursosSerializer(student.courses_student(), many=True)
+    return Response({"cursos": serializer.data}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def teacher_courses(request):
+    identificacion = request.data.get('identificacion')
+    profesor = get_object_or_404(Profesor, identificacion=identificacion)
+    serializer = CursosSerializer(profesor.courses_teacher(), many=True)
     return Response({"cursos": serializer.data}, status=status.HTTP_200_OK)
 
 @api_view(['POST'])

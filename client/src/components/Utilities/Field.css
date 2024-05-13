@@ -1,60 +1,59 @@
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .InputContenedor {
-    display: flex;
-    position: relative;
-    font-size: 1.2rem;
-    margin: 20px 0;
-    width: 70%;
+  display: flex;
+  position: relative;
+  font-size: 1.2rem;
+  margin: 20px 0;
+  width: 70%;
 }
 
 .InputContenedor input {
-    padding: 10px;
-    font-size: 1.3rem;
-    width: 100%;
-    background-color: white;
-    border-radius: 15px;
-
+  border-style: none;
+  padding: 10px;
+  font-size: 1.3rem;
+  width: 100%;
+  background-color: white;
+  border-radius: 15px;
 }
 
 .InputContenedor label {
-    position: absolute;
-    left: 0;
-    bottom: 5px;
-    color: #999999;
-    pointer-events: none;
-    transition: all 0.3s ease;
-    padding: 5px 10px;
+  position: absolute;
+  left: 0;
+  bottom: 5px;
+  color: #999999;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  padding: 5px 10px;
 }
 
-.InputContenedor input:focus~label,
-.InputContenedor input:valid~label {
-    bottom: 100%;
-    font-size: 1.1rem;
-    color: #ffffff;
+.InputContenedor input:focus ~ label,
+.InputContenedor input:valid ~ label {
+  bottom: 100%;
+  font-size: 1.1rem;
+  color: #ffffff;
 }
 
 .InputContenedor input:valid {
-    color: #000;
+  color: #000;
 }
 
 .btn {
-    display: flex;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    position: absolute;
-    flex-direction: flex-end;
-    right: 10px;
-    top: 10px;
+  display: flex;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  flex-direction: flex-end;
+  right: 10px;
+  top: 10px;
 }
 
 .btn:active {
-    transform: scale(1.3);
-    transition: all 0.5s;
-
+  transform: scale(1.3);
+  transition: all 0.5s;
 }
