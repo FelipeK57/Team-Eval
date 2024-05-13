@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'grupo',
     'evaluacion',
     'criterio_evaluacion',
-    'rubrica'
+    'rubrica',
+    'admin_te',
 ]
 
 MIDDLEWARE = [

@@ -1,9 +1,8 @@
 import "./HomeProfesor.css";
 import NavbarProfesor from "../../components/NavbarProfesor";
-import Button from "../../components/Utilities/Button";
 import Button2 from "../../components/Utilities/Button2";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Cookies from "js-cookie";
 
 function HomeProfesor() {
@@ -39,11 +38,13 @@ function HomeProfesor() {
         </p>
       </div>
       <div className="cont3">
-        <Button2
-          Boton2="Configurar Cursos"
-          color="rgb(15, 65, 118)"
-          fontColor="white"
-        />
+        <Link to="/cursop">
+          <Button2
+            Boton2="Configurar Cursos"
+            color="rgb(15, 65, 118)"
+            fontColor="white"
+          />
+        </Link>
       </div>
     </div>
   );

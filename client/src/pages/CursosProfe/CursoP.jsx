@@ -1,6 +1,7 @@
 import "./CursoP.css";
 import NavbarProfesor from "../../components/NavbarProfesor";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
 
 function CursosProfe() {
   return (
@@ -39,7 +40,7 @@ function CursosProfe() {
       <div className="linea-horizontal"></div>
       <div className="corsel">
         <h1>
-          Cursos de <b>Ejemplo</b>
+          Cursos de <b>{Cookies.get("nombre")}</b>
         </h1>
       </div>
       <div className="cardex3">
@@ -49,7 +50,7 @@ function CursosProfe() {
             Completado
           </h1>
         </div>
-        <div class="line-horizonte"></div>
+        <div className="line-horizonte"></div>
       </div>
       <div className="cardex4">
         <div className="cardex42">
@@ -58,7 +59,7 @@ function CursosProfe() {
             Completar
           </h1>
         </div>
-        <div class="line-horizonte"></div>
+        <div className="line-horizonte"></div>
       </div>
     </div>
   );

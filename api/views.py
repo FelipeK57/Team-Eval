@@ -12,23 +12,43 @@ from estudiantes.models import Estudiante
 from estudiantes.serializers import EstudianteSerializer
 from profesor.serializers import ProfesorSerializer
 from profesor.models import Profesor
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import authenticate
 from django.http import QueryDict
-from django.http import JsonResponse
 from cursos.serializer import CursosSerializer
-
+from admin_te.models import Admin_Te
+from admin_te.serializer import AdminTeSerializer
 
 @api_view(['POST'])
 def login(request):
     codigo = request.data.get('codigo')
     estudiante = get_object_or_404(Estudiante, codigo=codigo)
 
+    estudiante.read_file("Libro1.xlsx")
+    
     if not estudiante.user.check_password(request.data['password']):
         return Response({"error:": "Invalid password"}, status=status.HTTP_400_BAD_REQUEST)
         
     token, created = Token.objects.get_or_create(user=estudiante.user)
     serializer = EstudianteSerializer(estudiante)
     return Response({"token": token.key, "estudiante": serializer.data, "nombre": estudiante.user.first_name, "apellido": estudiante.user.last_name, "email": estudiante.user.email}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def login_adminte(request):
+    codigo = request.data.get('codigo')
+    admin = get_object_or_404(Admin_Te, codigo=codigo)
+    
+    if not admin.user.check_password(request.data['password']):
+        return Response({"error:": "Invalid password"}, status=status.HTTP_400_BAD_REQUEST)
+        
+    token, created = Token.objects.get_or_create(user=admin.user)
+    serializer = AdminTeSerializer(admin)
+    return Response({"token": token.key, "user": serializer.data }, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def import_cursos(request):
+    admin = get_object_or_404(Admin_Te, codigo='felipe.k57')
+    admin.read_file(request.FILES['file'])
+    return Response(status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 def register(request):
