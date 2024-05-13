@@ -19,7 +19,7 @@ function CambiarContraseña() {
         console.log("El usuario ha iniciado sesión. ID de usuario:", userId);
       } else {
         console.log("El usuario no ha iniciado sesión.");
-        navigate("/Login");
+        navigate("/AvisoContraseña");
       }
     };
 
@@ -64,7 +64,7 @@ function CambiarContraseña() {
           },
         }
       );
-      navigate("/Login");
+      navigate("/AvisoContraseña");
       Cookies.remove("token");
       Cookies.remove("loggedIn");
       Cookies.remove("identificacion");

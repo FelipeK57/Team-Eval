@@ -17,7 +17,13 @@ import CursosEstudiante from "./pages/HomeStudent/CursosEstudiante.jsx";
 import MiCuentaP from "./pages/MiCuenta/MiCuentaP.jsx";
 import CambiarContraEstudiante from "./pages/CambiarContraseña/CambiarContraEstudiante.jsx";
 import AgregarCurso from "./pages/Admin/AgregarCurso.jsx";
+<<<<<<< HEAD
 import ImportarCursos from "./pages/Home/ImportarCursos.jsx";
+=======
+import AgregarProfesor from "./pages/Admin/AgregarProfesor.jsx";
+import InformesEstudiantes from "./pages/Informes/InformesEstudiantes.jsx";
+import AvisoContraseña from "./pages/CambiarContraseña/AvisoContraseña.jsx";
+>>>>>>> origin/Cursos_profesor
 
 function App() {
   return (
@@ -25,33 +31,42 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/LoginAdmin" element={<LoginAdmin />} />
+
         <Route path="/ActualizacionCorreo" element={<ActualizacionCorreo />} />
-        <Route
-          path="/ActualizacionCorreoP"
-          element={<ActualizacionCorreoP />}
-        />
+        <Route path="/ActualizacionCorreoP" element={<ActualizacionCorreoP />}/>
         <Route path="/AvisoCorreo" element={<AvisoCorreo />} />
-        <Route
-          path="/VerificacionCorreo"
-          element={<VerificacionCorreo NavigateRoute="Login" />}
-        />
+
+        <Route path="/VerificacionCorreo"element={<VerificacionCorreo NavigateRoute="Login" />}/>
         <Route path="/CodigoVerificacion" element={<CodigoVerificacion />} />
         <Route path="/CambiarContraseña" element={<CambiarContraseña />} />
+        <Route path="/CambioContraEstudiante" element={<CambiarContraEstudiante />}/>
+        <Route path="/AvisoContraseña" element={<AvisoContraseña/>} />
+
         <Route path="/" element={<Home />} />
+
         <Route path="/Student" element={<HomeStudent />} />
+        <Route path="/InformesEstudiante" element={<InformesEstudiantes />} />
+        
         <Route path="/Profesor" element={<HomeProfesor />} />
+
         <Route path="/MiCuenta" element={<MiCuenta />} />
         <Route path="/MiCuentaP" element={<MiCuentaP />} />
+
         <Route path="/Cursos" element={<CursosEstudiante />} />
         <Route path="/Curso" element={<Curso />} />
         <Route path="/CursoP" element={<CursoP />} />
+<<<<<<< HEAD
         <Route path="/ImportarCursos" element={<ImportarCursos />} />
         <Route
           path="/CambioContraEstudiante"
           element={<CambiarContraEstudiante />}
         />
 
+=======
+        
+>>>>>>> origin/Cursos_profesor
         <Route path="/AgregarCurso" element={<AgregarCurso />} />
+        <Route path="/AgregarProfesor" element={<AgregarProfesor />} />
       </Routes>
     </BrowserRouter>
   );

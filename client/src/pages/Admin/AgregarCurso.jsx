@@ -1,23 +1,20 @@
+import CardForm from "../../components/CardForm";
 import NavBar from "../../components/NavBar";
-import "./AgregarCurso.css";
 
 function AgregarCurso() {
     return (
         <div className="Contenedor">
-            <div className="NavBar">
-                <NavBar />
-            </div>
-            <div className="ContainerAgregarCurso">
-                <div className="CardAgregarCurso">
-                    <div className="TitleAgregarCurso">
-                        <h1>Agregar Cursos</h1>
-                    </div>
-                    <form>
-
-                    </form>
-                </div>
-            </div>
+            <NavBar />
+            <CardForm Title="Agregar Cursos"
+                Label1="Nombre"
+                Label2="Codigo"
+                Label3="Profesor"
+                Label4="Año"
+                Label5="Semestre"
+                Combo={true}
+                />
         </div>
+        
     );
 }
 
