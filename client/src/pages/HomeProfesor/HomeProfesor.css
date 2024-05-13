@@ -1,37 +1,33 @@
-.container{
+.cont{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 80vh;
+    margin: 40vh 0 0 0;
     width: auto;
     font-family: Mulish;
     font-size: 1.5rem;
     color: #000;
 
 }
-.container b{
+.cont b{
     color: rgb(15, 65, 118);
 }
 
-.container2{
-    position: absolute;
+.cont2{
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    top: 44%;
-    width: auto;
     font-family: Mulish;
     font-size: 1.5rem;
     color: #000;
 }
 
-.container3 {
-    position: absolute;
+.cont3 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    top: 55%;
     width: auto;
 
 }

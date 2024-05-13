@@ -1,25 +1,24 @@
 .navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 999;
-    background-color: rgb(15, 65, 118);
-    height: 8rem;
-    display: flex;
-    align-items: center;
-    font-family: Mulish !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  background-color: rgb(15, 65, 118);
+  height: 8rem;
+  display: flex;
+  align-items: center;
+  font-family: Mulish !important;
 }
 
 .navbarh1 {
-    justify-content: center;
-    align-items: center;
-    font-size: 2.3rem;
-    text-decoration: none;
-    color: #ffffff;
-    left: 45%;
-    position: absolute;
-
+  justify-content: center;
+  align-items: center;
+  font-size: 2.3rem;
+  text-decoration: none;
+  color: #ffffff;
+  left: 45%;
+  position: absolute;
 }
 
 .navbara {
@@ -29,23 +28,23 @@
     text-decoration: none;
     color: #ffffff;
     position: absolute;
-    left: 85%;
+    left: 85% !important;
     transition: all 0.3s;
 }
 .navbara:hover {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .imagen {
-    justify-content: center;
-    align-items: center;
-    width: 15%;
-    height: 100%;
-    margin-left: 5rem;
-    margin-top: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  width: 15%;
+  height: 100%;
+  margin-left: 5rem;
+  margin-top: 1.5rem;
 }
 
 .imagen img {
-    width: 38.5%;
-    height: 80%;
+  width: 38.5%;
+  height: 80%;
 }

@@ -42,7 +42,11 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'cursos',
     'profesor',
-    'estudiantes'
+    'estudiantes',
+    'grupo',
+    'evaluacion',
+    'criterio_evaluacion',
+    'rubrica'
 ]
 
 MIDDLEWARE = [
@@ -54,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'api.urls'
@@ -82,8 +87,12 @@ WSGI_APPLICATION = 'api.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'bd_Team-Eval',
+        'USER': 'postgres',
+        'PASSWORD': 'teameval',
+        'HOST': 'localhost',
+        'PORT': '5432'
     }
 }
 
@@ -131,3 +140,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOWED_ORIGINS = ["http://localhost:5173"]
+
+
+
