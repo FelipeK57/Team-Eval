@@ -36,7 +36,7 @@ function HomeProfesor() {
                 <p>Facilitando la evaluación por pares para mejorar el trabajo en equipo</p>
             </div>
             <div className="cont3">
-                <Button2 Boton2="Configurar Cursos" color="rgb(15, 65, 118)" fontColor="white" width="250px"/>
+                <Button2 Boton2="Configurar Cursos" color="rgb(15, 65, 118)" fontColor="white"/>
             </div>
         </div>
     );

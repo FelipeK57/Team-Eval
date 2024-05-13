@@ -17,15 +17,19 @@ function Login() {
 
   const handleCodigoChange = (e) => {
     setCodigo(e.target.value);
- 
   };
 
   const handleContraseñaChange = (e) => {
     setPassword(e.target.value);
-  
   };
 
   const handleClick = async (e) => {
+    if (codigo.trim() === "") {
+      return;
+    }
+    if (password.trim() === "") {
+      return;
+    }
     e.preventDefault();
     try {
       const response = await axios.post("http://localhost:8000/login/", {
@@ -34,12 +38,14 @@ function Login() {
       });
       Cookies.set("token", response.data.token, { expires: 1 }); // Guarda el token en una cookie que expira en 7 días
       Cookies.set("loggedIn", "true", { expires: 7 }); // Indica que el usuario ha iniciado sesión
-      Cookies.set("codigo", response.data.userId);
-      Cookies.set("user", response.data.user);
+      Cookies.set("codigo", response.data.estudiante.codigo);
+      Cookies.set("nombre", response.data.nombre);
+      Cookies.set("apellido", response.data.apellido);
+      Cookies.set("email", response.data.email);
       navigate("/Student");
     } catch (error) {
       console.error("Error al realizar la solicitud:", error);
-     
+      return alert("No se encontro usuario con estas credenciales");
     }
   };
 
@@ -52,22 +58,14 @@ function Login() {
   };
 
   const handleClick2 = async (e) => {
-    e.preventDefault()
-
     if (identificacion === "") {
-
-      return alert("Por favor, ingrese su identificación");
-
+      return;
     }
 
     if (password === "") {
-
-      return alert("Por favor, ingrese su contraseña");
-
+      return;
     }
-
-
-
+    e.preventDefault();
     try {
       const response = await axios.post(
         "http://localhost:8000/loginProfesor/",
@@ -81,8 +79,8 @@ function Login() {
       Cookies.set("identificacion", response.data.user.identificacion);
       navigate("/Profesor");
     } catch (error) {
-      alert(error.response.data.error);
-      
+      console.error("Error al realizar la solicitud:", error);
+      return alert("No se encontro usuario con estas credenciales");
     }
   };
 
@@ -110,8 +108,9 @@ function Login() {
         <div className="CardContainer">
           <div className="CardSwitcher">
             <button
-              className={`Left${activeButton === "Estudiante" ? " active" : ""
-                }`}
+              className={`Left${
+                activeButton === "Estudiante" ? " active" : ""
+              }`}
               onClick={() => setActiveButton("Estudiante")}
               style={
                 activeButton === "Estudiante"
@@ -137,8 +136,9 @@ function Login() {
           <div className="Card">
             <div className={`In Estudiante`}>
               <form
-                className={`Formulario${activeButton === "Estudiante" ? " ActiveCard" : " NotActive"
-                  }`}
+                className={`Formulario${
+                  activeButton === "Estudiante" ? " ActiveCard" : " NotActive"
+                }`}
               >
                 <br />
                 <Field
@@ -168,8 +168,9 @@ function Login() {
             </div>
             <div className={`In Profesor`}>
               <form
-                className={`Formulario${activeButton === "Profesor" ? " ActiveCard" : " NotActive"
-                  }`}
+                className={`Formulario${
+                  activeButton === "Profesor" ? " ActiveCard" : " NotActive"
+                }`}
               >
                 <br />
                 <Field
@@ -200,7 +201,6 @@ function Login() {
           </div>
         </div>
       </div>
-      
     </div>
   );
 }

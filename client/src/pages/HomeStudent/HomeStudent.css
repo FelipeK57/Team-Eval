@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 80vh;
+    margin: 40vh 0 0 0;
     width: auto;
     font-family: Mulish;
     font-size: 1.5rem;
@@ -15,23 +15,19 @@
 }
 
 .conte2{
-    position: absolute;
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    top: 44%;
-    left: 31%;
     font-family: Mulish;
     font-size: 1.5rem;
     color: #000;
 }
 
 .conte3 {
-    position: absolute;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    top: 55%;
-    left: 45.5%;
+    width: auto;
 
 }

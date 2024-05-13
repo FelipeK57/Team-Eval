@@ -3,6 +3,8 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Button from "../../components/Utilities/Button";
 import { useNavigate } from "react-router-dom";
 import "./VerificacionCorreo.css";
+import { useState } from "react";
+import PopUp from "../../components/Utilities/PopUp.jsx";
 
 function VerificacionCorreo() {
 
@@ -10,6 +12,13 @@ function VerificacionCorreo() {
 
     const VolverClick = () => {
         navigate(-1);
+    };
+
+    const [open, setOpen] = useState(false);
+
+    const popup = (e) => {
+        e.preventDefault();
+        setOpen(!open);
     };
 
     return (
@@ -39,7 +48,7 @@ function VerificacionCorreo() {
                             <div className="TitleVerificacion">
                                 <h1>Verificacion de correo</h1>
                             </div>
-                            <form
+                            <form onSubmit={popup}
                                 className="FormularioVerificacion"
                             >
                                 <br />
@@ -48,7 +57,7 @@ function VerificacionCorreo() {
                                     <input type="mail" />
                                 </div>
                                 <Button
-                                    onClick={"#"}
+                                    onClick={(e) => popup(e)}
                                     LineaBoton={true}
                                     Boton={"Hecho"}
                                 />
@@ -57,6 +66,13 @@ function VerificacionCorreo() {
                     </div>
                 </div>
             </div>
+            <PopUp open={open}
+                SetOpen={setOpen}
+                Advice={"Esta seguro que digito el correo correctamente?"}
+                Width={"65%"}
+                Button1="Aceptar"
+                Button2="Cancelar"
+            />
         </div>
     );
 }

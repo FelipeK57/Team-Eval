@@ -21,6 +21,14 @@
     color: #000;
   }
 
+  .coso3 a {
+    text-decoration: none;
+  }
+
+  .coso2 a {
+    text-decoration: none;
+  }
+
   .coso2 {
     position: absolute;
     flex-direction: column;
@@ -38,6 +46,7 @@
     justify-content: center;
     top: 57%;
     left: 22%;
+    
 
 }
 

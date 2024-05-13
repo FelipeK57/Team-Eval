@@ -6,14 +6,14 @@ function Button(props) {
     Boton: PropTypes.string.isRequired,
     fontColor: PropTypes.string,
     color: PropTypes.string,
+    onClick: PropTypes.func,
   };
 
   return (
     <div className="Boton">
       {props.LineaBoton ? <hr /> : null}
       <button
-        onClick={props.onClick}
-        style={{ backgroundColor: props.color, color: props.fontColor }}
+        onClick={props.onClick}style={{backgroundColor: `${props.color ? props.color : "white" }`, color: `${props.fontColor? props.fontColor : "black"}`}}
       >
         {props.Boton}
       </button>
