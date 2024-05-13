@@ -6,6 +6,14 @@ class Profesor(models.Model):
     telefono = models.PositiveIntegerField(null=True)
     identificacion = models.PositiveBigIntegerField(null=True)
 
+    def courses_teacher(self):
+        courses = self.cursos_set.all()
+        courses_t = []
+        
+        for course in courses:
+            courses_t.append(course)
+        return courses_t
+            
     def __str__(self):
         return self.user.username 
 
