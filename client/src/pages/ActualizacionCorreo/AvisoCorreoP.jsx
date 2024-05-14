@@ -1,11 +1,11 @@
 import Aviso from "../../components/Aviso";
 
-function AvisoCorreo() {
+function AvisoCorreoP() {
     return (
         <Aviso Title="Aviso"
                Text="Su correo ha sido actualizado exitosamente"
                Button="Continuar"
-               NavigateRoute="Student"/>
+               NavigateRoute="Profesor"/>
     );
 }
-export default AvisoCorreo
+export default AvisoCorreoP

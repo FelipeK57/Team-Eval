@@ -59,7 +59,7 @@ function ActualizacionCorreo() {
         }
       );
       Cookies.set("email", email);
-      navigate("/MiCuenta");
+      navigate("/AvisoCorreo");
     } catch (error) {
       console.error("Error al realizar la solicitud:", error);
       alert("Error al hacer la solicitud al servidor");

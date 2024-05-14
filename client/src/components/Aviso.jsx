@@ -10,13 +10,14 @@ function Aviso(props) {
   const navigate = useNavigate();
 
   const ButtonClick = () => {
-    navigate("/Login");
+    navigate(`/${props.NavigateRoute}`);
   };
 
   Aviso.propTypes = {
     Title: PropTypes.string.isRequired,
     Text: PropTypes.string.isRequired,
     Button: PropTypes.string.isRequired,
+    NavigateRoute: PropTypes.string.isRequired,
   };
 
     return (

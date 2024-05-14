@@ -60,7 +60,7 @@ function ActualizacionCorreoP() {
         }
       );
       Cookies.set("email", email);
-      navigate("/MiCuentaP");
+      navigate("/AvisoCorreoP");
     } catch (error) {
       console.error("Error al realizar la solicitud:", error);
       alert("Error al hacer la solicitud al servidor");

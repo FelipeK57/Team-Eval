@@ -20,38 +20,46 @@ import AgregarCurso from "./pages/Admin/AgregarCurso.jsx";
 import AgregarProfesor from "./pages/Admin/AgregarProfesor.jsx";
 import InformesEstudiantes from "./pages/Informes/InformesEstudiantes.jsx";
 import AvisoContraseña from "./pages/CambiarContraseña/AvisoContraseña.jsx";
+import AvisoCorreoP from "./pages/ActualizacionCorreo/AvisoCorreoP.jsx";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/*Logins*/}
         <Route path="/login" element={<Login />} />
         <Route path="/LoginAdmin" element={<LoginAdmin />} />
 
+        {/*Actualizacion de correo*/}
         <Route path="/ActualizacionCorreo" element={<ActualizacionCorreo />} />
         <Route path="/ActualizacionCorreoP" element={<ActualizacionCorreoP />}/>
         <Route path="/AvisoCorreo" element={<AvisoCorreo />} />
+        <Route path="/AvisoCorreoP" element={<AvisoCorreoP />} />
 
+        {/*Actualizacion de contraseña*/}
         <Route path="/VerificacionCorreo"element={<VerificacionCorreo NavigateRoute="Login" />}/>
         <Route path="/CodigoVerificacion" element={<CodigoVerificacion />} />
         <Route path="/CambiarContraseña" element={<CambiarContraseña />} />
         <Route path="/CambioContraEstudiante" element={<CambiarContraEstudiante />}/>
         <Route path="/AvisoContraseña" element={<AvisoContraseña/>} />
 
+        {/*Pagina Principale*/}
         <Route path="/" element={<Home />} />
 
+        {/*Paginas Estudiante*/}
         <Route path="/Student" element={<HomeStudent />} />
         <Route path="/InformesEstudiante" element={<InformesEstudiantes />} />
-        
-        <Route path="/Profesor" element={<HomeProfesor />} />
-
         <Route path="/MiCuenta" element={<MiCuenta />} />
+        
+        {/*Paginas Profesor*/}
+        <Route path="/Profesor" element={<HomeProfesor />} />
         <Route path="/MiCuentaP" element={<MiCuentaP />} />
-
-        <Route path="/Cursos" element={<CursosEstudiante />} />
-        <Route path="/Curso" element={<Curso />} />
         <Route path="/CursoP" element={<CursoP />} />
         
+        <Route path="/Cursos" element={<CursosEstudiante />} />
+        <Route path="/Curso" element={<Curso />} />
+        
+        {/*Paginas de admin*/}
         <Route path="/AgregarCurso" element={<AgregarCurso />} />
         <Route path="/AgregarProfesor" element={<AgregarProfesor />} />
       </Routes>
