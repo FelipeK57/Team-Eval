@@ -65,7 +65,7 @@ function CardForm(props) {
                                         <div className="InputContenedor" style={{ width: '100%' }} ref={params.InputProps.ref}>
                                             <input className="ComboInput" type="text" {...params.inputProps} required onClick={() => setOpen(false)} />
                                             <SearchIcon
-                                                sx={{transition: 'all 0.3s ease', fontSize: '2rem', position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', '&:hover':{transform: 'scale(1.2) translateY(-50%)', transition: 'all 0.3s ease', cursor: 'pointer'}}} onClick={(event) => {event.preventDefault(); const input = event.target.parentNode.firstChild; input.focus(); handleCombo();}} {...params.inputProps}
+                                                sx={{ transition: 'all 0.3s ease', fontSize: '2rem', position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', '&:hover': { transform: 'scale(1.2) translateY(-50%)', transition: 'all 0.3s ease', cursor: 'pointer' } }} onClick={(event) => { event.preventDefault(); const input = event.target.parentNode.firstChild; input.focus(); handleCombo(); }} {...params.inputProps}
                                             />
                                         </div>
                                     )}
