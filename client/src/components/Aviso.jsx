@@ -1,12 +1,24 @@
-import { Link, useNavigate } from "react-router-dom";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useNavigate } from "react-router-dom";
 import TypeWriter from "./Utilities/TypeWriter";
-import Field from "./Utilities/Field";
 import Button from "./Utilities/Button";
+import PropTypes from "prop-types";
 
 import "./Aviso.css";
 
 function Aviso(props) {
+
+  const navigate = useNavigate();
+
+  const ButtonClick = () => {
+    navigate("/Login");
+  };
+
+  Aviso.propTypes = {
+    Title: PropTypes.string.isRequired,
+    Text: PropTypes.string.isRequired,
+    Button: PropTypes.string.isRequired,
+  };
+
     return (
         <div className="MainContainerAviso">
           <div className="ContainerAviso">
@@ -34,7 +46,7 @@ function Aviso(props) {
                     </div>
                     <div>
                     <Button
-                      onClick={"#"}
+                      onClick={ButtonClick}
                       LineaBoton={false}
                       Boton={`${props.Button}`}
                     />
