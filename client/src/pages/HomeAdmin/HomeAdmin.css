@@ -1,0 +1,90 @@
+.coron {
+    position:fixed;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: #000000;
+    top: 20%;
+    left: 10%;
+    position: absolute;
+    font-family: Mulish !important;
+}
+.coronel{
+    position: absolute;
+    width: 180px;
+    padding: 90px !important;
+    background-color: rgb(15, 65, 118);
+    border-radius: 40px;
+    top: 32%;
+    left: 10%;
+}
+
+.coronel2{
+    position: absolute;
+    width: 180px;
+    padding: 90px !important;
+    background-color: rgb(15, 65, 118);
+    border-radius: 40px;
+    top: 32%;
+    left: 40%;
+}
+
+.coron2 {
+    position:fixed;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: #000000;
+    top: 20%;
+    left: 40%;
+    position: absolute;
+    font-family: Mulish !important;
+}
+
+.coronel3{
+    position: absolute;
+    width: 180px;
+    padding: 90px !important;
+    background-color: rgb(15, 65, 118);
+    border-radius: 40px;
+    top: 32%;
+    right: 10%;
+}
+
+.coron3 {
+    position:fixed;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: #000000;
+    top: 20%;
+    right: 16.2%;
+    position: absolute;
+    font-family: Mulish !important;
+}
+
+.coronel4{
+    position: absolute;
+    width: 180px;
+    padding: 90px !important;
+    background-color: rgb(15, 65, 118);
+    border-radius: 40px;
+    top: 67%;
+    left: 10%;
+}
+
+.coron4 {
+    position:fixed;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: #000000;
+    top: 55%;
+    left: 10%;
+    position: absolute;
+    font-family: Mulish !important;
+}
