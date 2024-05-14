@@ -6,6 +6,7 @@ import HomeProfesor from "./pages/HomeProfesor/HomeProfesor";
 import MiCuenta from "./pages/MiCuenta/MiCuenta";
 import Curso from "./pages/CursosStudent/Curso";
 import CursoP from "./pages/CursosProfe/CursoP";
+import HomeAdmin from "./pages/HomeAdmin/HomeAdmin";
 function App() {
   return (
     <BrowserRouter>
@@ -17,6 +18,7 @@ function App() {
         <Route path="/MiCuenta" element={<MiCuenta />} />
         <Route path="/Curso" element={<Curso />} />
         <Route path="/CursoP" element={<CursoP />} />
+        <Route path="/Admin" element={<HomeAdmin />} />
       </Routes>
     </BrowserRouter>
     
