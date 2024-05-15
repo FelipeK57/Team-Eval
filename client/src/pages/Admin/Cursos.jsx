@@ -1,5 +1,10 @@
-import List from "../../components/List";
 import NoQuieroCrearMasNavbars from "../../components/NoQuieroCrearMasNavbars";
+import { useState, useEffect } from "react";
+import "./ProfesoresAdmin.css";
+import axios from "axios";
+import Button from "../../components/Utilities/Button";
+import ListItems from "../../components/Utilities/ListItems";
+
 function Cursos() {
   const [cursos, setCursos] = useState([]);
 
