@@ -4,6 +4,7 @@ import Button2 from "../../components/Utilities/Button2";
 import { useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Cookies from "js-cookie";
+import Button from "../../components/Utilities/Button";
 
 function HomeProfesor() {
   const navigate = useNavigate();
@@ -39,7 +40,7 @@ function HomeProfesor() {
                 <p>Facilitando la evaluación por pares para mejorar el trabajo en equipo</p>
             </div>
             <div className="cont3">
-                <Button2 Boton2="Configurar Cursos" color="rgb(15, 65, 118)" fontColor="white" onClick={configurarCursos}/>
+                <Button Boton="Configurar Cursos" color="rgb(15, 65, 118)" fontColor="white" onClick={configurarCursos}/>
             </div>
         </div>
     );
