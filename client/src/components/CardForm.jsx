@@ -16,13 +16,14 @@ function CardForm(props) {
     };
 
     CardForm.propTypes = {
-        Title: PropTypes.string.isRequired,
-        Label1: PropTypes.string.isRequired,
-        Label2: PropTypes.string.isRequired,
-        Label3: PropTypes.string.isRequired,
-        Label4: PropTypes.string.isRequired,
-        Label5: PropTypes.string.isRequired,
-        Combo: PropTypes.bool.isRequired
+        Title: PropTypes.string,
+        Label1: PropTypes.string,
+        Label2: PropTypes.string,
+        Label3: PropTypes.string,
+        Label4: PropTypes.string,
+        Label5: PropTypes.string,
+        Combo: PropTypes.bool,
+       
     }
 
     return (
@@ -37,11 +38,20 @@ function CardForm(props) {
                         <form>
                             {props.Label1 ? <div className="Input NombreForm">
                                 <h2>{props.Label1}</h2>
-                                <Field Tipo="text" />
+                                <Field 
+                                onChange={props.onChangeField1}
+                                Campo={`${props.Field1}`}
+                                Tipo={`${props.Type1}`}
+                                value={props.valueField1}
+                                />
                             </div> : null}
                             {props.Label2 ? <div className="Input CodigoForm">
                                 <h2 htmlFor="Codigo">{props.Label2}</h2>
-                                <Field Tipo="text" />
+                                <Field 
+                                onChange={props.onChangeField2}
+                                Campo={`${props.Field2}`}
+                                Tipo={`${props.Type2}`}
+                                value={props.valueField2} />
                             </div> : null}
                             {props.Label3 ? <div className="Input ProfesorForm">
                                 <h2 htmlFor="Profesor">{props.Label3}</h2>
@@ -69,18 +79,25 @@ function CardForm(props) {
                                             />
                                         </div>
                                     )}
-                                /> : <Field Tipo="text" />}
+                                /> : <Field  onChange={props.onChangeField3}
+                                Campo={`${props.Field3}`}
+                                Tipo={`${props.Type3}`}
+                                value={props.valueField3} />}
 
                             </div> : null}
                             {props.Label4 ? <div className="Input AñoForm">
                                 <h2 htmlFor="Año">{props.Label4}</h2>
-                                <Field Tipo="text" />
+                                <Field Tipo={props.Type4}
+                                value={props.valueField4}
+                                onChange={props.onChangeField4}
+                                Campo={`${props.Field4}`} />
                             </div> : null}
+                            
                             {props.Label5 ? <div className="Input SemestreForm">
                                 <h2 htmlFor="Semestre">{props.Label5}</h2>
                                 <Field Tipo="text" />
                             </div> : null}
-                            <Button LineaBoton={false} Boton="Registrar" color="rgb(15, 65, 117)" fontColor="white" />
+                            <Button LineaBoton={false} Boton="Registrar" color="rgb(15, 65, 117)" fontColor="white" onClick={props.onClick} />
                         </form>
                     </div>
                 </div>
