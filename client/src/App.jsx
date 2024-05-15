@@ -24,6 +24,7 @@ import AvisoContraseña from "./pages/CambiarContraseña/AvisoContraseña.jsx";
 import AgregarProfesor from "./pages/Admin/AgregarProfesor.jsx";
 import AgregarCurso from "./pages/Admin/AgregarCurso.jsx";
 import HomeAdmin from "./pages/HomeAdmin/HomeAdmin";
+import ImportarCursos from "./pages/Home/ImportarCursos.jsx";
 function App() {
   return (
     <BrowserRouter>
@@ -32,24 +33,33 @@ function App() {
         <Route path="/LoginAdmin" element={<LoginAdmin />} />
 
         <Route path="/ActualizacionCorreo" element={<ActualizacionCorreo />} />
-        <Route path="/ActualizacionCorreoP" element={<ActualizacionCorreoP />}/>
-        <Route path="/ActualizarcorreoA" element={<ActualizarcorreoA />}/>
+        <Route
+          path="/ActualizacionCorreoP"
+          element={<ActualizacionCorreoP />}
+        />
+        <Route path="/ActualizarcorreoA" element={<ActualizarcorreoA />} />
         <Route path="/AvisoCorreo" element={<AvisoCorreo />} />
         <Route path="/agregarP" element={<AgregarProfesor />} />
         <Route path="/agregarC" element={<AgregarCurso />} />
 
-        <Route path="/VerificacionCorreo"element={<VerificacionCorreo NavigateRoute="Login" />}/>
+        <Route
+          path="/VerificacionCorreo"
+          element={<VerificacionCorreo NavigateRoute="Login" />}
+        />
         <Route path="/CodigoVerificacion" element={<CodigoVerificacion />} />
         <Route path="/CambiarContraseña" element={<CambiarContraseña />} />
-        <Route path="/CambioContraEstudiante" element={<CambiarContraEstudiante />}/>
-        <Route path="/CambioContraAdmin" element={<CambiarContraseñaAdmin />}/>
-        <Route path="/AvisoContraseña" element={<AvisoContraseña/>} />
+        <Route
+          path="/CambioContraEstudiante"
+          element={<CambiarContraEstudiante />}
+        />
+        <Route path="/CambioContraAdmin" element={<CambiarContraseñaAdmin />} />
+        <Route path="/AvisoContraseña" element={<AvisoContraseña />} />
 
         <Route path="/" element={<Home />} />
 
         <Route path="/Student" element={<HomeStudent />} />
         <Route path="/InformesEstudiante" element={<InformesEstudiantes />} />
-        
+
         <Route path="/Profesor" element={<HomeProfesor />} />
 
         <Route path="/MiCuenta" element={<MiCuenta />} />
