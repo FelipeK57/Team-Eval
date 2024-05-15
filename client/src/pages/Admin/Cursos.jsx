@@ -1,5 +1,6 @@
 import NoQuieroCrearMasNavbars from "../../components/NoQuieroCrearMasNavbars";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./CursosAdmin.css";
 import axios from "axios";
 import Button from "../../components/Utilities/Button";
@@ -7,6 +8,11 @@ import ListItems from "../../components/Utilities/ListItems";
 
 function Cursos() {
   const [cursos, setCursos] = useState([]);
+  const navigate = useNavigate();
+
+  const AgregarCursos = () => {
+    navigate("/AgregarC");
+  };
 
   useEffect(() => {
     const fetchStudentCourses = async () => {
@@ -37,6 +43,7 @@ function Cursos() {
           Boton="Agregar"
           color="rgb(15, 65, 118)"
           fontColor="white"
+          onClick={AgregarCursos}
         />
       </div>
       <div className="ListaCursos">

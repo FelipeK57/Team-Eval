@@ -4,9 +4,15 @@ import Button from "../../components/Utilities/Button";
 import ListItems from "../../components/Utilities/ListItems";
 import "./ProfesoresAdmin.css";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Profesores() {
   const [profesores, setProfesores] = useState([]);
+  const navigate = useNavigate();
+
+  const AgregarProfesores = () => {
+    navigate("/AgregarP");
+  };
 
   useEffect(() => {
     const fetchStudentCourses = async () => {
@@ -37,6 +43,7 @@ function Profesores() {
           Boton="Agregar"
           color="rgb(15, 65, 118)"
           fontColor="white"
+          onClick={AgregarProfesores}
         />
       </div>
       <div className="ListaProfesores">
