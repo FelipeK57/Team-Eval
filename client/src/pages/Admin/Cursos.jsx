@@ -1,6 +1,6 @@
 import NoQuieroCrearMasNavbars from "../../components/NoQuieroCrearMasNavbars";
 import { useState, useEffect } from "react";
-import "./ProfesoresAdmin.css";
+import "./CursosAdmin.css";
 import axios from "axios";
 import Button from "../../components/Utilities/Button";
 import ListItems from "../../components/Utilities/ListItems";
@@ -23,15 +23,15 @@ function Cursos() {
   }, []);
 
   return (
-    <div className="Container">
+    <div className="ContainerCursos">
       <div className="NavBar">
         <NoQuieroCrearMasNavbars />
       </div>
-      <div className="Title">
+      <div className="TitleCursos">
         <h1>Cursos</h1>
       </div>
       <div className="Search"></div>
-      <div className="AgregarList">
+      <div className="AgregarListCursos">
         <Button
           LineaBoton={false}
           Boton="Agregar"
@@ -39,7 +39,7 @@ function Cursos() {
           fontColor="white"
         />
       </div>
-      <div className="Lista">
+      <div className="ListaCursos">
         {cursos.map((curso) => (
           <div key={curso.id}>
             <ListItems

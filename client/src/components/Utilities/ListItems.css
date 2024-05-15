@@ -22,6 +22,10 @@
 .LeftList {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    max-width: 30%;
+    align-self: start;
 }
 
 .RightList {
@@ -34,10 +38,12 @@
 
 .NombreList {
     margin: 0 10%;
+    flex-grow: 10;
 }
 
-.CodigoList {
-    margin: 0 10%;
+.CodeList {
+    margin: auto;
+    flex-grow: 10;
 }
 
 .CreateIconList:hover {

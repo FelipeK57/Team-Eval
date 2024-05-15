@@ -23,15 +23,15 @@ function Profesores() {
   }, []);
 
   return (
-    <div className="Container">
+    <div className="ContainerProfesores">
       <div className="NavBar">
         <NoQuieroCrearMasNavbars />
       </div>
-      <div className="Title">
+      <div className="TitleProfesores">
         <h1>Profesores</h1>
       </div>
       <div className="Search"></div>
-      <div className="AgregarList">
+      <div className="AgregarListProfesores">
         <Button
           LineaBoton={false}
           Boton="Agregar"
@@ -39,7 +39,7 @@ function Profesores() {
           fontColor="white"
         />
       </div>
-      <div className="Lista">
+      <div className="ListaProfesores">
         {profesores.map((profesor) => (
           <div key={profesor.id}>
             <ListItems
