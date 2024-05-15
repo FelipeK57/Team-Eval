@@ -27,6 +27,7 @@ import AgregarCurso from "./pages/Admin/AgregarCurso.jsx";
 import HomeAdmin from "./pages/HomeAdmin/HomeAdmin";
 import Cursos from "./pages/Admin/Cursos.jsx";
 import Profesores from "./pages/Admin/Profesores.jsx";
+import ImportarCursos from "./pages/Home/ImportarCursos.jsx";
 
 function App() {
   return (
@@ -38,18 +39,27 @@ function App() {
 
         {/*Actualizacion de correo*/}
         <Route path="/ActualizacionCorreo" element={<ActualizacionCorreo />} />
-        <Route path="/ActualizacionCorreoP" element={<ActualizacionCorreoP />}/>
-        <Route path="/ActualizarcorreoA" element={<ActualizarcorreoA />}/>
+        <Route
+          path="/ActualizacionCorreoP"
+          element={<ActualizacionCorreoP />}
+        />
+        <Route path="/ActualizarcorreoA" element={<ActualizarcorreoA />} />
         <Route path="/AvisoCorreo" element={<AvisoCorreo />} />
         <Route path="/AvisoCorreoP" element={<AvisoCorreoP />} />
 
         {/*Actualizacion de contraseña*/}
-        <Route path="/VerificacionCorreo"element={<VerificacionCorreo NavigateRoute="Login" />}/>
+        <Route
+          path="/VerificacionCorreo"
+          element={<VerificacionCorreo NavigateRoute="Login" />}
+        />
         <Route path="/CodigoVerificacion" element={<CodigoVerificacion />} />
         <Route path="/CambiarContraseña" element={<CambiarContraseña />} />
-        <Route path="/CambioContraEstudiante" element={<CambiarContraEstudiante />}/>
-        <Route path="/CambioContraAdmin" element={<CambiarContraseñaAdmin />}/>
-        <Route path="/AvisoContraseña" element={<AvisoContraseña/>} />
+        <Route
+          path="/CambioContraEstudiante"
+          element={<CambiarContraEstudiante />}
+        />
+        <Route path="/CambioContraAdmin" element={<CambiarContraseñaAdmin />} />
+        <Route path="/AvisoContraseña" element={<AvisoContraseña />} />
 
         {/*Pagina Principale*/}
         <Route path="/" element={<Home />} />
@@ -58,15 +68,15 @@ function App() {
         <Route path="/Student" element={<HomeStudent />} />
         <Route path="/InformesEstudiante" element={<InformesEstudiantes />} />
         <Route path="/MiCuenta" element={<MiCuenta />} />
-        
+
         {/*Paginas Profesor*/}
         <Route path="/Profesor" element={<HomeProfesor />} />
         <Route path="/MiCuentaP" element={<MiCuentaP />} />
         <Route path="/CursoP" element={<CursoP />} />
-        
+
         <Route path="/Cursos" element={<CursosEstudiante />} />
         <Route path="/Curso" element={<Curso />} />
-        
+
         {/*Paginas de admin*/}
         <Route path="/agregarP" element={<AgregarProfesor />} />
         <Route path="/agregarC" element={<AgregarCurso />} />
@@ -74,6 +84,7 @@ function App() {
         <Route path="/MiCuentaA" element={<MiCuentaA />} />
         <Route path="/CursosAdmin" element={<Cursos />} />
         <Route path="/ProfesoresAdmin" element={<Profesores />} />
+        <Route path="/ImportarCurso" element={<ImportarCursos />} />
       </Routes>
     </BrowserRouter>
   );

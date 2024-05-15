@@ -6,5 +6,5 @@ router = routers.DefaultRouter()
 router.register('cursos', views.CursosView, 'cursos.views')
 
 urlpatterns = [
-    path('api/v1/', include(router.urls))
+    path('all/', include(router.urls))
 ]
