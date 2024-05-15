@@ -1,0 +1,31 @@
+.ContainerList .Title {
+    display: flex;
+    position: absolute;
+    font-size: 1.5rem;
+    margin-top: 15vh;
+    color: #0f4175;
+    left: 10%;
+}
+
+.AgregarList {
+    display: flex;
+    position: absolute;
+    font-size: 1.5rem;
+    margin-top: 20vh;
+    color: #0f4175;
+    left: 80%;
+    height: 0;
+}
+
+.AgregarList Button {
+    font-size: 2rem;
+    width: auto;
+    padding: 2% 10%;
+    height: auto;
+    cursor: pointer;
+}
+
+.L{
+    margin-top: 30vh;
+}
+

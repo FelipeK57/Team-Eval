@@ -25,6 +25,8 @@ import AvisoCorreoP from "./pages/ActualizacionCorreo/AvisoCorreoP.jsx";
 import AgregarProfesor from "./pages/Admin/AgregarProfesor.jsx";
 import AgregarCurso from "./pages/Admin/AgregarCurso.jsx";
 import HomeAdmin from "./pages/HomeAdmin/HomeAdmin";
+import Cursos from "./pages/Admin/Cursos.jsx";
+import Profesores from "./pages/Admin/Profesores.jsx";
 
 function App() {
   return (
@@ -70,6 +72,8 @@ function App() {
         <Route path="/agregarC" element={<AgregarCurso />} />
         <Route path="/Admin" element={<HomeAdmin />} />
         <Route path="/MiCuentaA" element={<MiCuentaA />} />
+        <Route path="/CursosAdmin" element={<Cursos />} />
+        <Route path="/ProfesoresAdmin" element={<Profesores />} />
       </Routes>
     </BrowserRouter>
   );
