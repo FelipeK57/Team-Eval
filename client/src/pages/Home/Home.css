@@ -1,4 +1,4 @@
-.container{
+.container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -10,11 +10,12 @@
     color: #000;
 
 }
-.container b{
+
+.container b {
     color: rgb(15, 65, 118);
 }
 
-.container2{
+.container2 {
     position: absolute;
     flex-direction: column;
     align-items: center;
@@ -34,4 +35,17 @@
     top: 55%;
     left: 44.5%;
 
+}
+
+.container3 button {
+    font-size: 1.5rem !important;
+    width: 10vw;
+    height: fit-content;
+    padding: 0.5rem 1rem;
+}
+
+.container3 button:hover {
+    box-shadow: 0 0 0.5rem 0.5rem rgba(15, 65, 118, 0.5) !important;
+    transform: scale(1.1);
+    transition: all 0.3s;
 }
