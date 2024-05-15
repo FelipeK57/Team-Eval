@@ -45,7 +45,8 @@ function CursosProfe() {
                 <div className="line-horizonte"></div>
             </div>
         </div>
-    )
+      
+  );
 }
 
-export default CursosProfe
+export default CursosProfe;

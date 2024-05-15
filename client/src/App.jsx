@@ -9,18 +9,22 @@ import CursoP from "./pages/CursosProfe/CursoP";
 import LoginAdmin from "./pages/LoginAdmin/LoginAdmin.jsx";
 import ActualizacionCorreo from "./pages/ActualizacionCorreo/ActualizacionCorreo.jsx";
 import ActualizacionCorreoP from "./pages/ActualizacionCorreo/ActualizarCorreoProfesor.jsx";
+import ActualizarcorreoA from "./pages/ActualizacionCorreo/ActualizarcorreoA.jsx";
 import AvisoCorreo from "./pages/ActualizacionCorreo/AvisoCorreo.jsx";
 import CambiarContraseña from "./pages/CambiarContraseña/CambiarContraseña.jsx";
+import CambiarContraseñaAdmin from "./pages/CambiarContraseña/CambiarContraseñaAdmin.jsx";
 import CodigoVerificacion from "./pages/CambiarContraseña/CodigoVerificacion.jsx";
 import VerificacionCorreo from "./pages/CambiarContraseña/VerificacionCorreo.jsx";
 import CursosEstudiante from "./pages/HomeStudent/CursosEstudiante.jsx";
 import MiCuentaP from "./pages/MiCuenta/MiCuentaP.jsx";
+import MiCuentaA from "./pages/MiCuenta/MicuentaA.jsx";
 import CambiarContraEstudiante from "./pages/CambiarContraseña/CambiarContraEstudiante.jsx";
-import AgregarCurso from "./pages/Admin/AgregarCurso.jsx";
-import AgregarProfesor from "./pages/Admin/AgregarProfesor.jsx";
 import InformesEstudiantes from "./pages/Informes/InformesEstudiantes.jsx";
 import AvisoContraseña from "./pages/CambiarContraseña/AvisoContraseña.jsx";
 import AvisoCorreoP from "./pages/ActualizacionCorreo/AvisoCorreoP.jsx";
+import AgregarProfesor from "./pages/Admin/AgregarProfesor.jsx";
+import AgregarCurso from "./pages/Admin/AgregarCurso.jsx";
+import HomeAdmin from "./pages/HomeAdmin/HomeAdmin";
 
 function App() {
   return (
@@ -33,6 +37,7 @@ function App() {
         {/*Actualizacion de correo*/}
         <Route path="/ActualizacionCorreo" element={<ActualizacionCorreo />} />
         <Route path="/ActualizacionCorreoP" element={<ActualizacionCorreoP />}/>
+        <Route path="/ActualizarcorreoA" element={<ActualizarcorreoA />}/>
         <Route path="/AvisoCorreo" element={<AvisoCorreo />} />
         <Route path="/AvisoCorreoP" element={<AvisoCorreoP />} />
 
@@ -41,6 +46,7 @@ function App() {
         <Route path="/CodigoVerificacion" element={<CodigoVerificacion />} />
         <Route path="/CambiarContraseña" element={<CambiarContraseña />} />
         <Route path="/CambioContraEstudiante" element={<CambiarContraEstudiante />}/>
+        <Route path="/CambioContraAdmin" element={<CambiarContraseñaAdmin />}/>
         <Route path="/AvisoContraseña" element={<AvisoContraseña/>} />
 
         {/*Pagina Principale*/}
@@ -60,8 +66,10 @@ function App() {
         <Route path="/Curso" element={<Curso />} />
         
         {/*Paginas de admin*/}
-        <Route path="/AgregarCurso" element={<AgregarCurso />} />
-        <Route path="/AgregarProfesor" element={<AgregarProfesor />} />
+        <Route path="/agregarP" element={<AgregarProfesor />} />
+        <Route path="/agregarC" element={<AgregarCurso />} />
+        <Route path="/Admin" element={<HomeAdmin />} />
+        <Route path="/MiCuentaA" element={<MiCuentaA />} />
       </Routes>
     </BrowserRouter>
   );
