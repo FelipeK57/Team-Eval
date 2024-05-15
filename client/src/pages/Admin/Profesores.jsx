@@ -1,9 +1,9 @@
-import NoQuieroCrearMasNavbars from "../../components/NavBar";
-import React, { useEffect, useState } from "react";
+import NoQuieroCrearMasNavbars from "../../components/NoQuieroCrearMasNavbars";
 import axios from "axios";
 import Button from "../../components/Utilities/Button";
 import ListItems from "../../components/Utilities/ListItems";
 import "./ProfesoresAdmin.css";
+import { useEffect, useState } from "react";
 
 function Profesores() {
   const [profesores, setProfesores] = useState([]);

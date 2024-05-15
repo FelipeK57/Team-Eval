@@ -1,5 +1,5 @@
 import CardForm from "../../components/CardForm";
-import NavBar from "../../components/NavBar";
+import NoQuieroCrearMasNavbars from "../../components/NoQuieroCrearMasNavbars";
 import { useState } from "react";
 import axios from "axios";
 
@@ -45,7 +45,7 @@ function AgregarCurso() {
 
     return (
         <div className="Contenedor">
-        <NavBar />
+        <NoQuieroCrearMasNavbars />
         <CardForm Title="Agregar Curso"
             Label1="Nombre"
             value1={nombre}

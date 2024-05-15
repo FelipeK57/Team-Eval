@@ -1,6 +1,6 @@
 .Title {
   display: flex;
-  margin-bottom: 10vh;
+  margin-top: -5vh;
   position: absolute;
   font-size: 1.5rem;
   color: #0f4175;
@@ -8,14 +8,14 @@
 }
 
 .Lista {
-  margin-top: 30vh;
+  margin-top: 25vh;
 }
 
 .AgregarList {
   display: flex;
   position: absolute;
   font-size: 1.5rem;
-  margin-bottom: 35vh;
+  margin-top: -7vh;
   color: #0f4175;
   left: 80%;
   height: 0;
