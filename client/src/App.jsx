@@ -21,17 +21,22 @@ import MiCuentaA from "./pages/MiCuenta/MicuentaA.jsx";
 import CambiarContraEstudiante from "./pages/CambiarContraseña/CambiarContraEstudiante.jsx";
 import InformesEstudiantes from "./pages/Informes/InformesEstudiantes.jsx";
 import AvisoContraseña from "./pages/CambiarContraseña/AvisoContraseña.jsx";
+import AvisoCorreoP from "./pages/ActualizacionCorreo/AvisoCorreoP.jsx";
 import AgregarProfesor from "./pages/Admin/AgregarProfesor.jsx";
 import AgregarCurso from "./pages/Admin/AgregarCurso.jsx";
 import HomeAdmin from "./pages/HomeAdmin/HomeAdmin";
-import ImportarCursos from "./pages/Home/ImportarCursos.jsx";
+import Cursos from "./pages/Admin/Cursos.jsx";
+import Profesores from "./pages/Admin/Profesores.jsx";
+
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/*Logins*/}
         <Route path="/login" element={<Login />} />
         <Route path="/LoginAdmin" element={<LoginAdmin />} />
 
+        {/*Actualizacion de correo*/}
         <Route path="/ActualizacionCorreo" element={<ActualizacionCorreo />} />
         <Route
           path="/ActualizacionCorreoP"
@@ -39,9 +44,9 @@ function App() {
         />
         <Route path="/ActualizarcorreoA" element={<ActualizarcorreoA />} />
         <Route path="/AvisoCorreo" element={<AvisoCorreo />} />
-        <Route path="/agregarP" element={<AgregarProfesor />} />
-        <Route path="/agregarC" element={<AgregarCurso />} />
+        <Route path="/AvisoCorreoP" element={<AvisoCorreoP />} />
 
+        {/*Actualizacion de contraseña*/}
         <Route
           path="/VerificacionCorreo"
           element={<VerificacionCorreo NavigateRoute="Login" />}
@@ -55,21 +60,32 @@ function App() {
         <Route path="/CambioContraAdmin" element={<CambiarContraseñaAdmin />} />
         <Route path="/AvisoContraseña" element={<AvisoContraseña />} />
 
+        {/*Pagina Principale*/}
         <Route path="/" element={<Home />} />
 
+        {/*Paginas Estudiante*/}
         <Route path="/Student" element={<HomeStudent />} />
         <Route path="/InformesEstudiante" element={<InformesEstudiantes />} />
 
         <Route path="/Profesor" element={<HomeProfesor />} />
 
         <Route path="/MiCuenta" element={<MiCuenta />} />
+
+        {/*Paginas Profesor*/}
+        <Route path="/Profesor" element={<HomeProfesor />} />
         <Route path="/MiCuentaP" element={<MiCuentaP />} />
-        <Route path="/MiCuentaA" element={<MiCuentaA />} />
+        <Route path="/CursoP" element={<CursoP />} />
 
         <Route path="/Cursos" element={<CursosEstudiante />} />
         <Route path="/Curso" element={<Curso />} />
-        <Route path="/CursoP" element={<CursoP />} />
+
+        {/*Paginas de admin*/}
+        <Route path="/agregarP" element={<AgregarProfesor />} />
+        <Route path="/agregarC" element={<AgregarCurso />} />
         <Route path="/Admin" element={<HomeAdmin />} />
+        <Route path="/MiCuentaA" element={<MiCuentaA />} />
+        <Route path="/CursosAdmin" element={<Cursos />} />
+        <Route path="/ProfesoresAdmin" element={<Profesores />} />
       </Routes>
     </BrowserRouter>
   );

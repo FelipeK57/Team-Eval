@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 80vh;
+  margin: 35vh 0 0 0;
   width: auto;
   font-family: Mulish;
   font-size: 1.5rem;
@@ -26,27 +26,21 @@
 }
 
 .cont3 {
-  position: absolute;
+  display: flex;
+  width: auto;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  top: 55%;
-  left: 44.5%;
+  margin: auto;
 }
 
-<<<<<<< HEAD
-.cont3 a {
-  text-decoration: none;
-}
-=======
-}
 
 .cont3 .Boton button{
-    width: auto;
+    width: 250px;
     height: 40px;
     font-size: 1.5rem;
     padding: 0px 10px;
-    margin-left: 44%;
+    margin-top: 5%;
 }
 
 .cont3 .Boton button:hover{
@@ -54,4 +48,4 @@
     transform: scale(1.1);
     transition: all 0.3s;
 }
->>>>>>> origin/Cursos_profesor
+

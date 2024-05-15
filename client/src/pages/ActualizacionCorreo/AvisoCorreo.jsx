@@ -5,7 +5,7 @@ function AvisoCorreo() {
         <Aviso Title="Aviso"
                Text="Su correo ha sido actualizado exitosamente"
                Button="Continuar"
-               NavigateRoute="Login"/>
+               NavigateRoute="Student"/>
     );
 }
 export default AvisoCorreo

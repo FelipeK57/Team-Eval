@@ -26,7 +26,7 @@ urlpatterns = [
     path('cursos/', include('cursos.urls')),
     path('user/', include('estudiantes.urls')),
     path('evaluacion/', include('evaluacion.urls')),
-    path('user/', include('profesor.urls')),
+    path('profesor/', include('profesor.urls')),
     path('rubrica/', include('rubrica.urls')),
     re_path(r'^loginProfesor/$', views.loginProfesor),
     re_path(r'^registerProfesor/$', views.registerProfesor),

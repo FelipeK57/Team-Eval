@@ -1,0 +1,30 @@
+.Title {
+  display: flex;
+  margin-bottom: 10vh;
+  position: absolute;
+  font-size: 1.5rem;
+  color: #0f4175;
+  left: 10%;
+}
+
+.Lista {
+  margin-top: 30vh;
+}
+
+.AgregarList {
+  display: flex;
+  position: absolute;
+  font-size: 1.5rem;
+  margin-bottom: 35vh;
+  color: #0f4175;
+  left: 80%;
+  height: 0;
+}
+
+.AgregarList Button {
+  font-size: 2rem;
+  width: auto;
+  padding: 2% 10%;
+  height: auto;
+  cursor: pointer;
+}
