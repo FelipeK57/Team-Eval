@@ -1,113 +1,118 @@
 .card {
-    position: absolute;
-    width: 1270px;
-    padding: 120px !important;
-    background-color: rgb(15, 65, 118);
-    border-radius: 40px;
-    top: 20%;
-    left: 10%;
-    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
-  }
+  position: absolute;
+  width: 1270px;
+  padding: 120px !important;
+  background-color: rgb(15, 65, 118);
+  border-radius: 40px;
+  top: 20%;
+  left: 10%;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
+}
 
-  .coso {
-    position: absolute;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    top: 49%;
-    left: 10%;
-    font-family: Mulish;
-    font-size: 1.2rem;
-    color: #000;
-  }
+.coso {
+  position: absolute;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  top: 49%;
+  left: 10%;
+  font-family: Mulish;
+  font-size: 1.2rem;
+  color: #000;
+}
 
-  .coso3 a {
-    text-decoration: none;
-  }
+.coso3 a {
+  text-decoration: none;
+}
 
-  .coso2 a {
-    text-decoration: none;
-  }
+.coso2 a {
+  text-decoration: none;
+}
 
-  .coso2 {
-    position: absolute;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    top: 57%;
-    left: 10%;
+.coso2 {
+  position: absolute;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  top: 57%;
+  left: 10%;
 
 }
 
 .coso3 {
-    position: absolute;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    top: 57%;
-    left: 22%;
-    
+  position: absolute;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  top: 57%;
+  left: 22%;
+}
 
+.coso3 button {
+  width: 100% !important;
+  justify-content: center;
+  align-items: center;
 }
 
 .coso4 {
-    position: absolute;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    top: 88%;
-    left: 87%;
+  position: absolute;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  top: 88%;
+  left: 87%;
 
 }
 
 .card2 {
-    justify-content: center;
-    align-items: center;
-    font-size: 1.2rem;
-    text-decoration: none;
-    color: #ffffff;
-    top: 5%;
-    left: 25%;
-    position: absolute;
-    font-family: Mulish !important;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  text-decoration: none;
+  color: #ffffff;
+  top: 5%;
+  left: 25%;
+  position: absolute;
+  font-family: Mulish !important;
 
 }
 
 .card3 {
-    justify-content: center;
-    align-items: center;
-    font-size: 1.2rem;
-    text-decoration: none;
-    color: #ffffff;
-    top: 30%;
-    left: 25%;
-    position: absolute;
-    font-family: Mulish !important;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  text-decoration: none;
+  color: #ffffff;
+  top: 30%;
+  left: 25%;
+  position: absolute;
+  font-family: Mulish !important;
 
 }
 
 .card4 {
-    justify-content: center;
-    align-items: center;
-    font-size: 1.2rem;
-    text-decoration: none;
-    color: #ffffff;
-    top: 57%;
-    left: 25%;
-    position: absolute;
-    font-family: Mulish !important;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  text-decoration: none;
+  color: #ffffff;
+  top: 57%;
+  left: 25%;
+  position: absolute;
+  font-family: Mulish !important;
 
 }
+
 .iman {
-    position: absolute;
-    width: 35%;
-    height: 100%;
-    top: 10%;
-    left: 5%;
+  position: absolute;
+  width: 35%;
+  height: 100%;
+  top: 10%;
+  left: 5%;
 
 }
 
 .iman img {
-    width: 38.5%;
-    height: 80%;
+  width: 38.5%;
+  height: 80%;
 }
