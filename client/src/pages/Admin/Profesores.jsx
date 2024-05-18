@@ -1,12 +1,18 @@
-import NoQuieroCrearMasNavbars from "../../components/NavBar";
-import React, { useEffect, useState } from "react";
+import NoQuieroCrearMasNavbars from "../../components/NoQuieroCrearMasNavbars";
 import axios from "axios";
 import Button from "../../components/Utilities/Button";
 import ListItems from "../../components/Utilities/ListItems";
 import "./ProfesoresAdmin.css";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Profesores() {
   const [profesores, setProfesores] = useState([]);
+  const navigate = useNavigate();
+
+  const AgregarProfesores = () => {
+    navigate("/AgregarP");
+  };
 
   useEffect(() => {
     const fetchStudentCourses = async () => {
@@ -23,27 +29,28 @@ function Profesores() {
   }, []);
 
   return (
-    <div className="Container">
+    <div className="ContainerProfesores">
       <div className="NavBar">
         <NoQuieroCrearMasNavbars />
       </div>
-      <div className="Title">
+      <div className="TitleProfesores">
         <h1>Profesores</h1>
       </div>
       <div className="Search"></div>
-      <div className="AgregarList">
+      <div className="AgregarListProfesores">
         <Button
           LineaBoton={false}
           Boton="Agregar"
           color="rgb(15, 65, 118)"
           fontColor="white"
+          onClick={AgregarProfesores}
         />
       </div>
-      <div className="Lista">
+      <div className="ListaProfesores">
         {profesores.map((profesor) => (
           <div key={profesor.id}>
             <ListItems
-              Nombre1={profesor.user.username}
+              Nombre1={profesor.username}
               Codigo1={profesor.identificacion}
               onClickEdit={"Editar"}
               onClickDelete={"Eliminar"}
