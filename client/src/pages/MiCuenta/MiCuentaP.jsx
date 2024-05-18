@@ -62,7 +62,6 @@ function MiCuentaP() {
       Cookies.remove("token");
       Cookies.remove("loggedIn");
       Cookies.remove("identificacion");
-      alert(response.data.mensaje);
       navigate("/Login");
     } catch (error) {
       console.error("Error al cerrar sesión:", error.response.error);

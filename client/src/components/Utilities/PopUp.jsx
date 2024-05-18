@@ -43,14 +43,14 @@ function PopUp(props) {
                     </div>
                     <div className="AdviceButtons" style={props.Button2 ? null: {justifyContent: "center"} }>
                         <Button
-                            onClick={null}
+                            onClick={props.onClick1}
                             LineaBoton={false}
                             Boton={props.Button1}
                             color={"White"}
                             fontColor={"black"}
                         />
                         {props.Button2 ? <ButtonCancel
-                            onClick={popup}
+                            onClick={props.onClick2}
                             LineaBoton={false}
                             Boton={props.Button2}
                             color={"#B60E0E"}

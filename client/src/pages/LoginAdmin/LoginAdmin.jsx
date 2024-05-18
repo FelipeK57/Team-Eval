@@ -4,11 +4,14 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
+
 function LoginAdmin() {
 
     const navigate = useNavigate();
     const [password, setPassword] = useState("");
     const [codigo, setCodigo] = useState("");
+    const [advice, setAdvice] = useState("");
+   
 
     const handlePasswordChange = (e) => {
         setPassword(e.target.value);
@@ -18,7 +21,7 @@ function LoginAdmin() {
         setCodigo(e.target.value);
     };
 
-    const handleClick = async (e) => {
+    const handleClick = async (e, setAdvice, popup) => {
        
         if (password.trim() === "") {
             return;
@@ -38,13 +41,11 @@ function LoginAdmin() {
             Cookies.set("loggedIn", "true", { expires: 1 }); // Indica que el usuario ha iniciado sesión
             navigate('/Admin')
         }catch(error){
-            console.error("Error al realizar la solicitud:", error);
-        return alert("No se encontro usuario con estas credenciales");
+            setAdvice("Credenciales incorrectas");
+            popup(e);
         }
 
     }
-
-
 
 
     return(
@@ -58,8 +59,12 @@ function LoginAdmin() {
                 ForgotPassword={true}
                 Button="Iniciar Sesion"
                 onClick={handleClick}
-                NavigateRoute="Login"/>
+                NavigateRoute="Login"
+                setAdvice={setAdvice}
+                advice={advice} />     
+                
     );
+    
 }
 
 export default LoginAdmin

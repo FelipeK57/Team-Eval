@@ -8,6 +8,7 @@ function ActualizacionCorreoP() {
   const navigate = useNavigate("");
   const [email, setEmail] = useState("");
   const [newEmail, setNewEmail] = useState("");
+  const [advice, setAdvice] = useState("");
 
   const handleNewEmailChange = (e) => {
     setNewEmail(e.target.value);
@@ -34,17 +35,31 @@ function ActualizacionCorreoP() {
 }, [navigate]);
 
 
-  const handleClick = async (e) => {
-    e.preventDefault();
+  const handleClick = async (e, setAdvice, popup) => {
+    
     const token = Cookies.get("token");
 
     if (!email.includes("@") && !newEmail.includes("@")) {
-      return alert("Ingrese un correo electronico valido");
+      setAdvice("Ingresa un correo valido");
+      popup(e);
+      return;
     }
 
     if (email !== newEmail) {
-      return alert("Los correo no son iguales");
+      setAdvice("Los correos no son iguales");
+      popup(e);
+      return;
     }
+
+    if (newEmail.trim() === "") {
+      return;
+    }
+
+    if (email.trim() === "") {
+      return;
+    }
+
+    e.preventDefault();
 
     try {
       const response = await axios.put(
@@ -82,6 +97,8 @@ function ActualizacionCorreoP() {
       ForgotPassword={false}
       Button="Hecho"
       NavigateRoute="MiCuentaP"
+      setAdvice={setAdvice}
+      advice={advice} 
     />
   );
 }

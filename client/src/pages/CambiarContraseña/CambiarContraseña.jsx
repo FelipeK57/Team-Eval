@@ -5,10 +5,12 @@ import { useEffect } from "react";
 import Cookies from "js-cookie";
 import Login2 from "../../components/Login2";
 
+
 function CambiarContraseña() {
   const navigate = useNavigate();
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [advice, setAdvice] = useState("");
 
   useEffect(() => {
     const verificarSesion = () => {
@@ -34,16 +36,24 @@ function CambiarContraseña() {
     setConfirmPassword(e.target.value);
   };
 
-  const handleClick = async (e) => {
-    e.preventDefault();
+  const handleClick = async (e, setAdvice, popup) => {
+    
 
     if (newPassword !== confirmPassword) {
-      return alert("Las contraseñas no coinciden");
+      setAdvice("las contrasenias no coinciden, por favor verifique");
+      popup(e);
+      return;
     }
 
-    if (newPassword === "") {
-      return alert("Por favor, ingrese su nueva contraseña");
+    if (newPassword.trim() === "") {
+      return;
     }
+
+    if (confirmPassword.trim() === "") {
+      return;
+    }
+
+    e.preventDefault();
 
     try {
       const response = await axios.post("http://localhost:8000/change/", {
@@ -88,6 +98,8 @@ function CambiarContraseña() {
       ForgotPassword={false}
       Button="Hecho"
       NavigateRoute="MiCuentaP"
+      setAdvice={setAdvice}
+      advice={advice} 
     />
   );
 }

@@ -9,6 +9,7 @@ function CambiarContraEstudiante() {
   const navigate = useNavigate();
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [advice, setAdvice] = useState("");
 
   useEffect(() => {
     const verificarSesion = () => {
@@ -34,17 +35,23 @@ function CambiarContraEstudiante() {
     setConfirmPassword(e.target.value);
   };
 
-  const handleClick = async (e) => {
-    e.preventDefault();
-
+  const handleClick = async (e, setAdvice, popup) => {
+    
     if (newPassword !== confirmPassword) {
-      return alert("Las contraseñas no coinciden");
+      setAdvice("las contrasenias no coinciden, por favor verifique");
+      popup(e);
+      return;
     }
 
-    if (newPassword === "") {
-      return alert("Por favor, ingrese su nueva contraseña");
+    if (newPassword.trim() === "") {
+      return;
     }
 
+    if (confirmPassword.trim() === "") {
+      return;
+    }
+
+    e.preventDefault();
     try {
       const response = await axios.post("http://localhost:8000/changeE/", {
         codigo: Cookies.get("codigo"),
@@ -88,6 +95,8 @@ function CambiarContraEstudiante() {
       ForgotPassword={false}
       Button="Hecho"
       NavigateRoute="MiCuenta"
+      setAdvice={setAdvice}
+      advice={advice} 
     />
   );
 }

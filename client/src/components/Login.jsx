@@ -7,6 +7,7 @@ import TypeWriter from "./Utilities/TypeWriter.jsx";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
 import Cookies from "js-cookie";
+import PopUp from "../components/Utilities/PopUp.jsx";
 
 function Login() {
   const navigate = useNavigate();
@@ -14,6 +15,8 @@ function Login() {
   const [codigo, setCodigo] = useState("");
   const [password, setPassword] = useState("");
   const [identificacion, setIdentificacion] = useState("");
+  const [open, setOpen] = useState(false);
+ 
 
   const handleCodigoChange = (e) => {
     setCodigo(e.target.value);
@@ -44,8 +47,8 @@ function Login() {
       Cookies.set("email", response.data.email);
       navigate("/Student");
     } catch (error) {
-      console.error("Error al realizar la solicitud:", error);
-      return alert("No se encontro usuario con estas credenciales");
+      console.log(error);
+      setOpen(!open);
     }
   };
 
@@ -56,6 +59,11 @@ function Login() {
   const handleIdentificacionChange = (e) => {
     setIdentificacion(e.target.value);
   };
+
+  const popup = (e) => {
+    e.preventDefault();
+    setOpen(!open);
+};
 
   const handleClick2 = async (e) => {
     if (identificacion === "") {
@@ -80,8 +88,8 @@ function Login() {
       Cookies.set("nombre", response.data.user.first_name);
       navigate("/Profesor");
     } catch (error) {
-      console.error("Error al realizar la solicitud:", error);
-      return alert("No se encontro usuario con estas credenciales");
+      setOpen(!open);
+      console.log(error);
     }
   };
 
@@ -168,7 +176,7 @@ function Login() {
               </form>
             </div>
             <div className={`In Profesor`}>
-              <form
+              <form onSubmit={popup}
                 className={`Formulario${
                   activeButton === "Profesor" ? " ActiveCard" : " NotActive"
                 }`}
@@ -196,6 +204,16 @@ function Login() {
                   <Link className="Admin" to={"/LoginAdmin"}>
                     Administrador
                   </Link>
+                  <div>
+                  <PopUp open={open}
+                SetOpen={setOpen}
+                Advice={"Credenciales incorrectas"}
+                Width={"100%"}
+                Button1="volver"
+               onClick1={popup}
+                
+            />
+                  </div>
                 </div>
               </form>
             </div>

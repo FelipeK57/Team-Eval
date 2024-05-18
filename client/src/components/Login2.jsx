@@ -5,13 +5,27 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Link, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import "./Login2.css";
+import { useState } from "react";
+import PopUp from "../components/Utilities/PopUp.jsx";
+
 
 function Login2(props) {
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
 
   const VolverClick = () => {
     navigate(`/${props.NavigateRoute}`);
   };
+
+  const popup = (e) => {
+    e.preventDefault();
+    setOpen(!open);
+};
+
+const closePopup = () => {
+  setOpen(false);
+};
+
 
   Login2.propsTypes = {
     Title: PropTypes.string.isRequired,
@@ -22,7 +36,13 @@ function Login2(props) {
     Button: PropTypes.string.isRequired,
     ForgotPassword: PropTypes.bool.isRequired,
     NavigateRoute: PropTypes.string.isRequired,
+    setAdvice: PropTypes.func.isRequired, 
   };
+
+  const handleButtonClick = async (e) => {
+    await props.onClick(e, props.setAdvice, popup);
+    };
+  
 
   return (
     <div className="MainContainerAdmin">
@@ -51,7 +71,7 @@ function Login2(props) {
               <div className="TitleAdmin">
                 <h1>{`${props.Title}`}</h1>
               </div>
-              <form className="FormularioAdmin">
+              <form className="FormularioAdmin" onSubmit={popup}>
                 <br />
                 <Field
                   onChange={props.onChangeField1}
@@ -69,10 +89,20 @@ function Login2(props) {
                   <Link to={"/VerificacionCorreo"}>Olvido su contrasena?</Link>
                 ) : null}
                 <Button
-                  onClick={props.onClick}
+                  onClick={handleButtonClick}
                   LineaBoton={true}
                   Boton={`${props.Button}`}
                 />
+                 <div>
+                  <PopUp open={open}
+                SetOpen={setOpen}
+                Advice={props.advice}
+                Width={"100%"}
+                Button1="volver"
+               onClick1={closePopup}
+                
+                />
+                </div>
               </form>
             </div>
           </div>
@@ -81,5 +111,6 @@ function Login2(props) {
     </div>
   );
 }
+
 
 export default Login2;
