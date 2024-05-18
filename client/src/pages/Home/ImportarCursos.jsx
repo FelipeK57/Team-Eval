@@ -1,5 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
+import "./ImportarCursos.css";
+import UploadFileIcon from '@mui/icons-material/UploadFile';
 
 function ImportarCursos() {
   const [file, setFile] = useState(null);
@@ -25,8 +27,8 @@ function ImportarCursos() {
   };
 
   return (
-    <div>
-      <input onChange={handleFileChange} type="file" />
+    <div className="ImportarCursos">
+      <input  className="upload" onChange={handleFileChange} type="file" /> 
       <button onClick={sendFile}>Enviar</button>
     </div>
   );
