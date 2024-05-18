@@ -27,6 +27,7 @@ import AgregarCurso from "./pages/Admin/AgregarCurso.jsx";
 import HomeAdmin from "./pages/HomeAdmin/HomeAdmin";
 import Cursos from "./pages/Admin/Cursos.jsx";
 import Profesores from "./pages/Admin/Profesores.jsx";
+import Field from "./components/Utilities/Field.jsx";
 
 function App() {
   return (
@@ -80,6 +81,7 @@ function App() {
         <Route path="/MiCuentaA" element={<MiCuentaA />} />
         <Route path="/CursosAdmin" element={<Cursos />} />
         <Route path="/ProfesoresAdmin" element={<Profesores />} />
+        <Route path="/field" element={<Field/>} />
       </Routes>
     </BrowserRouter>
   );
