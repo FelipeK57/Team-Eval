@@ -5,8 +5,28 @@ import { useNavigate } from "react-router-dom";
 import "./VerificacionCorreo.css";
 import { useState } from "react";
 import PopUp from "../../components/Utilities/PopUp.jsx";
+import axios from 'axios';
 
 function VerificacionCorreo() {
+
+    const [email, setEmail] = useState('');
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+       
+        try {
+            await axios.post('http://localhost:8000/reset_password/', {
+                email: email
+            });
+            
+           
+        } catch (error) {
+            console.error(error);
+            alert('Ha ocurrido un error.');
+            console.log(error);
+        }
+    };
+
 
     const navigate = useNavigate();
 
@@ -19,6 +39,12 @@ function VerificacionCorreo() {
     const popup = (e) => {
         e.preventDefault();
         setOpen(!open);
+    };
+
+    const handleClick = async (e) => {  
+        e.preventDefault();
+        await handleSubmit(e);  // Asegúrate de esperar a que el submit se complete
+        popup();  // Luego activa el popup
     };
 
     return (
@@ -48,16 +74,19 @@ function VerificacionCorreo() {
                             <div className="TitleVerificacion">
                                 <h1>Verificacion de correo</h1>
                             </div>
-                            <form onSubmit={popup}
+                            <form onSubmit={handleSubmit}
                                 className="FormularioVerificacion"
                             >
                                 <br />
                                 <h2>Ingrese el correo al cual pertenece la contraseña que desea actualizar</h2>
                                 <div className="CampoVerificacion">
-                                    <input type="mail" />
+                                    <input type="mail" 
+                                        onChange={(e) => setEmail(e.target.value)} 
+                                        value={email}
+                                        />
                                 </div>
                                 <Button
-                                    onClick={(e) => popup(e)}
+                                    OnClick={handleClick}
                                     LineaBoton={true}
                                     Boton={"Hecho"}
                                 />

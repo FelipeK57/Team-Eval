@@ -52,6 +52,8 @@ urlpatterns = [
     re_path(r'^nuevo_curso/$', views.nuevo_curso),
     re_path('login', views.login),
     re_path('register', views.register),
+    re_path(r'^reset_password/$', views.PasswordResetRequestView),
+    
         
 
 ]

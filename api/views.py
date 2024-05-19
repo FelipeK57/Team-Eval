@@ -18,6 +18,8 @@ from cursos.serializer import CursosSerializer
 from administrador.models import administrador
 from administrador.serializer import AdministradorSerializer
 from cursos.models import Cursos
+from django.utils.crypto import get_random_string
+from django.core.mail import send_mail
 
 @api_view(['POST'])
 def login(request):
@@ -333,3 +335,21 @@ def nuevo_curso(request):
         return Response({"error": "Ya existe un curso con el código proporcionado"}, status=status.HTTP_400_BAD_REQUEST)
     curso = Cursos.objects.create(nombre=nombre, codigo=codigo, periodoAcademico=periodo)
     return Response({"success": "Curso creado exitosamente"}, status=status.HTTP_201_CREATED)
+
+@api_view(['POST'])
+def PasswordResetRequestView( request):
+    email = request.data.get('email')
+    user = User.objects.filter(email=email).first()
+    if not user:
+        return Response({'error': 'Usuario con este correo no existe.'}, status=status.HTTP_404_NOT_FOUND)
+        
+        
+    send_mail(
+        subject= "Restablece tu contraseña",    
+        message="sirve",
+        from_email='team.eval.col@gmail.com',
+        recipient_list=[email],
+        fail_silently=False,
+    )
+        
+    return Response({'message': 'Se ha enviado un enlace para restablecer la contraseña a tu correo.'}, status=status.HTTP_200_OK)

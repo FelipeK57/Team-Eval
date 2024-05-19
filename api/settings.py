@@ -142,6 +142,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOWED_ORIGINS = ["http://localhost:5173"]
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'team.eval.col@gmail.com'  # Tu correo de Gmail
+EMAIL_HOST_PASSWORD = 'hsje nbcd bzyi pits'    # Tu contraseña de Gmail
 
 
 
