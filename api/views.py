@@ -18,8 +18,10 @@ from cursos.serializer import CursosSerializer
 from administrador.models import administrador
 from administrador.serializer import AdministradorSerializer
 from cursos.models import Cursos
-from django.utils.crypto import get_random_string
 from django.core.mail import send_mail
+import random
+from codigos_seguridad.models import codigos_seguridad
+
 
 @api_view(['POST'])
 def login(request):
@@ -260,21 +262,20 @@ def change_passwordE(request):
 @api_view(['POST'])
 def change_passwordA(request):
     nueva_contraseña = request.data.get('nueva_contraseña')
-    codigo = request.data.get('codigo')
+    user = request.data.get('user')
     
     try:
-        admin = administrador.objects.get(codigo = codigo)
-        usuario = admin.user
+        user = User.objects.get(username=user)
         
-        if not usuario:
+        if not user:
             raise ValueError('Usuario no encontrado')
 
-        usuario.set_password(nueva_contraseña)
-        usuario.save()
+        user.set_password(nueva_contraseña)
+        user.save()
 
         return Response({'mensaje': 'Contraseña cambiada con éxito'},status=status.HTTP_200_OK)
     except Profesor.DoesNotExist:
-        return Response({'error': 'Profesor no encontrado'}, status=404)
+        return Response({'error': 'usuario no encontrado'}, status=404)
     except (ValueError, Exception) as e:
         return Response({'error': str(e)}, status=400)
     
@@ -343,13 +344,36 @@ def PasswordResetRequestView( request):
     if not user:
         return Response({'error': 'Usuario con este correo no existe.'}, status=status.HTTP_404_NOT_FOUND)
         
-        
+    reset_code = random.randint(100000, 999999)
     send_mail(
         subject= "Restablece tu contraseña",    
-        message="sirve",
+        message=f"Tu código de verificación es: {reset_code}",
         from_email='team.eval.col@gmail.com',
         recipient_list=[email],
         fail_silently=False,
     )
+
+    token, created = Token.objects.get_or_create(user=user)
+
+    if created:
+        codigos_seguridad.objects.create(token=token, codigo=reset_code)
         
-    return Response({'message': 'Se ha enviado un enlace para restablecer la contraseña a tu correo.'}, status=status.HTTP_200_OK)
+    return Response({'message': 'Se ha enviado un enlace para restablecer la contraseña a tu correo.', 'token': token.key, 'user': user.username}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def password_reset_confirm(request):
+    Token = request.data.get('token')
+    code = request.data.get('code')
+    codigo = codigos_seguridad.objects.filter(token=Token).first()
+
+    if not Token:
+        return Response({'error': 'Token no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+
+    if int(code) != int(codigo.codigo):
+        return Response({'error': 'Codigo incorrecto'}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        codigo.delete()
+        return Response({'message': 'Codigo correcto'}, status=status.HTTP_200_OK)
+        
+   
+

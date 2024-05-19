@@ -45,7 +45,7 @@ function App() {
         <Route path="/AvisoCorreoP" element={<AvisoCorreoP />} />
 
         {/*Actualizacion de contraseña*/}
-        <Route path="/VerificacionCorreo" element={<VerificacionCorreo NavigateRoute="Login" />}/>
+        <Route path="/VerificacionCorreo" element={<VerificacionCorreo />}/>
         <Route path="/CodigoVerificacion" element={<CodigoVerificacion />} />
         <Route path="/CambiarContraseña" element={<CambiarContraseña />} />
         <Route

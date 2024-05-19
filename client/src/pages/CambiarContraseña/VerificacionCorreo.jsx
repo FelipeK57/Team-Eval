@@ -6,26 +6,14 @@ import "./VerificacionCorreo.css";
 import { useState } from "react";
 import PopUp from "../../components/Utilities/PopUp.jsx";
 import axios from 'axios';
+import Cookies from "js-cookie";
 
 function VerificacionCorreo() {
 
     const [email, setEmail] = useState('');
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-       
-        try {
-            await axios.post('http://localhost:8000/reset_password/', {
-                email: email
-            });
-            
-           
-        } catch (error) {
-            console.error(error);
-            alert('Ha ocurrido un error.');
-            console.log(error);
-        }
-    };
+    const [mensaje, setMensaje] = useState('');
+    const [open, setOpen] = useState(false);
+    
 
 
     const navigate = useNavigate();
@@ -34,7 +22,6 @@ function VerificacionCorreo() {
         navigate(-1);
     };
 
-    const [open, setOpen] = useState(false);
 
     const popup = (e) => {
         e.preventDefault();
@@ -43,8 +30,22 @@ function VerificacionCorreo() {
 
     const handleClick = async (e) => {  
         e.preventDefault();
-        await handleSubmit(e);  // Asegúrate de esperar a que el submit se complete
-        popup();  // Luego activa el popup
+
+        try {
+           const response =  await axios.post('http://localhost:8000/reset_password/', {
+                email: email
+            });
+            setOpen(false);
+            navigate('/CodigoVerificacion');
+            Cookies.set("token", response.data.token, { expires: 1 });
+            Cookies.set("user", response.data.user, { expires: 1 });
+        } catch (error) {
+            console.error(error);
+            setMensaje("El correo no se encuentra registrado");
+            setOpen(true); // Muestra el popup con el mensaje de error
+            console.log(error);
+        }
+        
     };
 
     return (
@@ -74,7 +75,7 @@ function VerificacionCorreo() {
                             <div className="TitleVerificacion">
                                 <h1>Verificacion de correo</h1>
                             </div>
-                            <form onSubmit={handleSubmit}
+                            <form onSubmit={popup}
                                 className="FormularioVerificacion"
                             >
                                 <br />
@@ -86,7 +87,7 @@ function VerificacionCorreo() {
                                         />
                                 </div>
                                 <Button
-                                    OnClick={handleClick}
+                                    onClick={handleClick}
                                     LineaBoton={true}
                                     Boton={"Hecho"}
                                 />
@@ -97,10 +98,12 @@ function VerificacionCorreo() {
             </div>
             <PopUp open={open}
                 SetOpen={setOpen}
-                Advice={"Esta seguro que digito el correo correctamente?"}
+                Advice={mensaje}
                 Width={"65%"}
                 Button1="Aceptar"
+                onClick1={popup}
                 Button2="Cancelar"
+                onClick2={popup}
             />
         </div>
     );

@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'criterio_evaluacion',
     'rubrica',
     'administrador',
-    'informes'
+    'informes',
+    'codigos_seguridad'
 ]
 
 MIDDLEWARE = [

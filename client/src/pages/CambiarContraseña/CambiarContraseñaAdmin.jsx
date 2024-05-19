@@ -12,14 +12,14 @@ function CambiarContraseñaAdmin() {
   const [advice, setAdvice] = useState("");
   useEffect(() => {
     const verificarSesion = () => {
-      const loggedIn = Cookies.get("loggedIn");
       const userId = Cookies.get("codigo");
+      const token = Cookies.get("token");
 
-      if (loggedIn === "true" && userId) {
+      if ( userId || token) {
         console.log("El usuario ha iniciado sesión. ID de usuario:", userId);
       } else {
         console.log("El usuario no ha iniciado sesión.");
-        navigate("/AvisoContraseña");
+        navigate("/login");
       }
     };
 
@@ -52,7 +52,7 @@ function CambiarContraseñaAdmin() {
     e.preventDefault();
     try {
       const response = await axios.post("http://localhost:8000/changeA/", {
-        codigo: Cookies.get("codigo"),
+        user : Cookies.get("user"),
         nueva_contraseña: newPassword,
       });
     } catch (error) {
@@ -73,6 +73,8 @@ function CambiarContraseñaAdmin() {
       Cookies.remove("token");
       Cookies.remove("loggedIn");
       Cookies.remove("codigo");
+      Cookies.remove("user");
+      Cookies.remove("nombre");
     } catch (error) {
       console.error("Error al realizar la solicitud:" + error);
     }
