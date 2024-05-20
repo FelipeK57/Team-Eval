@@ -11,14 +11,12 @@ import ActualizacionCorreo from "./pages/ActualizacionCorreo/ActualizacionCorreo
 import ActualizacionCorreoP from "./pages/ActualizacionCorreo/ActualizarCorreoProfesor.jsx";
 import ActualizarcorreoA from "./pages/ActualizacionCorreo/ActualizarcorreoA.jsx";
 import AvisoCorreo from "./pages/ActualizacionCorreo/AvisoCorreo.jsx";
-import CambiarContraseña from "./pages/CambiarContraseña/CambiarContraseña.jsx";
 import CambiarContraseñaAdmin from "./pages/CambiarContraseña/CambiarContraseñaAdmin.jsx";
 import CodigoVerificacion from "./pages/CambiarContraseña/CodigoVerificacion.jsx";
 import VerificacionCorreo from "./pages/CambiarContraseña/VerificacionCorreo.jsx";
 import CursosEstudiante from "./pages/HomeStudent/CursosEstudiante.jsx";
 import MiCuentaP from "./pages/MiCuenta/MiCuentaP.jsx";
 import MiCuentaA from "./pages/MiCuenta/MicuentaA.jsx";
-import CambiarContraEstudiante from "./pages/CambiarContraseña/CambiarContraEstudiante.jsx";
 import InformesEstudiantes from "./pages/Informes/InformesEstudiantes.jsx";
 import AvisoContraseña from "./pages/CambiarContraseña/AvisoContraseña.jsx";
 import AvisoCorreoP from "./pages/ActualizacionCorreo/AvisoCorreoP.jsx";
@@ -47,11 +45,7 @@ function App() {
         {/*Actualizacion de contraseña*/}
         <Route path="/VerificacionCorreo" element={<VerificacionCorreo />}/>
         <Route path="/CodigoVerificacion" element={<CodigoVerificacion />} />
-        <Route path="/CambiarContraseña" element={<CambiarContraseña />} />
-        <Route
-          path="/CambioContraEstudiante"
-          element={<CambiarContraEstudiante />}
-        />
+  
         <Route path="/CambioContraAdmin" element={<CambiarContraseñaAdmin />} />
         <Route path="/AvisoContraseña" element={<AvisoContraseña />} />
 

@@ -33,8 +33,6 @@ urlpatterns = [
     re_path(r'^login/$', views.login),
     re_path(r'^register/$', views.register),
     re_path(r'^profile/$', views.profile),
-    re_path(r'^change/$', views.change_password),
-    re_path(r'^changeE/$', views.change_passwordE),
     re_path(r'^changeA/$', views.change_passwordA),
     re_path(r'^logout/$', views.logout),
     re_path(r'^ProfileProfesor/$', views.profesorProfile),

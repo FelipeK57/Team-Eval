@@ -33,7 +33,7 @@ def login(request):
         
     token, created = Token.objects.get_or_create(user=estudiante.user)
     serializer = EstudianteSerializer(estudiante)
-    return Response({"token": token.key, "estudiante": serializer.data, "nombre": estudiante.user.first_name, "apellido": estudiante.user.last_name, "email": estudiante.user.email}, status=status.HTTP_200_OK)
+    return Response({"token": token.key, "estudiante": serializer.data, "nombre": estudiante.user.first_name, "apellido": estudiante.user.last_name, "email": estudiante.user.email, "username": estudiante.user.username}, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 def login_adminte(request):
@@ -129,26 +129,6 @@ def registerProfesor(request):
     
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['POST'])
-def change_password(request):
-    nueva_contraseña = request.data.get('nueva_contraseña')
-    identificacion = request.data.get('identificacion')
-    
-    try:
-        profesor = Profesor.objects.get(identificacion=identificacion)
-        usuario = profesor.user
-        
-        if not usuario:
-            raise ValueError('Usuario no encontrado')
-
-        usuario.set_password(nueva_contraseña)
-        usuario.save()
-
-        return Response({'mensaje': 'Contraseña cambiada con éxito'},status=status.HTTP_200_OK)
-    except Profesor.DoesNotExist:
-        return Response({'error': 'Profesor no encontrado'}, status=404)
-    except (ValueError, Exception) as e:
-        return Response({'error': str(e)}, status=400)
     
 
 @api_view(['POST'])
@@ -172,9 +152,8 @@ def profesorProfile(request):
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def adminProfile(request):  
-    codigo = request.data.get('codigo') 
-    admin = administrador.objects.get(codigo=codigo)
-    user = admin.user
+    username = request.data.get('user') 
+    user = User.objects.get(username=username)   
 
     return Response({'nombre': user.first_name, 'apellidos': user.last_name, 'email': user.email}, status=status.HTTP_200_OK)
 
@@ -238,26 +217,7 @@ def teacher_courses(request):
     serializer = CursosSerializer(profesor.courses_teacher(), many=True)
     return Response({"cursos": serializer.data}, status=status.HTTP_200_OK)
 
-@api_view(['POST'])
-def change_passwordE(request):
-    nueva_contraseña = request.data.get('nueva_contraseña')
-    codigo = request.data.get('codigo')
-    
-    try:
-        estudiante = Estudiante.objects.get(codigo=codigo)
-        usuario = estudiante.user
-        
-        if not usuario:
-            raise ValueError('Usuario no encontrado')
 
-        usuario.set_password(nueva_contraseña)
-        usuario.save()
-
-        return Response({'mensaje': 'Contraseña cambiada con éxito'},status=status.HTTP_200_OK)
-    except Profesor.DoesNotExist:
-        return Response({'error': 'Profesor no encontrado'}, status=404)
-    except (ValueError, Exception) as e:
-        return Response({'error': str(e)}, status=400)
     
 @api_view(['POST'])
 def change_passwordA(request):

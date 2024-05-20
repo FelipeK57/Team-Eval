@@ -37,7 +37,7 @@ function LoginAdmin() {
                 password: password,
             });
             Cookies.set("token", response.data.token, { expires: 1 }); // Guarda el token en una cookie que expira en 7 días
-            Cookies.set("codigo", response.data.user.codigo);
+            Cookies.set("user", response.data.user.user.username, { expires: 1 });
             Cookies.set("loggedIn", "true", { expires: 1 }); // Indica que el usuario ha iniciado sesión
             navigate('/Admin')
         }catch(error){

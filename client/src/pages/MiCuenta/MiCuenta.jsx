@@ -62,7 +62,7 @@ function MiCuenta() {
         </Link>
       </div>
       <div className="coso3">
-        <Link to="/CambioContraEstudiante">
+        <Link to="/CambioContraAdmin">
           <Button2
             Boton2="Contraseña"
             color="rgb(15, 65, 118)"

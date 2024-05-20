@@ -12,11 +12,11 @@ function CambiarContraseñaAdmin() {
   const [advice, setAdvice] = useState("");
   useEffect(() => {
     const verificarSesion = () => {
-      const userId = Cookies.get("codigo");
+      const user = Cookies.get("user");
       const token = Cookies.get("token");
 
-      if ( userId || token) {
-        console.log("El usuario ha iniciado sesión. ID de usuario:", userId);
+      if ( user &&  token) {
+        console.log("El usuario ha iniciado sesión. username:", user);
       } else {
         console.log("El usuario no ha iniciado sesión.");
         navigate("/login");
@@ -72,7 +72,6 @@ function CambiarContraseñaAdmin() {
       navigate("/AvisoContraseña");
       Cookies.remove("token");
       Cookies.remove("loggedIn");
-      Cookies.remove("codigo");
       Cookies.remove("user");
       Cookies.remove("nombre");
     } catch (error) {

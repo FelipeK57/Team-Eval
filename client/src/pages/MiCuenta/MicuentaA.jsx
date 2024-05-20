@@ -14,14 +14,14 @@ function MiCuentaA() {
   const [adminInfo, setadminInfo] = useState(null);
   useEffect(() => {
     const verificarSesion = () => {
-      const loggedIn = Cookies.get("loggedIn");
-      const userId = Cookies.get("codigo");
+      const user = Cookies.get("user");
+      const token = Cookies.get("token");
 
-      if (loggedIn === "true" && userId) {
-        console.log("El usuario ha iniciado sesión. ID de usuario:", userId);
+      if ( user &&  token) {
+        console.log("El usuario ha iniciado sesión. username:", user);
       } else {
         console.log("El usuario no ha iniciado sesión.");
-        navigate("/Login");
+        navigate("/login");
       }
     };
 
@@ -34,7 +34,7 @@ function MiCuentaA() {
         const response = await axios.post(
           "http://localhost:8000/adminProfile/",
           {
-            codigo: Cookies.get("codigo"),
+            user: Cookies.get("user"),
           },
           {
             headers: {
@@ -61,8 +61,11 @@ function MiCuentaA() {
       });
       Cookies.remove("token");
       Cookies.remove("loggedIn");
+      Cookies.remove("user");
       Cookies.remove("codigo");
-      alert(response.data.mensaje);
+      Cookies.remove("nombre");
+      Cookies.remove("apellido");
+      Cookies.remove("email");
       navigate("/Login");
     } catch (error) {
       console.error("Error al cerrar sesión:", error.response.error);

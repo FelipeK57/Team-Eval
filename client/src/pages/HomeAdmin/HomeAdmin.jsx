@@ -29,7 +29,7 @@ function HomeAdmin() {
   useEffect(() => {
     const verificarSesion = () => {
       const loggedIn = Cookies.get("loggedIn");
-      const userId = Cookies.get("codigo");
+      const userId = Cookies.get("user");
 
       if (loggedIn === "true" && userId) {
         console.log("El usuario ha iniciado sesión. ID de usuario:", userId);

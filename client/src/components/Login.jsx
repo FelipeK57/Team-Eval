@@ -45,6 +45,7 @@ function Login() {
       Cookies.set("nombre", response.data.nombre);
       Cookies.set("apellido", response.data.apellido);
       Cookies.set("email", response.data.email);
+      Cookies.set("user", response.data.username, { expires: 1 });  
       navigate("/Student");
     } catch (error) {
       console.log(error);
@@ -85,7 +86,7 @@ function Login() {
       Cookies.set("token", response.data.token, { expires: 1 }); // Guarda el token en una cookie que expira en 1 dia
       Cookies.set("loggedIn", "true", { expires: 1 }); // Indica que el usuario ha iniciado sesión
       Cookies.set("identificacion", response.data.user.identificacion);
-      Cookies.set("nombre", response.data.user.first_name);
+      Cookies.set("user", response.data.user.user.username, { expires: 1 });
       navigate("/Profesor");
     } catch (error) {
       setOpen(!open);
