@@ -29,6 +29,7 @@ import Cursos from "./pages/Admin/Cursos.jsx";
 import Profesores from "./pages/Admin/Profesores.jsx";
 import ImportarCursos from "./pages/Home/ImportarCursos.jsx";
 import EditarCurso from "./pages/Admin/EditarCurso.jsx"
+import EditarRubricas from "./pages/Admin/EditarRubricas.jsx";
 
 function App() {
   return (
@@ -81,6 +82,7 @@ function App() {
         <Route path="/ProfesoresAdmin" element={<Profesores />} />
         <Route path="/ImportarCurso" element={<ImportarCursos />} />
         <Route path="/EditarCurso" element={<EditarCurso />} />
+        <Route path="/EditarRubricas" element={<EditarRubricas />} />
       </Routes>
     </BrowserRouter>
   );
