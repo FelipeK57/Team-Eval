@@ -24,6 +24,10 @@ function HomeAdmin() {
     navigate("/ProfesoresAdmin");
   }
 
+  const Rubricas = () =>{
+    navigate("/Rubricas");
+  }
+
   useEffect(() => {
     const verificarSesion = () => {
       const loggedIn = Cookies.get("loggedIn");
@@ -51,7 +55,7 @@ function HomeAdmin() {
         </button>
       </div>
       <div className="coronel2">
-        <button onClick={""}>
+        <button onClick={Rubricas}>
           <EditNoteIcon sx={{ fontSize: 50 }} />
         </button>
       </div>
