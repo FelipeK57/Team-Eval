@@ -18,10 +18,14 @@ from cursos.serializer import CursosSerializer
 from administrador.models import administrador
 from administrador.serializer import AdministradorSerializer
 from cursos.models import Cursos
+<<<<<<< HEAD
 from django.core.mail import send_mail
 import random
 from codigos_seguridad.models import codigos_seguridad
 
+=======
+from rest_framework.validators import ValidationError
+>>>>>>> origin/Importar_cursos
 
 @api_view(['POST'])
 def login(request):
@@ -73,8 +77,9 @@ def login_adminte(request):
 def import_cursos(request):
     admin = get_object_or_404(administrador, codigo='5775')
     admin.read_file(request.FILES['file'])
-    return Response(status=status.HTTP_200_OK)
-
+    message = admin.read_file(request.FILES['file'])
+    return Response({"message": str(message)},status=status.HTTP_200_OK)
+    
 @api_view(['POST'])
 def register(request):
     
