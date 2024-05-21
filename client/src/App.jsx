@@ -26,6 +26,7 @@ import HomeAdmin from "./pages/HomeAdmin/HomeAdmin";
 import Cursos from "./pages/Admin/Cursos.jsx";
 import Profesores from "./pages/Admin/Profesores.jsx";
 import ImportarCursos from "./pages/Home/ImportarCurso.jsx";
+import Rubricas from "./pages/Admin/Rubricas.jsx";
 
 function App() {
   return (
@@ -75,7 +76,8 @@ function App() {
         <Route path="/MiCuentaA" element={<MiCuentaA />} />
         <Route path="/CursosAdmin" element={<Cursos />} />
         <Route path="/ProfesoresAdmin" element={<Profesores />} />
-        <Route path="/ImportarCurso" element={<ImportarCursos/>} />
+        <Route path="/ImportarCurso" element={<ImportarCursos />} />
+        <Route path="/Rubricas" element={<Rubricas />} />
       </Routes>
     </BrowserRouter>
   );
