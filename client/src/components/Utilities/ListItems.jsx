@@ -6,6 +6,7 @@ import "./ListItems.css"
 function ListItems(props) {
     ListItems.propTypes = {
         Nombre1: PropTypes.string.isRequired,
+        Nombre2: PropTypes.string.isRequired,
         Codigo1: PropTypes.string.isRequired,
         onClickEdit: PropTypes.func,
         onClickDelete: PropTypes.func,
@@ -17,6 +18,7 @@ function ListItems(props) {
                 <div className='LeftList'>
                     <div className="NombreList">
                         <h2>{props.Nombre1}</h2>
+                        <h2>{props.Nombre2}</h2>
                     </div>
                     <div className='CodeList'>
                         <h2>{props.Codigo1}</h2>
