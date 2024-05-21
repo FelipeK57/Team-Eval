@@ -1,0 +1,39 @@
+.ContainerProfesores {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.TitleProfesores {
+  display: flex;
+  margin-top: 15vh;
+  position: absolute;
+  font-size: 1.5rem;
+  color: #0f4175;
+  left: 10%;
+}
+
+.ListaProfesores {
+  margin-top: 25vh;
+}
+
+.AgregarListProfesores {
+  display: flex;
+  position: absolute;
+  font-size: 1.5rem;
+  margin-top: 20vh;
+  color: #0f4175;
+  left: 80%;
+  height: 0;
+}
+
+.AgregarListProfesores Button {
+  font-size: 2rem;
+  width: auto;
+  padding: 2% 10%;
+  height: auto;
+  cursor: pointer;
+}

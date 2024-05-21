@@ -18,6 +18,7 @@ from cursos.serializer import CursosSerializer
 from administrador.models import administrador
 from administrador.serializer import AdministradorSerializer
 from cursos.models import Cursos
+from rest_framework.validators import ValidationError
 
 @api_view(['POST'])
 def login(request):
@@ -47,8 +48,9 @@ def login_adminte(request):
 def import_cursos(request):
     admin = get_object_or_404(administrador, codigo='5775')
     admin.read_file(request.FILES['file'])
-    return Response(status=status.HTTP_200_OK)
-
+    message = admin.read_file(request.FILES['file'])
+    return Response({"message": str(message)},status=status.HTTP_200_OK)
+    
 @api_view(['POST'])
 def register(request):
     
@@ -333,7 +335,3 @@ def nuevo_curso(request):
         return Response({"error": "Ya existe un curso con el código proporcionado"}, status=status.HTTP_400_BAD_REQUEST)
     curso = Cursos.objects.create(nombre=nombre, codigo=codigo, periodoAcademico=periodo)
     return Response({"success": "Curso creado exitosamente"}, status=status.HTTP_201_CREATED)
-    
-    
-
-    

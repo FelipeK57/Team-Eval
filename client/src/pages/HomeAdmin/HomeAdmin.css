@@ -1,5 +1,5 @@
 .coron {
-    position:fixed;
+    position: fixed;
     justify-content: center;
     align-items: center;
     font-size: 1.5rem;
@@ -10,7 +10,9 @@
     position: absolute;
     font-family: Mulish !important;
 }
-.coronel{
+
+.coronel {
+    display: flex;
     position: absolute;
     width: 180px;
     padding: 90px !important;
@@ -18,9 +20,32 @@
     border-radius: 40px;
     top: 32%;
     left: 10%;
+    height: 0;
 }
 
-.coronel2{
+.coronel button {
+    color: black;
+    border: none;
+    border-radius: 100%;
+    height: 5rem;
+    width: 5rem;
+    margin: auto;
+    cursor: pointer;
+    transition: 0.3s;
+    position: relative;
+    bottom: 2.5rem;
+    background-color: white;
+}
+
+.coronel button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 0.5rem 0.5rem rgba(255, 255, 255, 0.1);
+    transition: all 0.3s;
+}
+
+.coronel2 {
+    display: flex;
+    height: 0;
     position: absolute;
     width: 180px;
     padding: 90px !important;
@@ -28,10 +53,30 @@
     border-radius: 40px;
     top: 32%;
     left: 40%;
+}
+
+.coronel2 button {
+    color: black;
+    border: none;
+    border-radius: 100%;
+    height: 5rem;
+    width: 5rem;
+    margin: auto;
+    cursor: pointer;
+    transition: 0.3s;
+    position: relative;
+    bottom: 2.5rem;
+    background-color: white;
+}
+
+.coronel2 button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 0.5rem 0.5rem rgba(255, 255, 255, 0.1);
+    transition: all 0.3s;
 }
 
 .coron2 {
-    position:fixed;
+    position: fixed;
     justify-content: center;
     align-items: center;
     font-size: 1.5rem;
@@ -43,7 +88,9 @@
     font-family: Mulish !important;
 }
 
-.coronel3{
+.coronel3 {
+    display: flex;
+    height: 0;
     position: absolute;
     width: 180px;
     padding: 90px !important;
@@ -53,8 +100,28 @@
     right: 10%;
 }
 
+.coronel3 button {
+    color: black;
+    border: none;
+    border-radius: 100%;
+    height: 5rem;
+    width: 5rem;
+    margin: auto;
+    cursor: pointer;
+    transition: 0.3s;
+    position: relative;
+    bottom: 2.5rem;
+    background-color: white;
+}
+
+.coronel3 button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 0.5rem 0.5rem rgba(255, 255, 255, 0.1);
+    transition: all 0.3s;
+}
+
 .coron3 {
-    position:fixed;
+    position: fixed;
     justify-content: center;
     align-items: center;
     font-size: 1.5rem;
@@ -66,18 +133,8 @@
     font-family: Mulish !important;
 }
 
-.coronel4{
-    position: absolute;
-    width: 180px;
-    padding: 90px !important;
-    background-color: rgb(15, 65, 118);
-    border-radius: 40px;
-    top: 67%;
-    left: 10%;
-}
-
 .coron4 {
-    position:fixed;
+    position: fixed;
     justify-content: center;
     align-items: center;
     font-size: 1.5rem;
@@ -87,4 +144,35 @@
     left: 10%;
     position: absolute;
     font-family: Mulish !important;
+}
+
+.coronel4 {
+    display: flex;
+    position: absolute;
+    width: 180px;
+    height: 0;
+    padding: 90px !important;
+    background-color: rgb(15, 65, 118);
+    border-radius: 40px;
+    top: 67%;
+    left: 10%;
+}
+
+.coronel4 button {
+    color: black;
+    border: none;
+    border-radius: 100%;
+    height: 5rem;
+    width: 5rem;
+    margin: auto;
+    cursor: pointer;
+    transition: 0.3s;
+    position: relative;
+    bottom: 2.5rem;
+    background-color: white;
+}
+
+.coronel4 button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 0.5rem 0.5rem rgba(255, 255, 255, 0.1);
 }

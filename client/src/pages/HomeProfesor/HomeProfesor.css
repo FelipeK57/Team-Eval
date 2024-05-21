@@ -9,6 +9,7 @@
   font-size: 1.5rem;
   color: #000;
 }
+
 .cont b {
   color: rgb(15, 65, 118);
 }
@@ -35,16 +36,16 @@
 }
 
 
-.cont3 .Boton button{
-    width: 250px;
-    height: 40px;
-    font-size: 1.5rem;
-    padding: 0px 10px;
-    margin-top: 5%;
+.cont3 .Boton button {
+  width: 250px;
+  height: 40px;
+  font-size: 1.5rem;
+  padding: 0px 10px;
+  margin-top: 5%;
 }
 
-.cont3 .Boton button:hover{
-    box-shadow: 0 0 0.5rem 0.5rem rgba(15, 65, 118, 0.5) !important;
-    transform: scale(1.1);
-    transition: all 0.3s;
+.cont3 .Boton button:hover {
+  box-shadow: 0 0 0.5rem 0.5rem rgba(15, 65, 118, 0.5) !important;
+  transform: scale(1.1);
+  transition: all 0.3s;
 }

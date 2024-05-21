@@ -1,0 +1,52 @@
+.List {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 80vw;
+    height: 100%;
+    margin-top: 2rem;
+    background-color: #A5A4A4;
+    border-radius: 25px;
+}
+
+.ItemContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+
+.LeftList {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    max-width: 30%;
+    align-self: start;
+}
+
+.RightList {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 10%;
+}
+
+.NombreList {
+    margin: 0 10%;
+    flex-grow: 10;
+}
+
+.CodeList {
+    margin: auto;
+    flex-grow: 10;
+}
+
+.CreateIconList:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
