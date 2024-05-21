@@ -1,0 +1,69 @@
+.panal {
+    display: flex;
+    position: relative;
+    background-color: #A5A4A4;
+    border-radius: 10px;
+    margin-top: 30vh;
+    margin-left: 20vw;
+    width: 60%;
+    padding: 5px;
+    justify-content: space-between;
+  }
+
+  .cosito {
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    text-decoration: none;
+    color: #444343;
+    margin: auto 0 auto 15px;
+    left: 2%;
+    font-family: Mulish !important;
+  }
+
+  .cosito h1 {
+    margin: 0;
+  }
+
+  .cosito2 {
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    text-decoration: none;
+    color: #444343;
+    margin: auto 0;
+    margin-left: 5%;
+    font-family: Mulish !important;
+  }
+
+  .cosito2 h1 {
+    margin: 0;
+  }
+
+.label-left {
+ display: flex;
+ flex-direction: row;
+}
+
+.label-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.boton-label {
+    background: none;
+    border: none;
+    display: flex;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    width: 100%;
+    height: 100%;
+    transition: all 0.3s;
+}
+
+.label-right .boton-label:hover {
+    transform: scale(1.2);
+}

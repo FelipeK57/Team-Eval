@@ -7,6 +7,9 @@ import MiCuenta from "./pages/MiCuenta/MiCuenta";
 import Curso from "./pages/CursosStudent/Curso";
 import CursoP from "./pages/CursosProfe/CursoP";
 import HomeAdmin from "./pages/HomeAdmin/HomeAdmin";
+import ProfeEditar from "./pages/ProfeEditar/ProfeEditar";
+import CursosDes from "./pages/CursosDes/CursosDes";
+import ProfeDes from "./pages/ProfeDes/ProfeDes";
 function App() {
   return (
     <BrowserRouter>
@@ -19,6 +22,9 @@ function App() {
         <Route path="/Curso" element={<Curso />} />
         <Route path="/CursoP" element={<CursoP />} />
         <Route path="/Admin" element={<HomeAdmin />} />
+        <Route path="/ProfeEditar" element= {<ProfeEditar/>}/>
+        <Route path="/CursosDes" element={<CursosDes />} />
+        <Route path="/ProfeDes" element={<ProfeDes />} />
       </Routes>
     </BrowserRouter>
     
