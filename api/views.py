@@ -333,3 +333,11 @@ def nuevo_curso(request):
         return Response({"error": "Ya existe un curso con el código proporcionado"}, status=status.HTTP_400_BAD_REQUEST)
     curso = Cursos.objects.create(nombre=nombre, codigo=codigo, periodoAcademico=periodo)
     return Response({"success": "Curso creado exitosamente"}, status=status.HTTP_201_CREATED)
+
+@api_view(['GET'])
+def estudiantes_deshabilitados(request):
+    estudiantes_deshabilitados = Estudiante.objects.filter(estado=True)
+    serializer = EstudianteSerializer(estudiantes_deshabilitados, many=True)
+    return Response({"estudiantes_deshabilitados": serializer.data}, status=status.HTTP_200_OK)
+
+

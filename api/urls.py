@@ -28,6 +28,7 @@ urlpatterns = [
     path('evaluacion/', include('evaluacion.urls')),
     path('profesor/', include('profesor.urls')),
     path('rubrica/', include('rubrica.urls')),
+    path('estudiantes-deshabilitados/', views.estudiantes_deshabilitados, name='estudiantes_deshabilitados'),
     re_path(r'^loginProfesor/$', views.loginProfesor),
     re_path(r'^registerProfesor/$', views.registerProfesor),
     re_path(r'^login/$', views.login),
