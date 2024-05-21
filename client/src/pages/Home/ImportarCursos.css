@@ -1,11 +1,11 @@
-.ImportarCursosContainer{
+.ImportarCursosContainer {
   display: flex;
   flex-direction: row;
   width: 100%;
   height: 100%;
 }
 
-.ContainerImportarCursos{
+.ContainerImportarCursos {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -13,18 +13,18 @@
   width: 50%;
   height: 100%;
 }
-.ImportarCursos{
+.ImportarCursos {
   display: flex;
   margin-top: 15vh;
   width: 100%;
   height: 100%;
 }
 
-.FileContainer{
+.FileContainer {
   display: flex;
   width: 50%;
   height: 100%;
-  background-color:rgb(15, 65, 118);
+  background-color: rgb(15, 65, 118);
   border-radius: 25px;
   align-items: center;
   margin: 2% 2%;
@@ -33,27 +33,27 @@
   padding-right: 15px;
 }
 
-.ImportarCursos input{
+.ImportarCursos input {
   font-size: 1.5rem;
   color: black;
 }
 
-.ImportarCursos .ButtonText{
+.ImportarCursos .ButtonText {
   color: rgb(255, 255, 255);
   margin: 15px;
 }
 
-.ImportarCursos button{
+.ImportarCursos button {
   font-size: 1.5rem;
   color: black;
 }
 
-.ImportarCursos button{
+.ImportarCursos button {
   font-size: 1.5rem;
   color: rgb(0, 0, 0);
   border: none;
   border-radius: 100%;
-  background-color: rgb(255,255,255);
+  background-color: rgb(255, 255, 255);
   padding: 10px;
   margin-top: 15px;
   cursor: pointer;
@@ -66,7 +66,7 @@
   transition: all 0.3s;
 }
 
-.fileName{
+.fileName {
   font-size: 1.5rem;
   color: black;
   padding: 10px;
@@ -81,29 +81,30 @@
   width: 50%;
 }
 
-.ImportarCursos button:hover{
+.ImportarCursos button:hover {
   transform: scale(1.1);
   box-shadow: 0 0 0.5rem 0.5rem rgba(255, 255, 255, 0.1);
-  
 }
 
-.upload{
+.upload {
   color: black;
   display: none;
 }
 
-.Recommendations{
+.Recommendations {
   color: black;
-  background-color: #A5A4A4;
+  padding: 20px;
+  background-color: #a5a4a4;
   display: flex;
-  width: 90%;
+  width: 85%;
   height: 65vh;
   margin: 2% 0 2% 2%;
   border-radius: 25px;
   flex-direction: column;
+  font-size: 20px;
 }
 
-.Recommendations h1{
+.Recommendations h1 {
   display: flex;
   justify-content: center;
   align-items: start;
@@ -111,7 +112,7 @@
   font-size: 2rem;
 }
 
-.Recommendations p{
+.Recommendations p {
   display: flex;
   justify-content: center;
   align-items: start;
@@ -120,7 +121,7 @@
   margin: 0 5%;
 }
 
-.EnviarContainer{
+.EnviarContainer {
   display: flex;
   max-width: 50%;
   max-height: 100%;
@@ -131,7 +132,7 @@
   top: 90vh;
 }
 
-.EnviarContainer button{
+.EnviarContainer button {
   font-size: 1.5rem;
   color: rgb(255, 255, 255);
   border: none;
@@ -143,23 +144,23 @@
   padding: 10px 20px;
 }
 
-.EnviarContainer button:hover{
+.EnviarContainer button:hover {
   transform: scale(1.1);
   box-shadow: 0 0 0.5rem 0.5rem rgb(15, 65, 118, 0.4);
 }
 
-.ContainerImportarCursos2{
+.ContainerImportarCursos2 {
   display: flex;
   flex-direction: column;
   justify-content: center;
   justify-items: center;
   width: 50%;
   height: 100%;
-  background-color: #D9D9D9;
+  background-color: #d9d9d9;
   margin-top: 15vh;
 }
 
-.Recommendations2{
+.Recommendations2 {
   margin-right: 0 !important;
   margin-left: 8% !important;
 }
