@@ -26,14 +26,36 @@ from codigos_seguridad.models import codigos_seguridad
 @api_view(['POST'])
 def login(request):
     codigo = request.data.get('codigo')
-    estudiante = get_object_or_404(Estudiante, codigo=codigo)
-    
-    if not estudiante.user.check_password(request.data['password']):
-        return Response({"error:": "Invalid password"}, status=status.HTTP_400_BAD_REQUEST)
-        
+    password = request.data.get('password')
+
+    try:
+        estudiante = Estudiante.objects.get(codigo=codigo)
+    except Estudiante.DoesNotExist:
+        return Response({"error": "Estudiante con este código no existe"}, status=status.HTTP_400_BAD_REQUEST)
+
+    if not estudiante.user.check_password(password):
+        return Response({"error": "Contraseña incorrecta"}, status=status.HTTP_400_BAD_REQUEST)
+
+    # Autenticar al usuario
+    user = authenticate(request, username=estudiante.user.username, password=password)
+    if user is None:
+        return Response({"error": "Error de autenticación"}, status=status.HTTP_400_BAD_REQUEST)
+
+    # Generar o recuperar el token de autenticación
     token, created = Token.objects.get_or_create(user=estudiante.user)
+
+    # Serializar los datos del estudiante
     serializer = EstudianteSerializer(estudiante)
-    return Response({"token": token.key, "estudiante": serializer.data, "nombre": estudiante.user.first_name, "apellido": estudiante.user.last_name, "email": estudiante.user.email, "username": estudiante.user.username}, status=status.HTTP_200_OK)
+
+    # Devolver respuesta con el token y los datos del usuario
+    return Response({
+        "token": token.key,
+        "estudiante": serializer.data,
+        "nombre": estudiante.user.first_name,
+        "apellido": estudiante.user.last_name,
+        "email": estudiante.user.email,
+        "username": estudiante.user.username
+    }, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 def login_adminte(request):
@@ -79,12 +101,13 @@ def loginProfesor(request):
     try:
         profesor = Profesor.objects.get(identificacion=identificacion)
     except Profesor.DoesNotExist:
-        return Response({"error": "Profesor no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+        return Response({"error": "Profesor con la identificación proporcionada no existe"}, status=status.HTTP_404_NOT_FOUND)
 
     print(profesor.courses_teacher())
 
     # Verificar la contraseña
     user = profesor.user
+    
     if not user.check_password(password):
         return Response({"error": "Contraseña incorrecta"}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -266,16 +289,17 @@ def nuevo_profesor(request):
         return Response({"error": "Todos los campos son obligatorios"}, status=status.HTTP_400_BAD_REQUEST)
     if Profesor.objects.filter(identificacion=identificacion).exists():
         return Response({"error": "Ya existe un profesor con la identificación proporcionada"}, status=status.HTTP_400_BAD_REQUEST)
-    if nombre:
-        primera_letra_nombre = nombre[0].upper()
-    else:
-        primera_letra_nombre = ''
+    if User.objects.filter(email=email).exists():
+        return Response({"error": "Ya existe un usuario con el correo proporcionado"}, status=status.HTTP_400_BAD_REQUEST)
     
-    if identificacion:
-        contraseña = primera_letra_nombre + identificacion
-    else:
-        contraseña = primera_letra_nombre
-    username = nombre + ' ' + apellido
+   
+   
+    primera_letra_nombre = nombre[0].upper()
+   
+    contraseña = primera_letra_nombre + identificacion
+
+    username = nombre + identificacion
+    
     user = User.objects.create_user(username=username, email=email, password=contraseña, first_name=nombre, last_name=apellido)
     
     # Crear profesor

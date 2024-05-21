@@ -2,6 +2,10 @@ import NoQuieroCrearMasNavbars from "../../components/NoQuieroCrearMasNavbars";
 import CardForm from "../../components/CardForm";
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import Cookies from "js-cookie";
+import PopUp from "../../components/Utilities/PopUp";
 
 function AgregarProfesor() {
 
@@ -9,6 +13,9 @@ function AgregarProfesor() {
     const  [apellidos, setApellidos] = useState("");
     const  [documento, setDocumento] = useState("");
     const  [email, setEmail] = useState("");
+    const navigate = useNavigate();
+    const [open, setOpen] = useState(false);
+    const [advice, setAdvice] = useState("");
 
     const handleNombresChange = (e) => {
         setNombres(e.target.value);
@@ -26,7 +33,33 @@ function AgregarProfesor() {
         setEmail(e.target.value);
     }
 
+    const popup = (e) => {
+        e.preventDefault();
+        setOpen(!open);
+    };
+
+    useEffect(() => {
+        const verificarSesion = () => {
+          const user = Cookies.get("user");
+          const token = Cookies.get("token");
+    
+          if ( user &&  token) {
+            console.log("El usuario ha iniciado sesión. username:", user);
+          } else {
+            console.log("El usuario no ha iniciado sesión.");
+            navigate("/login");
+          }
+        };
+    
+        verificarSesion();
+      }, [navigate]);
+
     const handleClick = async (e) => {
+        if (nombres === "" || apellidos === "" || documento === "" || email === "") {
+            setAdvice("Por favor, rellene todos los campos.");
+            popup(e);
+            return;
+        }
         e.preventDefault();
         try {
         const response = await axios.post("http://localhost:8000/nuevo_profe/", {
@@ -36,11 +69,17 @@ function AgregarProfesor() {
             email : email
         });
         console.log(response.data);
-        alert("Profesor agregado");
+        setAdvice("Profesor agregado con exito");
+        popup(e);
+        
 
     } catch (error) {
-        console.log(error);
-        alert("Error al agregar el Profesor", error);
+        if (error.response && error.response.data && error.response.data.error) {
+            setAdvice(error.response.data.error);
+        } else {
+            setAdvice("Error al agregar el profesor");
+        }
+        popup(e);
     }
 
     }
@@ -73,7 +112,16 @@ function AgregarProfesor() {
                 Field4=""
                 onClick={handleClick}
             />
+            <PopUp open={open}
+                SetOpen={setOpen}
+                Advice={advice}
+                Width={"100%"}
+                Button1="volver"
+               onClick1={popup}
+                
+            />
         </div>
+        
     );
 }
 

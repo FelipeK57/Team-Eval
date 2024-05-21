@@ -16,6 +16,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const [identificacion, setIdentificacion] = useState("");
   const [open, setOpen] = useState(false);
+  const [advice, setAdvice] = useState("");
  
 
   const handleCodigoChange = (e) => {
@@ -48,8 +49,12 @@ function Login() {
       Cookies.set("user", response.data.username, { expires: 1 });  
       navigate("/Student");
     } catch (error) {
-      console.log(error);
-      setOpen(!open);
+      if (error.response && error.response.data && error.response.data.error) {
+        setAdvice(error.response.data.error);
+    } else {
+        setAdvice("Error al iniciar sesión"); 
+    }
+    popup(e);
     }
   };
 
@@ -89,8 +94,12 @@ function Login() {
       Cookies.set("user", response.data.user.user.username, { expires: 1 });
       navigate("/Profesor");
     } catch (error) {
-      setOpen(!open);
-      console.log(error);
+      if (error.response && error.response.data && error.response.data.error) {
+        setAdvice(error.response.data.error);
+    } else {
+        setAdvice("Error al iniciar sesión"); 
+    }
+    popup(e);
     }
   };
 
@@ -208,7 +217,7 @@ function Login() {
                   <div>
                   <PopUp open={open}
                 SetOpen={setOpen}
-                Advice={"Credenciales incorrectas"}
+                Advice={advice} 
                 Width={"100%"}
                 Button1="volver"
                onClick1={popup}

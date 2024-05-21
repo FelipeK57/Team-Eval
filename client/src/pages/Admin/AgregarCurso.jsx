@@ -2,12 +2,19 @@ import CardForm from "../../components/CardForm";
 import NoQuieroCrearMasNavbars from "../../components/NoQuieroCrearMasNavbars";
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import Cookies from "js-cookie";
+import PopUp from "../../components/Utilities/PopUp";
 
 function AgregarCurso() {
 
     const  [nombre, setNombre] = useState("");
     const  [codigo, setCodigo] = useState("");
     const  [Periodo, setPeriodo] = useState("");
+    const navigate = useNavigate();
+    const [open, setOpen] = useState(false);
+    const [advice, setAdvice] = useState("");
   
 
     const handleNombreChange = (e) => {
@@ -21,6 +28,26 @@ function AgregarCurso() {
     const handlesetPeriodo = (e) => {
         setPeriodo(e.target.value);
     }
+    const popup = (e) => {
+        e.preventDefault();
+        setOpen(!open);
+    };
+
+    useEffect(() => {
+        const verificarSesion = () => {
+          const user = Cookies.get("user");
+          const token = Cookies.get("token");
+    
+          if ( user &&  token) {
+            console.log("El usuario ha iniciado sesión. username:", user);
+          } else {
+            console.log("El usuario no ha iniciado sesión.");
+            navigate("/login");
+          }
+        };
+    
+        verificarSesion();
+      }, [navigate]);
 
     const handleClick = async (e) => {
         e.preventDefault();
@@ -31,11 +58,16 @@ function AgregarCurso() {
             periodo: Periodo,
         });
         console.log(response.data);
-        alert("Curso agregado");
+        setAdvice("Curso agregado con exito");
+        popup(e);   
 
     } catch (error) {
-        console.log(error);
-        alert("Error al agregar el Curso", error);
+        if (error.response && error.response.data && error.response.data.error) {
+            setAdvice(error.response.data.error);
+        } else {
+            setAdvice("Error al agregar el curso");
+        }
+        popup(e);
     }
 
     }
@@ -63,6 +95,14 @@ function AgregarCurso() {
             Field3=""
             onClick={handleClick}
         />
+         <PopUp open={open}
+                SetOpen={setOpen}
+                Advice={advice}
+                Width={"100%"}
+                Button1="volver"
+               onClick1={popup}
+                
+            />
     </div>
         
     );
