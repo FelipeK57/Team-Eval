@@ -12,6 +12,7 @@ import axios from "axios";
 function MiCuentaA() {
   const navigate = useNavigate();
   const [adminInfo, setadminInfo] = useState(null);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const verificarSesion = () => {
       const user = Cookies.get("user");
@@ -43,6 +44,7 @@ function MiCuentaA() {
           }
         );
         setadminInfo(response.data);
+        setLoading(false);
       } catch (error) {
         console.error("Error al obtener la información del admin:", error);
       }
@@ -72,6 +74,10 @@ function MiCuentaA() {
     }
   };
 
+  if (loading) {
+    return <div>Cargando...</div>;
+  }
+
   return (
     <div className="MiCuenta">
       <NoQuieroCrearMasNavbars />
@@ -80,13 +86,13 @@ function MiCuentaA() {
           <img src="../../../public/219969.png" alt="usu" />
         </div>
         <div className="card2">
-          <h1>{adminInfo ? adminInfo.nombre : "Cargando..."}</h1>
+          <h1>{adminInfo.nombre}</h1>
         </div>
         <div className="card3">
-          <h1>{adminInfo ? adminInfo.apellidos : "Cargando..."}</h1>
+          <h1>{adminInfo.apellidos}</h1>
         </div>
         <div className="card4">
-          <h1>{adminInfo ? adminInfo.email : "Cargando..."}</h1>
+          <h1>{adminInfo.email }</h1>
         </div>
       </div>
       <div className="coso">

@@ -12,6 +12,7 @@ import axios from "axios";
 function MiCuentaP() {
   const navigate = useNavigate();
   const [profesorInfo, setProfesorInfo] = useState(null);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const verificarSesion = () => {
       const loggedIn = Cookies.get("loggedIn");
@@ -43,6 +44,7 @@ function MiCuentaP() {
           }
         );
         setProfesorInfo(response.data);
+        setLoading(false);
       } catch (error) {
         console.error("Error al obtener la información del profesor:", error);
       }
@@ -68,6 +70,10 @@ function MiCuentaP() {
     }
   };
 
+  if (loading) {
+    return <div>Cargando...</div>;
+  }
+
   return (
     <div className="MiCuenta">
       <NavbarProfesor />
@@ -76,13 +82,13 @@ function MiCuentaP() {
           <img src="../../../public/219969.png" alt="usu" />
         </div>
         <div className="card2">
-          <h1>{profesorInfo ? profesorInfo.nombre : "Cargando..."}</h1>
+          <h1>{profesorInfo.nombre}</h1>
         </div>
         <div className="card3">
-          <h1>{profesorInfo ? profesorInfo.apellidos : "Cargando..."}</h1>
+          <h1>{ profesorInfo.apellidos}</h1>
         </div>
         <div className="card4">
-          <h1>{profesorInfo ? profesorInfo.email : "Cargando..."}</h1>
+          <h1>{profesorInfo.email}</h1>
         </div>
       </div>
       <div className="coso">
