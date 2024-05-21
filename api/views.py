@@ -336,7 +336,7 @@ def nuevo_curso(request):
 
 @api_view(['GET'])
 def estudiantes_deshabilitados(request):
-    estudiantes_deshabilitados = Estudiante.objects.filter(estado=True)
+    estudiantes_deshabilitados = Estudiante.objects.filter(estado=False)
     serializer = EstudianteSerializer(estudiantes_deshabilitados, many=True)
     return Response({"estudiantes_deshabilitados": serializer.data}, status=status.HTTP_200_OK)
 
