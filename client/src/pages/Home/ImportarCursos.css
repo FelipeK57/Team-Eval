@@ -97,7 +97,8 @@
   background-color: #a5a4a4;
   display: flex;
   width: 85%;
-  height: 65vh;
+  min-height: 60vh;
+  max-height: 60vh;
   margin: 2% 0 2% 2%;
   border-radius: 25px;
   flex-direction: column;
