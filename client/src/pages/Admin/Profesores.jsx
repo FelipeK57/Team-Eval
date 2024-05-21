@@ -50,11 +50,7 @@ function Profesores() {
         {profesores.map((profesor) => (
           <div key={profesor.id}>
             <ListItems
-<<<<<<< HEAD
-              Nombre1={profesor.user.first_name}  
-=======
               Nombre1={profesor.user.username}
->>>>>>> origin/Importar_cursos
               Codigo1={profesor.identificacion}
               onClickEdit={"Editar"}
               onClickDelete={"Eliminar"}

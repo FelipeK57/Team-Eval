@@ -18,14 +18,10 @@ from cursos.serializer import CursosSerializer
 from administrador.models import administrador
 from administrador.serializer import AdministradorSerializer
 from cursos.models import Cursos
-<<<<<<< HEAD
 from django.core.mail import send_mail
 import random
 from codigos_seguridad.models import codigos_seguridad
-
-=======
 from rest_framework.validators import ValidationError
->>>>>>> origin/Importar_cursos
 
 @api_view(['POST'])
 def login(request):
