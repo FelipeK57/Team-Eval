@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 function Estudiantes() {
     const [estudiantes, setEstudiantes] = useState([]);
     //const navigate = useNavigate();
-  
    // const AgregarEstudiantes = () => {
    //   navigate("/AgregarE");
    // };
