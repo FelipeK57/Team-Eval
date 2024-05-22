@@ -6,7 +6,7 @@ import "./ListItems.css"
 function ListItems(props) {
     ListItems.propTypes = {
         Nombre1: PropTypes.string.isRequired,
-        Nombre2: PropTypes.string.isRequired,
+        Nombre2: PropTypes.string,
         Codigo1: PropTypes.string.isRequired,
         onClickEdit: PropTypes.func,
         onClickDelete: PropTypes.func,

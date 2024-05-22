@@ -6,10 +6,13 @@ import "./ProfesoresAdmin.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie'
+import PopUp from "../../components/Utilities/PopUp";
 
 function Profesores() {
   const [profesores, setProfesores] = useState([]);
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const [advice, setAdvice] = useState("");
 
   const AgregarProfesores = () => {
     navigate("/AgregarP");
@@ -19,9 +22,9 @@ function Profesores() {
     const fetchStudentCourses = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8000/profesor/all/profesor"
+          "http://localhost:8000/profesores/"
         );
-        setProfesores(response.data);
+        setProfesores(response.data.profesores);
       } catch (error) {
         console.error("Error al obtener los profesores:", error);
       }
@@ -29,10 +32,33 @@ function Profesores() {
     fetchStudentCourses();
   }, []);
 
-  const EditarProfesor = (identificacion) => {
+  const EditarProfesor = (identificacion, nombre, email ) => {
     Cookies.set('profesorIdentificacion', identificacion);
+    Cookies.set('profesorNombre', nombre);
+    Cookies.set('profesorEmail', email);
     navigate("/ProfeEditar");
   };
+
+  const deshabilitarProfesor =  async ( identificacion) => {
+    try {
+        await axios.post("http://localhost:8000/editEstado_profesor/", {
+          identificacion: identificacion,
+          estado: false,
+        });
+        setAdvice("Profesor deshabilitado con exito");  
+        setOpen(true);   
+         
+    } catch (error) {
+      console.error(error);
+    } 
+    
+  }
+
+  const popup = (e) => {
+    e.preventDefault();
+    setOpen(!open);
+    window.location.reload();
+};
 
   return (
     <div className="ContainerProfesores">
@@ -58,13 +84,21 @@ function Profesores() {
             <ListItems
               Nombre1={profesor.user.first_name}
               Codigo1={profesor.identificacion}
-              onClickEdit={() => EditarProfesor(profesor.identificacion)}
-              onClickDelete={"Eliminar"}
+              onClickEdit={() => EditarProfesor(profesor.identificacion, profesor.user.first_name, profesor.user.email)} 
+              onClickDelete={() => deshabilitarProfesor(profesor.identificacion)}
               Buttons={true}
             />
           </div>
         ))}
       </div>
+      <PopUp open={open}
+                SetOpen={setOpen}
+                Advice={advice}
+                Width={"100%"}
+                Button1="volver"
+                onClick1={popup}
+                
+            />
     </div>
   );
 }

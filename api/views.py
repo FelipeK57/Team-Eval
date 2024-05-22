@@ -418,5 +418,29 @@ def editar_profesor(request):
         return Response({"success": "Datos del profesor editados exitosamente"}, status=status.HTTP_200_OK)
     else:
         return Response({"error": "No se proporcionaron datos para editar"}, status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(['GET'])
+def profesores_deshabilitados(request):
+    profesores_deshabilitados = Profesor.objects.filter(estado=False)
+    serializer = ProfesorSerializer(profesores_deshabilitados, many=True)
+    return Response({"profesores_deshabilitados": serializer.data}, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def profesores(request):
+    profesores= Profesor.objects.filter(estado=True)
+    serializer = ProfesorSerializer(profesores, many=True)
+    return Response({"profesores": serializer.data}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def editar_estado_profesor(request):
+    identificacion = request.data.get('identificacion')
+    profesor = get_object_or_404(Profesor, identificacion=identificacion)
+    new_estado = request.data.get('estado')
+    profesor.estado = new_estado
+    profesor.save()
+    serializer = ProfesorSerializer(profesor)   
+    return Response({'profesor': serializer.data}, status=status.HTTP_200_OK)
+    
+
 
     

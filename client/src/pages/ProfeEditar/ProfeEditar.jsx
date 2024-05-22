@@ -11,9 +11,9 @@ import PopUp from "../../components/Utilities/PopUp";
 
 function ProfeEditar(props) {
 
-    const [nombre, setNombre] = useState("");   
-    const [documento, setDocumento] = useState("");
-    const [correo, setCorreo] = useState("");
+    const [nombre, setNombre] = useState(Cookies.get("profesorNombre"));   
+    const [documento, setDocumento] = useState(Cookies.get("profesorIdentificacion"));
+    const [correo, setCorreo] = useState(Cookies.get("profesorEmail")); 
     const [open, setOpen] = useState(false);
     const [advice, setAdvice] = useState("");
 
@@ -64,6 +64,9 @@ function ProfeEditar(props) {
           });
           setAdvice("Profesor editado con exito");
           popup(e);
+          Cookies.remove("profesorIdentificacion"); 
+          Cookies.remove("profesorNombre"); 
+          Cookies.remove("profesorEmail");  
         } catch (error) {
           setAdvice("Error al editar el profesor");
           popup(e);
