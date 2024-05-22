@@ -56,7 +56,7 @@ function Profesores() {
         {profesores.map((profesor) => (
           <div key={profesor.id}>
             <ListItems
-              Nombre1={profesor.user.username}
+              Nombre1={profesor.user.first_name}
               Codigo1={profesor.identificacion}
               onClickEdit={() => EditarProfesor(profesor.identificacion)}
               onClickDelete={"Eliminar"}

@@ -384,24 +384,39 @@ def estudiantes(request):
     serializer = EstudianteSerializer(estudiantes, many=True)
     return Response({"estudiantes": serializer.data}, status=status.HTTP_200_OK)
 
-@api_view(['POST']) 
+@api_view(['POST'])
 def editar_profesor(request):
     nombre = request.data.get('nombre')
     identificacion = request.data.get('identificacion')
-    newidentificacion = request.data.get('identificacion')
+    newidentificacion = request.data.get('newidentificacion')
     email = request.data.get('email')
 
-    profesor = get_object_or_404(Profesor, identificacion=identificacion)   
+    # Filtra por identificacion en lugar de usar get()
+    profesores = Profesor.objects.filter(identificacion=identificacion)
+
+    if profesores.count() != 1:
+        return Response({"error": "Identificación no es única o no existe"}, status=status.HTTP_400_BAD_REQUEST)
+
+    profesor = profesores.first()
+    changes_made = False
 
     if nombre:
         profesor.user.first_name = nombre
-        return Response({"success": "Nombre editado exitosamente"}, status=status.HTTP_200_OK)
+        changes_made = True
 
-    if identificacion:
+    if newidentificacion:
         profesor.identificacion = newidentificacion
-        return Response({"success": "Identificación editada exitosamente"}, status=status.HTTP_200_OK)
+        changes_made = True
 
     if email:
-        return Response({"success": "Email editado exitosamente"}, status=status.HTTP_200_OK)
+        profesor.user.email = email
+        changes_made = True
+
+    if changes_made:
+        profesor.user.save()  # Guardar cambios en el usuario asociado
+        profesor.save()  # Guardar cambios en el profesor
+        return Response({"success": "Datos del profesor editados exitosamente"}, status=status.HTTP_200_OK)
+    else:
+        return Response({"error": "No se proporcionaron datos para editar"}, status=status.HTTP_400_BAD_REQUEST)
 
     
