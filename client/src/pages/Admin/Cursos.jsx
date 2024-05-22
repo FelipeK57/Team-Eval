@@ -28,6 +28,10 @@ function Cursos() {
     fetchStudentCourses();
   }, []);
 
+  const EditarCursos = () => {
+    navigate("/EditarCurso");
+  };
+
   return (
     <div className="ContainerCursos">
       <div className="NavBar">
@@ -52,7 +56,7 @@ function Cursos() {
             <ListItems
               Nombre1={curso.nombre}
               Codigo1={curso.codigo}
-              onClickEdit={"Editar"}
+              onClickEdit={EditarCursos}
               onClickDelete={"Eliminar"}
               Buttons={true}
             />

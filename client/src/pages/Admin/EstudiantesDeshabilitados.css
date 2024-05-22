@@ -1,0 +1,24 @@
+.ContainerEstDes {
+    display: flex;
+    flex-direction: column;
+    
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.TitleEstDes {
+    display: flex;
+    margin-top: 17vh;
+    text-align: center;
+    position: absolute;
+    font-size: 1.2rem;
+    color: #000000;
+}
+
+.ListaEstDes {
+    margin-top: 30vh;
+}
+
+
+

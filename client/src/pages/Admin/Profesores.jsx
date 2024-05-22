@@ -5,6 +5,7 @@ import ListItems from "../../components/Utilities/ListItems";
 import "./ProfesoresAdmin.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Cookies from 'js-cookie'
 
 function Profesores() {
   const [profesores, setProfesores] = useState([]);
@@ -28,6 +29,11 @@ function Profesores() {
     fetchStudentCourses();
   }, []);
 
+  const EditarProfesor = (identificacion) => {
+    Cookies.set('profesorIdentificacion', identificacion);
+    navigate("/ProfeEditar");
+  };
+
   return (
     <div className="ContainerProfesores">
       <div className="NavBar">
@@ -50,9 +56,9 @@ function Profesores() {
         {profesores.map((profesor) => (
           <div key={profesor.id}>
             <ListItems
-              Nombre1={profesor.user.username}
+              Nombre1={profesor.user.first_name}
               Codigo1={profesor.identificacion}
-              onClickEdit={"Editar"}
+              onClickEdit={() => EditarProfesor(profesor.identificacion)}
               onClickDelete={"Eliminar"}
               Buttons={true}
             />

@@ -26,8 +26,10 @@ urlpatterns = [
     path('cursos/', include('cursos.urls')),
     path('user/', include('estudiantes.urls')),
     path('evaluacion/', include('evaluacion.urls')),
+    path('estudiantes/', include('estudiantes.urls')),
     path('profesor/', include('profesor.urls')),
     path('rubrica/', include('rubrica.urls')),
+    path('estudiantes-deshabilitados/', views.estudiantes_deshabilitados, name='estudiantes_deshabilitados'),
     re_path(r'^loginProfesor/$', views.loginProfesor),
     re_path(r'^registerProfesor/$', views.registerProfesor),
     re_path(r'^login/$', views.login),
@@ -48,10 +50,12 @@ urlpatterns = [
     re_path(r'^import_cursos/$', views.import_cursos),
     re_path(r'^nuevo_profe/$', views.nuevo_profesor),
     re_path(r'^nuevo_curso/$', views.nuevo_curso),
+    re_path(r'^editar_estado_estudiante/$', views.editar_estado_estudiante),
     re_path('login', views.login),
     re_path('register', views.register),
     re_path(r'^reset_password/$', views.PasswordResetRequestView),
     re_path(r'^reset_passwordConfirm/$', views.password_reset_confirm),
+    re_path(r'^edit_profesor/$', views.editar_profesor),
     
         
 

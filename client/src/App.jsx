@@ -25,9 +25,16 @@ import AgregarCurso from "./pages/Admin/AgregarCurso.jsx";
 import HomeAdmin from "./pages/HomeAdmin/HomeAdmin";
 import Cursos from "./pages/Admin/Cursos.jsx";
 import Profesores from "./pages/Admin/Profesores.jsx";
-import ImportarCursos from "./pages/Home/ImportarCurso.jsx";
+import ImportarCursos from "../src/pages/Home/ImportarCurso.jsx"
+import EditarCurso from "./pages/Admin/EditarCurso.jsx";
+import EstudiantesDeshabilitados from "./pages/Admin/EstudiantesDeshabilitados.jsx";
 import Rubricas from "./pages/Admin/Rubricas.jsx";
+import EstudiantesLista from "./pages/CursosProfe/EstudiantesLista.jsx";
+import TablaRubricas from "./pages/Admin/TablaRubricas.jsx";
 
+import ProfeEditar from "./pages/ProfeEditar/ProfeEditar";
+import CursosDes from "./pages/CursosDes/CursosDes";
+import ProfeDes from "./pages/ProfeDes/ProfeDes";
 function App() {
   return (
     <BrowserRouter>
@@ -77,7 +84,15 @@ function App() {
         <Route path="/CursosAdmin" element={<Cursos />} />
         <Route path="/ProfesoresAdmin" element={<Profesores />} />
         <Route path="/ImportarCurso" element={<ImportarCursos />} />
+        <Route path="/EditarCurso" element={<EditarCurso />} />
+        <Route path="/EstudiantesDes" element={<EstudiantesDeshabilitados />} />
         <Route path="/Rubricas" element={<Rubricas />} />
+        <Route path="/EstudiantesLista" element={<EstudiantesLista />} />
+
+        <Route path="/TablaRubricas" element={<TablaRubricas />} />
+        <Route path="/ProfeEditar" element= {<ProfeEditar/>}/>
+        <Route path="/CursosDes" element={<CursosDes />} />
+        <Route path="/ProfeDes" element={<ProfeDes />} />
       </Routes>
     </BrowserRouter>
   );

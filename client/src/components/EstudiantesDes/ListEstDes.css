@@ -1,4 +1,4 @@
-.List {
+.ListDesEst {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -10,7 +10,7 @@
     border-radius: 25px;
 }
 
-.ItemContainer {
+.ItemContainerEstDes {
     width: 100%;
     height: 100%;
     display: flex;
@@ -19,16 +19,14 @@
 
 }
 
-.LeftList {
+.LeftListEstDes {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
     flex-grow: 1;
-    max-width: 30%;
-    align-self: start;
+    justify-content: space-between; /* Añadido para separar uniformemente */
 }
 
-.RightList {
+.RightListEstDes {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -36,19 +34,13 @@
     width: 10%;
 }
 
-.NombreList  {
-    margin: 0 10%;
-    flex-grow: 10;
-    display: flex;
-    gap: 7px;
+.NombreListEstDes, .ApellidoListEstDes, .CodeListEstDes {
+    flex: 5; /* Cada elemento ocupará un espacio igual */
+    margin: 0 25px; /* Espaciado horizontal */
+    color: #29282881;
 }
 
-.CodeList {
-    margin: auto;
-    flex-grow: 10;
-}
-
-.CreateIconList:hover {
+.IconRestored:hover {
     transform: scale(1.1);
     cursor: pointer;
 }

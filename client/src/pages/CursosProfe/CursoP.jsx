@@ -4,6 +4,7 @@ import NavbarProfesor from "../../components/NavbarProfesor";
 import SettingsIcon from '@mui/icons-material/Settings';
 import AddIcon from '@mui/icons-material/Add';
 import GroupsIcon from '@mui/icons-material/Groups';
+import { useNavigate } from 'react-router-dom';
 
 function CursosProfe() {
 
@@ -35,10 +36,10 @@ function CursosProfe() {
             </div>
             <div className="cardex4">
                 <div className="cardex42"><h1>Ejemplo por <br />Completar</h1>
-                    <button className="button1">
+                    <button className="button1" >
                         <SettingsIcon sx={{ fontSize: 43 }} />
                     </button>
-                    <button className="button2">
+                    <button className="button2" >
                         <GroupsIcon sx={{ fontSize: 43 }} />
                     </button>
                 </div>

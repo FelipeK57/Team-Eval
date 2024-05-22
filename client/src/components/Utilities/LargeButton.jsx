@@ -12,7 +12,7 @@ function LargeButton(props) {
         <div className="LargeButton">
             <h1 className="TitleLargeButton">{props.text}</h1>
             <hr />
-            <button className="ButtonLarge" onClick={props.onClick}>
+            <button className="ButtonLarge" onClick={props.OnClick}>
                 {props.icon}
             </button>
         </div>

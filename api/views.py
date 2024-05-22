@@ -361,4 +361,62 @@ def password_reset_confirm(request):
         return Response({'message': 'Codigo correcto'}, status=status.HTTP_200_OK)
         
    
+@api_view(['GET'])
+def estudiantes_deshabilitados(request):
+    estudiantes_deshabilitados = Estudiante.objects.filter(estado=False)
+    serializer = EstudianteSerializer(estudiantes_deshabilitados, many=True)
+    return Response({"estudiantes_deshabilitados": serializer.data}, status=status.HTTP_200_OK)
 
+@api_view(['POST'])
+def editar_estado_estudiante(request):
+    codigo = request.data.get('codigo')
+    estudiante = get_object_or_404(Estudiante, codigo=codigo)
+    new_estado = request.data.get('estado')
+    estudiante.estado = new_estado
+    estudiante.save()
+    serializer = EstudianteSerializer(estudiante)
+    return Response({'estudiante': serializer.data}, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def estudiantes(request):
+    estudiantes= Estudiante.objects.filter(estado=True)
+    serializer = EstudianteSerializer(estudiantes, many=True)
+    return Response({"estudiantes": serializer.data}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def editar_profesor(request):
+    nombre = request.data.get('nombre')
+    identificacion = request.data.get('identificacion')
+    newidentificacion = request.data.get('newidentificacion')
+    email = request.data.get('email')
+
+    # Filtra por identificacion en lugar de usar get()
+    profesores = Profesor.objects.filter(identificacion=identificacion)
+
+    if profesores.count() != 1:
+        return Response({"error": "Identificación no es única o no existe"}, status=status.HTTP_400_BAD_REQUEST)
+
+    profesor = profesores.first()
+    changes_made = False
+
+    if nombre:
+        profesor.user.first_name = nombre
+        changes_made = True
+
+    if newidentificacion:
+        profesor.identificacion = newidentificacion
+        changes_made = True
+
+    if email:
+        profesor.user.email = email
+        changes_made = True
+
+    if changes_made:
+        profesor.user.save()  # Guardar cambios en el usuario asociado
+        profesor.save()  # Guardar cambios en el profesor
+        return Response({"success": "Datos del profesor editados exitosamente"}, status=status.HTTP_200_OK)
+    else:
+        return Response({"error": "No se proporcionaron datos para editar"}, status=status.HTTP_400_BAD_REQUEST)
+
+    
