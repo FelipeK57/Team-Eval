@@ -68,7 +68,7 @@ function ProfeEditar(props) {
           Cookies.remove("profesorNombre"); 
           Cookies.remove("profesorEmail");  
         } catch (error) {
-          setAdvice("Error al editar el profesor");
+          setAdvice(error.response.data.error);
           popup(e);
       }
     }

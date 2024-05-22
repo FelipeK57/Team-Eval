@@ -396,6 +396,12 @@ def editar_profesor(request):
 
     if profesores.count() != 1:
         return Response({"error": "Identificación no es única o no existe"}, status=status.HTTP_400_BAD_REQUEST)
+    
+    if identificacion != newidentificacion and Profesor.objects.filter(identificacion=newidentificacion).exists():
+        return Response({"error": "Ya existe un profesor con la identificación proporcionada"}, status=status.HTTP_400_BAD_REQUEST)
+    
+    if email != profesores.first().user.email and User.objects.filter(email=email).exists():
+        return Response({"error": "Ya existe un usuario con el correo proporcionado"}, status=status.HTTP_400_BAD_REQUEST)
 
     profesor = profesores.first()
     changes_made = False
