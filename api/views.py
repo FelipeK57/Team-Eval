@@ -378,3 +378,8 @@ def editar_estado_estudiante(request):
     return Response({'estudiante': serializer.data}, status=status.HTTP_200_OK)
 
 
+@api_view(['GET'])
+def estudiantes(request):
+    estudiantes= Estudiante.objects.filter(estado=True)
+    serializer = EstudianteSerializer(estudiantes, many=True)
+    return Response({"estudiantes": serializer.data}, status=status.HTTP_200_OK)
