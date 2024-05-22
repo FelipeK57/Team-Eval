@@ -25,8 +25,14 @@ import AgregarCurso from "./pages/Admin/AgregarCurso.jsx";
 import HomeAdmin from "./pages/HomeAdmin/HomeAdmin";
 import Cursos from "./pages/Admin/Cursos.jsx";
 import Profesores from "./pages/Admin/Profesores.jsx";
+<<<<<<< HEAD
 import ImportarCursos from "./pages/Home/ImportarCurso.jsx";
 import Rubricas from "./pages/Admin/Rubricas.jsx";
+=======
+import ImportarCursos from "./pages/Home/ImportarCursos.jsx";
+import EditarCurso from "./pages/Admin/EditarCurso.jsx";
+import EstudiantesDeshabilitados from "./pages/Admin/EstudiantesDeshabilitados.jsx";
+>>>>>>> origin/ventanas_juancho
 
 function App() {
   return (
@@ -77,7 +83,12 @@ function App() {
         <Route path="/CursosAdmin" element={<Cursos />} />
         <Route path="/ProfesoresAdmin" element={<Profesores />} />
         <Route path="/ImportarCurso" element={<ImportarCursos />} />
+<<<<<<< HEAD
         <Route path="/Rubricas" element={<Rubricas />} />
+=======
+        <Route path="/EditarCurso" element={<EditarCurso />} />
+        <Route path="/EstudiantesDes" element={<EstudiantesDeshabilitados />} />
+>>>>>>> origin/ventanas_juancho
       </Routes>
     </BrowserRouter>
   );

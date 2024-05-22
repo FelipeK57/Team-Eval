@@ -322,6 +322,7 @@ def nuevo_curso(request):
     curso = Cursos.objects.create(nombre=nombre, codigo=codigo, periodoAcademico=periodo)
     return Response({"success": "Curso creado exitosamente"}, status=status.HTTP_201_CREATED)
 
+<<<<<<< HEAD
 @api_view(['POST'])
 def PasswordResetRequestView( request):
     email = request.data.get('email')
@@ -361,4 +362,22 @@ def password_reset_confirm(request):
         return Response({'message': 'Codigo correcto'}, status=status.HTTP_200_OK)
         
    
+=======
+@api_view(['GET'])
+def estudiantes_deshabilitados(request):
+    estudiantes_deshabilitados = Estudiante.objects.filter(estado=False)
+    serializer = EstudianteSerializer(estudiantes_deshabilitados, many=True)
+    return Response({"estudiantes_deshabilitados": serializer.data}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def editar_estado_estudiante(request):
+    codigo = request.data.get('codigo')
+    estudiante = get_object_or_404(Estudiante, codigo=codigo)
+    new_estado = request.data.get('estado')
+    estudiante.estado = new_estado
+    estudiante.save()
+    serializer = EstudianteSerializer(estudiante)
+    return Response({'estudiante': serializer.data}, status=status.HTTP_200_OK)
+
+>>>>>>> origin/ventanas_juancho
 
