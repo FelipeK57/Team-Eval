@@ -1,0 +1,169 @@
+.TablaRubricasContainer {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    height: 98vh;
+    width: 100%;
+    max-width: 100%;
+    top: 15vh;
+    flex-direction: column;
+}
+
+
+.Rubricas {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.TitleTablaRubricas {
+    display: flex;
+    font-family: Mulish;
+    font-size: 1.5rem;
+    color: #000;
+    margin: 20vh auto 0 auto;
+}
+
+.RubricasTable {
+    margin: 0 auto;
+    width: 80%;
+    height: 100%;
+    border-collapse: collapse;
+}
+
+.RubricasTableHeader {
+    display: flex;
+    background-color: rgb(15, 65, 118);
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+.uno {
+    border-radius: 25px 0 0 0;
+}
+
+.uno h1 {
+    background-color: white;
+}
+
+.dos {
+    border-radius: 0 25px 0 0;
+    width: 273px;
+}
+
+.thdos {
+    width: 273px;
+}
+
+.dos h1 {
+    color: white;
+}
+
+.RubricasTableHeader h1 {
+
+    border-radius: 50px;
+    width: 50%;
+}
+
+.RubricasTableBody {
+    display: flex;
+    background-color: #A5A4A4;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.RubricasTableBody button {
+    background-color: white;
+    border-radius: 50px;
+    width: 50%;
+}
+
+.Right {
+    width: fit-content;
+}
+
+.Right .InputContenedor {
+    width: 20%;
+}
+
+.finalRight {
+    border-radius: 0 0 25px 0;
+}
+
+.finalLeft{
+    border-radius: 0 0 0 25px;
+}
+
+.TablaRubricas{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: end;
+    max-width: 100%;   
+}
+
+.ButtonTablaRubricas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: auto;
+}
+
+.DeleteButton {
+    background-color: rgb(255, 255, 255);
+    color: black;
+    border: none;
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-bottom: 10px;
+}
+
+.DeleteButton:hover {
+    box-shadow: 0 0 0.5rem 0.5rem rgba(255, 255, 255, 0.4);
+    transition: all 0.3s;
+    transform: scale(1.1);
+}
+
+.ButtonAgregarRubricas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 50px auto;
+}
+
+.ButtonAgregarRubricas button {
+    background-color: rgb(255, 255, 255);
+    color: black;
+    border: none;
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.ButtonAgregarRubricas button:hover{
+    box-shadow: 0 0 0.5rem 0.5rem rgba(255, 255, 255, 0.4);
+    transition: all 0.3s;
+    transform: scale(1.1);
+}
+
+.ButtonGuardarRubricas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 50px auto;
+} 
+
+.ButtonGuardarRubricas button:hover {
+    box-shadow: 0 0 0.5rem 0.5rem rgba(15, 65, 118, 0.4);
+    transition: all 0.3s;
+    transform: scale(1.1);
+}
