@@ -51,6 +51,7 @@ urlpatterns = [
     re_path(r'^import_cursos/$', views.import_cursos),
     re_path(r'^nuevo_profe/$', views.nuevo_profesor),
     re_path(r'^nuevo_curso/$', views.nuevo_curso),
+    re_path(r'^editar_estado_estudiante/$', views.editar_estado_estudiante),
     re_path('login', views.login),
     re_path('register', views.register),
         

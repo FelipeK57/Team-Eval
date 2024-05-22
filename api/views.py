@@ -340,4 +340,14 @@ def estudiantes_deshabilitados(request):
     serializer = EstudianteSerializer(estudiantes_deshabilitados, many=True)
     return Response({"estudiantes_deshabilitados": serializer.data}, status=status.HTTP_200_OK)
 
+@api_view(['POST'])
+def editar_estado_estudiante(request):
+    codigo = request.data.get('codigo')
+    estudiante = get_object_or_404(Estudiante, codigo=codigo)
+    new_estado = request.data.get('estado')
+    estudiante.estado = new_estado
+    estudiante.save()
+    serializer = EstudianteSerializer(estudiante)
+    return Response({'estudiante': serializer.data}, status=status.HTTP_200_OK)
+
 

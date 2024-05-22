@@ -21,6 +21,25 @@ function EstudiantesDeshabilitados() {
     fetchEstudiantesDeshabilitados();
   }, []);
 
+  const handleClick = async (codigo) => {
+    try {
+      const response = await axios.post("http://localhost:8000/editar_estado_estudiante/", {
+        codigo: codigo,
+        estado: true  // Cambia a 'true' para habilitar al estudiante
+      });
+      console.log(response.data);
+      alert("Estudiante habilitado");
+
+      // Actualizar la lista de estudiantes después de la edición
+      setEstudiantesDeshabilitados(prevEstudiantes =>
+        prevEstudiantes.filter(estudiante => estudiante.codigo !== codigo)
+      );
+    } catch (error) {
+      console.error("Error al habilitar el estudiante", error);
+      alert("Error al habilitar el estudiante", error);
+    }
+  };
+
   return (
     <div className="ContainerEstDes">
       <div className="NavBar">
@@ -36,7 +55,7 @@ function EstudiantesDeshabilitados() {
               Nombre1={estudiante.user.first_name}
               Apellido1={estudiante.user.last_name}
               Codigo1={estudiante.codigo}
-              onClickRestored="xd"
+              onClickRestored={() => handleClick(estudiante.codigo)}
               Buttons={true}
             />
           </div>
