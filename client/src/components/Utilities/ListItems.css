@@ -36,11 +36,11 @@
     width: 10%;
 }
 
-.NombreList {
+.NombreList  {
     margin: 0 10%;
     flex-grow: 10;
     display: flex;
-    gap: 10px;
+    gap: 7px;
 }
 
 .CodeList {

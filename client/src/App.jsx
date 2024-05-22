@@ -29,11 +29,8 @@ import ImportarCursos from "../src/pages/Home/ImportarCurso.jsx"
 import EditarCurso from "./pages/Admin/EditarCurso.jsx";
 import EstudiantesDeshabilitados from "./pages/Admin/EstudiantesDeshabilitados.jsx";
 import Rubricas from "./pages/Admin/Rubricas.jsx";
-<<<<<<< HEAD
 import EstudiantesLista from "./pages/CursosProfe/EstudiantesLista.jsx";
-=======
 import TablaRubricas from "./pages/Admin/TablaRubricas.jsx";
->>>>>>> origin/Tabla_rubricas
 
 function App() {
   return (
@@ -87,12 +84,9 @@ function App() {
         <Route path="/EditarCurso" element={<EditarCurso />} />
         <Route path="/EstudiantesDes" element={<EstudiantesDeshabilitados />} />
         <Route path="/Rubricas" element={<Rubricas />} />
-<<<<<<< HEAD
         <Route path="/EstudiantesLista" element={<EstudiantesLista />} />
 
-=======
         <Route path="/TablaRubricas" element={<TablaRubricas />} />
->>>>>>> origin/Tabla_rubricas
       </Routes>
     </BrowserRouter>
   );
