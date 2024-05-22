@@ -41,7 +41,7 @@ function Estudiantes() {
         <div className="ListaEstudiantes">
           {estudiantes.map((estudiante) => (
             <div key={estudiante.id}>
-              <ListIstems
+              <ListItems
                 Nombre1={estudiante.user.first_name}
                 Nombre2={estudiante.user.last_name}
                 Codigo1={estudiante.codigo}             
