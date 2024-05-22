@@ -383,3 +383,25 @@ def estudiantes(request):
     estudiantes= Estudiante.objects.filter(estado=True)
     serializer = EstudianteSerializer(estudiantes, many=True)
     return Response({"estudiantes": serializer.data}, status=status.HTTP_200_OK)
+
+@api_view(['POST']) 
+def editar_profesor(request):
+    nombre = request.data.get('nombre')
+    identificacion = request.data.get('identificacion')
+    newidentificacion = request.data.get('identificacion')
+    email = request.data.get('email')
+
+    profesor = get_object_or_404(Profesor, identificacion=identificacion)   
+
+    if nombre:
+        profesor.user.first_name = nombre
+        return Response({"success": "Nombre editado exitosamente"}, status=status.HTTP_200_OK)
+
+    if identificacion:
+        profesor.identificacion = newidentificacion
+        return Response({"success": "Identificación editada exitosamente"}, status=status.HTTP_200_OK)
+
+    if email:
+        return Response({"success": "Email editado exitosamente"}, status=status.HTTP_200_OK)
+
+    

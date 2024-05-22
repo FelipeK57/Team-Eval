@@ -23,7 +23,6 @@ import AvisoCorreoP from "./pages/ActualizacionCorreo/AvisoCorreoP.jsx";
 import AgregarProfesor from "./pages/Admin/AgregarProfesor.jsx";
 import AgregarCurso from "./pages/Admin/AgregarCurso.jsx";
 import HomeAdmin from "./pages/HomeAdmin/HomeAdmin";
-<<<<<<< HEAD
 import Cursos from "./pages/Admin/Cursos.jsx";
 import Profesores from "./pages/Admin/Profesores.jsx";
 import ImportarCursos from "../src/pages/Home/ImportarCurso.jsx"
@@ -33,11 +32,9 @@ import Rubricas from "./pages/Admin/Rubricas.jsx";
 import EstudiantesLista from "./pages/CursosProfe/EstudiantesLista.jsx";
 import TablaRubricas from "./pages/Admin/TablaRubricas.jsx";
 
-=======
 import ProfeEditar from "./pages/ProfeEditar/ProfeEditar";
 import CursosDes from "./pages/CursosDes/CursosDes";
 import ProfeDes from "./pages/ProfeDes/ProfeDes";
->>>>>>> origin/Home2
 function App() {
   return (
     <BrowserRouter>
@@ -83,7 +80,6 @@ function App() {
         <Route path="/agregarP" element={<AgregarProfesor />} />
         <Route path="/agregarC" element={<AgregarCurso />} />
         <Route path="/Admin" element={<HomeAdmin />} />
-<<<<<<< HEAD
         <Route path="/MiCuentaA" element={<MiCuentaA />} />
         <Route path="/CursosAdmin" element={<Cursos />} />
         <Route path="/ProfesoresAdmin" element={<Profesores />} />
@@ -94,11 +90,9 @@ function App() {
         <Route path="/EstudiantesLista" element={<EstudiantesLista />} />
 
         <Route path="/TablaRubricas" element={<TablaRubricas />} />
-=======
         <Route path="/ProfeEditar" element= {<ProfeEditar/>}/>
         <Route path="/CursosDes" element={<CursosDes />} />
         <Route path="/ProfeDes" element={<ProfeDes />} />
->>>>>>> origin/Home2
       </Routes>
     </BrowserRouter>
   );
