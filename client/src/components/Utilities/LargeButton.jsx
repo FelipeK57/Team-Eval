@@ -5,14 +5,14 @@ import '@mui/icons-material'
 function LargeButton(props) {
     LargeButton.propTypes = {
         text: PropTypes.string.isRequired,
-        onClick: PropTypes.func,
-        icon: PropTypes.string
+        OnClick: PropTypes.func.isRequired,
+        icon: PropTypes.string,
     }
     return (
-        <div className="LargeButton">
-            <h1 className="TitleLargeButton">{props.text}</h1>
-            <hr />
-            <button className="ButtonLarge" onClick={props.OnClick}>
+        <div className="LargeButton" style={props.text ? null: {padding: " 0 "}}>
+            {props.text ? <h1 className="TitleLargeButton">{props.text}</h1>: null}
+            {props.text ? <hr />: null}
+            <button className="ButtonLarge" onClick={props.OnClick} style={props.text ? null: {marginLeft: "8vw", marginRight: "8vw"}}>
                 {props.icon}
             </button>
         </div>
