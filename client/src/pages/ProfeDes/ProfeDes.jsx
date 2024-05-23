@@ -52,6 +52,7 @@ function ProfeDes() {
 
 
     return (
+<<<<<<< HEAD
         <div className="ContainerEstDes">
       <div className="NavBar">
         <NoQuieroCrearMasNavbars />
@@ -72,6 +73,13 @@ function ProfeDes() {
                 onClickRestored={() => habilitarProfesor(profesor.identificacion)}
                 Buttons={true}
               />
+=======
+        <div className="ProfeDes">
+            <NoQuieroCrearMasNavbars />
+            <div className="cali"><h1>Profesores Deshabilitados</h1></div>
+            <div className="corinto">
+                <Label Nombre="Nombre" Codigo="C.C" />
+>>>>>>> origin/Home2
             </div>
           ))
         )}

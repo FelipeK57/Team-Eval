@@ -80,6 +80,7 @@ function App() {
         <Route path="/agregarP" element={<AgregarProfesor />} />
         <Route path="/agregarC" element={<AgregarCurso />} />
         <Route path="/Admin" element={<HomeAdmin />} />
+<<<<<<< HEAD
         <Route path="/MiCuentaA" element={<MiCuentaA />} />
         <Route path="/CursosAdmin" element={<Cursos />} />
         <Route path="/ProfesoresAdmin" element={<Profesores />} />
@@ -91,6 +92,9 @@ function App() {
 
         <Route path="/TablaRubricas" element={<TablaRubricas />} />
         <Route path="/ProfeEditar" element= {<ProfeEditar/>}/>
+=======
+        <Route path="/ProfeEditar" element= {<ProfeEditar profesor="Pedro Vargas"/>}/>
+>>>>>>> origin/Home2
         <Route path="/CursosDes" element={<CursosDes />} />
         <Route path="/ProfeDes" element={<ProfeDes />} />
       </Routes>
