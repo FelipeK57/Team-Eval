@@ -5,22 +5,32 @@ import "./CursosAdmin.css";
 import axios from "axios";
 import Button from "../../components/Utilities/Button";
 import ListItems from "../../components/Utilities/ListItems";
+import Cookies from 'js-cookie'
+import PopUp from "../../components/Utilities/PopUp";
 
 function Cursos() {
   const [cursos, setCursos] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [advice, setAdvice] = useState("");
   const navigate = useNavigate();
 
   const AgregarCursos = () => {
     navigate("/AgregarC");
   };
 
+  const popup = (e) => {
+    e.preventDefault();
+    setOpen(false);
+    window.location.reload(); // Actualiza la página después de cerrar el popup
+  };
+
   useEffect(() => {
     const fetchStudentCourses = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8000/cursos/all/cursos"
+          "http://localhost:8000/cursos/"
         );
-        setCursos(response.data);
+        setCursos(response.data.Cursos);
       } catch (error) {
         console.error("Error al obtener los cursos:", error);
       }
@@ -28,8 +38,28 @@ function Cursos() {
     fetchStudentCourses();
   }, []);
 
-  const EditarCursos = () => {
+  const EditarCursos = (nombre, codigo, periodo) => {
+    Cookies.set("nombreCurso", nombre, { expires: 1 });   
+    Cookies.set("codigoCurso", codigo, { expires: 1 });
+    Cookies.set("periodoCurso", periodo, { expires: 1 });
+
     navigate("/EditarCurso");
+  };
+
+  const handleClick = async (codigo) => {
+  
+    try {
+      const response = await axios.post("http://localhost:8000/Estadocursos/", {
+       codigo: codigo,
+       estado : false
+
+      });
+      console.log(response.data);
+      setAdvice("Curso deshabilitado   con exito");
+      setOpen(true);
+    } catch (error) {
+      console.error("Error al editar el curso:", error);
+    }
   };
 
   return (
@@ -56,13 +86,21 @@ function Cursos() {
             <ListItems
               Nombre1={curso.nombre}
               Codigo1={curso.codigo}
-              onClickEdit={EditarCursos}
-              onClickDelete={"Eliminar"}
+              onClickEdit={() =>  EditarCursos(curso.nombre, curso.codigo, curso.periodoAcademico)}  
+              onClickDelete={() => handleClick(curso.codigo)}
               Buttons={true}
             />
           </div>
         ))}
       </div>
+      <PopUp
+        open={open}
+        SetOpen={setOpen}
+        Advice={advice} 
+        Width={"100%"}
+        Button1="volver"
+        onClick1={popup}
+      />
     </div>
   );
 }

@@ -4,12 +4,30 @@ import "./CardForm.css";
 import PropTypes from "prop-types";
 import { Autocomplete } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 function CardForm(props) {
 
-    const options = ['Antonio', 'David'];
+          
     const [open, setOpen] = useState(false);
+    const [profesores, setProfesores] = useState([]);
+
+    useEffect(() => {
+        const fetchStudentCourses = async () => {
+          try {
+            const response = await axios.get(
+              "http://localhost:8000/profesores/"
+            );
+            const usernames = response.data.profesores.map(profesor => profesor.user.username);
+            setProfesores(usernames);
+          } catch (error) {
+            console.error("Error al obtener los profesores:", error);
+          }
+        };
+        fetchStudentCourses();
+      }, []);
 
     const handleCombo = () => {
         setOpen(!open);
@@ -27,6 +45,7 @@ function CardForm(props) {
     }
 
     return (
+        
         <div className="Contenedor">
 
             <div className="ContainerCardForm">
@@ -70,10 +89,12 @@ function CardForm(props) {
                                         },
                                     }}
                                     id="custom-input-demo"
-                                    options={options}
+                                    options={profesores}    
                                     renderInput={(params) => (
+                                        console.log(params.inputProps.value),
+                                        Cookies.set('profesor', params.inputProps.value),
                                         <div className="InputContenedor" style={{ width: '100%' }} ref={params.InputProps.ref}>
-                                            <input className="ComboInput" type="text" {...params.inputProps} required onClick={() => setOpen(false)} />
+                                            <input className="ComboInput" value={params.inputProps.value} type="text" {...params.inputProps} required onClick={() => setOpen(false)} />
                                             <SearchIcon
                                                 sx={{ transition: 'all 0.3s ease', fontSize: '2rem', position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', '&:hover': { transform: 'scale(1.2) translateY(-50%)', transition: 'all 0.3s ease', cursor: 'pointer' } }} onClick={(event) => { event.preventDefault(); const input = event.target.parentNode.firstChild; input.focus(); handleCombo(); }} {...params.inputProps}
                                             />

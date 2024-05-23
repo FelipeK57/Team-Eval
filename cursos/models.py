@@ -13,6 +13,7 @@ class Cursos(models.Model):
     profesor = models.ForeignKey(Profesor, on_delete=models.CASCADE, default=1)
     estudiantes = models.ManyToManyField(Estudiante) 
     evaluaciones = models.ManyToManyField(evaluacion)
+    estado = models.BooleanField(default=True, null=False)  
 
     def __str__(self):
         return self.nombre
