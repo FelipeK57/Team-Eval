@@ -80,5 +80,29 @@
     margin: 0 !important;
     padding: 0 !important;
     width: 70% !important;
+}
 
+.AgregarEstudiantes{
+    display: flex;
+    font-weight: 900;
+    font-size: 1rem;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(15, 65, 118);
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 25px;
+    padding: 8px 20px;
+    position: absolute;
+    margin-bottom: -255px;
+    right: 29%;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.AgregarEstudiantes:hover{
+    box-shadow: 0 0 0.5rem 0.5rem rgba(15, 65, 117, 0.3) !important;
+    transition: all 0.3s;
 }
