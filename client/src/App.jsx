@@ -92,11 +92,7 @@ function App() {
         <Route path="/Rubricas" element={<Rubricas />} />
         <Route path="/EstudiantesLista" element={<EstudiantesLista />} />
         <Route path="/TablaRubricas" element={<TablaRubricas />} />
-<<<<<<< HEAD
-        <Route path="/ProfeEditar" element= {<ProfeEditar profesor={Cookies.get("profesorNombre")}/>}/>
-=======
         <Route path="/ProfeEditar" element= {<ProfeEditar profesor="Pedro Vargas"/>}/>
->>>>>>> origin/Rama_SantiagoSebas
         <Route path="/CursosDes" element={<CursosDes />} />
         <Route path="/ProfeDes" element={<ProfeDes />} />
       </Routes>

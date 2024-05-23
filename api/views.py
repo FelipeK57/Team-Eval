@@ -522,5 +522,29 @@ def editar_curso(request):
         return Response({"error": "No se proporcionaron datos para editar"}, status=status.HTTP_400_BAD_REQUEST)
     
 
+@api_view(['GET'])
+def cursos(request):
+    cursos= Cursos.objects.filter(estado=True)
+    serializer = CursosSerializer(cursos, many=True)
+    return Response({"Cursos": serializer.data}, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def cursosDes(request):
+    cursos= Cursos.objects.filter(estado=False)
+    serializer = CursosSerializer(cursos, many=True)
+    return Response({"Cursos": serializer.data}, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+def editar_estado_Curso(request):
+    codigo = request.data.get('codigo')
+    curso = get_object_or_404(Cursos, codigo=codigo)
+    new_estado = request.data.get('estado')
+    curso.estado = new_estado
+    curso.save()
+    serializer = CursosSerializer(curso)  
+    return Response({'curso': serializer.data}, status=status.HTTP_200_OK)
+    
+
 
     
