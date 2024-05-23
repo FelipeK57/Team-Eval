@@ -41,7 +41,7 @@ function Login() {
         password: password,
       });
       Cookies.set("token", response.data.token, { expires: 1 }); // Guarda el token en una cookie que expira en 7 días
-      Cookies.set("loggedIn", "true", { expires: 7 }); // Indica que el usuario ha iniciado sesión
+      Cookies.set("loggedIn", "true", { expires: 1 }); // Indica que el usuario ha iniciado sesión
       Cookies.set("codigo", response.data.estudiante.codigo);
       Cookies.set("nombre", response.data.nombre);
       Cookies.set("apellido", response.data.apellido);

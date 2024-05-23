@@ -33,9 +33,9 @@ function Profesores() {
   }, []);
 
   const EditarProfesor = (identificacion, nombre, email ) => {
-    Cookies.set('profesorIdentificacion', identificacion);
-    Cookies.set('profesorNombre', nombre);
-    Cookies.set('profesorEmail', email);
+    Cookies.set('profesorIdentificacion', identificacion, { expires: 1 });
+    Cookies.set('profesorNombre', nombre, { expires: 1 });
+    Cookies.set('profesorEmail', email, { expires: 1 });
     navigate("/ProfeEditar");
   };
 
