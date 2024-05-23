@@ -5,6 +5,7 @@ import "./CursosAdmin.css";
 import axios from "axios";
 import Button from "../../components/Utilities/Button";
 import ListItems from "../../components/Utilities/ListItems";
+import Cookies from 'js-cookie'
 
 function Cursos() {
   const [cursos, setCursos] = useState([]);
@@ -28,7 +29,11 @@ function Cursos() {
     fetchStudentCourses();
   }, []);
 
-  const EditarCursos = () => {
+  const EditarCursos = (nombre, codigo, periodo) => {
+    Cookies.set("nombreCurso", nombre, { expires: 1 });   
+    Cookies.set("codigoCurso", codigo, { expires: 1 });
+    Cookies.set("periodoCurso", periodo, { expires: 1 });
+
     navigate("/EditarCurso");
   };
 
@@ -56,7 +61,7 @@ function Cursos() {
             <ListItems
               Nombre1={curso.nombre}
               Codigo1={curso.codigo}
-              onClickEdit={EditarCursos}
+              onClickEdit={() =>  EditarCursos(curso.nombre, curso.codigo, curso.periodoAcademico)}  
               onClickDelete={"Eliminar"}
               Buttons={true}
             />

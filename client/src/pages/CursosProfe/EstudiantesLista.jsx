@@ -6,11 +6,14 @@ import "./EstudiantesLista.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PopUp from "../../components/Utilities/PopUp";
+import Cookies from 'js-cookie'
+
 
 function Estudiantes() {
     const [estudiantes, setEstudiantes] = useState([]);
     const [open, setOpen] = useState(false);
     const [advice, setAdvice] = useState("");
+    const navigate = useNavigate(); 
     //const navigate = useNavigate();
    // const AgregarEstudiantes = () => {
    //   navigate("/AgregarE");
@@ -49,6 +52,13 @@ function Estudiantes() {
       setOpen(!open);
       window.location.reload();
   };
+
+  const EditarStuden = (codigo, nombre, email ) => {
+    Cookies.set('StudentCodigo', codigo, { expires: 1 });
+    Cookies.set('StudentNombre', nombre, { expires: 1 });
+    Cookies.set('StudentEmail', email, { expires: 1 });
+    navigate("/EditarStudent");
+  };
   
   
     return (
@@ -69,7 +79,7 @@ function Estudiantes() {
                 Nombre1={estudiante.user.first_name}
                 Nombre2={estudiante.user.last_name}
                 Codigo1={estudiante.codigo}             
-                onClickEdit={"Editar"}
+                onClickEdit={() => EditarStuden(estudiante.codigo,estudiante.user.first_name, estudiante.user.email)}
                 onClickDelete={() => handleClick(estudiante.codigo)}
                 Buttons={true}
               />

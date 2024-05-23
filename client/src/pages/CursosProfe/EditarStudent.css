@@ -1,0 +1,110 @@
+.panel {
+    position: absolute;
+    background-color: #A5A4A4;
+    border-radius: 10px;
+    top: 20%;
+    left: 19%;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
+    width: 60%;
+    height: 60%;
+  }
+
+  .yamba {
+    position:absolute;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4rem;
+    text-decoration: none;
+    color: #000000;
+    top: 0%;
+    left: 38%;
+    position: absolute;
+    font-family: Mulish !important;
+}
+
+.yemba {
+    position:absolute;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4rem;
+    text-decoration: none;
+    color: #000000;
+    top: 25%;
+    left: 5%;
+    position: absolute;
+    font-family: Mulish !important;
+}
+
+.yimba {
+    position:absolute;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4rem;
+    text-decoration: none;
+    color: #000000;
+    top: 45%;
+    left: 5%;
+    position: absolute;
+    font-family: Mulish !important;
+}
+
+.yomba {
+    position:absolute;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4rem;
+    text-decoration: none;
+    color: #000000;
+    top: 65%;
+    left: 5%;
+    position: absolute;
+    font-family: Mulish !important;
+}
+
+.label {
+    position: absolute;
+    border: none;
+    top: 32.3%;
+    left: 40%;
+    font-size: 2.3rem;
+    font-family: Mulish !important;
+    border-radius: 15px;
+    width: 50%;
+    background-color: #f0f0f0;
+    padding-left: 15px;
+  }
+
+  .label1 {
+    position: absolute;
+    border: none;
+    top: 51.6%;
+    left: 40%;
+    font-size: 2.3rem;
+    font-family: Mulish !important;
+    border-radius: 15px;
+    width: 50%;
+    background-color: #f0f0f0;
+    padding-left: 15px;
+  }
+
+  .label2 {
+    position: absolute;
+    border: none;
+    top: 71.6%;
+    left: 40%;
+    font-size: 2.3rem;
+    font-family: Mulish !important;
+    border-radius: 15px;
+    width: 50%;
+    background-color: #f0f0f0;
+    padding-left: 15px;
+  }
+
+  .yumba {
+    position: absolute;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    top: 85%;
+    left: 44%;
+}

@@ -299,7 +299,7 @@ def nuevo_profesor(request):
    
     contraseña = primera_letra_nombre + identificacion
 
-    username = nombre + identificacion
+    username = nombre + apellido
     
     user = User.objects.create_user(username=username, email=email, password=contraseña, first_name=nombre, last_name=apellido)
     
@@ -315,11 +315,16 @@ def nuevo_curso(request):
     nombre = request.data.get('nombre')
     codigo = request.data.get('codigo')
     periodo = request.data.get('periodo')
+    profe = request.data.get('profe')
     if not nombre or not codigo or not periodo:
         return Response({"error": "Todos los campos son obligatorios"}, status=status.HTTP_400_BAD_REQUEST)
     if Cursos.objects.filter(codigo=codigo).exists():
         return Response({"error": "Ya existe un curso con el código proporcionado"}, status=status.HTTP_400_BAD_REQUEST)
-    curso = Cursos.objects.create(nombre=nombre, codigo=codigo, periodoAcademico=periodo)
+    
+    user = User.objects.filter( username=profe ).first()
+    profesor = Profesor.objects.get(user=user)
+
+    curso = Cursos.objects.create(nombre=nombre, codigo=codigo, periodoAcademico=periodo, profesor=profesor)    
     return Response({"success": "Curso creado exitosamente"}, status=status.HTTP_201_CREATED)
 
 @api_view(['POST'])
@@ -446,6 +451,75 @@ def editar_estado_profesor(request):
     profesor.save()
     serializer = ProfesorSerializer(profesor)   
     return Response({'profesor': serializer.data}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def editar_Student(request):
+    nombre = request.data.get('nombre')
+    codigo = request.data.get('codigo')
+    newCodigo = request.data.get('newcodigo')  # Asegúrate de que esto coincide con lo que envías desde el frontend
+    email = request.data.get('email')
+
+    estudiante = get_object_or_404(Estudiante, codigo=codigo)
+    
+    if codigo != newCodigo and Estudiante.objects.filter(codigo=newCodigo).exists():
+        return Response({"error": "Ya existe un estudiante con la identificación proporcionada"}, status=status.HTTP_400_BAD_REQUEST)
+    
+    if email != estudiante.user.email and User.objects.filter(email=email).exists():
+        return Response({"error": "Ya existe un usuario con el correo proporcionado"}, status=status.HTTP_400_BAD_REQUEST)
+
+    changes_made = False
+
+    if nombre:
+        estudiante.user.first_name = nombre
+        changes_made = True
+
+    if newCodigo:
+        estudiante.codigo = newCodigo
+        changes_made = True
+
+    if email:
+        estudiante.user.email = email
+        changes_made = True
+
+    if changes_made:
+        estudiante.user.save()  
+        estudiante.save()  
+        return Response({"message": "Datos del estudiante editados exitosamente"}, status=status.HTTP_200_OK)
+    else:
+        return Response({"error": "No se proporcionaron datos para editar"}, status=status.HTTP_400_BAD_REQUEST)
+    
+
+@api_view(['POST'])
+def editar_curso(request):
+    nombre = request.data.get('nombre')
+    codigo = request.data.get('codigo')
+    newCodigo = request.data.get('newCodigo')  # Asegúrate de que esto coincide con lo que envías desde el frontend
+    periodo = request.data.get('periodo')
+
+    curso = get_object_or_404(Cursos, codigo=codigo)
+    
+    if codigo != newCodigo and Cursos.objects.filter(codigo=newCodigo).exists():
+        return Response({"error": "Ya existe un curso con el código proporcionado"}, status=status.HTTP_400_BAD_REQUEST)
+
+    changes_made = False
+
+    if nombre:
+        curso.nombre = nombre
+        changes_made = True
+
+    if newCodigo:
+        curso.codigo = newCodigo
+        changes_made = True
+
+    if periodo:        
+        curso.periodoAcademico = periodo
+        changes_made = True
+
+    if changes_made:
+        curso.save()
+        return Response({"message": "Datos del curso editados exitosamente"}, status=status.HTTP_200_OK)
+    else:
+        return Response({"error": "No se proporcionaron datos para editar"}, status=status.HTTP_400_BAD_REQUEST)
     
 
 

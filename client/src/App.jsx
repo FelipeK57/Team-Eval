@@ -35,6 +35,7 @@ import Cookies from "js-cookie";
 import ProfeEditar from "./pages/ProfeEditar/ProfeEditar";
 import CursosDes from "./pages/CursosDes/CursosDes";
 import ProfeDes from "./pages/ProfeDes/ProfeDes";
+import EditarStudent from "./pages/CursosProfe/EditarStudent.jsx";
 function App() {
   return (
     <BrowserRouter>
@@ -75,6 +76,8 @@ function App() {
 
         <Route path="/Cursos" element={<CursosEstudiante />} />
         <Route path="/Curso" element={<Curso />} />
+        <Route path="/EditarStudent" element={<EditarStudent profesor={Cookies.get("StudentNombre")} />} />
+
 
         {/*Paginas de admin*/}
         <Route path="/agregarP" element={<AgregarProfesor />} />

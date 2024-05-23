@@ -17,6 +17,8 @@ function AgregarCurso() {
     const [advice, setAdvice] = useState("");
   
 
+  
+
     const handleNombreChange = (e) => {
         setNombre(e.target.value);
     }
@@ -56,6 +58,7 @@ function AgregarCurso() {
             nombre : nombre,
             codigo : codigo,
             periodo: Periodo,
+            profe: Cookies.get("profesor"),
         });
         console.log(response.data);
         setAdvice("Curso agregado con exito");
@@ -88,12 +91,18 @@ function AgregarCurso() {
             value2={codigo}
             onChangeField2={handleCodigoChange}
             Field2=""
-            Label3="periodo"
+            Label3="Profesor"
             type3="text"
             value3={Periodo}
             onChangeField3={handlesetPeriodo}
             Field3=""
             onClick={handleClick}
+            Combo={true}
+            Label4="Periodo"
+            type4="text"
+            value4={Periodo}
+            onChangeField4={handlesetPeriodo}
+            Field4=""
         />
          <PopUp open={open}
                 SetOpen={setOpen}
@@ -101,9 +110,11 @@ function AgregarCurso() {
                 Width={"100%"}
                 Button1="volver"
                onClick1={popup}
+            
                 
             />
     </div>
+
         
     );
 }

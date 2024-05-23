@@ -102,8 +102,7 @@ function VerificacionCorreo() {
                 Width={"65%"}
                 Button1="Aceptar"
                 onClick1={popup}
-                Button2="Cancelar"
-                onClick2={popup}
+                
             />
         </div>
     );
