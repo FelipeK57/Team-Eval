@@ -1,4 +1,5 @@
 import { Edit } from "@mui/icons-material";
+import AddIcon from '@mui/icons-material/Add';
 import NoQuieroCrearMasNavbars from "../../components/NoQuieroCrearMasNavbars";
 import LargeButton from "../../components/Utilities/LargeButton";
 import "./Rubricas.css";
@@ -24,6 +25,7 @@ function Rubricas() {
                 </div>
                 <div className="OpcionRubricas">
                     <LargeButton icon={<Edit />} text="Crear Rubrica" OnClick={Rubrica} />
+                    <LargeButton icon={<AddIcon/>} text={false} OnClick={Rubrica} />
                 </div>
             </div>
         </div>

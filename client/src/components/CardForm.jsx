@@ -120,6 +120,7 @@ function CardForm(props) {
                             </div> : null}
                             <Button LineaBoton={false} Boton="Registrar" color="rgb(15, 65, 117)" fontColor="white" onClick={props.onClick} />
                         </form>
+                        {props.Title === "Agregar Curso" ? <button className="AgregarEstudiantes">Agregar estudiantes</button> : null}
                     </div>
                 </div>
             </div>
