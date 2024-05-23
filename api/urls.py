@@ -59,6 +59,8 @@ urlpatterns = [
     re_path(r'^profe_deshabilitado/$', views.profesores_deshabilitados),
     re_path(r'^profesores/$', views.profesores),
     re_path(r'^editEstado_profesor/$', views.editar_estado_profesor),
+    re_path(r'^estudiantes/$', views.estudiantes),
+    
     
         
 

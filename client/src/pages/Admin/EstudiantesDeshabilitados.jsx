@@ -4,9 +4,12 @@ import { useNavigate } from "react-router-dom";
 import "./EstudiantesDeshabilitados.css";
 import axios from "axios";
 import ListEstDes from "../../components/EstudiantesDes/ListEstDes";
+import PopUp from "../../components/Utilities/PopUp";
 
 function EstudiantesDeshabilitados() {
   const [estudiantesDeshabilitados, setEstudiantesDeshabilitados] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [advice, setAdvice] = useState("");
 
   useEffect(() => {
     const fetchEstudiantesDeshabilitados = async () => {
@@ -27,8 +30,9 @@ function EstudiantesDeshabilitados() {
         codigo: codigo,
         estado: true  // Cambia a 'true' para habilitar al estudiante
       });
-      console.log(response.data);
-      alert("Estudiante habilitado");
+
+      setAdvice("Estudiante habilitado con exito");
+      setOpen(true);
 
       // Actualizar la lista de estudiantes después de la edición
       setEstudiantesDeshabilitados(prevEstudiantes =>
@@ -40,6 +44,12 @@ function EstudiantesDeshabilitados() {
     }
   };
 
+  const popup = (e) => {
+    e.preventDefault();
+    setOpen(!open);
+    
+};
+
   return (
     <div className="ContainerEstDes">
       <div className="NavBar">
@@ -49,7 +59,10 @@ function EstudiantesDeshabilitados() {
         <h1>Estudiantes Deshabilitados</h1>
       </div>
       <div className="ListaEstDes">
-        {estudiantesDeshabilitados.map((estudiante, index) => (
+      {estudiantesDeshabilitados.length === 0 ? (
+          <p>No hay estudiantes   deshabilitados.</p>
+        ) : (
+        estudiantesDeshabilitados.map((estudiante, index) => (
           <div key={index}>
             <ListEstDes
               Nombre1={estudiante.user.first_name}
@@ -59,8 +72,19 @@ function EstudiantesDeshabilitados() {
               Buttons={true}
             />
           </div>
-        ))}
+        ))
+      )}
+
+
       </div>
+      <PopUp open={open}
+                SetOpen={setOpen}
+                Advice={advice}
+                Width={"100%"}
+                Button1="volver"
+                onClick1={popup}
+                
+            />
     </div>
   );
 }

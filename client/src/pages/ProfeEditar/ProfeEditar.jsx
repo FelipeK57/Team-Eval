@@ -84,7 +84,7 @@ function ProfeEditar(props) {
             <NoQuieroCrearMasNavbars />
             <form className="form"  >
             <div className="panel">
-            <div className="yamba"><h1>{props.profesor}</h1></div>
+            <div className="yamba"><h1>{Cookies.get("profesorNombre") }</h1></div>
             <div className="yemba"><h1>Nombre:</h1></div>
             <input type="text" className="label" required 
             onChange={handleNombreChange}

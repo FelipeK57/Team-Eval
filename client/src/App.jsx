@@ -31,7 +31,7 @@ import EstudiantesDeshabilitados from "./pages/Admin/EstudiantesDeshabilitados.j
 import Rubricas from "./pages/Admin/Rubricas.jsx";
 import EstudiantesLista from "./pages/CursosProfe/EstudiantesLista.jsx";
 import TablaRubricas from "./pages/Admin/TablaRubricas.jsx";
-
+import Cookies from "js-cookie";
 import ProfeEditar from "./pages/ProfeEditar/ProfeEditar";
 import CursosDes from "./pages/CursosDes/CursosDes";
 import ProfeDes from "./pages/ProfeDes/ProfeDes";
@@ -80,7 +80,6 @@ function App() {
         <Route path="/agregarP" element={<AgregarProfesor />} />
         <Route path="/agregarC" element={<AgregarCurso />} />
         <Route path="/Admin" element={<HomeAdmin />} />
-<<<<<<< HEAD
         <Route path="/MiCuentaA" element={<MiCuentaA />} />
         <Route path="/CursosAdmin" element={<Cursos />} />
         <Route path="/ProfesoresAdmin" element={<Profesores />} />
@@ -91,10 +90,7 @@ function App() {
         <Route path="/EstudiantesLista" element={<EstudiantesLista />} />
 
         <Route path="/TablaRubricas" element={<TablaRubricas />} />
-        <Route path="/ProfeEditar" element= {<ProfeEditar/>}/>
-=======
-        <Route path="/ProfeEditar" element= {<ProfeEditar profesor="Pedro Vargas"/>}/>
->>>>>>> origin/Home2
+        <Route path="/ProfeEditar" element= {<ProfeEditar profesor={Cookies.get("profesorNombre")}/>}/>
         <Route path="/CursosDes" element={<CursosDes />} />
         <Route path="/ProfeDes" element={<ProfeDes />} />
       </Routes>
