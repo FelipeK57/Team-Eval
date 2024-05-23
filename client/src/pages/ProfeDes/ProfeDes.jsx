@@ -9,7 +9,7 @@ function ProfeDes() {
             <NoQuieroCrearMasNavbars />
             <div className="cali"><h1>Profesores Deshabilitados</h1></div>
             <div className="corinto">
-                <Label Nombre="Asignatura" Codigo="Profesor" />
+                <Label Nombre="Nombre" Codigo="C.C" />
             </div>
         </div>
     );
