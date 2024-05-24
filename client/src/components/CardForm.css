@@ -96,10 +96,11 @@
     border-radius: 25px;
     padding: 8px 20px;
     position: absolute;
-    margin-bottom: -255px;
+    margin-top: 335px;
     right: 29%;
     cursor: pointer;
     transition: all 0.3s;
+    color: white;
 }
 
 .AgregarEstudiantes:hover{
