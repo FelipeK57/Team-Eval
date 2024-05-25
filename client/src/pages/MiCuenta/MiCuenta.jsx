@@ -11,16 +11,22 @@ import axios from "axios";
 function MiCuenta() {
   const navigate = useNavigate();
 
-  const axiosinstance = axios.create({
-    withCredentials: true, // Habilitar el envío de cookies con la solicitud
-  });
+
 
   const handleClick = async (e) => {
     e.preventDefault();
     try {
-      const response = await axiosinstance.post("http://localhost:8000/logout/");
+      
+            const response = await axios.post('http://localhost:8000/logout/', null, {
+            headers: {
+                'Authorization': `Token ${Cookies.get('sessionid')}`, 
+                'X-CSRFToken': Cookies.get('csrftoken'), // Incluir el token CSRF en los encabezados
+            },
+            withCredentials: true,
+        });
 
       // Eliminar cookies locales
+      console.log('Respuesta de logout:', response.data);
       Cookies.remove("sessionid");
       Cookies.remove("csrftoken");
       Cookies.remove("loggedIn");

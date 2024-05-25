@@ -61,7 +61,7 @@ def login(request):
     response.set_cookie(
         key='sessionid',
         value=token.key,
-        httponly=True,
+        httponly=False,
         secure=False,   
         samesite='Lax',  # O 'Strict' según tus necesidades
         max_age=3600  # Tiempo de expiración en segundos
@@ -139,19 +139,32 @@ def loginProfesor(request):
 
 
 
-@api_view(['POST'])
+@api_view(['POST']) 
 def logout(request):
+    # Obtener el token del usuario desde la cabecera de autorización
+    token_key = request.META.get('HTTP_AUTHORIZATION')
 
-     # Llamar a la función de logout de Django para cerrar la sesión del usuario
+    print(token_key)
+
+    if token_key:
+        # Eliminar 'Token ' del inicio del string del token
+        token_key = token_key.split(' ')[1]
+        
+        try:
+            token = Token.objects.get(key=token_key)
+            token.delete()
+        except Token.DoesNotExist:
+            return Response({"error": "Token no encontrado"}, status=status.HTTP_404_NOT_FOUND) 
+
+    # Cerrar sesión del usuario
     django_logout(request)
-
-    
     
     # Eliminar la cookie de sessionid
     response = Response({"detail": "Sesión cerrada correctamente"}, status=status.HTTP_200_OK)
     response.delete_cookie('sessionid')
 
     return response
+    
 
 @api_view(['POST'])
 def registerProfesor(request):

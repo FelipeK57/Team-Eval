@@ -55,15 +55,14 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # Debe estar antes de CsrfViewMiddleware
+    'django.middleware.csrf.CsrfViewMiddleware',  # CorsMiddleware debe estar antes que CsrfViewMiddleware
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
 ]
-
 ROOT_URLCONF = 'api.urls'
 
 TEMPLATES = [
@@ -159,7 +158,7 @@ EMAIL_HOST_USER = 'team.eval.col@gmail.com'  # Tu correo de Gmail
 EMAIL_HOST_PASSWORD = 'hsje nbcd bzyi pits'    # Tu contraseña de Gmail
 
 SESSION_COOKIE_HTTPONLY = False
-SESSION_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SAMESITE = 'Lax'
 
