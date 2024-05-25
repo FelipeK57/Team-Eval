@@ -22,6 +22,7 @@ from django.core.mail import send_mail
 import random
 from codigos_seguridad.models import codigos_seguridad
 from rest_framework.validators import ValidationError
+from django.contrib.auth import logout as django_logout
 
 @api_view(['POST'])
 def login(request):
@@ -140,16 +141,14 @@ def loginProfesor(request):
 
 @api_view(['POST'])
 def logout(request):
-    # Eliminar el token de autenticación
-    try:
-        token = request.auth
-        if token:
-            token.delete()
-    except Token.DoesNotExist:
-        return Response({"error": "Token no válido"}, status=status.HTTP_400_BAD_REQUEST)
 
-    # Limpiar la cookie de sesión
-    response = Response({"success": "Cierre de sesión exitoso"}, status=status.HTTP_200_OK)
+     # Llamar a la función de logout de Django para cerrar la sesión del usuario
+    django_logout(request)
+
+    
+    
+    # Eliminar la cookie de sessionid
+    response = Response({"detail": "Sesión cerrada correctamente"}, status=status.HTTP_200_OK)
     response.delete_cookie('sessionid')
 
     return response

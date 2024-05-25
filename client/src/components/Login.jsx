@@ -47,12 +47,12 @@ function Login() {
         codigo: codigo,
         password: password,
       });
-      console.log("Cookies después de la solicitud:", document.cookie);
       Cookies.set("loggedIn", "true", { expires: 1 }); // Indica que el usuario ha iniciado sesión
-      Cookies.set("user", response.datausername, { expires: 1 });
-      Cookies.set("nombre", response.data.user.user.first_name, { expires: 1 });
-      Cookies.set("apellido", response.data.user.user.last_name, { expires: 1 });
-      Cookies.set("email", response.data.user.user.email, { expires: 1 });
+      Cookies.set("codigo", response.data.estudiante.codigo);
+      Cookies.set("nombre", response.data.nombre);
+      Cookies.set("apellido", response.data.apellido);
+      Cookies.set("email", response.data.email);
+      Cookies.set("user", response.data.username, { expires: 1 }); 
       navigate("/Student");
     } catch (error) {
       if (error.response && error.response.data && error.response.data.error) {
