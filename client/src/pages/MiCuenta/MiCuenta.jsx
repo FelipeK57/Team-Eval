@@ -11,25 +11,44 @@ import axios from "axios";
 function MiCuenta() {
   const navigate = useNavigate();
 
+  const instance = axios.create({
+    withCredentials: true, // Habilitar el envío de cookies con la solicitud
+  });
+
   const handleClick = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8000/logout/", null, {
-        headers: {
-          Authorization: `Token ${Cookies.get("token")}`,
-        },
-      });
-      Cookies.remove("token");
-      Cookies.remove("loggedIn");
-      Cookies.remove("nombre");
-      Cookies.remove("apellido");
-      Cookies.remove("email");
-      Cookies.remove("codigo");
-      navigate("/Login");
+        const sessionid = Cookies.get("sessionid"); // Obtener el sessionid
+
+        if (!sessionid) {
+            console.error("No hay sessionid en las cookies");
+            return;
+        }
+
+        // Enviar la solicitud de logout al backend
+        instance.post("http://localhost:8000/logout/", null, {
+            headers: {
+                Authorization: `Token ${sessionid}`,
+                 // Asegúrate de incluir el CSRF token si es necesario
+            },
+        });
+
+        // Eliminar cookies locales
+        Cookies.remove("sessionid");
+        Cookies.remove("csrftoken"); // Si quieres eliminar también el CSRF token
+        Cookies.remove("loggedIn");
+        Cookies.remove("nombre");
+        Cookies.remove("apellido");
+        Cookies.remove("email");
+        Cookies.remove("codigo");
+
+        // Navegar a la página de login
+        
+        navigate("/Login");
     } catch (error) {
-      console.error("Error al cerrar sesión:", error.response.error);
+        console.error("Error al cerrar sesión:", error.response?.data || error.message);
     }
-  };
+};
 
   return (
     <div className="MiCuenta">

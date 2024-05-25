@@ -17,6 +17,13 @@ function Login() {
   const [identificacion, setIdentificacion] = useState("");
   const [open, setOpen] = useState(false);
   const [advice, setAdvice] = useState("");
+
+  const axiosInstance = axios.create({
+    withCredentials: true, // Habilitar envío de cookies
+    headers: {
+      'X-CSRFToken': Cookies.get('csrftoken'), // Incluir el CSRF token
+  },
+});
  
 
   const handleCodigoChange = (e) => {
@@ -36,17 +43,16 @@ function Login() {
     }
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8000/login/", {
+      const response = await axiosInstance.post("http://localhost:8000/login/", {
         codigo: codigo,
         password: password,
       });
-      Cookies.set("token", response.data.token, { expires: 1 }); // Guarda el token en una cookie que expira en 7 días
+      console.log("Cookies después de la solicitud:", document.cookie);
       Cookies.set("loggedIn", "true", { expires: 1 }); // Indica que el usuario ha iniciado sesión
-      Cookies.set("codigo", response.data.estudiante.codigo);
-      Cookies.set("nombre", response.data.nombre);
-      Cookies.set("apellido", response.data.apellido);
-      Cookies.set("email", response.data.email);
-      Cookies.set("user", response.data.username, { expires: 1 });  
+      Cookies.set("user", response.datausername, { expires: 1 });
+      Cookies.set("nombre", response.data.user.user.first_name, { expires: 1 });
+      Cookies.set("apellido", response.data.user.user.last_name, { expires: 1 });
+      Cookies.set("email", response.data.user.user.email, { expires: 1 });
       navigate("/Student");
     } catch (error) {
       if (error.response && error.response.data && error.response.data.error) {

@@ -48,7 +48,7 @@ def login(request):
     serializer = EstudianteSerializer(estudiante)
 
     # Devolver respuesta con el token y los datos del usuario
-    return Response({
+    response = Response({
         "token": token.key,
         "estudiante": serializer.data,
         "nombre": estudiante.user.first_name,
@@ -56,6 +56,16 @@ def login(request):
         "email": estudiante.user.email,
         "username": estudiante.user.username
     }, status=status.HTTP_200_OK)
+
+    response.set_cookie(
+        key='sessionid',
+        value=token.key,
+        httponly=True,
+        secure=False,   
+        samesite='Lax',  # O 'Strict' según tus necesidades
+        max_age=3600  # Tiempo de expiración en segundos
+    )
+    return response
 
 @api_view(['POST'])
 def login_adminte(request):
@@ -127,14 +137,22 @@ def loginProfesor(request):
     return Response({"token": token.key, "user": serializer.data}, status=status.HTTP_200_OK)
 
 
-@api_view(['POST']) 
-@authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
+
+@api_view(['POST'])
 def logout(request):
-     request.user.auth_token.delete()
-     response = Response({'mensaje': 'Cerrando sesión'}, status=status.HTTP_200_OK)
-     
-     return response
+    # Eliminar el token de autenticación
+    try:
+        token = request.auth
+        if token:
+            token.delete()
+    except Token.DoesNotExist:
+        return Response({"error": "Token no válido"}, status=status.HTTP_400_BAD_REQUEST)
+
+    # Limpiar la cookie de sesión
+    response = Response({"success": "Cierre de sesión exitoso"}, status=status.HTTP_200_OK)
+    response.delete_cookie('sessionid')
+
+    return response
 
 @api_view(['POST'])
 def registerProfesor(request):
