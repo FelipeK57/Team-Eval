@@ -87,14 +87,13 @@ function Login() {
     }
     e.preventDefault();
     try {
-      const response = await axios.post(
+      const response = await axiosInstance.post(
         "http://localhost:8000/loginProfesor/",
         {
           identificacion: identificacion,
           password: password,
         }
       );
-      Cookies.set("token", response.data.token, { expires: 1 }); // Guarda el token en una cookie que expira en 1 dia
       Cookies.set("loggedIn", "true", { expires: 1 }); // Indica que el usuario ha iniciado sesión
       Cookies.set("identificacion", response.data.user.identificacion);
       Cookies.set("user", response.data.user.user.username, { expires: 1 });

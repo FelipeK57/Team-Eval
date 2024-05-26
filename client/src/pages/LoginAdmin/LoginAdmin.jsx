@@ -11,6 +11,13 @@ function LoginAdmin() {
     const [password, setPassword] = useState("");
     const [codigo, setCodigo] = useState("");
     const [advice, setAdvice] = useState("");
+
+    const axiosInstance = axios.create({
+        withCredentials: true, // Habilitar envío de cookies
+        headers: {
+          'X-CSRFToken': Cookies.get('csrftoken'), // Incluir el CSRF token
+      },
+    });
    
 
     const handlePasswordChange = (e) => {
@@ -32,11 +39,10 @@ function LoginAdmin() {
         e.preventDefault();
 
         try{
-            const response = await axios.post("http://localhost:8000/login_admin/", {
+            const response = await axiosInstance.post("http://localhost:8000/login_admin/", {
                 codigo: codigo,
                 password: password,
             });
-            Cookies.set("token", response.data.token, { expires: 1 }); // Guarda el token en una cookie que expira en 7 días
             Cookies.set("user", response.data.user.user.username, { expires: 1 });
             Cookies.set("loggedIn", "true", { expires: 1 }); // Indica que el usuario ha iniciado sesión
             navigate('/Admin')

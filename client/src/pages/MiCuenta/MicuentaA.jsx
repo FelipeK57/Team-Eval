@@ -39,7 +39,7 @@ function MiCuentaA() {
           },
           {
             headers: {
-              Authorization: `Token ${Cookies.get("token")}`,
+              Authorization: `Token ${Cookies.get("sessionid")}`,
             },
           }
         );
@@ -58,11 +58,11 @@ function MiCuentaA() {
     try {
       const response = await axios.post("http://localhost:8000/logout/", null, {
         headers: {
-          Authorization: `Token ${Cookies.get("token")}`,
+          Authorization: `Token ${Cookies.get("sessionid")}`,
         },
       });
-      Cookies.remove("token");
       Cookies.remove("loggedIn");
+      Cookies.remove("sessionid");
       Cookies.remove("user");
       Cookies.remove("codigo");
       Cookies.remove("nombre");

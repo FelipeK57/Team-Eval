@@ -78,7 +78,18 @@ def login_adminte(request):
         
     token, created = Token.objects.get_or_create(user=admin.user)
     serializer = AdministradorSerializer(admin)
-    return Response({"token": token.key, "user": serializer.data }, status=status.HTTP_200_OK)
+    response =  Response({"token": token.key, "user": serializer.data }, status=status.HTTP_200_OK)
+
+    response.set_cookie(
+        key='sessionid',
+        value=token.key,
+        httponly=False,
+        secure=False,   
+        samesite='Lax',  # O 'Strict' según tus necesidades
+        max_age=3600  # Tiempo de expiración en segundos
+    )
+    return response
+
 
 @api_view(['POST'])
 def import_cursos(request):
@@ -135,7 +146,17 @@ def loginProfesor(request):
     serializer = ProfesorSerializer(profesor)
 
     # Devolver respuesta con el token y los datos del usuario
-    return Response({"token": token.key, "user": serializer.data}, status=status.HTTP_200_OK)
+    response = Response({"token": token.key, "user": serializer.data}, status=status.HTTP_200_OK)
+
+    response.set_cookie(
+        key='sessionid',
+        value=token.key,
+        httponly=False,
+        secure=False,   
+        samesite='Lax',  # O 'Strict' según tus necesidades
+        max_age=3600  # Tiempo de expiración en segundos
+    )
+    return response
 
 
 
@@ -143,8 +164,6 @@ def loginProfesor(request):
 def logout(request):
     # Obtener el token del usuario desde la cabecera de autorización
     token_key = request.META.get('HTTP_AUTHORIZATION')
-
-    print(token_key)
 
     if token_key:
         # Eliminar 'Token ' del inicio del string del token
