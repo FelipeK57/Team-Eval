@@ -13,10 +13,10 @@ function CambiarContraseñaAdmin() {
   useEffect(() => {
     const verificarSesion = () => {
       const user = Cookies.get("user");
-      const token = Cookies.get("token");
+      const token = Cookies.get("sessionid");
 
-      if ( user &&  token) {
-        console.log("El usuario ha iniciado sesión. username:", user);
+      if ( user ||  token) {
+        console.log("El usuario ha iniciado sesión.");
       } else {
         console.log("El usuario no ha iniciado sesión.");
         navigate("/login");

@@ -28,12 +28,10 @@ function CodigoVerificacion() {
                 code: code
             });
             navigate("/CambioContraAdmin");
-            console.log(code)
+        
         }catch(error){  
             console.log(error);
             alert("El Codigo de verificacion es incorrecto");
-            // Otra opción sería manejar el mensaje de error con un estado en lugar de alert
-            // setErrorMessage("El Codigo de verificacion es incorrecto");
         }      
     };
 
