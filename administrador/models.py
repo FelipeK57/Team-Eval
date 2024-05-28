@@ -4,12 +4,13 @@ from cursos.models import Cursos
 from estudiantes.models import Estudiante
 from profesor.models import Profesor
 from openpyxl import load_workbook
+from django.shortcuts import get_object_or_404
 # Create your models here.
 class administrador(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     codigo = models.PositiveBigIntegerField(null=True)
 
-    def read_file(self, file):
+    def importar_cursos(self, file):
         wb = load_workbook(file)
         hoja = wb.active
         
@@ -74,5 +75,41 @@ class administrador(models.Model):
             
             nuevo_curso.estudiantes.add(nuevo_estudiante)
             
+    def importar_estudiantes(self, file):
+        wb = load_workbook(file)
+        hoja = wb.active
+        celda_nula = hoja['Z1'].value
+        
+        curso_codigo = hoja['B1'].value
+        
+        curso = get_object_or_404(Cursos, codigo=curso_codigo)
+        
+        for fila in hoja.iter_rows(min_row=3, values_only=True):
+            estudiante_codigo = fila[0]
+            estudiante_nombre = fila[1]
+            estudiante_apellido = fila[2]
+            estudiante_email = fila[3]
+            
+            if(estudiante_codigo == "Fin"):
+                return 'Importe realizado'
+            
+            if(estudiante_apellido == celda_nula or estudiante_codigo == celda_nula or estudiante_email == celda_nula or estudiante_nombre == celda_nula):
+                return "Campos de estudiantes vacios"
+            
+            username_e = estudiante_nombre + ' ' + estudiante_apellido
+            
+            user_estudiante, creado = User.objects.get_or_create(username=username_e, email=estudiante_email, first_name=estudiante_nombre, last_name=estudiante_apellido)
+            if creado:
+                dp_estudiante = estudiante_nombre[0] + str(estudiante_codigo) + estudiante_apellido[0]
+                user_estudiante.set_password(dp_estudiante)
+                user_estudiante.save()
+
+            
+            nuevo_estudiante, creado = Estudiante.objects.get_or_create(user=user_estudiante, codigo=estudiante_codigo)
+            if creado:
+                nuevo_estudiante.save()
+            
+            curso.estudiantes.add(nuevo_estudiante)
+    
     def __str__(self):
         return self.user.username
