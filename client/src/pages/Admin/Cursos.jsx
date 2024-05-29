@@ -18,6 +18,10 @@ function Cursos() {
     navigate("/AgregarC");
   };
 
+  const CursosDeshabilitados = () => {
+    navigate("/CursosDes")
+  }
+
   const popup = (e) => {
     e.preventDefault();
     setOpen(false);
@@ -78,6 +82,15 @@ function Cursos() {
           color="rgb(15, 65, 118)"
           fontColor="white"
           onClick={AgregarCursos}
+        />
+      </div>
+      <div className="CursosDes">
+        <Button
+        LineaBoton={false}
+        Boton="Cursos desabilitados"
+        color="rgb(15,65,118)"
+        fontColor="white"
+        onClick={CursosDeshabilitados}
         />
       </div>
       <div className="ListaCursos">

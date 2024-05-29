@@ -18,6 +18,9 @@ function Profesores() {
     navigate("/AgregarP");
   };
 
+  const ProfesoresDeshabilitados = () =>{
+    navigate("/ProfeDes")
+  }
   useEffect(() => {
     const fetchStudentCourses = async () => {
       try {
@@ -76,6 +79,15 @@ function Profesores() {
           color="rgb(15, 65, 118)"
           fontColor="white"
           onClick={AgregarProfesores}
+        />
+      </div>
+      <div className="CursosDes">
+        <Button
+        LineaBoton={false}
+        Boton="Profesores desabilitados"
+        color="rgb(15,65,118)"
+        fontColor="white"
+        onClick={ProfesoresDeshabilitados}
         />
       </div>
       <div className="ListaProfesores">

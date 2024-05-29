@@ -43,3 +43,25 @@
     box-shadow: 0 0 0.5rem 0.5rem rgba(15, 65, 118, 0.5) !important;
     transition: all 0.3s;
 }
+
+.CursosDes{
+    display: flex;
+    position: absolute;
+    margin-top: 18vh;
+    right: 20vw;
+}
+
+.CursosDes button{
+    font-size: 2rem;
+    width: 20vw;
+    padding: 10%,100%;
+    height: auto;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.CursosDes button:hover{
+    transform: scale(1.1);
+    box-shadow: 0 0 0.5rem 0.5rem rgba(15, 65, 118, 0.5) !important;
+    transition: all 0.3s;
+}
