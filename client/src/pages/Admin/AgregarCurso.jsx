@@ -73,7 +73,7 @@ function AgregarCurso() {
     <div className="Contenedor">
       <NoQuieroCrearMasNavbars />
       <CardForm
-        Title="Agregar Curso"
+        Title="Agregar curso"
         Label1="Nombre"
         value1={nombre}
         onChangeField1={handleNombreChange}
@@ -95,7 +95,6 @@ function AgregarCurso() {
         value4={Periodo}
         onChangeField4={handlesetPeriodo}
         Field4=""
-        Import={true}
       />
       <PopUp
         open={open}

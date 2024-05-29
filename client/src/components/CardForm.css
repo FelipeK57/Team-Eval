@@ -5,6 +5,7 @@
 
 .ContainerCardForm{
     display: flex;
+    position: relative;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -22,6 +23,7 @@
     margin: 0;
     padding: 0;
     box-shadow: 10px 10px 10px 0.5px rgba(0, 0, 0, 0.5);
+    position: relative;
 }
 
 .TitleCardForm{
@@ -84,7 +86,7 @@
 
 .AgregarEstudiantes{
     display: flex;
-    font-weight: 900;
+    font-weight: normal;
     font-size: 1rem;
     flex-direction: row;
     justify-content: center;
@@ -96,8 +98,8 @@
     border-radius: 25px;
     padding: 8px 20px;
     position: absolute;
-    margin-top: 335px;
-    right: 29%;
+    right: 5%;
+    bottom: 18.5px;
     cursor: pointer;
     transition: all 0.3s;
     color: white;
