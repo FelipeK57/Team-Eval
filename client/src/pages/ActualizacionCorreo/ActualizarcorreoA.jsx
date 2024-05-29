@@ -21,10 +21,10 @@ function ActualizarcorreoA() {
 
     const verificarSesion = () => {
         const loggedIn = Cookies.get('loggedIn');
-        const userId = Cookies.get('codigo');
+        const userId = Cookies.get('sessionid');
 
         if (loggedIn === 'true' && userId) {
-            console.log("El usuario ha iniciado sesión. ID de usuario:", userId);
+            console.log("El usuario ha iniciado sesión.");
         } else {
             console.log("El usuario no ha iniciado sesión.");
             navigate('/Login');
@@ -37,7 +37,7 @@ function ActualizarcorreoA() {
 
   const handleClick = async (e, setAdvice, popup) => {
    
-      let token = Cookies.get("token");
+      let token = Cookies.get("sessionid");
 
       if (!email.includes("@") && !newEmail.includes("@")) {
         setAdvice("Ingresa un correo valido");
