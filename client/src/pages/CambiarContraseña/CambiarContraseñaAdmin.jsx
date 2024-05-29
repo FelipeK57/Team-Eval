@@ -65,12 +65,12 @@ function CambiarContraseñaAdmin() {
         null,
         {
           headers: {
-            Authorization: `Token ${Cookies.get("token")}`,
+            Authorization: `Token ${Cookies.get("sessionid")}`,
           },
         }
       );
       navigate("/AvisoContraseña");
-      Cookies.remove("token");
+      Cookies.remove("sessionid");
       Cookies.remove("loggedIn");
       Cookies.remove("user");
       Cookies.remove("nombre");

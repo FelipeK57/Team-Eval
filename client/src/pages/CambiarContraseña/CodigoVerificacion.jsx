@@ -24,7 +24,7 @@ function CodigoVerificacion() {
 
         try {
             const response = await axios.post('http://localhost:8000/reset_passwordConfirm/', {
-                token: Cookies.get("token"),
+                token: Cookies.get("sessionid"),
                 code: code
             });
             navigate("/CambioContraAdmin");

@@ -38,7 +38,7 @@ function VerificacionCorreo() {
             setOpen(false);
             navigate('/CodigoVerificacion');
             Cookies.set("user", response.data.user, { expires: 1 });
-            Cookies.set("token", response.data.token, { expires: 1 });
+            Cookies.set("sessionid", response.data.token, { expires: 1 });
         } catch (error) {
             console.error(error);
             setMensaje("El correo no se encuentra registrado");

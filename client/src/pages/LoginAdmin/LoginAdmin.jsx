@@ -45,6 +45,7 @@ function LoginAdmin() {
             });
             Cookies.set("user", response.data.user.user.username, { expires: 1 });
             Cookies.set("loggedIn", "true", { expires: 1 }); // Indica que el usuario ha iniciado sesión
+            Cookies.set("codigo", response.data.user.codigo);
             navigate('/Admin')
         }catch(error){
             setAdvice("Credenciales incorrectas");

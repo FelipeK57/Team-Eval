@@ -37,7 +37,7 @@ function ActualizarcorreoA() {
 
   const handleClick = async (e, setAdvice, popup) => {
    
-      let token = Cookies.get("sessionid");
+    
 
       if (!email.includes("@") && !newEmail.includes("@")) {
         setAdvice("Ingresa un correo valido");
@@ -70,11 +70,13 @@ function ActualizarcorreoA() {
         },
         {
           headers: {
-            Authorization: `Token ${token}`,
+            Authorization: `Token ${Cookies.get("sessionid")}`,
           },
         }
       );
       Cookies.set("email", email);
+      setAdvice("Correo actualizado con exito");
+      popup(e);
       navigate("/MiCuentaA");
     } catch (error) {
       console.error("Error al realizar la solicitud:", error);
