@@ -39,6 +39,29 @@ function CardForm(props) {
     Label4: PropTypes.string,
     Label5: PropTypes.string,
     Combo: PropTypes.bool,
+    onChangeField1: PropTypes.func,
+    onChangeField2: PropTypes.func,
+    onChangeField3: PropTypes.func,
+    onChangeField4: PropTypes.func,
+    onChangeField5: PropTypes.func,
+    Field1: PropTypes.string,
+    Field2: PropTypes.string,
+    Field3: PropTypes.string,
+    Field4: PropTypes.string,
+    Field5: PropTypes.string,
+    Type1: PropTypes.string,
+    Type2: PropTypes.string,
+    Type3: PropTypes.string,
+    Type4: PropTypes.string,
+    Type5: PropTypes.string,
+    valueField1: PropTypes.string,
+    valueField2: PropTypes.string,
+    valueField3: PropTypes.string,
+    valueField4: PropTypes.string,
+    valueField5: PropTypes.string,
+    onClick: PropTypes.func,
+    Btn2: PropTypes.bool,
+    redirect: PropTypes.string,
   };
 
   return (
@@ -179,11 +202,7 @@ function CardForm(props) {
                 onClick={props.onClick}
               />
             </form>
-            {props.Import === true ? (
-              <button onClick={props.redirect} className="AgregarEstudiantes">
-                Agregar estudiantes
-              </button>
-            ) : null}
+            {props.Btn2 ? <button onClick={props.redirect} className="AgregarEstudiantes">Agregar estudiantes</button>: null}
           </div>
         </div>
       </div>

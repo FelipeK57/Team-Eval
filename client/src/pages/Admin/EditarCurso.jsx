@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import CardForm from "../../components/componentsEditarCurso/CardFormEditarCurso";
+import CardForm from "../../components/CardForm";
 import NoQuieroCrearMasNavbars from "../../components/NoQuieroCrearMasNavbars";
 import Cookies from "js-cookie";
 import PopUp from "../../components/Utilities/PopUp";
@@ -77,7 +77,7 @@ function EditarCurso() {
         onChangeField3={handlePeriodoChange}
         onClick={handleClick}
         redirect={importarE}
-        Import={true}
+        Btn2={true}
       />
       <PopUp
         open={open}
