@@ -92,7 +92,7 @@ function App() {
         <Route path="/EstudiantesDes" element={<EstudiantesDeshabilitados />} />
         <Route path="/Rubricas" element={<Rubricas />} />
         <Route path="/EstudiantesLista" element={<EstudiantesLista />} />
-        <Route path="/TablaRubricas" element={<TablaRubricas />} />
+        <Route path="/TablaRubricas" element={<TablaRubricas Nombre="Respeto" />} />
         <Route path="/ProfeEditar" element= {<ProfeEditar profesor="Pedro Vargas"/>}/>
         <Route path="/CursosDes" element={<CursosDes />} />
         <Route path="/ProfeDes" element={<ProfeDes />} />
