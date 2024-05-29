@@ -9,7 +9,8 @@ import PropTypes from "prop-types";
 function TablaRubricas (props){
 
     TablaRubricas.propTypes = {
-        Title: PropTypes.string.isRequired
+        Title: PropTypes.string.isRequired,
+        Nombre: PropTypes.string.isRequired
     }
 
     return(
@@ -28,12 +29,12 @@ function TablaRubricas (props){
                             <th className="thdos"><div className="RubricasTableHeader dos"><h1>Valor</h1></div></th>
                         </tr>
                         <tr>
-                            <td className="thleft"><div className="RubricasTableBody Left"><Field type="text" name="name"/></div></td>
-                            <td className="thright"><div className="RubricasTableBody Right"><Field type="text" name="name"/></div></td>
+                            <td className="thleft"><div className="RubricasTableBody Left"><Field Tipo="text" name="name"/></div></td>
+                            <td className="thright"><div className="RubricasTableBody Right"><Field Tipo="Number" name="name"/></div></td>
                         </tr>
                         <tr>
-                            <td className="thleft"><div className="RubricasTableBody Left finalLeft"><Field type="text" name="name"/></div></td>
-                            <td className="thright"><div className="RubricasTableBody Right finalRight"><Field type="text" name="name"/></div></td>
+                            <td className="thleft"><div className="RubricasTableBody Left finalLeft"><Field Tipo="text" name="name"/></div></td>
+                            <td className="thright"><div className="RubricasTableBody Right finalRight"><Field Tipo="Number" name="name"/></div></td>
                         </tr>
                     </table>
                     <div className="ButtonTablaRubricas">

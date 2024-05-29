@@ -21,18 +21,18 @@ function CodigoVerificacion() {
         e.preventDefault();
 
         const code = numero1 + numero2 + numero3 + numero4 + numero5 + numero6;
-        
-        try{
+
+        try {
             const response = await axios.post('http://localhost:8000/reset_passwordConfirm/', {
                 token: Cookies.get("token"),
                 code: code
             });
             navigate("/CambioContraAdmin");
-        
-        }catch(error){  
+
+        } catch (error) {
             console.log(error);
             alert("El Codigo de verificacion es incorrecto");
-        }      
+        }
     };
 
     return (
@@ -63,20 +63,94 @@ function CodigoVerificacion() {
                                 <br />
                                 <h2>Se ha enviado un codigo de verificacion al correo que ingreso anteriormente por favor digitelo a continuacion</h2>
                                 <div className="CamposVerificacion">
-                                    <input type="text" 
-                                    onChange={(e) => setNumero1(e.target.value)}
+                                    <input
+                                        id="input1"
+                                        type="Number"
+                                        maxLength="1"
+                                        onChange={(e) => {
+                                            if (!/^\d$/.test(e.target.value)) {
+                                                e.target.value = "";
+                                            } else {
+                                                setNumero1(e.target.value);
+                                                if (e.target.value.length === 1) {
+                                                    document.getElementById("input2").focus();
+                                                }
+                                            }
+                                        }}
                                     />
-                                    <input type="text" 
-                                    onChange={(e) => setNumero2(e.target.value)}/>
-                                    <input type="text"
-                                    onChange={(e) => setNumero3(e.target.value)} />
+                                    <input
+                                        id="input2"
+                                        type="Number"
+                                        maxLength="1"
+                                        onChange={(e) => {
+                                            if (!/^\d$/.test(e.target.value)) {
+                                                e.target.value = "";
+                                            } else {
+                                                setNumero2(e.target.value);
+                                                if (e.target.value.length === 1) {
+                                                    document.getElementById("input3").focus();
+                                                }
+                                            }
+                                        }}
+                                    />
+                                    <input
+                                        id="input3"
+                                        type="Number"
+                                        maxLength="1"
+                                        onChange={(e) => {
+                                            if (!/^\d$/.test(e.target.value)) {
+                                                e.target.value = "";
+                                            } else {
+                                                setNumero3(e.target.value);
+                                                if (e.target.value.length === 1) {
+                                                    document.getElementById("input4").focus();
+                                                }
+                                            }
+                                        }}
+                                    />
                                     <hr className="MidLine" />
-                                    <input type="text" 
-                                    onChange={(e) => setNumero4(e.target.value)}/>
-                                    <input type="text" 
-                                    onChange={(e) => setNumero5(e.target.value)}/>
-                                    <input type="text" 
-                                    onChange={(e) => setNumero6(e.target.value)}/>
+                                    <input
+                                        id="input4"
+                                        type="Number"
+                                        maxLength="1"
+                                        onChange={(e) => {
+                                            if (!/^\d$/.test(e.target.value)) {
+                                                e.target.value = "";
+                                            } else {
+                                                setNumero4(e.target.value);
+                                                if (e.target.value.length === 1) {
+                                                    document.getElementById("input5").focus();
+                                                }
+                                            }
+                                        }}
+                                    />
+                                    <input
+                                        id="input5"
+                                        type="Number"
+                                        maxLength="1"
+                                        onChange={(e) => {
+                                            if (!/^\d$/.test(e.target.value)) {
+                                                e.target.value = "";
+                                            } else {
+                                                setNumero5(e.target.value);
+                                                if (e.target.value.length === 1) {
+                                                    document.getElementById("input6").focus();
+                                                }
+                                            }
+                                        }}
+                                    />
+                                    <input
+                                        id="input6"
+                                        type="Number"
+                                        maxLength="1"
+                                        onChange={(e) => {
+                                            if (!/^\d$/.test(e.target.value)) {
+                                                e.target.value = "";
+                                            } else {
+                                                setNumero6(e.target.value);
+                                            }
+                                        }}
+                                    />
                                 </div>
                                 <Button2
                                     onClick={handleClick}
