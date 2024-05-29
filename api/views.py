@@ -94,8 +94,15 @@ def login_adminte(request):
 @api_view(['POST'])
 def import_cursos(request):
     admin = get_object_or_404(administrador, codigo='5775')
-    admin.read_file(request.FILES['file'])
-    message = admin.read_file(request.FILES['file'])
+    admin.importar_cursos(request.FILES['file'])
+    message = admin.importar_cursos(request.FILES['file'])
+    return Response({"message": str(message)},status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def import_estudiantes(request):
+    admin = get_object_or_404(administrador, codigo='5775')
+    admin.importar_estudiantes(request.FILES['file'])
+    message = admin.importar_estudiantes(request.FILES['file'])
     return Response({"message": str(message)},status=status.HTTP_200_OK)
     
 @api_view(['POST'])
@@ -117,7 +124,7 @@ def register(request):
 
 @api_view(['POST'])
 def loginProfesor(request):  
-    data = QueryDict(request.body)
+  
     identificacion = request.data.get('identificacion')
     password = request.data.get('password')
 
@@ -318,7 +325,7 @@ def change_passwordA(request):
 @permission_classes([IsAuthenticated])
 def change_emailA(request):
     codigo = request.data.get('codigo')
-    admin = get_object_or_404(administrador    , codigo=codigo)
+    admin = get_object_or_404(administrador, codigo=codigo)
     new_email = request.data.get('email')
     
     if new_email == admin.user.email:
