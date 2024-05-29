@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import axios from 'axios';
+import { useState } from "react";
+import axios from "axios";
 import CardForm from "../../components/componentsEditarCurso/CardFormEditarCurso";
 import NoQuieroCrearMasNavbars from "../../components/NoQuieroCrearMasNavbars";
 import Cookies from "js-cookie";
-import PopUp from '../../components/Utilities/PopUp';
-
+import PopUp from "../../components/Utilities/PopUp";
+import { useNavigate } from "react-router-dom";
 
 function EditarCurso() {
   const [cursoNombre, setCursoNombre] = useState(Cookies.get("nombreCurso"));
@@ -12,6 +12,11 @@ function EditarCurso() {
   const [periodo, setPeriodo] = useState(Cookies.get("periodoCurso"));
   const [open, setOpen] = useState(false);
   const [advice, setAdvice] = useState("");
+  const navigate = useNavigate();
+
+  const importarE = (e) => {
+    navigate("/ImportarEstudiantes");
+  };
 
   const handleNombreChange = (e) => {
     setCursoNombre(e.target.value);
@@ -19,7 +24,7 @@ function EditarCurso() {
 
   const handleCodigoChange = (e) => {
     setCursoCodigo(e.target.value);
-  };  
+  };
 
   const handlePeriodoChange = (e) => {
     setPeriodo(e.target.value);
@@ -38,27 +43,27 @@ function EditarCurso() {
         codigo: Cookies.get("codigoCurso"),
         nombre: cursoNombre,
         newCodigo: cursoCodigo,
-        periodo: periodo
+        periodo: periodo,
       });
       setAdvice("Curso editado con éxito");
-      setOpen(true);  
-      Cookies.remove("nombreCurso"); 
-      Cookies.remove("codigoCurso"); 
-      Cookies.remove("periodoCurso");  
+      setOpen(true);
+      Cookies.remove("nombreCurso");
+      Cookies.remove("codigoCurso");
+      Cookies.remove("periodoCurso");
     } catch (error) {
       setAdvice(error.response?.data?.error || "Error al editar el curso");
       setOpen(true);
     }
-  }
+  };
 
   return (
     <div className="Contenedor">
       <NoQuieroCrearMasNavbars />
       <CardForm
-        Title={"Editar Curso"}
+        Title="Editar curso"
         Label1="Nombre"
         Field1=""
-        valueField1={cursoNombre} 
+        valueField1={cursoNombre}
         onChangeField1={handleNombreChange}
         Label2="Codigo"
         type2="text"
@@ -69,13 +74,15 @@ function EditarCurso() {
         type3="text"
         Field3=""
         valueField3={periodo}
-        onChangeField3={handlePeriodoChange}  
+        onChangeField3={handlePeriodoChange}
         onClick={handleClick}
+        redirect={importarE}
+        Import={true}
       />
       <PopUp
         open={open}
         SetOpen={setOpen}
-        Advice={advice} 
+        Advice={advice}
         Width={"100%"}
         Button1="volver"
         onClick1={popup}

@@ -80,7 +80,11 @@ function ImportarEstudiantes() {
       </div>
       <div className="ContainerImportarCursos2">
         <div className="Recommendations Recommendations2">
-          <h1> Imagenes de Recomendaciones</h1>
+          <h1> Imagen de ejemplo</h1>
+          <img
+            alt="Imagen de ejemplo"
+            src="../../../public/recomendacionImportEstudiantes.png"
+          />
         </div>
       </div>
     </div>
