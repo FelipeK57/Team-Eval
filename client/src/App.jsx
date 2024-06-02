@@ -10,6 +10,7 @@ import HomeAdmin from "./pages/HomeAdmin/HomeAdmin";
 import ProfeEditar from "./pages/ProfeEditar/ProfeEditar";
 import CursosDes from "./pages/CursosDes/CursosDes";
 import ProfeDes from "./pages/ProfeDes/ProfeDes";
+import Grupos from "./pages/Grupos/Grupos";
 function App() {
   return (
     <BrowserRouter>
@@ -25,6 +26,7 @@ function App() {
         <Route path="/ProfeEditar" element= {<ProfeEditar profesor="Pedro Vargas"/>}/>
         <Route path="/CursosDes" element={<CursosDes />} />
         <Route path="/ProfeDes" element={<ProfeDes />} />
+        <Route path="/Grupos" element={<Grupos materia="Matematicas"/>} />
       </Routes>
     </BrowserRouter>
     
