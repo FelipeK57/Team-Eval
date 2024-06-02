@@ -8,7 +8,7 @@ function Button2(props) {
 
     return (
         <div className="Boton2">
-            <button style={{backgroundColor: props.color, color: props.fontColor, width: props.width}}>{props.Boton2}</button>
+            <button style={{backgroundColor: props.color, color: props.fontColor, width: props.width, height: props.altura ? props.altura : "50px", fontSize: props.tamañoLetra ? props.tamañoLetra : "1.4rem" }}>{props.Boton2}</button>
         </div>
     )
 }
