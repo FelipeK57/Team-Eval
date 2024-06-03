@@ -37,6 +37,8 @@ import CursosDes from "./pages/CursosDes/CursosDes";
 import ProfeDes from "./pages/ProfeDes/ProfeDes";
 import EditarStudent from "./pages/CursosProfe/EditarStudent.jsx";
 import ImportarEstudiantes from "./pages/Admin/ImportarEstudiantes.jsx";
+import RubricasProfe from "./pages/RubricasProfe/RubricasProfe.jsx";
+import TablaRubricasProfe from "./pages/RubricasProfe/TablaRubricasProfe.jsx";
 function App() {
   return (
     <BrowserRouter>
@@ -74,10 +76,13 @@ function App() {
         <Route path="/Profesor" element={<HomeProfesor />} />
         <Route path="/MiCuentaP" element={<MiCuentaP />} />
         <Route path="/CursoP" element={<CursoP />} />
+        <Route path="/Rubricas" element={<RubricasProfe />} />
+        <Route path="/TablaRubricasProfe" element={<TablaRubricasProfe />} />
 
         <Route path="/Cursos" element={<CursosEstudiante />} />
         <Route path="/Curso" element={<Curso />} />
         <Route path="/EditarStudent" element={<EditarStudent profesor={Cookies.get("StudentNombre")} />} />
+
 
 
         {/*Paginas de admin*/}

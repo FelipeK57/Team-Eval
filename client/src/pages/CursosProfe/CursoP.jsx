@@ -8,12 +8,17 @@ import { useNavigate } from 'react-router-dom';
 
 function CursosProfe() {
 
+    const navigate = useNavigate();
+    const Rubricas = () => {
+        navigate("/Rubricas");
+    }
+
     return (
         <div className="CursosProfe">
             <NavbarProfesor />
             <div className="cursed"><h1>Editar Rubricas <br />Predeterminadas</h1></div>
             <div className="cardex">
-                <button>
+                <button onClick={Rubricas}>
                     <SettingsIcon sx={{ fontSize: 50 }} />
                 </button>
             </div>
