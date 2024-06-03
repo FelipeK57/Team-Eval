@@ -1,0 +1,41 @@
+.Posillo {
+    width: 780px;
+    height: 500px;
+    background-color: #b3afaf;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.Vaso {
+    background-color: #004080;
+    color: white;
+    padding: 1px;
+    font-size: 0.9rem;
+    text-align: center;
+    font-family: Mulish !important;
+
+}
+
+.Plato {
+    display: flex;
+    font-family: Mulish !important;
+    font-size: 0.8rem;
+    margin-left: 15px;
+    margin-top: 5px;
+    align-items: center;
+}
+
+.Plato p {
+    margin: 10px 0;
+    color: black;
+    font-family: Mulish !important;
+
+}
+
+.beba{
+    padding:0%;
+    margin-left: auto;
+    border: none;
+    cursor: pointer;
+}
