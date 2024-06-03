@@ -1,0 +1,28 @@
+.navbar-c {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgb(15, 65, 118);
+  color: white;
+  padding-left: 30px;
+  padding-right: 30px;
+  height: 80px;
+}
+
+.navbar-c img {
+  width: 50px;
+  height: 50px;
+}
+
+.student-nav {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+}
+
+.default-nav {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+}

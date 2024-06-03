@@ -68,6 +68,8 @@ def login(request):
     )
     return response
 
+
+
 @api_view(['POST'])
 def login_adminte(request):
     codigo = request.data.get('codigo')

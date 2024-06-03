@@ -37,6 +37,7 @@ import CursosDes from "./pages/CursosDes/CursosDes";
 import ProfeDes from "./pages/ProfeDes/ProfeDes";
 import EditarStudent from "./pages/CursosProfe/EditarStudent.jsx";
 import ImportarEstudiantes from "./pages/Admin/ImportarEstudiantes.jsx";
+import EvaluacionEstudiantes from "./pages/Estudiantes/EvaluacionEstudiantes.jsx";
 function App() {
   return (
     <BrowserRouter>
@@ -97,6 +98,8 @@ function App() {
         <Route path="/CursosDes" element={<CursosDes />} />
         <Route path="/ProfeDes" element={<ProfeDes />} />
         <Route path="/ImportarEstudiantes" element={<ImportarEstudiantes />} />
+
+        <Route path="/Evaluacion" element={<EvaluacionEstudiantes />} />
       </Routes>
     </BrowserRouter>
   );
