@@ -13,6 +13,10 @@ function CursosProfe() {
         navigate("/Rubricas");
     }
 
+    const ConfigCursos = () => {
+        navigate("/Grupos");
+    }
+
     return (
         <div className="CursosProfe">
             <NavbarProfesor />
@@ -41,7 +45,7 @@ function CursosProfe() {
             </div>
             <div className="cardex4">
                 <div className="cardex42"><h1>Ejemplo por <br />Completar</h1>
-                    <button className="button1" >
+                    <button className="button1" onClick={ConfigCursos} >
                         <SettingsIcon sx={{ fontSize: 43 }} />
                     </button>
                     <button className="button2" >

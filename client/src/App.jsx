@@ -39,6 +39,8 @@ import EditarStudent from "./pages/CursosProfe/EditarStudent.jsx";
 import ImportarEstudiantes from "./pages/Admin/ImportarEstudiantes.jsx";
 import RubricasProfe from "./pages/RubricasProfe/RubricasProfe.jsx";
 import TablaRubricasProfe from "./pages/RubricasProfe/TablaRubricasProfe.jsx";
+import Grupos from "./pages/Grupos/Grupos";
+import SeleccionarRubrica from "./pages/RubricasProfe/SeleccionarRubrica.jsx";
 function App() {
   return (
     <BrowserRouter>
@@ -78,6 +80,8 @@ function App() {
         <Route path="/CursoP" element={<CursoP />} />
         <Route path="/Rubricas" element={<RubricasProfe />} />
         <Route path="/TablaRubricasProfe" element={<TablaRubricasProfe />} />
+        <Route path="/Grupos" element={<Grupos materia="Matematicas"/>} />
+        <Route path="/SeleccionarRubrica" element={<SeleccionarRubrica materia="Matematicas"/>} />
 
         <Route path="/Cursos" element={<CursosEstudiante />} />
         <Route path="/Curso" element={<Curso />} />
@@ -102,6 +106,7 @@ function App() {
         <Route path="/CursosDes" element={<CursosDes />} />
         <Route path="/ProfeDes" element={<ProfeDes />} />
         <Route path="/ImportarEstudiantes" element={<ImportarEstudiantes />} />
+        
       </Routes>
     </BrowserRouter>
   );
