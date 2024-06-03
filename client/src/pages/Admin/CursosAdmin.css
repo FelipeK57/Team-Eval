@@ -10,14 +10,95 @@
 .TitleCursos {
     display: flex;
     margin-top: 15vh;
-    position: absolute;
     font-size: 1.5rem;
     color: #0f4175;
-    left: 10%;
+    align-items: center;
+    justify-content: start;
+    width: 80%;
+    transition: all 0.3s;
 }
 
-.ListaCursos {
-    margin-top: 25vh;
+.SearchCursos{
+    display: flex;
+    align-items: center;
+    height: 3rem;
+    transition: all 0.3s;
+    margin: 10px 20px 0 20px;
+}
+
+.SearchButtonCursos {
+    display: flex;
+    border: none;
+    border-radius: 100%;
+    background-color: rgb(15, 65, 118);
+    justify-content: center;
+    align-items: center;
+    width: 3rem;
+    height: 3rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-right: 2%;
+    z-index: 2;
+}
+
+.SearchButtonCursos:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 0.5rem 0.5rem rgba(15, 65, 118, 0.5) ;
+    transition: all 0.3s;
+}
+
+.SearchFieldCursos{
+    display: flex;
+    border: none;
+    width: 20vw;
+    height: 3rem;
+    font-size: 1.5rem;
+    transition: all 0.3s;
+    
+}
+
+.SearchFieldCursos .InputContenedor{
+    margin: 0;
+}
+
+.Inactive{
+    opacity: 0;
+    animation: desaparecer 0.3s alternate;
+    animation-fill-mode: forwards;
+}
+
+.Active{
+    opacity: 1;
+    animation: aparecer 0.3s alternate;
+    animation-fill-mode: forwards;
+}
+
+@keyframes aparecer{
+    0%{
+        transform: translateX(-100%);
+        width: 0;
+    }
+    50%{
+        transform: translateX(-5%);
+    }
+    100%{
+        transform: translateX(0);
+        width: 20vw;
+    }
+}
+
+@keyframes desaparecer{
+    0%{
+        transform: translateX(0);
+        width: 20vw;
+    }
+    50%{
+        transform: translateX(-5%);
+    }
+    100%{
+        transform: translateX(-100%);
+        width: 0;
+    }
 }
 
 .AgregarListCursos {

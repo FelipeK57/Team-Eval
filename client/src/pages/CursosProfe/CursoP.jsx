@@ -8,12 +8,21 @@ import { useNavigate } from 'react-router-dom';
 
 function CursosProfe() {
 
+    const navigate = useNavigate();
+    const Rubricas = () => {
+        navigate("/Rubricas");
+    }
+
+    const ConfigCursos = () => {
+        navigate("/Grupos");
+    }
+
     return (
         <div className="CursosProfe">
             <NavbarProfesor />
             <div className="cursed"><h1>Editar Rubricas <br />Predeterminadas</h1></div>
             <div className="cardex">
-                <button>
+                <button onClick={Rubricas}>
                     <SettingsIcon sx={{ fontSize: 50 }} />
                 </button>
             </div>
@@ -36,7 +45,7 @@ function CursosProfe() {
             </div>
             <div className="cardex4">
                 <div className="cardex42"><h1>Ejemplo por <br />Completar</h1>
-                    <button className="button1" >
+                    <button className="button1" onClick={ConfigCursos} >
                         <SettingsIcon sx={{ fontSize: 43 }} />
                     </button>
                     <button className="button2" >

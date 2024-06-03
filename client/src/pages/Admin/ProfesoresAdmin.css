@@ -10,14 +10,55 @@
 .TitleProfesores {
   display: flex;
   margin-top: 15vh;
-  position: absolute;
   font-size: 1.5rem;
   color: #0f4175;
-  left: 10%;
+  align-items: center;
+  justify-content: start;
+  width: 80%;
+  transition: all 0.3s;
 }
 
-.ListaProfesores {
-  margin-top: 25vh;
+.SearchProfesores{
+  display: flex;
+  align-items: center;
+  height: 3rem;
+  transition: all 0.3s;
+  margin: 10px 20px 0 20px;
+}
+
+.SearchButtonProfesores {
+  display: flex;
+  border: none;
+  border-radius: 100%;
+  background-color: rgb(15, 65, 118);
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-right: 2%;
+  z-index: 2;
+}
+
+.SearchButtonProfesores:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 0.5rem 0.5rem rgba(15, 65, 118, 0.5) ;
+  transition: all 0.3s;
+}
+
+.SearchFieldProfesores {
+  display: flex;
+  border: none;
+  width: 20vw;
+  height: 3rem;
+  font-size: 1.5rem;
+  transition: all 0.3s;
+  
+}
+
+.SearchFieldProfesores .InputContenedor{
+  margin: 0;
 }
 
 .AgregarListProfesores {

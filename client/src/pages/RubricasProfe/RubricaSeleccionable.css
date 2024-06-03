@@ -1,0 +1,26 @@
+.RubricaSeleccionableContainer{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    flex-wrap: wrap;
+    font-size: 1rem;
+}
+
+.RubricaSeleccionable{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    flex-wrap: wrap;
+    font-size: 1rem;
+    z-index: 1;
+    border-radius: 25px;
+    padding: 0 20px;
+}
+
+.RubricaSeleccionable:hover, .RubricaSeleccionable:active{
+    background-color: rgb(15, 65, 118);
+    transition: all 0.3s;
+    color: white;
+    cursor: pointer;
+}
