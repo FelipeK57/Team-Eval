@@ -39,3 +39,10 @@
     border: none;
     cursor: pointer;
 }
+
+.Plato button {
+    padding: auto;
+    border: none;
+    cursor: pointer;
+    margin-right: 20px;
+}

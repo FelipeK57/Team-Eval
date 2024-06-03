@@ -9,6 +9,7 @@
 }
 
 .Boton button {
+    display: flex;
     height: 35px;
     width: 125px;
     border-radius: 15px;

@@ -5,11 +5,18 @@ import GruposCard from "../../components/GruposCard";
 import GruposCard1 from "../../components/GruposCard1";
 import GruposCard3 from "../../components/GruposCard3";
 import Button2 from "../../components/Utilities/Button2";
+import { useNavigate } from "react-router-dom";
 
 function Grupos(props) {
 
     Grupos.propTypes = {
         materia: PropTypes.string.isRequired
+    }
+
+    const navigate = useNavigate();
+
+    const SeleccionarRubrica = () => {
+        navigate("/SeleccionarRubrica");
     }
 
     return (
@@ -24,10 +31,10 @@ function Grupos(props) {
             <GruposCard1 />
             </div>
             <div className="lel"> 
-            <GruposCard3 estudiante="" />
+            <GruposCard3 estudiante="Miguel Angulo" />
             </div>
             <div className="conio"> 
-            <Button2 Boton2="Guardar Cambios" color="rgb(15, 65, 118)" fontColor="white" width="250px" />
+            <Button2 Boton2="Guardar Cambios" color="rgb(15, 65, 118)" fontColor="white" onClick={SeleccionarRubrica}  />
             </div>
         </div>
     )

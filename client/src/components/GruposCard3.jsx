@@ -16,7 +16,7 @@ const GruposCard3 = (props) => {
       </div>
       <div className="Plato">
         <h1>{props.estudiante}</h1>
-        {props.estudiante ? <div className='beba'><Button2 Boton2="Agregar" color="rgb(15, 65, 118)" fontColor="white" width="120px" altura="40px" tamañoLetra="1.2rem"/></div>  : null} 
+        {props.estudiante ? <div className='beba'><Button2 Boton2="Agregar" color="rgb(15, 65, 118)" fontColor="white"  altura="40px" tamañoLetra="1.2rem"/></div>  : null} 
       </div>
     </div>
   );
