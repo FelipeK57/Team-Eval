@@ -65,6 +65,7 @@
     opacity: 0;
     animation: desaparecer 0.3s alternate;
     animation-fill-mode: forwards;
+    pointer-events: none !important;
 }
 
 .Active{
