@@ -27,7 +27,7 @@ function HomeAdmin() {
   }
 
   const Rubricas = () =>{
-    navigate("/Rubricas");
+    navigate("/RubricasAdmin");
   }
 
   useEffect(() => {
