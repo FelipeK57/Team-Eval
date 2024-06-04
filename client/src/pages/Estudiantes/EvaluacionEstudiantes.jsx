@@ -1,17 +1,81 @@
-import React from "react";
+import React, { useState } from "react";
 import NavbarE from "../../components/NavbarE";
 import "./EvaluacionEstudiantes.css";
-import TablaEval from "../../components/TablaEval";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 function EvaluacionEstudiantes() {
-  const nombreAsignatura = "Ciberseguridad";
-  const data = [
-    { description: "El estudiante es respetuoso" },
-    { description: "El estudiante es responsable" },
-    { description: "El estudiante tiene iniciativa" },
-  ];
+  const nombreAsignatura = localStorage.getItem("nombre_curso");
+  const location = useLocation();
+  const { state } = location;
+  const { infoEvaluacion } = state || {};
+  const [dataCr, setDataCr] = useState([]);
+  const [dataEs, setDataEs] = useState([]);
+  const [selectedEst, setSelectedEst] = useState("");
+  const [selectedValues, setSelectedValues] = useState({});
+  const [comentarios, setComentarios] = useState("");
+
+  const asignarValores = (item, index, value) => {
+    setSelectedValues((prevValues) => ({
+      ...prevValues,
+      [index]: value,
+    }));
+    item.valor = value;
+    console.log(dataCr);
+  };
+
+  useEffect(() => {
+    const fetchInfo = async () => {
+      try {
+        const response = await axios.post(
+          "http://localhost:8000/obtener_grupo_criterios/",
+          {
+            codigo: Cookies.get("codigo"),
+            id: infoEvaluacion,
+          }
+        );
+        setDataCr(response.data.criterios);
+        setDataEs(response.data.estudiantes);
+      } catch (error) {
+        console.error("Error", error);
+      }
+    };
+    fetchInfo();
+  }, [infoEvaluacion]);
+
+  const obtener_comentario = (e) =>{
+    setComentarios(e.target.value)
+    console.log(comentarios)
+  }
+
+  const estudiante_calificado = (e) => {
+    const selected = e.target.value;
+    setSelectedEst(selected);
+    console.log(selectedEst);
+  };
+
+  const realizar_calificacion = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/realizar_calificacion/",
+        {
+          codigo_evaluador: Cookies.get("codigo"),
+          id: infoEvaluacion,
+          codigo_evaluado: selectedEst,
+          criterios: dataCr,
+          comentarios: comentarios
+        }
+      );
+      alert("evaluacion guardada exitosamente")
+    } catch (error) {
+      console.log(error)
+    }
+  };
+
   return (
-    <div>
+    <>
       <NavbarE />
       <div className="description-container">
         <h1>Evaluacion</h1>
@@ -21,13 +85,58 @@ function EvaluacionEstudiantes() {
           y siendo 4 la calificacion mayor, siguiendo el criterio en la tabla.
         </h3>
         <h3>Seleccione el estudiante que va a evaluar</h3>
-        <select>
-          <option>Sebastian Hernandez</option>
-          <option>Santiago Sanchez</option>
+        <select value={selectedEst} onChange={estudiante_calificado}>
+          <option>Seleccione un estudiante</option>
+          {dataEs.map((item) => (
+            <option key={item.id} value={item.codigo}>
+              {item.user.username}
+            </option>
+          ))}
         </select>
       </div>
-      <TablaEval data={data} />
-    </div>
+      <div className="table-container">
+        <table className="styled-table">
+          <thead>
+            <tr>
+              <th>Criterios</th>
+              <th colSpan="4">Escala</th>
+            </tr>
+          </thead>
+          <tbody>
+            {dataCr.map((item, index) => (
+              <tr key={index}>
+                <td>{item.descripcion}</td>
+                {[1, 2, 3, 4].map((value) => (
+                  <td key={value} className="scale">
+                    <button
+                      onClick={() => asignarValores(item, index, value)}
+                      style={{
+                        backgroundColor:
+                          selectedValues[index] === value ? "#0F4176" : "white",
+                        color:
+                          selectedValues[index] === value ? "white" : "black",
+                      }}
+                    >
+                      {value}
+                    </button>
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="ev-bt-c">
+        <textarea
+          value={comentarios}
+          onChange={obtener_comentario}
+          placeholder="Escriba algun comentario (opcional)"
+        ></textarea>
+        <button onClick={realizar_calificacion} className="enviar-calificacion">
+          Guardar
+        </button>
+      </div>
+    </>
   );
 }
 

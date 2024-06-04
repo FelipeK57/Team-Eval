@@ -2,19 +2,22 @@ import React from "react";
 import "../pages/Estudiantes/EvaluacionEstudiantes.css"
 
 function TablaEval({ data }) {
+
+  const calificaciones = []
+
   return (
     <div className="table-container">
-      <table class="styled-table">
+      <table className="styled-table">
         <thead>
           <tr>
             <th>Criterios</th>
-            <th colspan="4">Escala</th>
+            <th colSpan="4">Escala</th>
           </tr>
         </thead>
         <tbody>
           {data.map((item, index) => (
             <tr key={index}>
-              <td>{item.description}</td>
+              <td>{item.descripcion}</td>
               <td className="scale"><button>1</button></td>
               <td className="scale"><button>2</button></td>
               <td className="scale"><button>3</button></td>

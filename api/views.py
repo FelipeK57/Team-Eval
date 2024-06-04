@@ -23,6 +23,15 @@ import random
 from codigos_seguridad.models import codigos_seguridad
 from rest_framework.validators import ValidationError
 from django.contrib.auth import logout as django_logout
+from evaluacion.serializers import evaluacionSerializer
+from grupo.models import Grupo
+from grupo.serializer import GrupoSerializer
+from evaluacion.models import evaluacion
+from criterio_evaluacion.models import criterio_Evaluacion
+from criterio_evaluacion.serializers import criterio_EvaluacionSerializer
+from rubrica.models import rubrica_Evaluacion
+from rubrica.serializers import rubrica_EvaluacionSerializer
+from evaluacion.models import evaluacion
 
 @api_view(['POST'])
 def login(request):
@@ -92,6 +101,26 @@ def login_adminte(request):
     )
     return response
 
+@api_view(['GET'])
+def obtener_evaluaciones(request):
+    codigo = request.data.get('codigo')
+    curso = get_object_or_404(Cursos, codigo=codigo)
+    evaluaciones = curso.evaluaciones
+    serializer = evaluacionSerializer(evaluaciones, many=True)
+    return Response({"evaluaciones": serializer.data}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def obtener_grupo_criterios(request):
+    estudiante = get_object_or_404(Estudiante, codigo=request.data.get("codigo"))
+    eval = get_object_or_404(evaluacion, id=request.data.get("id"))
+    grupos = estudiante.grupo_set.filter(evaluacion=eval)
+    companeros = Estudiante.objects.filter(grupo__in=grupos).exclude(id=estudiante.id).distinct()
+    serializer = EstudianteSerializer(companeros, many=True)
+
+    criterios = eval.rubrica.criterios
+    serializer_cr = criterio_EvaluacionSerializer(criterios, many=True)
+
+    return Response({"estudiantes": serializer.data, "criterios": serializer_cr.data}, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 def import_cursos(request):
