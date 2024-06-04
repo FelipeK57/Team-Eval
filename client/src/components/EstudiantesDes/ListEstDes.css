@@ -11,6 +11,7 @@
 }
 
 .ItemContainerEstDes {
+    display: flex;
     width: 100%;
     height: 100%;
     display: flex;
@@ -22,8 +23,11 @@
 .LeftListEstDes {
     display: flex;
     flex-direction: row;
+    flex-wrap: nowrap;
     flex-grow: 1;
-    justify-content: space-between; /* Añadido para separar uniformemente */
+    max-width: 30%;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .RightListEstDes {
@@ -34,10 +38,17 @@
     width: 10%;
 }
 
-.NombreListEstDes, .ApellidoListEstDes, .CodeListEstDes {
-    flex: 5; /* Cada elemento ocupará un espacio igual */
-    margin: 0 25px; /* Espaciado horizontal */
+.NombreListEstDes{
+    margin: 0 10%;
+    flex-grow: 10;
+    display: flex;
+    gap: 7px;
+}
+.CodeListEstDes {
+    display: flex;
+    margin: auto;
     color: #29282881;
+    width: 10%;
 }
 
 .IconRestored:hover {

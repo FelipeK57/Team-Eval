@@ -22,6 +22,7 @@ from django.core.mail import send_mail
 import random
 from codigos_seguridad.models import codigos_seguridad
 from rest_framework.validators import ValidationError
+from django.contrib.auth import logout as django_logout
 
 @api_view(['POST'])
 def login(request):
@@ -48,7 +49,7 @@ def login(request):
     serializer = EstudianteSerializer(estudiante)
 
     # Devolver respuesta con el token y los datos del usuario
-    return Response({
+    response = Response({
         "token": token.key,
         "estudiante": serializer.data,
         "nombre": estudiante.user.first_name,
@@ -56,6 +57,16 @@ def login(request):
         "email": estudiante.user.email,
         "username": estudiante.user.username
     }, status=status.HTTP_200_OK)
+
+    response.set_cookie(
+        key='sessionid',
+        value=token.key,
+        httponly=False,
+        secure=False,   
+        samesite='Lax',  # O 'Strict' según tus necesidades
+        max_age=3600  # Tiempo de expiración en segundos
+    )
+    return response
 
 @api_view(['POST'])
 def login_adminte(request):
@@ -67,13 +78,31 @@ def login_adminte(request):
         
     token, created = Token.objects.get_or_create(user=admin.user)
     serializer = AdministradorSerializer(admin)
-    return Response({"token": token.key, "user": serializer.data }, status=status.HTTP_200_OK)
+    response =  Response({"token": token.key, "user": serializer.data }, status=status.HTTP_200_OK)
+
+    response.set_cookie(
+        key='sessionid',
+        value=token.key,
+        httponly=False,
+        secure=False,   
+        samesite='Lax',  # O 'Strict' según tus necesidades
+        max_age=3600  # Tiempo de expiración en segundos
+    )
+    return response
+
 
 @api_view(['POST'])
 def import_cursos(request):
     admin = get_object_or_404(administrador, codigo='5775')
-    admin.read_file(request.FILES['file'])
-    message = admin.read_file(request.FILES['file'])
+    admin.importar_cursos(request.FILES['file'])
+    message = admin.importar_cursos(request.FILES['file'])
+    return Response({"message": str(message)},status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def import_estudiantes(request):
+    admin = get_object_or_404(administrador, codigo='5775')
+    admin.importar_estudiantes(request.FILES['file'])
+    message = admin.importar_estudiantes(request.FILES['file'])
     return Response({"message": str(message)},status=status.HTTP_200_OK)
     
 @api_view(['POST'])
@@ -95,7 +124,7 @@ def register(request):
 
 @api_view(['POST'])
 def loginProfesor(request):  
-    data = QueryDict(request.body)
+  
     identificacion = request.data.get('identificacion')
     password = request.data.get('password')
 
@@ -124,17 +153,44 @@ def loginProfesor(request):
     serializer = ProfesorSerializer(profesor)
 
     # Devolver respuesta con el token y los datos del usuario
-    return Response({"token": token.key, "user": serializer.data}, status=status.HTTP_200_OK)
+    response = Response({"token": token.key, "user": serializer.data}, status=status.HTTP_200_OK)
+
+    response.set_cookie(
+        key='sessionid',
+        value=token.key,
+        httponly=False,
+        secure=False,   
+        samesite='Lax',  # O 'Strict' según tus necesidades
+        max_age=3600  # Tiempo de expiración en segundos
+    )
+    return response
+
 
 
 @api_view(['POST']) 
-@authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
 def logout(request):
-     request.user.auth_token.delete()
-     response = Response({'mensaje': 'Cerrando sesión'}, status=status.HTTP_200_OK)
-     
-     return response
+    # Obtener el token del usuario desde la cabecera de autorización
+    token_key = request.META.get('HTTP_AUTHORIZATION')
+
+    if token_key:
+        # Eliminar 'Token ' del inicio del string del token
+        token_key = token_key.split(' ')[1]
+        
+        try:
+            token = Token.objects.get(key=token_key)
+            token.delete()
+        except Token.DoesNotExist:
+            return Response({"error": "Token no encontrado"}, status=status.HTTP_404_NOT_FOUND) 
+
+    # Cerrar sesión del usuario
+    django_logout(request)
+    
+    # Eliminar la cookie de sessionid
+    response = Response({"detail": "Sesión cerrada correctamente"}, status=status.HTTP_200_OK)
+    response.delete_cookie('sessionid')
+
+    return response
+    
 
 @api_view(['POST'])
 def registerProfesor(request):
@@ -269,7 +325,7 @@ def change_passwordA(request):
 @permission_classes([IsAuthenticated])
 def change_emailA(request):
     codigo = request.data.get('codigo')
-    admin = get_object_or_404(administrador    , codigo=codigo)
+    admin = get_object_or_404(administrador, codigo=codigo)
     new_email = request.data.get('email')
     
     if new_email == admin.user.email:

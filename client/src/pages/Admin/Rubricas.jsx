@@ -24,7 +24,7 @@ function Rubricas() {
                     <h1>Rubrica predeterminada</h1>
                 </div>
                 <div className="OpcionRubricas">
-                    <LargeButton icon={<Edit />} text="Crear Rubrica" OnClick={Rubrica} />
+                    <LargeButton icon={<Edit />} text="Criterio numero 1" OnClick={Rubrica} />
                     <LargeButton icon={<AddIcon/>} text={false} OnClick={Rubrica} />
                 </div>
             </div>

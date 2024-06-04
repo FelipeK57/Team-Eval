@@ -7,16 +7,23 @@ import Button from "../../components/Utilities/Button";
 import ListItems from "../../components/Utilities/ListItems";
 import Cookies from 'js-cookie'
 import PopUp from "../../components/Utilities/PopUp";
+import Search from "@mui/icons-material/Search";
+import Field from "../../components/Utilities/Field";
 
 function Cursos() {
   const [cursos, setCursos] = useState([]);
   const [open, setOpen] = useState(false);
   const [advice, setAdvice] = useState("");
+  const [searchCursos, setSearchCursos] = useState(false);
   const navigate = useNavigate();
 
   const AgregarCursos = () => {
     navigate("/AgregarC");
   };
+
+  const CursosDeshabilitados = () => {
+    navigate("/CursosDes")
+  }
 
   const popup = (e) => {
     e.preventDefault();
@@ -39,7 +46,7 @@ function Cursos() {
   }, []);
 
   const EditarCursos = (nombre, codigo, periodo) => {
-    Cookies.set("nombreCurso", nombre, { expires: 1 });   
+    Cookies.set("nombreCurso", nombre, { expires: 1 });
     Cookies.set("codigoCurso", codigo, { expires: 1 });
     Cookies.set("periodoCurso", periodo, { expires: 1 });
 
@@ -47,11 +54,11 @@ function Cursos() {
   };
 
   const handleClick = async (codigo) => {
-  
+
     try {
       const response = await axios.post("http://localhost:8000/Estadocursos/", {
-       codigo: codigo,
-       estado : false
+        codigo: codigo,
+        estado: false
 
       });
       console.log(response.data);
@@ -62,6 +69,14 @@ function Cursos() {
     }
   };
 
+  const BuscarButton = () => {
+    setSearchCursos(true);
+    const searchField = document.querySelector(".SearchFieldCursos input");
+    setTimeout(() => {
+      searchField.focus();
+    }, 0);
+  };
+
   return (
     <div className="ContainerCursos">
       <div className="NavBar">
@@ -69,8 +84,21 @@ function Cursos() {
       </div>
       <div className="TitleCursos">
         <h1>Cursos</h1>
+        <div className="SearchCursos">
+          <button className="SearchButtonCursos" onClick={BuscarButton}>
+            <Search sx={{ fontSize: 30, color: "white" }} />
+          </button>
+          <div className={searchCursos === true ? "SearchFieldCursos Active" : "SearchFieldCursos Inactive"}
+            onBlur={() => setSearchCursos(false)}>
+            <Field
+              LineaBoton={false}
+              Boton=""
+              color="rgb(15, 65, 118)"
+              fontColor="white"
+            />
+          </div>
+        </div>
       </div>
-      <div className="Search"></div>
       <div className="AgregarListCursos">
         <Button
           LineaBoton={false}
@@ -80,13 +108,22 @@ function Cursos() {
           onClick={AgregarCursos}
         />
       </div>
+      <div className="CursosDes">
+        <Button
+          LineaBoton={false}
+          Boton="Cursos desabilitados"
+          color="rgb(15,65,118)"
+          fontColor="white"
+          onClick={CursosDeshabilitados}
+        />
+      </div>
       <div className="ListaCursos">
         {cursos.map((curso) => (
           <div key={curso.id}>
             <ListItems
               Nombre1={curso.nombre}
               Codigo1={curso.codigo}
-              onClickEdit={() =>  EditarCursos(curso.nombre, curso.codigo, curso.periodoAcademico)}  
+              onClickEdit={() => EditarCursos(curso.nombre, curso.codigo, curso.periodoAcademico)}
               onClickDelete={() => handleClick(curso.codigo)}
               Buttons={true}
             />
@@ -96,7 +133,7 @@ function Cursos() {
       <PopUp
         open={open}
         SetOpen={setOpen}
-        Advice={advice} 
+        Advice={advice}
         Width={"100%"}
         Button1="volver"
         onClick1={popup}

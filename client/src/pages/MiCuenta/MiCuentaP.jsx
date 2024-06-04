@@ -19,7 +19,7 @@ function MiCuentaP() {
       const userId = Cookies.get("identificacion");
 
       if (loggedIn === "true" && userId) {
-        console.log("El usuario ha iniciado sesión. ID de usuario:", userId);
+        console.log("El usuario ha iniciado sesión");
       } else {
         console.log("El usuario no ha iniciado sesión.");
         navigate("/Login");
@@ -39,7 +39,7 @@ function MiCuentaP() {
           },
           {
             headers: {
-              Authorization: `Token ${Cookies.get("token")}`,
+              Authorization: `Token ${Cookies.get("sessionid")}`,
             },
           }
         );
@@ -58,7 +58,7 @@ function MiCuentaP() {
     try {
       const response = await axios.post("http://localhost:8000/logout/", null, {
         headers: {
-          Authorization: `Token ${Cookies.get("token")}`,
+          Authorization: `Token ${Cookies.get("sessionid")}`, 
         },
       });
       Cookies.remove("token");

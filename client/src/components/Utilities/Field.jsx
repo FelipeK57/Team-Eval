@@ -16,12 +16,13 @@ function Field(props) {
         Campo: PropTypes.string,
         Tipo: PropTypes.string.isRequired,
         onChange: PropTypes.func,
-        value: PropTypes.string
+        value: PropTypes.string,
+        Style: PropTypes.object
     };
 
     return(
         <div className="InputContenedor">
-                  <input onChange={props.onChange} value={props.value} type={props.Tipo === "password" ? `${showPasswordC1 ? "text" : "password"}` : `${props.Tipo}`} name="username" required autoComplete="off" inputMode={props.Tipo === "Number" ? `numeric` : null}/>
+                  <input style={props.Style ? props.Style : null} onChange={props.onChange} value={props.value} type={props.Tipo === "password" ? `${showPasswordC1 ? "text" : "password"}` : `${props.Tipo}`} name="username" required autoComplete="off" inputMode={props.Tipo === "Number" ? `numeric` : null}/>
                   <label htmlFor="username">{props.Campo}</label>
                   {props.Tipo === "password" ? <button className="btn" type="button" onClick={verContrasenaC1}>
                     {showPasswordC1 ? <VisibilityOff /> : <Visibility />}</button> : null}

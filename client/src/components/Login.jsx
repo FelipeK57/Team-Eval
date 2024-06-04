@@ -17,6 +17,13 @@ function Login() {
   const [identificacion, setIdentificacion] = useState("");
   const [open, setOpen] = useState(false);
   const [advice, setAdvice] = useState("");
+
+  const axiosInstance = axios.create({
+    withCredentials: true, // Habilitar envío de cookies
+    headers: {
+      'X-CSRFToken': Cookies.get('csrftoken'), // Incluir el CSRF token
+  },
+});
  
 
   const handleCodigoChange = (e) => {
@@ -36,17 +43,16 @@ function Login() {
     }
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8000/login/", {
+      const response = await axiosInstance.post("http://localhost:8000/login/", {
         codigo: codigo,
         password: password,
       });
-      Cookies.set("token", response.data.token, { expires: 1 }); // Guarda el token en una cookie que expira en 7 días
       Cookies.set("loggedIn", "true", { expires: 1 }); // Indica que el usuario ha iniciado sesión
       Cookies.set("codigo", response.data.estudiante.codigo);
       Cookies.set("nombre", response.data.nombre);
       Cookies.set("apellido", response.data.apellido);
       Cookies.set("email", response.data.email);
-      Cookies.set("user", response.data.username, { expires: 1 });  
+      Cookies.set("user", response.data.username, { expires: 1 }); 
       navigate("/Student");
     } catch (error) {
       if (error.response && error.response.data && error.response.data.error) {
@@ -81,14 +87,13 @@ function Login() {
     }
     e.preventDefault();
     try {
-      const response = await axios.post(
+      const response = await axiosInstance.post(
         "http://localhost:8000/loginProfesor/",
         {
           identificacion: identificacion,
           password: password,
         }
       );
-      Cookies.set("token", response.data.token, { expires: 1 }); // Guarda el token en una cookie que expira en 1 dia
       Cookies.set("loggedIn", "true", { expires: 1 }); // Indica que el usuario ha iniciado sesión
       Cookies.set("identificacion", response.data.user.identificacion);
       Cookies.set("user", response.data.user.user.username, { expires: 1 });

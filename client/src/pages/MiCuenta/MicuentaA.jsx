@@ -16,10 +16,10 @@ function MiCuentaA() {
   useEffect(() => {
     const verificarSesion = () => {
       const user = Cookies.get("user");
-      const token = Cookies.get("token");
+      const token = Cookies.get("sessionid");
 
       if ( user &&  token) {
-        console.log("El usuario ha iniciado sesión. username:", user);
+        console.log("El usuario ha iniciado sesión");
       } else {
         console.log("El usuario no ha iniciado sesión.");
         navigate("/login");
@@ -39,7 +39,7 @@ function MiCuentaA() {
           },
           {
             headers: {
-              Authorization: `Token ${Cookies.get("token")}`,
+              Authorization: `Token ${Cookies.get("sessionid")}`,
             },
           }
         );
@@ -58,11 +58,11 @@ function MiCuentaA() {
     try {
       const response = await axios.post("http://localhost:8000/logout/", null, {
         headers: {
-          Authorization: `Token ${Cookies.get("token")}`,
+          Authorization: `Token ${Cookies.get("sessionid")}`,
         },
       });
-      Cookies.remove("token");
       Cookies.remove("loggedIn");
+      Cookies.remove("sessionid");
       Cookies.remove("user");
       Cookies.remove("codigo");
       Cookies.remove("nombre");

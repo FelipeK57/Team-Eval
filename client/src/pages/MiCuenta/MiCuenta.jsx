@@ -11,25 +11,37 @@ import axios from "axios";
 function MiCuenta() {
   const navigate = useNavigate();
 
+
+
   const handleClick = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8000/logout/", null, {
-        headers: {
-          Authorization: `Token ${Cookies.get("token")}`,
-        },
-      });
-      Cookies.remove("token");
+      
+            const response = await axios.post('http://localhost:8000/logout/', null, {
+            headers: {
+                'Authorization': `Token ${Cookies.get('sessionid')}`, 
+                'X-CSRFToken': Cookies.get('csrftoken'), // Incluir el token CSRF en los encabezados
+            },
+            withCredentials: true,
+        });
+
+      // Eliminar cookies locales
+      console.log('Respuesta de logout:', response.data);
+      Cookies.remove("sessionid");
+      Cookies.remove("csrftoken");
       Cookies.remove("loggedIn");
       Cookies.remove("nombre");
       Cookies.remove("apellido");
       Cookies.remove("email");
       Cookies.remove("codigo");
+      Cookies.remove("user");
+
+      // Navegar a la página de login
       navigate("/Login");
     } catch (error) {
-      console.error("Error al cerrar sesión:", error.response.error);
+        console.error("Error al cerrar sesión:", error.response?.data || error.message);
     }
-  };
+};
 
   return (
     <div className="MiCuenta">
