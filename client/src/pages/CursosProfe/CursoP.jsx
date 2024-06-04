@@ -5,6 +5,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import AddIcon from '@mui/icons-material/Add';
 import GroupsIcon from '@mui/icons-material/Groups';
 import { useNavigate } from 'react-router-dom';
+import EditNoteIcon from '@mui/icons-material/EditNote';
 
 function CursosProfe() {
 
@@ -23,7 +24,7 @@ function CursosProfe() {
             <div className="cursed"><h1>Editar Rubricas <br />Predeterminadas</h1></div>
             <div className="cardex">
                 <button onClick={Rubricas}>
-                    <SettingsIcon sx={{ fontSize: 50 }} />
+                    <EditNoteIcon sx={{ fontSize: 50 }} />
                 </button>
             </div>
             <div className="linea-vertical"></div>
