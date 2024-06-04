@@ -99,7 +99,7 @@ function App() {
         <Route path="/ImportarCurso" element={<ImportarCursos />} />
         <Route path="/EditarCurso" element={<EditarCurso />} />
         <Route path="/EstudiantesDes" element={<EstudiantesDeshabilitados />} />
-        <Route path="/Rubricas" element={<Rubricas />} />
+        <Route path="/RubricasAdmin" element={<Rubricas />} />
         <Route path="/EstudiantesLista" element={<EstudiantesLista />} />
         <Route path="/TablaRubricas" element={<TablaRubricas Nombre="Respeto" />} />
         <Route path="/ProfeEditar" element= {<ProfeEditar profesor="Pedro Vargas"/>}/>
