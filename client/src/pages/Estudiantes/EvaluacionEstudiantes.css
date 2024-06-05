@@ -62,7 +62,7 @@ th {
 }
 
 .ev-bt-c{
-  margin-top: 30px;
+  margin-top: 10px;
   margin-bottom: 10px;
   display: flex;
   align-items: center;
@@ -95,6 +95,7 @@ th {
 }
 
 .enviar-calificacion:hover{
+  box-shadow: 0px 0px 10px 1px rgb(21, 78, 139);
   padding: 12px;
   transition: 200ms;
 }

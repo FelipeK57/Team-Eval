@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import NavbarE from "../../components/NavbarE";
 import "./EvaluacionEstudiantes.css";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 
 function EvaluacionEstudiantes() {
+  const navigate = useNavigate();
   const nombreAsignatura = localStorage.getItem("nombre_curso");
   const location = useLocation();
   const { state } = location;
@@ -16,7 +17,7 @@ function EvaluacionEstudiantes() {
   const [selectedEst, setSelectedEst] = useState("");
   const [selectedValues, setSelectedValues] = useState({});
   const [comentarios, setComentarios] = useState("");
-  const [refresh, setRefresh] = useState(false)
+  const [refresh, setRefresh] = useState(false);
 
   const asignarValores = (item, index, value) => {
     setSelectedValues((prevValues) => ({
@@ -72,13 +73,17 @@ function EvaluacionEstudiantes() {
       );
       alert("evaluacion guardada exitosamente");
       setSelectedEst("");
-      setRefresh(!refresh)
+      setRefresh(!refresh);
       setSelectedValues({});
       setComentarios("");
       console.log(response.data);
     } catch (error) {
       alert("ya ha evaluado a este estudiante antes");
     }
+  };
+
+  const terminar_calificacion = () => {
+    navigate("/SeleccionEvaluacion", {state: {infoCurso}});
   };
 
   return (
@@ -143,7 +148,9 @@ function EvaluacionEstudiantes() {
           Guardar calificacion de compañero actual
         </button>
         <div className="container-boton-fc">
-          <button className="enviar-calificacion">Terminar calificacion definitivamente</button>
+          <button onClick={terminar_calificacion} className="enviar-calificacion">
+            Terminar calificacion
+          </button>
         </div>
       </div>
     </>
