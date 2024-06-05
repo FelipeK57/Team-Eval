@@ -5,11 +5,37 @@ import { useNavigate } from 'react-router-dom';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import PropTypes from "prop-types";
 import CursosProfeComponent from "../../components/CursosProfeComponent.jsx";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 function CursosProfe(props) {
 
     CursosProfe.propTypes = {
         nombreProfe: PropTypes.string
+    }
+
+    const [cursos, setCursos] = useState([]);   
+    const [profesor, setProfesor] = useState({});
+
+    useEffect(() => {
+        const fetchRubrica = async () => {
+            try {
+                const response = await axios.post(
+                    "http://localhost:8000/cursosProfesor/", 
+                    { identificacion: Cookies.get("identificacion") }
+                );
+                setProfesor(response.data.profesor);
+                setCursos(response.data.cursos);
+            } catch (error) {
+                console.error("Error al obtener los cursos  ", error);
+            }
+        };
+        fetchRubrica();
+    }, []);
+
+    const ConfigCursos = () => {
+        navigate("/Grupos");
     }
 
     const navigate = useNavigate();
@@ -36,15 +62,14 @@ function CursosProfe(props) {
             <div className="linea-horizontal"></div>
             <div className="corsel"><h1>Cursos de <b>{props.nombreProfe}</b></h1></div>
             <div className="ListaCursosHomeProfe">
-                <CursosProfeComponent Estado={true}
-                    nombreCurso="Desarrollo de software 1"
-                    configurarCursos="/grupos" />
-                <CursosProfeComponent Estado={false}
-                    nombreCurso="Simulacion y computacion numerica"
-                    configurarCursos="/grupos" />
-                <CursosProfeComponent Estado={true}
-                    nombreCurso="Desarrollo de software 2"
-                    configurarCursos="/grupos" />
+                {cursos.map((curso) => (
+                    <CursosProfeComponent
+                        key={curso.id}
+                        Estado={curso.estado}
+                        nombreCurso={curso.nombre}
+                        configurarCursos="/grupos"
+                    />
+                ))}
             </div>
         </div>
     );
