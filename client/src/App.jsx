@@ -79,7 +79,7 @@ function App() {
         <Route path="/MiCuentaP" element={<MiCuentaP />} />
         <Route path="/CursoP" element={<CursoP />} />
         <Route path="/Rubricas" element={<RubricasProfe />} />
-        <Route path="/TablaRubricasProfe" element={<TablaRubricasProfe />} />
+        <Route path="/TablaRubricasProfe/:rubricaId" element={<TablaRubricasProfe />} />
         <Route path="/Grupos" element={<Grupos materia="Matematicas"/>} />
         <Route path="/SeleccionarRubrica" element={<SeleccionarRubrica materia="Matematicas"/>} />
 

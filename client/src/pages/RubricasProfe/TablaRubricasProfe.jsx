@@ -3,31 +3,56 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import Field from '../../components/Utilities/Field';
 import Button from '../../components/Utilities/Button';
+import { useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function TablaRubricasProfe (props) {
-    return(
+    const { rubricaId } = useParams();
+    const [rubrica, setRubrica] = useState([]);
+    const [criterios, setCriterios] = useState([]);
+
+    useEffect(() => {
+        const fetchRubrica = async () => {
+          try {
+            const response = await axios.post(
+              "http://localhost:8000/obtenerCriterios/", {
+                id: rubricaId,
+              }
+            );
+            setRubrica(response.data.rubrica);
+            setCriterios(response.data.criterios);
+          } catch (error) {
+            console.error("Error al obtener la rubrica", error);
+          }
+        };
+        fetchRubrica();
+      }, [rubricaId]);
+      return (
         <div className="TablaRubricasContainer">
             <div className="NavBar">
                 <NavbarProfesor/>
             </div>
             <div className="Rubricas">
                 <div className="TitleTablaRubricas">
-                    <h1>{props.Title}</h1>
+                    <h1>{rubrica.nombre}</h1>
                 </div>
                 <div className="TablaRubricas">
                     <table className="RubricasTable">
-                        <tr>
-                            <th className="thuno"><div className="RubricasTableHeader uno"><h1>{props.Nombre}</h1></div></th>
-                            <th className="thdos"><div className="RubricasTableHeader dos"><h1>Valor</h1></div></th>
-                        </tr>
-                        <tr>
-                            <td className="thleft"><div className="RubricasTableBody Left"><Field Tipo="text" name="name"/></div></td>
-                            <td className="thright"><div className="RubricasTableBody Right"><Field Tipo="Number" name="name"/></div></td>
-                        </tr>
-                        <tr>
-                            <td className="thleft"><div className="RubricasTableBody Left finalLeft"><Field Tipo="text" name="name"/></div></td>
-                            <td className="thright"><div className="RubricasTableBody Right finalRight"><Field Tipo="Number" name="name"/></div></td>
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th className="thuno"><div className="RubricasTableHeader uno"><h1>{rubrica.nombre}</h1></div></th>
+                                <th className="thdos"><div className="RubricasTableHeader dos"><h1>Valor</h1></div></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {criterios.map(criterio => (
+                                <tr key={criterio.id}>
+                                    <td className="thleft"><div className="RubricasTableBody Left">{criterio.descripcion}</div></td>
+                                    <td className="thright"><div className="RubricasTableBody Right"><Field Tipo="Number" name="name"/></div></td>
+                                </tr>
+                            ))}
+                        </tbody>
                     </table>
                     <div className="ButtonTablaRubricas">
                         <button className="DeleteButton"><DeleteIcon sx={{ fontSize: 35, color: "red" }} /></button>
@@ -41,7 +66,7 @@ function TablaRubricasProfe (props) {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default TablaRubricasProfe;

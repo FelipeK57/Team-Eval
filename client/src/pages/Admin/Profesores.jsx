@@ -55,7 +55,8 @@ function Profesores() {
       setOpen(true);
 
     } catch (error) {
-      console.error(error);
+      setAdvice(error.response.data.error);
+      setOpen(true);
     }
 
   }

@@ -12,6 +12,10 @@ from estudiantes.models import Estudiante
 from estudiantes.serializers import EstudianteSerializer
 from profesor.serializers import ProfesorSerializer
 from profesor.models import Profesor
+from rubrica.models import rubrica_Evaluacion
+from rubrica.serializers import rubrica_EvaluacionSerializer
+from criterio_evaluacion.models import criterio_Evaluacion
+from criterio_evaluacion.serializers import criterio_EvaluacionSerializer
 from django.contrib.auth import authenticate
 from django.http import QueryDict
 from cursos.serializer import CursosSerializer
@@ -503,6 +507,8 @@ def editar_estado_profesor(request):
     identificacion = request.data.get('identificacion')
     profesor = get_object_or_404(Profesor, identificacion=identificacion)
     new_estado = request.data.get('estado')
+    if (Cursos.objects.filter(profesor=profesor).exists()):
+        return Response({"error": "El profesor ya tiene cursos asignados"}, status=status.HTTP_400_BAD_REQUEST)
     profesor.estado = new_estado
     profesor.save()
     serializer = ProfesorSerializer(profesor)   
@@ -600,6 +606,42 @@ def editar_estado_Curso(request):
     curso.save()
     serializer = CursosSerializer(curso)  
     return Response({'curso': serializer.data}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])  
+def Rubricas_profe(request):
+    identificacion = request.data.get('identificacion')
+    profesor = get_object_or_404(Profesor, identificacion=identificacion)
+    username = profesor.user.username
+    rubricas = rubrica_Evaluacion.objects.filter(autor=username)
+
+    peredeterminada = rubrica_Evaluacion.objects.filter(autor="admin").first()
+    serializer_pre = rubrica_EvaluacionSerializer(peredeterminada)
+    
+    # Serializar cada rubrica individualmente
+    serialized_rubricas = []
+    for rubrica in rubricas:
+        serializer = rubrica_EvaluacionSerializer(rubrica)
+        serialized_rubricas.append(serializer.data)
+
+    return Response({'rubricas': serialized_rubricas, 'predeterminada': serializer_pre.data}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def obtener_criterios(request):
+    id = request.data.get('id')
+    rubrica = get_object_or_404(rubrica_Evaluacion, id=id)  
+
+    # Serializar la rubrica y los criterios asociados
+    rubrica_serializer = rubrica_EvaluacionSerializer(rubrica)
+    criterios_serializer = criterio_EvaluacionSerializer(rubrica.criterios.all(), many=True)
+
+    # Combinar la información de la rubrica y los criterios en un solo diccionario de respuesta
+    data = {
+        'rubrica': rubrica_serializer.data,
+        'criterios': criterios_serializer.data
+    }
+
+    return Response(data)
+
     
 
 
