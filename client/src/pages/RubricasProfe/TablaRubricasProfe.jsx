@@ -88,7 +88,7 @@ function TablaRubricasProfe(props) {
                     </div>
                 </div>
                 <div className="TablaRubricas">
-                    <table className="RubricasTable">
+                    <table className="RubricasTable"style={criterios.length === 0 ? { marginRight:"307px", marginLeft:"332px",width:"100%" } : null}> 
                         <thead>
                             <tr>
                                 <th className="thuno"><div className="RubricasTableHeader uno"><h1>{rubrica.nombre}</h1></div></th>
