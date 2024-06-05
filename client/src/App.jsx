@@ -41,15 +41,12 @@ import RubricasProfe from "./pages/RubricasProfe/RubricasProfe.jsx";
 import TablaRubricasProfe from "./pages/RubricasProfe/TablaRubricasProfe.jsx";
 import Grupos from "./pages/Grupos/Grupos";
 import SeleccionarRubrica from "./pages/RubricasProfe/SeleccionarRubrica.jsx";
-<<<<<<< HEAD
 import NuevaRubrica from "./pages/RubricasProfe/NuevaRubrica.jsx";
 import EvaluacionEstudiantes from "./pages/Estudiantes/EvaluacionEstudiantes.jsx";
 import SeleccionEvaluacion from "./pages/Estudiantes/SeleccionEvaluacion.jsx";
-=======
 import InformesProfe from "./pages/Informes/InformesProfe.jsx";
 import GruposInformesProfe from "./pages/Informes/GruposInformesProfe.jsx";
 import IntegrantesInformesProfe from "./pages/Informes/IntegrantesInformesProfe.jsx";
->>>>>>> origin/Errores_cursos_profe
 function App() {
   return (
     <BrowserRouter>

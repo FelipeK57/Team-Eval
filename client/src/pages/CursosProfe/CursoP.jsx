@@ -23,7 +23,7 @@ function CursosProfe() {
         const fetchRubrica = async () => {
             try {
                 const response = await axios.post(
-                    "http://localhost:8000/cursosProfesor/", 
+                    "http://localhost:8000/cursos_profe/", 
                     { identificacion: Cookies.get("identificacion") }
                 );
                 setProfesor(response.data.profesor);
@@ -58,19 +58,9 @@ function CursosProfe() {
             <div className="linea-horizontal"></div>
             {profesor.user && (
                 <div className="corsel">
-                    <h1>Cursos de <b>{profesor.user.first_name}</b></h1>
+                    <h1>Cursos de <b>{profesor.user.username}</b></h1>
                 </div>
             )}
-            <div className="cardex3">
-                <div className="cardex32">
-                    <h1>Ejemplo <br />Completado</h1>
-                    <button>
-                        <GroupsIcon sx={{ fontSize: 43 }} />
-                    </button>
-                </div>
-                <div className="line-horizonte"></div>
-            </div>
-
             <div className="cardex4">
                 {cursos.map((curso) => (
                     <div key={curso.id} className="cardex42">
@@ -87,10 +77,10 @@ function CursosProfe() {
                 ))}
                 <div className="line-horizonte"></div>
             </div>
-            </div>
-        
+        </div>
     );
 }
 
 export default CursosProfe;
+
 
