@@ -1,13 +1,16 @@
 import "./CursoP.css";
 import NavbarProfesor from "../../components/NavbarProfesor";
-
-import SettingsIcon from '@mui/icons-material/Settings';
 import AddIcon from '@mui/icons-material/Add';
-import GroupsIcon from '@mui/icons-material/Groups';
 import { useNavigate } from 'react-router-dom';
 import EditNoteIcon from '@mui/icons-material/EditNote';
+import PropTypes from "prop-types";
+import CursosProfeComponent from "../../components/CursosProfeComponent.jsx";
 
-function CursosProfe() {
+function CursosProfe(props) {
+
+    CursosProfe.propTypes = {
+        nombreProfe: PropTypes.string
+    }
 
     const navigate = useNavigate();
     const Rubricas = () => {
@@ -35,29 +38,29 @@ function CursosProfe() {
                 </button>
             </div>
             <div className="linea-horizontal"></div>
-            <div className="corsel"><h1>Cursos de <b>Ejemplo</b></h1></div>
-            <div className="cardex3">
-                <div className="cardex32"><h1>Ejemplo <br />Completado</h1>
-                    <button>
-                        <GroupsIcon sx={{ fontSize: 43 }} />
-                    </button>
-                </div>
-                <div className="line-horizonte"></div>
-            </div>
-            <div className="cardex4">
-                <div className="cardex42"><h1>Ejemplo por <br />Completar</h1>
-                    <button className="button1" onClick={ConfigCursos} >
-                        <SettingsIcon sx={{ fontSize: 43 }} />
-                    </button>
-                    <button className="button2" >
-                        <GroupsIcon sx={{ fontSize: 43 }} />
-                    </button>
-                </div>
-                <div className="line-horizonte"></div>
+            <div className="corsel"><h1>Cursos de <b>{props.nombreProfe}</b></h1></div>
+            <div className="ListaCursosHomeProfe">
+                <CursosProfeComponent Estado={true}
+                    nombreCurso="Desarrollo de software 1"
+                    configurarCursos={ConfigCursos} />
+                <CursosProfeComponent Estado={false}
+                    nombreCurso="Simulacion y computacion numerica"
+                    configurarCursos={ConfigCursos} />
+                <CursosProfeComponent Estado={false}
+                    nombreCurso="Programacion 1"
+                    configurarCursos={ConfigCursos} />
+                <CursosProfeComponent Estado={true}
+                    nombreCurso="Programacion 2"
+                    configurarCursos={ConfigCursos} />
+                <CursosProfeComponent Estado={false}
+                    nombreCurso="Programacion 3"
+                    configurarCursos={ConfigCursos} />
+                <CursosProfeComponent Estado={true}
+                    nombreCurso="Programacion 4"
+                    configurarCursos={ConfigCursos} />
             </div>
         </div>
-      
-  );
+    );
 }
 
 export default CursosProfe;
