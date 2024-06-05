@@ -15,6 +15,13 @@ function NuevaRubrica(props) {
     const [criteriosEliminados, setCriteriosEliminados] = useState([]);
     const [open, setOpen] = useState(false);
     const [advice, setAdvice] = useState("");
+    const [escala, setEscala] = useState(0);    
+
+
+    const handleEscalaChange = (e) => {
+        setEscala(e.target.value);
+    };
+    
 
     const popup = (e) => {
         e.preventDefault();
@@ -45,13 +52,21 @@ function NuevaRubrica(props) {
     };
 
     const guardarRubrica = async () => {
+        for (let critero of criterios){
+            if (critero.valor > escala){
+                setAdvice("los valores del criterio no pueden ser mayor a la escala");
+                setOpen(!open);
+                return;
+            }
+        }
         try {
             const response = await axios.post(
                 "http://localhost:8000/guardarRubrica/", {
                 rubrica: rubrica,
                 criterios: criterios,
                 criteriosEliminados: criteriosEliminados,
-                identificacion: Cookies.get("identificacion")
+                identificacion: Cookies.get("identificacion"),
+                escala: escala
             }
             );
             setAdvice("Rubrica guardada");
@@ -71,7 +86,12 @@ function NuevaRubrica(props) {
                 <div className="TitleTablaRubricas">
                     <h1>Nueva Rubrica </h1>
                     <div className="EscalaTitleTablaRubricas">
-                        <Field Campo="Escala" CampoColor="black" Tipo="Number" value={rubrica.escala} />
+                    <Field
+                            Campo="Escala"
+                            CampoColor="black"
+                            Tipo="Number"
+                            onChange={handleEscalaChange}
+                        />
                     </div>
                 </div>
                 <div className="TablaRubricas">

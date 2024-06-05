@@ -16,11 +16,16 @@ function TablaRubricasProfe(props) {
     const [criteriosEliminados, setCriteriosEliminados] = useState([]);
     const [open, setOpen] = useState(false);
     const [advice, setAdvice] = useState("");
+    const [escala, setEscala] = useState(0);
 
     const popup = (e) => {
         e.preventDefault();
         setOpen(!open);
 
+    };
+
+    const handleEscalaChange = (e) => {
+        setEscala(e.target.value);
     };
 
     useEffect(() => {
@@ -39,6 +44,12 @@ function TablaRubricasProfe(props) {
         };
         fetchRubrica();
     }, [rubricaId]);
+
+    useEffect(() => {
+        if (rubrica.escala !== undefined) {
+            setEscala(rubrica.escala);
+        }
+    }, [rubrica]);
 
     const agregarCriterio = () => {
         setCriterios([...criterios, { id: Date.now(), descripcion: "", valor: "" }]);
@@ -59,12 +70,20 @@ function TablaRubricasProfe(props) {
     };
 
     const guardarRubrica = async () => {
+        for (let critero of criterios) {
+            if (critero.valor > escala) {
+                setAdvice("los valores del criterio no pueden ser mayor a la escala");
+                setOpen(!open);
+                return;
+            }
+        }
         try {
             const response = await axios.post(
                 "http://localhost:8000/guardarCriterios/", {
                 id: rubricaId,
                 criterios: criterios,
                 criteriosEliminados: criteriosEliminados,
+                newEscala : escala
             }
             );
             setAdvice("Rubrica guardada");
@@ -84,7 +103,12 @@ function TablaRubricasProfe(props) {
                 <div className="TitleTablaRubricas">
                     <h1>{rubrica.nombre}</h1>
                     <div className="EscalaTitleTablaRubricas">
-                        <Field Tipo="Number" value={rubrica.escala} />
+                    <Field
+                            value={escala}
+                            CampoColor="black"
+                            Tipo="Number"
+                            onChange={handleEscalaChange}
+                        />
                     </div>
                 </div>
                 <div className="TablaRubricas">
@@ -105,6 +129,7 @@ function TablaRubricasProfe(props) {
                                                 Tipo="text"
                                                 value={criterio.descripcion}
                                                 name="descripcion"
+                                                
                                                 onChange={(e) => handleCriterioChange(criterio.id, 'descripcion', e.target.value)}
                                             />
                                         </div>
