@@ -48,11 +48,11 @@ function NuevaRubrica(props) {
         try {
             const response = await axios.post(
                 "http://localhost:8000/guardarRubrica/", {
-                    rubrica: rubrica,
-                    criterios: criterios,
-                    criteriosEliminados: criteriosEliminados,
-                    identificacion: Cookies.get("identificacion") 
-                }
+                rubrica: rubrica,
+                criterios: criterios,
+                criteriosEliminados: criteriosEliminados,
+                identificacion: Cookies.get("identificacion")
+            }
             );
             setAdvice("Rubrica guardada");
             setOpen(!open);
@@ -70,17 +70,20 @@ function NuevaRubrica(props) {
             <div className="Rubricas">
                 <div className="TitleTablaRubricas">
                     <h1>Nueva Rubrica </h1>
+                    <div className="EscalaTitleTablaRubricas">
+                        <Field Campo="Escala" CampoColor="black" Tipo="Number" value={rubrica.escala} />
+                    </div>
                 </div>
                 <div className="TablaRubricas">
                     <table className="RubricasTable">
                         <thead>
                             <tr>
                                 <th className="thuno"><div className="RubricasTableHeader uno"> <Field
-                        Tipo="text"
-                        value={rubrica.nombre}
-                        name="nombre"
-                        onChange={(e) => handleRubricaChange('nombre', e.target.value)}
-                    /></div></th>
+                                    Tipo="text"
+                                    value={rubrica.nombre}
+                                    name="nombre"
+                                    onChange={(e) => handleRubricaChange('nombre', e.target.value)}
+                                /></div></th>
                                 <th className="thdos"><div className="RubricasTableHeader dos"><h1>Valor</h1></div></th>
                             </tr>
                         </thead>
@@ -107,10 +110,12 @@ function NuevaRubrica(props) {
                                             />
                                         </div>
                                     </td>
-                                    <td className="thactions">
-                                        <button className="DeleteButton" onClick={() => eliminarCriterio(criterio.id)}>
-                                            <DeleteIcon sx={{ fontSize: 35, color: "red" }} />
-                                        </button>
+                                    <td className="ThActions">
+                                        <div className="DeleteButtonThActions">
+                                            <button className="DeleteButton" onClick={() => eliminarCriterio(criterio.id)}>
+                                                <DeleteIcon sx={{ fontSize: 35, color: "red" }} />
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                             ))}

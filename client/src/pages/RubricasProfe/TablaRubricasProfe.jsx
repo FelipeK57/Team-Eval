@@ -9,7 +9,7 @@ import axios from 'axios';
 import PopUp from '../../components/Utilities/PopUp';
 
 
-function TablaRubricasProfe (props) {
+function TablaRubricasProfe(props) {
     const { rubricaId } = useParams();
     const [rubrica, setRubrica] = useState({});
     const [criterios, setCriterios] = useState([]);
@@ -28,8 +28,8 @@ function TablaRubricasProfe (props) {
             try {
                 const response = await axios.post(
                     "http://localhost:8000/obtenerCriterios/", {
-                        id: rubricaId,
-                    }
+                    id: rubricaId,
+                }
                 );
                 setRubrica(response.data.rubrica);
                 setCriterios(response.data.criterios);
@@ -53,7 +53,7 @@ function TablaRubricasProfe (props) {
     };
 
     const handleCriterioChange = (id, field, value) => {
-        setCriterios(criterios.map(criterio => 
+        setCriterios(criterios.map(criterio =>
             criterio.id === id ? { ...criterio, [field]: value } : criterio
         ));
     };
@@ -62,10 +62,10 @@ function TablaRubricasProfe (props) {
         try {
             const response = await axios.post(
                 "http://localhost:8000/guardarCriterios/", {
-                    id: rubricaId,
-                    criterios: criterios,
-                    criteriosEliminados: criteriosEliminados,
-                }
+                id: rubricaId,
+                criterios: criterios,
+                criteriosEliminados: criteriosEliminados,
+            }
             );
             setAdvice("Rubrica guardada");
             setOpen(!open);
@@ -83,6 +83,9 @@ function TablaRubricasProfe (props) {
             <div className="Rubricas">
                 <div className="TitleTablaRubricas">
                     <h1>{rubrica.nombre}</h1>
+                    <div className="EscalaTitleTablaRubricas">
+                        <Field Tipo="Number" value={rubrica.escala} />
+                    </div>
                 </div>
                 <div className="TablaRubricas">
                     <table className="RubricasTable">
@@ -90,7 +93,7 @@ function TablaRubricasProfe (props) {
                             <tr>
                                 <th className="thuno"><div className="RubricasTableHeader uno"><h1>{rubrica.nombre}</h1></div></th>
                                 <th className="thdos"><div className="RubricasTableHeader dos"><h1>Valor</h1></div></th>
-                             
+
                             </tr>
                         </thead>
                         <tbody>
@@ -98,28 +101,30 @@ function TablaRubricasProfe (props) {
                                 <tr key={criterio.id}>
                                     <td className="thleft">
                                         <div className="RubricasTableBody Left">
-                                            <Field 
-                                                Tipo="text" 
-                                                value={criterio.descripcion} 
-                                                name="descripcion" 
+                                            <Field
+                                                Tipo="text"
+                                                value={criterio.descripcion}
+                                                name="descripcion"
                                                 onChange={(e) => handleCriterioChange(criterio.id, 'descripcion', e.target.value)}
                                             />
                                         </div>
                                     </td>
                                     <td className="thright">
                                         <div className="RubricasTableBody Right">
-                                            <Field 
-                                                Tipo="Number" 
-                                                value={criterio.valor} 
-                                                name="valor" 
+                                            <Field
+                                                Tipo="Number"
+                                                value={criterio.valor}
+                                                name="valor"
                                                 onChange={(e) => handleCriterioChange(criterio.id, 'valor', e.target.value)}
                                             />
                                         </div>
                                     </td>
-                                    <td className="thactions">
-                                        <button className="DeleteButton" onClick={() => eliminarCriterio(criterio.id)}>
-                                            <DeleteIcon sx={{ fontSize: 35, color: "red" }} />
-                                        </button>
+                                    <td className="ThActions">
+                                        <div className="DeleteButtonThActions">
+                                            <button className="DeleteButton" onClick={() => eliminarCriterio(criterio.id)}>
+                                                <DeleteIcon sx={{ fontSize: 35, color: "red" }} />
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                             ))}
@@ -134,17 +139,17 @@ function TablaRubricasProfe (props) {
                 </div>
             </div>
             <div>
-                  <PopUp open={open}
-                SetOpen={setOpen}
-                Advice={advice} 
-                Width={"100%"}
-                Button1="volver"
-               onClick1={popup}
-                
-            />
-                  </div>
+                <PopUp open={open}
+                    SetOpen={setOpen}
+                    Advice={advice}
+                    Width={"100%"}
+                    Button1="volver"
+                    onClick1={popup}
+
+                />
+            </div>
         </div>
-        
+
     );
 }
 
