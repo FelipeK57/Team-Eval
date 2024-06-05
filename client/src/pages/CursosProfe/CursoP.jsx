@@ -17,10 +17,6 @@ function CursosProfe(props) {
         navigate("/Rubricas");
     }
 
-    const ConfigCursos = () => {
-        navigate("/Grupos");
-    }
-
     return (
         <div className="CursosProfe">
             <NavbarProfesor />
@@ -42,13 +38,13 @@ function CursosProfe(props) {
             <div className="ListaCursosHomeProfe">
                 <CursosProfeComponent Estado={true}
                     nombreCurso="Desarrollo de software 1"
-                    configurarCursos={ConfigCursos} />
+                    configurarCursos="/grupos" />
                 <CursosProfeComponent Estado={false}
                     nombreCurso="Simulacion y computacion numerica"
-                    configurarCursos={ConfigCursos} />
+                    configurarCursos="/grupos" />
                 <CursosProfeComponent Estado={false}
                     nombreCurso="Desarrollo de software 2"
-                    configurarCursos={ConfigCursos} />
+                    configurarCursos="/grupos" />
             </div>
         </div>
     );

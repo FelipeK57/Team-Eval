@@ -2,12 +2,24 @@ import PropTypes from 'prop-types';
 import GroupsIcon from '@mui/icons-material/Groups';
 import SettingsIcon from '@mui/icons-material/Settings';
 import './CursosProfeComponent.css'
+import { useNavigate } from "react-router-dom";
 function CursosProfeComponent(props) {
 
     CursosProfeComponent.propTypes = {
         Estado: PropTypes.array.isRequired,
-        configurarCurso: PropTypes.func,
-        nombreCurso: PropTypes.string
+        configurarCursos: PropTypes.func,
+        nombreCurso: PropTypes.string,
+        verEstudiantes: PropTypes.func
+    }
+
+    const navigate = useNavigate();
+
+    const ConfigCursos = () => {
+        navigate(`${props.configurarCursos}`);
+    }
+
+    const VerEstudiantes = () =>{
+        navigate(`${props.verEstudiantes}`);
     }
 
     return (
@@ -16,7 +28,7 @@ function CursosProfeComponent(props) {
                 <div className="cardex32"><h1>{props.nombreCurso}</h1>
                     <hr className='line-horizonte' />
                     <div className="buttonsCursosProfeComponent">
-                        <button>
+                        <button onClick={VerEstudiantes}>
                             <GroupsIcon sx={{ fontSize: 43 }} />
                         </button>
                     </div>
@@ -25,10 +37,10 @@ function CursosProfeComponent(props) {
                 <div className="cardex42"><h1>{props.nombreCurso}</h1>
                     <hr className='line-horizonte' />
                     <div className="buttonsCursosProfeComponent">
-                        <button className="button1" onClick={props.configurarCurso} >
+                        <button className="button1" onClick={ConfigCursos} >
                             <SettingsIcon sx={{ fontSize: 43 }} />
                         </button>
-                        <button className="button2" >
+                        <button className="button2" onClick={VerEstudiantes}>
                             <GroupsIcon sx={{ fontSize: 43 }} />
                         </button>
                     </div>
