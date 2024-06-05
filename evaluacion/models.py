@@ -7,7 +7,8 @@ import datetime
 
 # Create your models here.
 class evaluacion(models.Model):
-    fecha = models.DateField (null=False)
+    nombre = models.CharField(default="Evaluacion",max_length=100)
+    fecha = models.DateField(null=False)
     rubrica = models.OneToOneField(rubrica_Evaluacion,on_delete=models.CASCADE, null=False) 
     informe = models.ManyToManyField(informes)
     grupo = models.ManyToManyField(Grupo)

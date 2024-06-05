@@ -1,6 +1,5 @@
 import React from "react";
 import "../components/CursoModelo.css";
-import { Link } from "react-router-dom";
 
 function CursoModelo(props) {
   const colorCurso = () => {
@@ -15,9 +14,9 @@ function CursoModelo(props) {
       return <h1>Terminado</h1>;
     } else {
       return (
-        <Link className="link-evaluacion" to="/login">
+        <button className="link-evaluacion" onClick={props.onClick}>
           Ir
-        </Link>
+        </button>
       );
     }
   };

@@ -13,7 +13,7 @@ class Estudiante(models.Model):
             courses_s.append(course)
         return courses_s
 
-    def str(self):
+    def __str__(self):
         return self.user.username
 
     @classmethod

@@ -27,6 +27,17 @@ import random
 from codigos_seguridad.models import codigos_seguridad
 from rest_framework.validators import ValidationError
 from django.contrib.auth import logout as django_logout
+from evaluacion.serializers import evaluacionSerializer
+from grupo.models import Grupo
+from grupo.serializer import GrupoSerializer
+from evaluacion.models import evaluacion
+from criterio_evaluacion.models import criterio_Evaluacion
+from criterio_evaluacion.serializers import criterio_EvaluacionSerializer
+from rubrica.models import rubrica_Evaluacion
+from rubrica.serializers import rubrica_EvaluacionSerializer
+from evaluacion.models import evaluacion
+from informesindividuales.models import InformesIndividuales
+from informesindividuales.serializer import InformesIndividualesSerializer
 
 @api_view(['POST'])
 def login(request):
@@ -94,6 +105,66 @@ def login_adminte(request):
     )
     return response
 
+@api_view(['GET'])
+def obtener_evaluaciones(request):
+    codigo = request.data.get('codigo')
+    curso = get_object_or_404(Cursos, codigo=codigo)
+    evaluaciones = curso.evaluaciones
+    serializer = evaluacionSerializer(evaluaciones, many=True)
+    return Response({"evaluaciones": serializer.data}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def obtener_grupo_criterios(request):
+    codigo_estudiante = request.data.get("codigo")
+    id_evaluacion = request.data.get("id")
+
+    estudiante = get_object_or_404(Estudiante, codigo=codigo_estudiante)
+    evaluacion_ph = get_object_or_404(evaluacion, id=id_evaluacion)
+
+    grupo_estudiante = estudiante.grupo_set.filter(evaluacion=evaluacion_ph).first()
+    if not grupo_estudiante:
+        return Response({"error": "El estudiante no pertenece a un grupo en esta evaluación"}, status=status.HTTP_400_BAD_REQUEST)
+
+    companeros = Estudiante.objects.filter(grupo=grupo_estudiante).exclude(id=estudiante.id)
+
+    companeros_sin_evaluar = []
+    for companero in companeros:
+        if not InformesIndividuales.objects.filter(
+            id_evaluacion=id_evaluacion,
+            codigo_evaluado=companero.codigo,
+            codigo_evaluador=codigo_estudiante
+        ).exists():
+            companeros_sin_evaluar.append(companero)
+
+    serializer_estudiantes = EstudianteSerializer(companeros_sin_evaluar, many=True)
+    serializer_criterios = criterio_EvaluacionSerializer(evaluacion_ph.rubrica.criterios, many=True)
+
+    return Response({
+        "estudiantes": serializer_estudiantes.data,
+        "criterios": serializer_criterios.data
+    }, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def realizar_calificacion(request):
+    codigo_evaluado=request.data.get('codigo_evaluado')
+    codigo_evaluador=request.data.get('codigo_evaluador')
+    id_evaluacion=request.data.get('id')
+    comentarios = request.data.get('comentarios')
+    criterios = request.data.get('criterios')
+
+    evaluaciones_previas = InformesIndividuales.objects.filter(
+        codigo_evaluador=codigo_evaluador,
+        codigo_evaluado=codigo_evaluado,
+        id_evaluacion=id_evaluacion
+    )
+    
+    if evaluaciones_previas.exists():
+        return Response({"error": "El estudiante ya ha sido calificado en esta evaluación"}, status=status.HTTP_400_BAD_REQUEST)
+
+    informe_individual = InformesIndividuales.objects.create(codigo_evaluado=codigo_evaluado, codigo_evaluador=codigo_evaluador, id_evaluacion=id_evaluacion, comentarios=comentarios, criterios=criterios)
+    serializer = InformesIndividualesSerializer(informe_individual)
+
+    return Response({"Mensaje": "Calificacion realizada con exito", "InformeHecho": serializer.data}, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 def import_cursos(request):

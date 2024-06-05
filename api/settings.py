@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'rubrica',
     'administrador',
     'informes',
-    'codigos_seguridad'
+    'codigos_seguridad',
+    'informesindividuales'
 ]
 
 MIDDLEWARE = [
