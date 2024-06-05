@@ -107,7 +107,7 @@ function EvaluacionEstudiantes() {
         </select>
       </div>
       <div className="table-container">
-        <table className="styled-table">
+        <table className="table-evaluation">
           <thead>
             <tr>
               <th>Criterios</th>

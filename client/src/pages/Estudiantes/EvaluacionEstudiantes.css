@@ -19,7 +19,7 @@
   margin-top: 30px;
 }
 
-.styled-table {
+.table-evaluation {
   background-color: #a5a4a4;
   border-collapse: collapse;
   width: 50%;
@@ -28,12 +28,12 @@
   font-weight: bold;
 }
 
-.styled-table th{
+.table-evaluation th{
   background-color: rgb(15, 65, 118);
   color: white;
 }
 
-.styled-table tr,
+.table-evaluation tr,
 td,
 th {
   border-style: solid;
