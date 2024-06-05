@@ -642,10 +642,40 @@ def obtener_criterios(request):
 
     return Response(data)
 
-<<<<<<< HEAD
 @api_view(['POST'])
 def guardar_criterios(request):
-=======
+    id = request.data.get('id')
+    criterios = request.data.get('criterios')
+    criteriosEliminados = request.data.get('criteriosEliminados')
+    newEscala = request.data.get('newEscala')
+
+    rubrica = get_object_or_404(rubrica_Evaluacion, id=id)
+
+    if(newEscala != rubrica.escala):
+        rubrica.escala = newEscala
+
+    # Eliminar criterios
+    for criterio in criteriosEliminados:
+        criterio_obj = get_object_or_404(criterio_Evaluacion, id=criterio['id'])
+        criterio_obj.delete()
+
+    # Actualizar o crear criterios
+    for criterio in criterios:
+        if 'id' in criterio and criterio_Evaluacion.objects.filter(id=criterio['id']).exists():
+            criterio_obj = criterio_Evaluacion.objects.get(id=criterio['id'])
+            criterio_obj.descripcion = criterio['descripcion']
+            criterio_obj.valor = criterio['valor']
+            criterio_obj.save()
+        else:
+            new = criterio_Evaluacion.objects.create(
+                descripcion=criterio['descripcion'],
+                valor=criterio['valor'],
+            )
+            rubrica.criterios.add(new)
+
+    rubrica.save()
+
+    return Response({"message": "Criterios actualizados correctamente"}, status=status.HTTP_200_OK)
 @api_view(['GET'])
 def Rubricas_admin(request):
     predeterminada = rubrica_Evaluacion.objects.filter(autor="admin").first()
@@ -659,7 +689,6 @@ def Rubricas_admin(request):
 
 @api_view(['POST'])
 def editar_predeterminada(request):
->>>>>>> origin/Cositas-ADMIN
     id = request.data.get('id')
     criterios = request.data.get('criterios')
     criteriosEliminados = request.data.get('criteriosEliminados')
@@ -693,7 +722,6 @@ def editar_predeterminada(request):
 
     return Response({"message": "Criterios actualizados correctamente"}, status=status.HTTP_200_OK)
 
-<<<<<<< HEAD
 @api_view(['POST'])
 def guardarRubrica(request):
     rubrica_data = request.data.get('rubrica')
@@ -722,8 +750,6 @@ def guardarRubrica(request):
     nueva_rubrica.save()
 
     return Response({"message": "Rúbrica creada correctamente"}, status=status.HTTP_201_CREATED)
-=======
->>>>>>> origin/Cositas-ADMIN
 
 
     
