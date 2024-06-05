@@ -21,7 +21,7 @@ function CursosProfeComponent(props) {
                         </button>
                     </div>
                 </div>
-            </div> : <div className="cardex3">
+            </div> : <div className="cardex3 NoCompleted">
                 <div className="cardex42"><h1>{props.nombreCurso}</h1>
                     <hr className='line-horizonte' />
                     <div className="buttonsCursosProfeComponent">

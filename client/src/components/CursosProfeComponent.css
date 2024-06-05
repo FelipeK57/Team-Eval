@@ -99,3 +99,7 @@
     align-items: center;
     margin: 10px 20px 10px 0;
 }
+
+.NoCompleted {
+    background-color: rgb(15, 65, 118) !important;
+}
