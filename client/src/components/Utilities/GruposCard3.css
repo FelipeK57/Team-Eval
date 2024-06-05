@@ -14,28 +14,44 @@
     font-size: 0.9rem;
     text-align: center;
     font-family: Mulish !important;
-
 }
 
 .Plato {
-    display: flex;
-    font-family: Mulish !important;
-    font-size: 0.8rem;
+    font-size: 1rem; 
     margin-left: 15px;
     margin-top: 5px;
+}
+
+.estudiantes-list {
+    list-style: none;
+    padding: 0;
+}
+
+.estudiantes-list li {
+    display: flex;
     align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    padding: 5px;
 }
 
-.Plato p {
-    margin: 10px 0;
-    color: black;
+.estudiantes-list li span {
     font-family: Mulish !important;
-
+    font-size: 1.5rem; 
+    margin-right: 10px;
+    color: black;
+    border-radius: 20px;
 }
 
-.beba{
-    padding:0%;
-    margin-left: auto;
+.estudiantes-sin {
+    font-family: Mulish !important;
+    font-size: 1.5rem; 
+    margin-right: 10px;
+    color: black;
+    border-radius: 20px;
+}
+
+.beba {
     border: none;
     cursor: pointer;
 }

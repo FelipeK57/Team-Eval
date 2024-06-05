@@ -35,12 +35,9 @@ import Cookies from "js-cookie";
 import ProfeEditar from "./pages/ProfeEditar/ProfeEditar";
 import CursosDes from "./pages/CursosDes/CursosDes";
 import ProfeDes from "./pages/ProfeDes/ProfeDes";
-<<<<<<< HEAD
 import EditarStudent from "./pages/CursosProfe/EditarStudent.jsx";
 import ImportarEstudiantes from "./pages/Admin/ImportarEstudiantes.jsx";
-=======
 import Grupos from "./pages/Grupos/Grupos";
->>>>>>> Home2
 function App() {
   return (
     <BrowserRouter>
@@ -100,11 +97,8 @@ function App() {
         <Route path="/ProfeEditar" element= {<ProfeEditar profesor="Pedro Vargas"/>}/>
         <Route path="/CursosDes" element={<CursosDes />} />
         <Route path="/ProfeDes" element={<ProfeDes />} />
-<<<<<<< HEAD
         <Route path="/ImportarEstudiantes" element={<ImportarEstudiantes />} />
-=======
-        <Route path="/Grupos" element={<Grupos materia="Matematicas"/>} />
->>>>>>> Home2
+        <Route path="/Grupos" element={<Grupos materia={Cookies.get("nombre")}/>} />
       </Routes>
     </BrowserRouter>
   );

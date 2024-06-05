@@ -17,12 +17,15 @@ from django.http import QueryDict
 from cursos.serializer import CursosSerializer
 from administrador.models import administrador
 from administrador.serializer import AdministradorSerializer
+from grupo.serializer import GrupoSerializer
 from cursos.models import Cursos
+from grupo.models import Grupo
 from django.core.mail import send_mail
 import random
 from codigos_seguridad.models import codigos_seguridad
 from rest_framework.validators import ValidationError
 from django.contrib.auth import logout as django_logout
+from django.shortcuts import get_list_or_404
 
 @api_view(['POST'])
 def login(request):
@@ -293,8 +296,11 @@ def student_courses(request):
 @api_view(['POST'])
 def teacher_courses(request):
     identificacion = request.data.get('identificacion')
+    print(f"Identificación recibida: {identificacion}")  # Depuración
     profesor = get_object_or_404(Profesor, identificacion=identificacion)
-    serializer = CursosSerializer(profesor.courses_teacher(), many=True)
+    cursos = profesor.courses_teacher()
+    print(f"Cursos obtenidos: {cursos}")  # Depuración
+    serializer = CursosSerializer(cursos, many=True)
     return Response({"cursos": serializer.data}, status=status.HTTP_200_OK)
 
 
@@ -444,6 +450,90 @@ def estudiantes(request):
     estudiantes= Estudiante.objects.filter(estado=True)
     serializer = EstudianteSerializer(estudiantes, many=True)
     return Response({"estudiantes": serializer.data}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def curso(request):
+    codigo = request.data.get('codigo')
+    curso = get_object_or_404(Cursos, codigo=codigo)
+    serializer = CursosSerializer(curso)
+    data = serializer.data
+    estudiantes = curso.estudiantes.all()
+    grupos = curso.grupos.all()
+    estudiantes_en_grupo = []
+    for grupo in curso.grupos.all():
+        estudiantes_en_grupo.extend(grupo.estudiantes.all())
+    estudiantes_sin_grupo = [estudiante for estudiante in estudiantes if estudiante not in estudiantes_en_grupo]
+    estudiantes_sin_grupo_serialized = EstudianteSerializer(estudiantes_sin_grupo, many=True).data
+    data['estudiantes'] = estudiantes_sin_grupo_serialized
+    data['grupos'] = GrupoSerializer(grupos, many=True).data
+    return Response({"curso": data}, status=status.HTTP_200_OK)
+
+
+
+@api_view(['POST'])
+def curso_estudiantes_en_grupo(request):
+    codigo = request.data.get('codigo')
+    curso = get_object_or_404(Cursos, codigo=codigo)
+    serializer = CursosSerializer(curso)
+    data = serializer.data
+    estudiantes = curso.estudiantes.all()
+    grupos = curso.grupos.all()
+    grupos_serializados = []
+    for grupo in grupos:
+        estudiantes_grupo = grupo.estudiantes.all()
+        estudiantes_grupo_serializados = EstudianteSerializer(estudiantes_grupo, many=True).data
+        grupo_data = GrupoSerializer(grupo).data
+        grupo_data['estudiantes'] = estudiantes_grupo_serializados
+        grupos_serializados.append(grupo_data)
+    data['grupos'] = grupos_serializados
+    return Response({"curso": data}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def agregar_estudiante_a_grupo(request):
+    codigo = request.data.get('codigo')
+    grupo_id = request.data.get('grupo_id')
+
+    try:
+        estudiante = Estudiante.objects.get(codigo=codigo)
+        Grupo.objects.get(pk=grupo_id)
+        return Response({"mensaje": "Estudiante agregado al grupo temporalmente"}, status=200)
+    
+    except Estudiante.DoesNotExist:
+        return Response({"error": "El estudiante no existe"}, status=404)
+    
+    except Grupo.DoesNotExist:
+        return Response({"error": "El grupo no existe"}, status=404)
+    
+    except Exception as e:
+        return Response({"error": str(e)}, status=500)
+
+@api_view(['POST'])
+def guardar_cambios(request):
+    estudiantes_por_agregar = request.data.get('estudiantes')
+    grupo_id = request.data.get('grupo_id')
+
+    try:
+        grupo = Grupo.objects.get(pk=grupo_id)
+        for estudiante_id in estudiantes_por_agregar:
+            estudiante = Estudiante.objects.get(id=estudiante_id)
+            grupo.estudiantes.add(estudiante)
+        
+        return Response({"mensaje": "Cambios guardados correctamente"}, status=200)
+    except Grupo.DoesNotExist:
+        return Response({"error": "El grupo no existe"}, status=404)
+    except Estudiante.DoesNotExist:
+        return Response({"error": "Uno o más estudiantes no existen"}, status=404)
+    except Exception as e:
+        return Response({"error": str(e)}, status=500)
+
+@api_view(['POST'])
+def estudiantesCurso(request):
+    codigo = request.data.get('codigo')
+    curso = get_object_or_404(Cursos, codigo=codigo)
+    estudiantes = curso.estudiantes.all()
+    serializer = EstudianteSerializer(estudiantes, many=True)
+    return Response({"estudiantes": serializer.data}, status=status.HTTP_200_OK)
+    
 
 @api_view(['POST'])
 def editar_profesor(request):

@@ -7,14 +7,14 @@ import PopUp from "../../components/Utilities/PopUp";
 import { useNavigate } from "react-router-dom";
 
 function EditarCurso() {
-  const [cursoNombre, setCursoNombre] = useState(Cookies.get("nombreCurso"));
+  const [cursoGrupo, setCursoNombre] = useState(Cookies.get("nombreCurso"));
   const [cursoCodigo, setCursoCodigo] = useState(Cookies.get("codigoCurso"));
   const [periodo, setPeriodo] = useState(Cookies.get("periodoCurso"));
   const [open, setOpen] = useState(false);
   const [advice, setAdvice] = useState("");
   const navigate = useNavigate();
 
-  const importarE = (e) => {
+  const importarE = (e) => { 
     navigate("/ImportarEstudiantes");
   };
 

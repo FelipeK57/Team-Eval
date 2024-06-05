@@ -15,6 +15,9 @@ class Estudiante(models.Model):
 
     def str(self):
         return self.user.username
+    
+    def __str__(self):
+        return self.user.username
 
     @classmethod
     def deshabilitados(cls):
