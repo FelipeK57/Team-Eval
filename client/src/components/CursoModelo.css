@@ -17,9 +17,10 @@
   margin-bottom: auto;
 }
 
-.curso-en-curso h1 {
+.curso-en-curso h1 , .curso-terminado h1 {
   flex-wrap: nowrap;
   text-align: center;
+  font-size: 1.5rem;
 }
 
 .link-evaluacion {
