@@ -103,11 +103,13 @@ function App() {
         <Route path="/EstudiantesDes" element={<EstudiantesDeshabilitados />} />
         <Route path="/RubricasAdmin" element={<Rubricas />} />
         <Route path="/EstudiantesLista" element={<EstudiantesLista />} />
-        <Route path="/TablaRubricas" element={<TablaRubricas Nombre="Respeto" />} />
+        <Route path="/TablaRubricas/:rubricaId" element={<TablaRubricas Nombre="Respeto" />} />
         <Route path="/ProfeEditar" element= {<ProfeEditar profesor="Pedro Vargas"/>}/>
         <Route path="/CursosDes" element={<CursosDes />} />
         <Route path="/ProfeDes" element={<ProfeDes />} />
         <Route path="/ImportarEstudiantes" element={<ImportarEstudiantes />} />
+  
+
         
       </Routes>
     </BrowserRouter>

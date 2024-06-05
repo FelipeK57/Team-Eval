@@ -642,8 +642,24 @@ def obtener_criterios(request):
 
     return Response(data)
 
+<<<<<<< HEAD
 @api_view(['POST'])
 def guardar_criterios(request):
+=======
+@api_view(['GET'])
+def Rubricas_admin(request):
+    predeterminada = rubrica_Evaluacion.objects.filter(autor="admin").first()
+    
+    if predeterminada:
+        serializer_pre = rubrica_EvaluacionSerializer(predeterminada)
+        return Response({'predeterminada': serializer_pre.data}, status=status.HTTP_200_OK)
+    else:
+        return Response({'detail': 'No se encontró una rubrica predeterminada'}, status=status.HTTP_404_NOT_FOUND)
+    
+
+@api_view(['POST'])
+def editar_predeterminada(request):
+>>>>>>> origin/Cositas-ADMIN
     id = request.data.get('id')
     criterios = request.data.get('criterios')
     criteriosEliminados = request.data.get('criteriosEliminados')
@@ -677,6 +693,7 @@ def guardar_criterios(request):
 
     return Response({"message": "Criterios actualizados correctamente"}, status=status.HTTP_200_OK)
 
+<<<<<<< HEAD
 @api_view(['POST'])
 def guardarRubrica(request):
     rubrica_data = request.data.get('rubrica')
@@ -705,6 +722,8 @@ def guardarRubrica(request):
     nueva_rubrica.save()
 
     return Response({"message": "Rúbrica creada correctamente"}, status=status.HTTP_201_CREATED)
+=======
+>>>>>>> origin/Cositas-ADMIN
 
 
     
