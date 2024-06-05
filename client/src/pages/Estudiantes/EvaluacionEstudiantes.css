@@ -98,3 +98,8 @@ th {
   padding: 12px;
   transition: 200ms;
 }
+
+.container-boton-fc{
+  display: flex;
+  gap: 20px;
+}

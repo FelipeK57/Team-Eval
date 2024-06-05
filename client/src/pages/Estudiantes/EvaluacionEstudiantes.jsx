@@ -10,12 +10,13 @@ function EvaluacionEstudiantes() {
   const nombreAsignatura = localStorage.getItem("nombre_curso");
   const location = useLocation();
   const { state } = location;
-  const { infoEvaluacion } = state || {};
+  const { infoEvaluacion, infoCurso } = state || {};
   const [dataCr, setDataCr] = useState([]);
   const [dataEs, setDataEs] = useState([]);
   const [selectedEst, setSelectedEst] = useState("");
   const [selectedValues, setSelectedValues] = useState({});
   const [comentarios, setComentarios] = useState("");
+  const [refresh, setRefresh] = useState(false)
 
   const asignarValores = (item, index, value) => {
     setSelectedValues((prevValues) => ({
@@ -38,17 +39,18 @@ function EvaluacionEstudiantes() {
         );
         setDataCr(response.data.criterios);
         setDataEs(response.data.estudiantes);
+        console.log(response.data);
       } catch (error) {
         console.error("Error", error);
       }
     };
     fetchInfo();
-  }, [infoEvaluacion]);
+  }, [refresh]);
 
-  const obtener_comentario = (e) =>{
-    setComentarios(e.target.value)
-    console.log(comentarios)
-  }
+  const obtener_comentario = (e) => {
+    setComentarios(e.target.value);
+    console.log(comentarios);
+  };
 
   const estudiante_calificado = (e) => {
     const selected = e.target.value;
@@ -68,10 +70,14 @@ function EvaluacionEstudiantes() {
           criterios: dataCr,
         }
       );
-      alert("evaluacion guardada exitosamente")
-      console.log(response.data)
+      alert("evaluacion guardada exitosamente");
+      setSelectedEst("");
+      setRefresh(!refresh)
+      setSelectedValues({});
+      setComentarios("");
+      console.log(response.data);
     } catch (error) {
-      alert("ya ha evaluado a este estudiante antes")
+      alert("ya ha evaluado a este estudiante antes");
     }
   };
 
@@ -134,8 +140,11 @@ function EvaluacionEstudiantes() {
           placeholder="Escriba algun comentario (opcional)"
         ></textarea>
         <button onClick={realizar_calificacion} className="enviar-calificacion">
-          Guardar
+          Guardar calificacion de compañero actual
         </button>
+        <div className="container-boton-fc">
+          <button className="enviar-calificacion">Terminar calificacion definitivamente</button>
+        </div>
       </div>
     </>
   );

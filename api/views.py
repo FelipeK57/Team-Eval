@@ -111,16 +111,34 @@ def obtener_evaluaciones(request):
 
 @api_view(['POST'])
 def obtener_grupo_criterios(request):
-    estudiante = get_object_or_404(Estudiante, codigo=request.data.get("codigo"))
-    eval = get_object_or_404(evaluacion, id=request.data.get("id"))
-    grupos = estudiante.grupo_set.filter(evaluacion=eval)
-    companeros = Estudiante.objects.filter(grupo__in=grupos).exclude(id=estudiante.id).distinct()
-    serializer = EstudianteSerializer(companeros, many=True)
+    codigo_estudiante = request.data.get("codigo")
+    id_evaluacion = request.data.get("id")
 
-    criterios = eval.rubrica.criterios
-    serializer_cr = criterio_EvaluacionSerializer(criterios, many=True)
+    estudiante = get_object_or_404(Estudiante, codigo=codigo_estudiante)
+    evaluacion_ph = get_object_or_404(evaluacion, id=id_evaluacion)
 
-    return Response({"estudiantes": serializer.data, "criterios": serializer_cr.data}, status=status.HTTP_200_OK)
+    grupo_estudiante = estudiante.grupo_set.filter(evaluacion=evaluacion_ph).first()
+    if not grupo_estudiante:
+        return Response({"error": "El estudiante no pertenece a un grupo en esta evaluación"}, status=status.HTTP_400_BAD_REQUEST)
+
+    companeros = Estudiante.objects.filter(grupo=grupo_estudiante).exclude(id=estudiante.id)
+
+    companeros_sin_evaluar = []
+    for companero in companeros:
+        if not InformesIndividuales.objects.filter(
+            id_evaluacion=id_evaluacion,
+            codigo_evaluado=companero.codigo,
+            codigo_evaluador=codigo_estudiante
+        ).exists():
+            companeros_sin_evaluar.append(companero)
+
+    serializer_estudiantes = EstudianteSerializer(companeros_sin_evaluar, many=True)
+    serializer_criterios = criterio_EvaluacionSerializer(evaluacion_ph.rubrica.criterios, many=True)
+
+    return Response({
+        "estudiantes": serializer_estudiantes.data,
+        "criterios": serializer_criterios.data
+    }, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 def realizar_calificacion(request):

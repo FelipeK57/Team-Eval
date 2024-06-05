@@ -11,10 +11,10 @@ function CursosStudent() {
   const [cursoSeleccionado, setCursoSeleccionado] = useState()
 
   const obtenerCurso = (curso) => {
-    const evaluaciones = curso.evaluaciones
-    setCursoSeleccionado(evaluaciones);
+    const infoCurso = curso
+    setCursoSeleccionado(infoCurso);
     localStorage.setItem("nombre_curso", curso.nombre)
-    navigate("/SeleccionEvaluacion", {state : {evaluaciones}})
+    navigate("/SeleccionEvaluacion", {state : {infoCurso}})
     
   };
 
