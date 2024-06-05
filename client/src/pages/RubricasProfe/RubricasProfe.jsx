@@ -35,6 +35,10 @@ function RubricasProfe() {
         navigate(`/TablaRubricasProfe/${rubricaId}`);
     }
 
+    const NuevaRubrica = () => {
+        navigate(`/NuevaRubrica`);    
+    }
+
       return (
         <div className="RubricasContainer">
             <NavbarProfesor/>
@@ -47,7 +51,7 @@ function RubricasProfe() {
                 </div>
                 <div className="OpcionRubricas">
                     <LargeButton icon={<Edit />} text={rubricapre.nombre} OnClick={() => Rubrica(rubricapre.id)} />
-                    <LargeButton icon={<AddIcon/>} text="Agregar nueva rubrica" OnClick={() => navigate("/TablaRubricasProfe")} />
+                    <LargeButton icon={<AddIcon/>} text="Agregar nueva rubrica" OnClick={() => NuevaRubrica()} />
                 </div>  
             </div>
             <div className="NombreRubricas">

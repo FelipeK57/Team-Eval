@@ -41,6 +41,7 @@ import RubricasProfe from "./pages/RubricasProfe/RubricasProfe.jsx";
 import TablaRubricasProfe from "./pages/RubricasProfe/TablaRubricasProfe.jsx";
 import Grupos from "./pages/Grupos/Grupos";
 import SeleccionarRubrica from "./pages/RubricasProfe/SeleccionarRubrica.jsx";
+import NuevaRubrica from "./pages/RubricasProfe/NuevaRubrica.jsx";
 function App() {
   return (
     <BrowserRouter>
@@ -80,6 +81,7 @@ function App() {
         <Route path="/CursoP" element={<CursoP />} />
         <Route path="/Rubricas" element={<RubricasProfe />} />
         <Route path="/TablaRubricasProfe/:rubricaId" element={<TablaRubricasProfe />} />
+        <Route path="/NuevaRubrica" element={<NuevaRubrica />} />
         <Route path="/Grupos" element={<Grupos materia="Matematicas"/>} />
         <Route path="/SeleccionarRubrica" element={<SeleccionarRubrica materia="Matematicas"/>} />
 

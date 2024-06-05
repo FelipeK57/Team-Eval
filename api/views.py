@@ -642,6 +642,65 @@ def obtener_criterios(request):
 
     return Response(data)
 
+@api_view(['POST'])
+def guardar_criterios(request):
+    id = request.data.get('id')
+    criterios = request.data.get('criterios')
+    criteriosEliminados = request.data.get('criteriosEliminados')
+
+    rubrica = get_object_or_404(rubrica_Evaluacion, id=id)
+
+    # Eliminar criterios
+    for criterio in criteriosEliminados:
+        criterio_obj = get_object_or_404(criterio_Evaluacion, id=criterio['id'])
+        criterio_obj.delete()
+
+    # Actualizar o crear criterios
+    for criterio in criterios:
+        if 'id' in criterio and criterio_Evaluacion.objects.filter(id=criterio['id']).exists():
+            criterio_obj = criterio_Evaluacion.objects.get(id=criterio['id'])
+            criterio_obj.descripcion = criterio['descripcion']
+            criterio_obj.valor = criterio['valor']
+            criterio_obj.save()
+        else:
+            new = criterio_Evaluacion.objects.create(
+                descripcion=criterio['descripcion'],
+                valor=criterio['valor'],
+            )
+            rubrica.criterios.add(new)
+
+    rubrica.save()
+
+    return Response({"message": "Criterios actualizados correctamente"}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def guardarRubrica(request):
+    rubrica_data = request.data.get('rubrica')
+    criterios_data = request.data.get('criterios')
+    identificacion = request.data.get('identificacion')
+
+    profesor = Profesor.objects.get(identificacion=identificacion)
+
+    username = profesor.user.username
+
+    # Crear la nueva rúbrica
+    nueva_rubrica = rubrica_Evaluacion.objects.create(nombre=rubrica_data['nombre'])
+
+    nueva_rubrica.autor = username
+
+    # Crear los criterios asociados
+    for criterio in criterios_data:
+        new = criterio_Evaluacion.objects.create(
+            descripcion=criterio['descripcion'],
+            valor=criterio['valor'],
+        )
+        nueva_rubrica.criterios.add(new)
+
+    nueva_rubrica.save()
+
+    return Response({"message": "Rúbrica creada correctamente"}, status=status.HTTP_201_CREATED)
+
+
     
 
 

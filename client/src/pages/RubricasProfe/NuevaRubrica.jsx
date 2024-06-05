@@ -3,15 +3,14 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import Field from '../../components/Utilities/Field';
 import Button from '../../components/Utilities/Button';
-import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import PopUp from '../../components/Utilities/PopUp';
+import Cookies from 'js-cookie';
 
 
-function TablaRubricasProfe (props) {
-    const { rubricaId } = useParams();
-    const [rubrica, setRubrica] = useState({});
+function NuevaRubrica(props) {
+    const [rubrica, setRubrica] = useState({ nombre: 'Ingrese aqui el nombre' });
     const [criterios, setCriterios] = useState([]);
     const [criteriosEliminados, setCriteriosEliminados] = useState([]);
     const [open, setOpen] = useState(false);
@@ -20,25 +19,8 @@ function TablaRubricasProfe (props) {
     const popup = (e) => {
         e.preventDefault();
         setOpen(!open);
-
     };
 
-    useEffect(() => {
-        const fetchRubrica = async () => {
-            try {
-                const response = await axios.post(
-                    "http://localhost:8000/obtenerCriterios/", {
-                        id: rubricaId,
-                    }
-                );
-                setRubrica(response.data.rubrica);
-                setCriterios(response.data.criterios);
-            } catch (error) {
-                console.error("Error al obtener la rubrica", error);
-            }
-        };
-        fetchRubrica();
-    }, [rubricaId]);
 
     const agregarCriterio = () => {
         setCriterios([...criterios, { id: Date.now(), descripcion: "", valor: "" }]);
@@ -53,18 +35,23 @@ function TablaRubricasProfe (props) {
     };
 
     const handleCriterioChange = (id, field, value) => {
-        setCriterios(criterios.map(criterio => 
+        setCriterios(criterios.map(criterio =>
             criterio.id === id ? { ...criterio, [field]: value } : criterio
         ));
+    };
+
+    const handleRubricaChange = (field, value) => {
+        setRubrica({ ...rubrica, [field]: value });
     };
 
     const guardarRubrica = async () => {
         try {
             const response = await axios.post(
-                "http://localhost:8000/guardarCriterios/", {
-                    id: rubricaId,
+                "http://localhost:8000/guardarRubrica/", {
+                    rubrica: rubrica,
                     criterios: criterios,
                     criteriosEliminados: criteriosEliminados,
+                    identificacion: Cookies.get("identificacion") 
                 }
             );
             setAdvice("Rubrica guardada");
@@ -82,15 +69,19 @@ function TablaRubricasProfe (props) {
             </div>
             <div className="Rubricas">
                 <div className="TitleTablaRubricas">
-                    <h1>{rubrica.nombre}</h1>
+                    <h1>Nueva Rubrica </h1>
                 </div>
                 <div className="TablaRubricas">
                     <table className="RubricasTable">
                         <thead>
                             <tr>
-                                <th className="thuno"><div className="RubricasTableHeader uno"><h1>{rubrica.nombre}</h1></div></th>
+                                <th className="thuno"><div className="RubricasTableHeader uno"> <Field
+                        Tipo="text"
+                        value={rubrica.nombre}
+                        name="nombre"
+                        onChange={(e) => handleRubricaChange('nombre', e.target.value)}
+                    /></div></th>
                                 <th className="thdos"><div className="RubricasTableHeader dos"><h1>Valor</h1></div></th>
-                             
                             </tr>
                         </thead>
                         <tbody>
@@ -98,20 +89,20 @@ function TablaRubricasProfe (props) {
                                 <tr key={criterio.id}>
                                     <td className="thleft">
                                         <div className="RubricasTableBody Left">
-                                            <Field 
-                                                Tipo="text" 
-                                                value={criterio.descripcion} 
-                                                name="descripcion" 
+                                            <Field
+                                                Tipo="text"
+                                                value={criterio.descripcion}
+                                                name="descripcion"
                                                 onChange={(e) => handleCriterioChange(criterio.id, 'descripcion', e.target.value)}
                                             />
                                         </div>
                                     </td>
                                     <td className="thright">
                                         <div className="RubricasTableBody Right">
-                                            <Field 
-                                                Tipo="Number" 
-                                                value={criterio.valor} 
-                                                name="valor" 
+                                            <Field
+                                                Tipo="Number"
+                                                value={criterio.valor}
+                                                name="valor"
                                                 onChange={(e) => handleCriterioChange(criterio.id, 'valor', e.target.value)}
                                             />
                                         </div>
@@ -134,20 +125,16 @@ function TablaRubricasProfe (props) {
                 </div>
             </div>
             <div>
-                  <PopUp open={open}
-                SetOpen={setOpen}
-                Advice={advice} 
-                Width={"100%"}
-                Button1="volver"
-               onClick1={popup}
-                
-            />
-                  </div>
+                <PopUp open={open}
+                    SetOpen={setOpen}
+                    Advice={advice}
+                    Width={"100%"}
+                    Button1="volver"
+                    onClick1={popup}
+                />
+            </div>
         </div>
-        
     );
 }
 
-export default TablaRubricasProfe;
-
-
+export default NuevaRubrica;
