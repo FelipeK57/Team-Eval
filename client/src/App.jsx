@@ -80,7 +80,7 @@ function App() {
         {/*Paginas Profesor*/}
         <Route path="/Profesor" element={<HomeProfesor />} />
         <Route path="/MiCuentaP" element={<MiCuentaP />} />
-        <Route path="/CursoP" element={<CursoP />} />
+        <Route path="/CursoP" element={<CursoP nombreProfe={Cookies.get("user")} />} />
         <Route path="/Rubricas" element={<RubricasProfe />} />
         <Route path="/TablaRubricasProfe" element={<TablaRubricasProfe />} />
         <Route path="/Grupos" element={<Grupos materia="Matematicas"/>} />

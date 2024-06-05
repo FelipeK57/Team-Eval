@@ -12,7 +12,7 @@ function InformesProfe() {
             <NavbarProfesor />
             <div className="cursi">
                 <h1>
-                    Informes de <b>{Cookies.get("nombre")}</b>
+                    Informes de <b>{Cookies.get("user")}</b>
                 </h1>
             </div>
             <div className="cardi">
