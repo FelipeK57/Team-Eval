@@ -41,9 +41,15 @@ import RubricasProfe from "./pages/RubricasProfe/RubricasProfe.jsx";
 import TablaRubricasProfe from "./pages/RubricasProfe/TablaRubricasProfe.jsx";
 import Grupos from "./pages/Grupos/Grupos";
 import SeleccionarRubrica from "./pages/RubricasProfe/SeleccionarRubrica.jsx";
+<<<<<<< HEAD
 import NuevaRubrica from "./pages/RubricasProfe/NuevaRubrica.jsx";
 import EvaluacionEstudiantes from "./pages/Estudiantes/EvaluacionEstudiantes.jsx";
 import SeleccionEvaluacion from "./pages/Estudiantes/SeleccionEvaluacion.jsx";
+=======
+import InformesProfe from "./pages/Informes/InformesProfe.jsx";
+import GruposInformesProfe from "./pages/Informes/GruposInformesProfe.jsx";
+import IntegrantesInformesProfe from "./pages/Informes/IntegrantesInformesProfe.jsx";
+>>>>>>> origin/Errores_cursos_profe
 function App() {
   return (
     <BrowserRouter>
@@ -80,12 +86,15 @@ function App() {
         {/*Paginas Profesor*/}
         <Route path="/Profesor" element={<HomeProfesor />} />
         <Route path="/MiCuentaP" element={<MiCuentaP />} />
-        <Route path="/CursoP" element={<CursoP />} />
+        <Route path="/CursoP" element={<CursoP nombreProfe={Cookies.get("user")} />} />
         <Route path="/Rubricas" element={<RubricasProfe />} />
         <Route path="/TablaRubricasProfe/:rubricaId" element={<TablaRubricasProfe />} />
         <Route path="/NuevaRubrica" element={<NuevaRubrica />} />
         <Route path="/Grupos" element={<Grupos materia="Matematicas"/>} />
         <Route path="/SeleccionarRubrica" element={<SeleccionarRubrica materia="Matematicas"/>} />
+        <Route path="/InformesProfe" element={<InformesProfe materia="Matematicas"/>} />
+        <Route path="/GruposInformesProfe" element={<GruposInformesProfe/>} />
+        <Route path="/IntegrantesInformesProfe" element={<IntegrantesInformesProfe/>} />
 
         <Route path="/Cursos" element={<CursosEstudiante />} />
         <Route path="/Curso" element={<Curso />} />

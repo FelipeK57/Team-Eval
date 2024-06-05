@@ -1,0 +1,105 @@
+.cardex3 {
+    display: flex;
+    min-width: 300px;
+    max-width: 400px;
+    min-height: 180px;
+    max-height: 500px;
+    background-color: rgb(51, 99, 150);
+    border-radius: 40px;
+    flex-direction: row;
+    margin-right:40px;
+    justify-content: end;
+}
+
+.line-horizonte {
+    display: flex;
+    width: 2px;
+    background-color: white;
+    height: 100%;
+    margin: 0 20px;
+}
+
+.cardex32 {
+    display: flex;
+    text-align: center;
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: #ffffff;
+    font-family: Mulish !important;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    width: 100%;
+}
+
+.cardex32 h1 {
+    flex-grow: 10;
+    min-width: 20%;
+    text-align: start;
+    font-family: Mulish !important;
+    padding: 0 0 0 20px;
+    align-self: center;
+    flex-wrap: nowrap;
+}
+
+.cardex32 button {
+    display: flex;
+    color: black;
+    border: none;
+    border-radius: 100%;
+    height: 3.5rem;
+    width: 3.5rem;
+    margin: auto;
+    cursor: pointer;
+    transition: 0.3s;
+    background-color: white;
+    margin: auto 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardex42 {
+    display: flex;
+    text-align: center;
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: #ffffff;
+    font-family: Mulish !important;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    width: 100%;
+
+}
+
+.cardex42 h1 {
+    flex-grow: 10;
+    width: 20%;
+    text-align: start;
+    font-family: Mulish !important;
+    padding: 0 0 0 20px;
+    align-self: center;
+    flex-wrap: nowrap;
+}
+
+.cardex42 button {
+    color: black;
+    border: none;
+    border-radius: 100%;
+    height: 3.5rem;
+    width: 3.5rem;
+    margin: auto;
+    cursor: pointer;
+    transition: 0.3s;
+    background-color: white;
+}
+
+.buttonsCursosProfeComponent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 20px 10px 0;
+}
+
+.NoCompleted {
+    background-color: rgb(15, 65, 118) !important;
+}
