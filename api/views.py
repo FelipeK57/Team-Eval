@@ -822,6 +822,16 @@ def guardarRubrica(request):
 
     return Response({"message": "Rúbrica creada correctamente"}, status=status.HTTP_201_CREATED)
 
+@api_view(['POST'])
+def cursos_profesor(request):
+    identificacion = request.data.get('identificacion')
+    profesor = Profesor.objects.get(identificacion=identificacion)
+    serializerpro = ProfesorSerializer(profesor)
+    cursos = Cursos.objects.filter(profesor__identificacion=identificacion)
+    serializer = CursosSerializer(cursos, many=True)
+    return Response({"cursos": serializer.data, "profesor": serializerpro.data},status=status.HTTP_200_OK)
+
+
 
     
 

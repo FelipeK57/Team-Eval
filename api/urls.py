@@ -72,7 +72,7 @@ urlpatterns = [
     re_path(r'^guardarRubrica/$', views.guardarRubrica),
     re_path(r'^rubricasAdmin/$', views.Rubricas_admin),
     re_path(r'^TablaRubricas/$', views.editar_predeterminada),
-    
+    re_path(r'^cursosProfesor/$', views.cursos_profesor),
     re_path(r'^obtener_evaluaciones/$', views.obtener_evaluaciones),
     re_path(r'^obtener_grupo_criterios/$', views.obtener_grupo_criterios),
     re_path(r'^realizar_calificacion/$', views.realizar_calificacion),
