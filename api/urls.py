@@ -66,9 +66,19 @@ urlpatterns = [
     re_path(r'^Estadocursos/$', views.editar_estado_Curso),
     re_path(r'^cursos_deshabilitado/$', views.cursosDes),
     re_path(r'^import_estudiantes/$', views.import_estudiantes),
+<<<<<<< HEAD
     re_path(r'^obtener_evaluaciones/$', views.obtener_evaluaciones),
     re_path(r'^obtener_grupo_criterios/$', views.obtener_grupo_criterios),
     re_path(r'^realizar_calificacion/$', views.realizar_calificacion),
+=======
+    re_path(r'^rubricasProfe/$', views.Rubricas_profe),
+    re_path(r'^obtenerCriterios/$', views.obtener_criterios),
+    re_path(r'^guardarCriterios/$', views.guardar_criterios),
+    re_path(r'^guardarRubrica/$', views.guardarRubrica),
+    re_path(r'^rubricasAdmin/$', views.Rubricas_admin),
+    re_path(r'^TablaRubricas/$', views.editar_predeterminada),
+    
+>>>>>>> origin/front_back_sebas
 ]
 
 

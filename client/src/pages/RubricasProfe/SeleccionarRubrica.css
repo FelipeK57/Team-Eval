@@ -1,0 +1,147 @@
+.SeleccionarRubricaContenedor{
+    display: flex;
+    position:relative;
+    margin: 15vh 0 0 0;
+    width: auto;
+    font-family: Mulish;
+    font-size: 1.5rem;
+    color: #000;
+    flex-direction: column;
+}
+
+.SeleccionarRubricaTitle{
+    display: flex;
+    margin: 0 0 0 0;
+    width: auto;
+    font-family: Mulish;
+    font-size: 1rem;
+    color: black;
+    margin-left: 1.5vw;
+    justify-content: flex-start;
+}
+
+.CursoSeleccionarRubrica{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.CursoSeleccionarRubrica b{
+    color: rgb(15, 65, 118);
+}
+
+.TitleSeleccionarRubrica{
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    font-size: 1.2rem;
+    text-decoration: none;
+    color: #000000;
+    font-family: Mulish !important;
+    top: 4vh;
+    left: 39vw;
+}
+
+.BoxRubricas{
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+    background-color: rgb(15, 65, 118);
+    margin: auto;
+    margin-top: 5vh;
+    border-radius: 25px;
+    padding: 0.5rem;
+    padding-left: 20px;
+    justify-content: space-between;
+    align-content: center;
+    color: white;
+    transition: all 0.3s;
+}
+
+.BoxRubricas h2{
+    color: white;
+    font-size: 1.5rem;
+}
+
+.BoxRubricas button{
+    border: none;
+    background-color: rgb(15, 65, 118);
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.ListaRubricas{
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    margin: auto;
+    border-radius: 0 0 25px 25px;
+    padding: 0.5rem;
+    padding-left: 20px;
+    justify-content: space-between;
+    align-content: center;
+    color: black;
+    background-color: white;
+    transition: all 0.3s;
+    max-height: 40vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+.Deployed{
+    border-radius: 25px 25px 0 0;
+}
+
+.HideListRubricas{
+    opacity: 0;
+    animation: show2 0.3s;
+    animation-fill-mode: forwards;
+}
+
+.ShowListRubricas{
+    opacity: 1;
+    animation: show 0.3s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes show{
+    0%{
+        transform: translateY(-50%) scaleY(0);
+    }
+    100%{
+        transform: translateY(0) scaleY(1);
+    }
+}
+
+@keyframes show2 {
+    0%{
+        transform: translateY(0) scaleY(1);
+    }
+    100%{
+        transform: translateY(-50%) scaleY(0);
+    }
+}
+
+.BotonSeleccionarRubrica{
+    display: flex;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    margin: 75vh 44vw;
+
+}
+
+.BotonSeleccionarRubrica button{
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    padding: 20px 50px;
+    width: auto;
+}
+
+.BotonSeleccionarRubrica button:hover{
+    transform: scale(1.1);
+}
+

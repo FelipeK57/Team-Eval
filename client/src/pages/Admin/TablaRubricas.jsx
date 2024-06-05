@@ -5,51 +5,178 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import Button from "../../components/Utilities/Button";
 import PropTypes from "prop-types";
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import PopUp from '../../components/Utilities/PopUp';
 
-function TablaRubricas (props){
+function TablaRubricas(props) {
+    const { rubricaId } = useParams();
+    const [rubrica, setRubrica] = useState({});
+    const [criterios, setCriterios] = useState([]);
+    const [criteriosEliminados, setCriteriosEliminados] = useState([]);
+    const [open, setOpen] = useState(false);
+    const [advice, setAdvice] = useState("");
+    const [escala, setEscala] = useState(0);
 
-    TablaRubricas.propTypes = {
-        Title: PropTypes.string.isRequired,
-        Nombre: PropTypes.string.isRequired
-    }
+    const popup = (e) => {
+        e.preventDefault();
+        setOpen(!open);
 
-    return(
+    };
+
+    const handleEscalaChange = (e) => {
+        setEscala(e.target.value);
+    };
+
+    useEffect(() => {
+        const fetchRubrica = async () => {
+            try {
+                const response = await axios.post(
+                    "http://localhost:8000/obtenerCriterios/", {
+                    id: rubricaId
+                }
+                );
+                setRubrica(response.data.rubrica);
+                setCriterios(response.data.criterios);
+            } catch (error) {
+                console.error("Error al obtener la rubrica", error);
+            }
+        };
+        fetchRubrica();
+    }, [rubricaId]);
+
+    useEffect(() => {
+        if (rubrica.escala !== undefined) {
+            setEscala(rubrica.escala);
+        }
+    }, [rubrica]);
+
+    const agregarCriterio = () => {
+        setCriterios([...criterios, { id: Date.now(), descripcion: "", valor: "" }]);
+    };
+
+    const eliminarCriterio = (id) => {
+        const criterioEliminado = criterios.find(criterio => criterio.id === id);
+        if (criterioEliminado) {
+            setCriteriosEliminados([...criteriosEliminados, criterioEliminado]);
+        }
+        setCriterios(criterios.filter(criterio => criterio.id !== id));
+    };
+
+    const handleCriterioChange = (id, field, value) => {
+        setCriterios(criterios.map(criterio =>
+            criterio.id === id ? { ...criterio, [field]: value } : criterio
+        ));
+    };
+
+    const guardarRubrica = async () => {
+        for (let critero of criterios) {
+            if (critero.valor > escala) {
+                setAdvice("los valores del criterio no pueden ser mayor a la escala");
+                setOpen(!open);
+                return;
+            }
+        }
+        try {
+            const response = await axios.post(
+                "http://localhost:8000/TablaRubricas/", {
+                id: rubricaId,
+                criterios: criterios,
+                criteriosEliminados: criteriosEliminados,
+                newEscala : escala
+            }
+            );
+            setAdvice("Rubrica guardada");
+            setOpen(!open);
+        } catch (error) {
+            setAdvice("Error al guardar la rubrica (Falta criterio o valor)");
+            setOpen(!open);
+        }
+    };
+
+    return (
         <div className="TablaRubricasContainer">
             <div className="NavBar">
-                <NoQuieroCrearMasNavbars />
+                <NoQuieroCrearMasNavbars/>
             </div>
             <div className="Rubricas">
                 <div className="TitleTablaRubricas">
-                    <h1>{props.Title}</h1>
+                    <h1>{rubrica.nombre}</h1>
+                    <div className="EscalaTitleTablaRubricas">
+                    <Field
+                            value={escala}
+                            CampoColor="black"
+                            Tipo="Number"
+                            onChange={handleEscalaChange}
+                        />
+                    </div>
                 </div>
                 <div className="TablaRubricas">
                     <table className="RubricasTable">
-                        <tr>
-                            <th className="thuno"><div className="RubricasTableHeader uno"><h1>{props.Nombre}</h1></div></th>
-                            <th className="thdos"><div className="RubricasTableHeader dos"><h1>Valor</h1></div></th>
-                        </tr>
-                        <tr>
-                            <td className="thleft"><div className="RubricasTableBody Left"><Field Tipo="text" name="name"/></div></td>
-                            <td className="thright"><div className="RubricasTableBody Right"><Field Tipo="Number" name="name"/></div></td>
-                        </tr>
-                        <tr>
-                            <td className="thleft"><div className="RubricasTableBody Left finalLeft"><Field Tipo="text" name="name"/></div></td>
-                            <td className="thright"><div className="RubricasTableBody Right finalRight"><Field Tipo="Number" name="name"/></div></td>
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th className="thuno"><div className="RubricasTableHeader uno"><h1>{rubrica.nombre}</h1></div></th>
+                                <th className="thdos"><div className="RubricasTableHeader dos"><h1>Valor</h1></div></th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {criterios.map(criterio => (
+                                <tr key={criterio.id}>
+                                    <td className="thleft">
+                                        <div className="RubricasTableBody Left">
+                                            <Field
+                                                Tipo="text"
+                                                value={criterio.descripcion}
+                                                name="descripcion"
+                                                
+                                                onChange={(e) => handleCriterioChange(criterio.id, 'descripcion', e.target.value)}
+                                            />
+                                        </div>
+                                    </td>
+                                    <td className="thright">
+                                        <div className="RubricasTableBody Right">
+                                            <Field
+                                                Tipo="Number"
+                                                value={criterio.valor}
+                                                name="valor"
+                                                onChange={(e) => handleCriterioChange(criterio.id, 'valor', e.target.value)}
+                                            />
+                                        </div>
+                                    </td>
+                                    <td className="ThActions">
+                                        <div className="DeleteButtonThActions">
+                                            <button className="DeleteButton" onClick={() => eliminarCriterio(criterio.id)}>
+                                                <DeleteIcon sx={{ fontSize: 35, color: "red" }} />
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
                     </table>
-                    <div className="ButtonTablaRubricas">
-                        <button className="DeleteButton"><DeleteIcon sx={{ fontSize: 35, color: "red" }} /></button>
-                    </div>
                 </div>
                 <div className="ButtonAgregarRubricas">
-                    <button><AddIcon/></button>
+                    <button onClick={agregarCriterio}><AddIcon /></button>
                 </div>
                 <div className="ButtonGuardarRubricas">
-                    <Button Boton="Guardar" color="rgb(15, 65, 118)" fontColor="white"/>
+                    <Button Boton="Guardar" color="rgb(15, 65, 118)" fontColor="white" onClick={guardarRubrica} />
                 </div>
             </div>
+            <div>
+                <PopUp open={open}
+                    SetOpen={setOpen}
+                    Advice={advice}
+                    Width={"100%"}
+                    Button1="volver"
+                    onClick1={popup}
+
+                />
+            </div>
         </div>
-    )
+
+    );
 }
 
 export default TablaRubricas;

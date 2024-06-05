@@ -12,6 +12,10 @@ from estudiantes.models import Estudiante
 from estudiantes.serializers import EstudianteSerializer
 from profesor.serializers import ProfesorSerializer
 from profesor.models import Profesor
+from rubrica.models import rubrica_Evaluacion
+from rubrica.serializers import rubrica_EvaluacionSerializer
+from criterio_evaluacion.models import criterio_Evaluacion
+from criterio_evaluacion.serializers import criterio_EvaluacionSerializer
 from django.contrib.auth import authenticate
 from django.http import QueryDict
 from cursos.serializer import CursosSerializer
@@ -574,6 +578,8 @@ def editar_estado_profesor(request):
     identificacion = request.data.get('identificacion')
     profesor = get_object_or_404(Profesor, identificacion=identificacion)
     new_estado = request.data.get('estado')
+    if (Cursos.objects.filter(profesor=profesor).exists()):
+        return Response({"error": "El profesor ya tiene cursos asignados"}, status=status.HTTP_400_BAD_REQUEST)
     profesor.estado = new_estado
     profesor.save()
     serializer = ProfesorSerializer(profesor)   
@@ -671,6 +677,152 @@ def editar_estado_Curso(request):
     curso.save()
     serializer = CursosSerializer(curso)  
     return Response({'curso': serializer.data}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])  
+def Rubricas_profe(request):
+    identificacion = request.data.get('identificacion')
+    profesor = get_object_or_404(Profesor, identificacion=identificacion)
+    username = profesor.user.username
+    rubricas = rubrica_Evaluacion.objects.filter(autor=username)
+
+    peredeterminada = rubrica_Evaluacion.objects.filter(autor="admin").first()
+    serializer_pre = rubrica_EvaluacionSerializer(peredeterminada)
+    
+    # Serializar cada rubrica individualmente
+    serialized_rubricas = []
+    for rubrica in rubricas:
+        serializer = rubrica_EvaluacionSerializer(rubrica)
+        serialized_rubricas.append(serializer.data)
+
+    return Response({'rubricas': serialized_rubricas, 'predeterminada': serializer_pre.data}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def obtener_criterios(request):
+    id = request.data.get('id')
+    rubrica = get_object_or_404(rubrica_Evaluacion, id=id)  
+
+    # Serializar la rubrica y los criterios asociados
+    rubrica_serializer = rubrica_EvaluacionSerializer(rubrica)
+    criterios_serializer = criterio_EvaluacionSerializer(rubrica.criterios.all(), many=True)
+
+    # Combinar la información de la rubrica y los criterios en un solo diccionario de respuesta
+    data = {
+        'rubrica': rubrica_serializer.data,
+        'criterios': criterios_serializer.data
+    }
+
+    return Response(data)
+
+@api_view(['POST'])
+def guardar_criterios(request):
+    id = request.data.get('id')
+    criterios = request.data.get('criterios')
+    criteriosEliminados = request.data.get('criteriosEliminados')
+    newEscala = request.data.get('newEscala')
+
+    rubrica = get_object_or_404(rubrica_Evaluacion, id=id)
+
+    if(newEscala != rubrica.escala):
+        rubrica.escala = newEscala
+
+    # Eliminar criterios
+    for criterio in criteriosEliminados:
+        criterio_obj = get_object_or_404(criterio_Evaluacion, id=criterio['id'])
+        criterio_obj.delete()
+
+    # Actualizar o crear criterios
+    for criterio in criterios:
+        if 'id' in criterio and criterio_Evaluacion.objects.filter(id=criterio['id']).exists():
+            criterio_obj = criterio_Evaluacion.objects.get(id=criterio['id'])
+            criterio_obj.descripcion = criterio['descripcion']
+            criterio_obj.valor = criterio['valor']
+            criterio_obj.save()
+        else:
+            new = criterio_Evaluacion.objects.create(
+                descripcion=criterio['descripcion'],
+                valor=criterio['valor'],
+            )
+            rubrica.criterios.add(new)
+
+    rubrica.save()
+
+    return Response({"message": "Criterios actualizados correctamente"}, status=status.HTTP_200_OK)
+@api_view(['GET'])
+def Rubricas_admin(request):
+    predeterminada = rubrica_Evaluacion.objects.filter(autor="admin").first()
+    
+    if predeterminada:
+        serializer_pre = rubrica_EvaluacionSerializer(predeterminada)
+        return Response({'predeterminada': serializer_pre.data}, status=status.HTTP_200_OK)
+    else:
+        return Response({'detail': 'No se encontró una rubrica predeterminada'}, status=status.HTTP_404_NOT_FOUND)
+    
+
+@api_view(['POST'])
+def editar_predeterminada(request):
+    id = request.data.get('id')
+    criterios = request.data.get('criterios')
+    criteriosEliminados = request.data.get('criteriosEliminados')
+    newEscala = request.data.get('newEscala')
+
+    rubrica = get_object_or_404(rubrica_Evaluacion, id=id)
+
+    if(newEscala != rubrica.escala):
+        rubrica.escala = newEscala
+
+    # Eliminar criterios
+    for criterio in criteriosEliminados:
+        criterio_obj = get_object_or_404(criterio_Evaluacion, id=criterio['id'])
+        criterio_obj.delete()
+
+    # Actualizar o crear criterios
+    for criterio in criterios:
+        if 'id' in criterio and criterio_Evaluacion.objects.filter(id=criterio['id']).exists():
+            criterio_obj = criterio_Evaluacion.objects.get(id=criterio['id'])
+            criterio_obj.descripcion = criterio['descripcion']
+            criterio_obj.valor = criterio['valor']
+            criterio_obj.save()
+        else:
+            new = criterio_Evaluacion.objects.create(
+                descripcion=criterio['descripcion'],
+                valor=criterio['valor'],
+            )
+            rubrica.criterios.add(new)
+
+    rubrica.save()
+
+    return Response({"message": "Criterios actualizados correctamente"}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def guardarRubrica(request):
+    rubrica_data = request.data.get('rubrica')
+    criterios_data = request.data.get('criterios')
+    identificacion = request.data.get('identificacion')
+    escala = request.data.get('escala')
+
+    profesor = Profesor.objects.get(identificacion=identificacion)
+
+    username = profesor.user.username
+
+    # Crear la nueva rúbrica
+    nueva_rubrica = rubrica_Evaluacion.objects.create(nombre=rubrica_data['nombre'], escala=escala)
+
+    nueva_rubrica.autor = username
+
+
+    # Crear los criterios asociados
+    for criterio in criterios_data:
+        new = criterio_Evaluacion.objects.create(
+            descripcion=criterio['descripcion'],
+            valor=criterio['valor'],
+        )
+        nueva_rubrica.criterios.add(new)
+
+    nueva_rubrica.save()
+
+    return Response({"message": "Rúbrica creada correctamente"}, status=status.HTTP_201_CREATED)
+
+
     
 
 

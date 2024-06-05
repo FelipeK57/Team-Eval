@@ -16,8 +16,6 @@ function ListEstDes(props) {
                 <div className='LeftListEstDes'>
                     <div className="NombreListEstDes">
                         <h2>{props.Nombre1}</h2>
-                    </div>
-                    <div className="ApellidoListEstDes">
                         <h2>{props.Apellido1}</h2>
                     </div>
                     <div className='CodeListEstDes'>
