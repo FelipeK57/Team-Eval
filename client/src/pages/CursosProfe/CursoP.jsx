@@ -42,7 +42,7 @@ function CursosProfe(props) {
                 <CursosProfeComponent Estado={false}
                     nombreCurso="Simulacion y computacion numerica"
                     configurarCursos="/grupos" />
-                <CursosProfeComponent Estado={false}
+                <CursosProfeComponent Estado={true}
                     nombreCurso="Desarrollo de software 2"
                     configurarCursos="/grupos" />
             </div>

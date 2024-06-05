@@ -7,6 +7,7 @@ function Button(props) {
     fontColor: PropTypes.string,
     color: PropTypes.string,
     onClick: PropTypes.func,
+    icon: PropTypes.string,
   };
 
   return (
@@ -15,7 +16,7 @@ function Button(props) {
       <button
         onClick={props.onClick}style={{backgroundColor: `${props.color ? props.color : "white" }`, color: `${props.fontColor? props.fontColor : "black"}`}}
       >
-        {props.Boton}
+        {props.Boton} {props.icon ? props.icon : null}
       </button>
     </div>
   );
