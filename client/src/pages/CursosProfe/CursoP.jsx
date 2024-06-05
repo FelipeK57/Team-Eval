@@ -46,18 +46,6 @@ function CursosProfe(props) {
                 <CursosProfeComponent Estado={false}
                     nombreCurso="Simulacion y computacion numerica"
                     configurarCursos={ConfigCursos} />
-                <CursosProfeComponent Estado={false}
-                    nombreCurso="Programacion 1"
-                    configurarCursos={ConfigCursos} />
-                <CursosProfeComponent Estado={true}
-                    nombreCurso="Programacion 2"
-                    configurarCursos={ConfigCursos} />
-                <CursosProfeComponent Estado={false}
-                    nombreCurso="Programacion 3"
-                    configurarCursos={ConfigCursos} />
-                <CursosProfeComponent Estado={true}
-                    nombreCurso="Programacion 4"
-                    configurarCursos={ConfigCursos} />
             </div>
         </div>
     );
