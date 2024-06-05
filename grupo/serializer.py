@@ -8,7 +8,7 @@ class EstudianteSerializer(serializers.ModelSerializer):
         fields = ['id', 'user', 'codigo', 'estado']
 
 class GrupoSerializer(serializers.ModelSerializer):
-    estudiantes = EstudianteSerializer(read_only=True, many=True)
+    estudiantes = EstudianteSerializer(many=True)
     class Meta:
         model = Grupo
         fields = "__all__"

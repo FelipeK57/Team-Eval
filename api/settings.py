@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'administrador',
     'informes',
     'codigos_seguridad',
+    'informesindividuales'
 ]
 
 MIDDLEWARE = [

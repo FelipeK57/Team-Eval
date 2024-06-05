@@ -64,13 +64,14 @@ function EvaluacionEstudiantes() {
           codigo_evaluador: Cookies.get("codigo"),
           id: infoEvaluacion,
           codigo_evaluado: selectedEst,
+          comentarios: comentarios,
           criterios: dataCr,
-          comentarios: comentarios
         }
       );
       alert("evaluacion guardada exitosamente")
+      console.log(response.data)
     } catch (error) {
-      console.log(error)
+      alert("ya ha evaluado a este estudiante antes")
     }
   };
 

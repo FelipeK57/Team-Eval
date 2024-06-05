@@ -32,6 +32,8 @@ from criterio_evaluacion.serializers import criterio_EvaluacionSerializer
 from rubrica.models import rubrica_Evaluacion
 from rubrica.serializers import rubrica_EvaluacionSerializer
 from evaluacion.models import evaluacion
+from informesindividuales.models import InformesIndividuales
+from informesindividuales.serializer import InformesIndividualesSerializer
 
 @api_view(['POST'])
 def login(request):
@@ -77,8 +79,6 @@ def login(request):
     )
     return response
 
-
-
 @api_view(['POST'])
 def login_adminte(request):
     codigo = request.data.get('codigo')
@@ -121,6 +121,28 @@ def obtener_grupo_criterios(request):
     serializer_cr = criterio_EvaluacionSerializer(criterios, many=True)
 
     return Response({"estudiantes": serializer.data, "criterios": serializer_cr.data}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def realizar_calificacion(request):
+    codigo_evaluado=request.data.get('codigo_evaluado')
+    codigo_evaluador=request.data.get('codigo_evaluador')
+    id_evaluacion=request.data.get('id')
+    comentarios = request.data.get('comentarios')
+    criterios = request.data.get('criterios')
+
+    evaluaciones_previas = InformesIndividuales.objects.filter(
+        codigo_evaluador=codigo_evaluador,
+        codigo_evaluado=codigo_evaluado,
+        id_evaluacion=id_evaluacion
+    )
+    
+    if evaluaciones_previas.exists():
+        return Response({"error": "El estudiante ya ha sido calificado en esta evaluación"}, status=status.HTTP_400_BAD_REQUEST)
+
+    informe_individual = InformesIndividuales.objects.create(codigo_evaluado=codigo_evaluado, codigo_evaluador=codigo_evaluador, id_evaluacion=id_evaluacion, comentarios=comentarios, criterios=criterios)
+    serializer = InformesIndividualesSerializer(informe_individual)
+
+    return Response({"Mensaje": "Calificacion realizada con exito", "InformeHecho": serializer.data}, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 def import_cursos(request):

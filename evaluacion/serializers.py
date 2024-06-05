@@ -8,7 +8,7 @@ class GrupoSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class evaluacionSerializer(serializers.ModelSerializer):
-    grupo = GrupoSerializer(read_only=True, many=True)
+    grupo = GrupoSerializer(many=True)
     class Meta:
         model = evaluacion
         fields = "__all__"
