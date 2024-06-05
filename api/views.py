@@ -79,7 +79,7 @@ def login(request):
         httponly=False,
         secure=False,   
         samesite='Lax',  # O 'Strict' según tus necesidades
-        max_age=3600  # Tiempo de expiración en segundos
+        max_age=36000  # Tiempo de expiración en segundos
     )
     return response
 
@@ -101,7 +101,7 @@ def login_adminte(request):
         httponly=False,
         secure=False,   
         samesite='Lax',  # O 'Strict' según tus necesidades
-        max_age=3600  # Tiempo de expiración en segundos
+        max_age=36000  # Tiempo de expiración en segundos
     )
     return response
 
@@ -427,10 +427,11 @@ def nuevo_profesor(request):
    
    
     primera_letra_nombre = nombre[0].upper()
+    primera_letra_apellido = apellido[0].upper()
    
-    contraseña = primera_letra_nombre + identificacion
+    contraseña = primera_letra_nombre + identificacion + primera_letra_apellido
 
-    username = nombre + apellido
+    username = nombre + apellido + identificacion
     
     user = User.objects.create_user(username=username, email=email, password=contraseña, first_name=nombre, last_name=apellido)
     
@@ -452,8 +453,7 @@ def nuevo_curso(request):
     if Cursos.objects.filter(codigo=codigo).exists():
         return Response({"error": "Ya existe un curso con el código proporcionado"}, status=status.HTTP_400_BAD_REQUEST)
     
-    user = User.objects.filter( username=profe ).first()
-    profesor = Profesor.objects.get(user=user)
+    profesor = Profesor.objects.get(id = profe)
 
     curso = Cursos.objects.create(nombre=nombre, codigo=codigo, periodoAcademico=periodo, profesor=profesor)    
     return Response({"success": "Curso creado exitosamente"}, status=status.HTTP_201_CREATED)

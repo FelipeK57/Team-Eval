@@ -7,6 +7,8 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import PopUp from '../../components/Utilities/PopUp';
+import { useNavigate } from 'react-router-dom';
+import Cookies from "js-cookie";
 
 
 function TablaRubricasProfe(props) {
@@ -18,6 +20,8 @@ function TablaRubricasProfe(props) {
     const [advice, setAdvice] = useState("");
     const [escala, setEscala] = useState(0);
 
+    const navigate = useNavigate();
+
     const popup = (e) => {
         e.preventDefault();
         setOpen(!open);
@@ -27,6 +31,22 @@ function TablaRubricasProfe(props) {
     const handleEscalaChange = (e) => {
         setEscala(e.target.value);
     };
+
+    useEffect(() => {
+        const verificarSesion = () => {
+          const user = Cookies.get("user");
+          const token = Cookies.get("sessionid");
+    
+          if ( user &&  token) {
+            console.log("El usuario ha iniciado sesión");
+          } else {
+            console.log("El usuario no ha iniciado sesión.");
+            navigate("/login");
+          }
+        };
+    
+        verificarSesion();
+      }, [navigate]);
 
     useEffect(() => {
         const fetchRubrica = async () => {

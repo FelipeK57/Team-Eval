@@ -33,7 +33,8 @@ function EditarCurso() {
   const popup = (e) => {
     e.preventDefault();
     setOpen(false);
-    window.location.reload(); // Actualiza la página después de cerrar el popup
+    navigate("/CursosAdmin");
+    
   };
 
   const handleClick = async (e) => {
@@ -50,6 +51,7 @@ function EditarCurso() {
       Cookies.remove("nombreCurso");
       Cookies.remove("codigoCurso");
       Cookies.remove("periodoCurso");
+      
     } catch (error) {
       setAdvice(error.response?.data?.error || "Error al editar el curso");
       setOpen(true);

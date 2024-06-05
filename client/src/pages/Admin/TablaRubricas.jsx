@@ -77,6 +77,11 @@ function TablaRubricas(props) {
                 setOpen(!open);
                 return;
             }
+            if(critero.valor < 0){
+                setAdvice("los valores del criterio no pueden ser negativos");
+                setOpen(!open);
+                return;
+            }
         }
         try {
             const response = await axios.post(

@@ -37,16 +37,13 @@ import CursosDes from "./pages/CursosDes/CursosDes";
 import ProfeDes from "./pages/ProfeDes/ProfeDes";
 import EditarStudent from "./pages/CursosProfe/EditarStudent.jsx";
 import ImportarEstudiantes from "./pages/Admin/ImportarEstudiantes.jsx";
-<<<<<<< HEAD
 import RubricasProfe from "./pages/RubricasProfe/RubricasProfe.jsx";
 import TablaRubricasProfe from "./pages/RubricasProfe/TablaRubricasProfe.jsx";
 import Grupos from "./pages/Grupos/Grupos";
 import SeleccionarRubrica from "./pages/RubricasProfe/SeleccionarRubrica.jsx";
 import NuevaRubrica from "./pages/RubricasProfe/NuevaRubrica.jsx";
-=======
 import EvaluacionEstudiantes from "./pages/Estudiantes/EvaluacionEstudiantes.jsx";
 import SeleccionEvaluacion from "./pages/Estudiantes/SeleccionEvaluacion.jsx";
->>>>>>> origin/evaluacion
 function App() {
   return (
     <BrowserRouter>
@@ -113,15 +110,12 @@ function App() {
         <Route path="/CursosDes" element={<CursosDes />} />
         <Route path="/ProfeDes" element={<ProfeDes />} />
         <Route path="/ImportarEstudiantes" element={<ImportarEstudiantes />} />
-<<<<<<< HEAD
   
 
         
-=======
 
         <Route path="/Evaluacion" element={<EvaluacionEstudiantes />} />
         <Route path="/SeleccionEvaluacion" element={<SeleccionEvaluacion />} />
->>>>>>> origin/evaluacion
       </Routes>
     </BrowserRouter>
   );
