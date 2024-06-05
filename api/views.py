@@ -647,8 +647,12 @@ def guardar_criterios(request):
     id = request.data.get('id')
     criterios = request.data.get('criterios')
     criteriosEliminados = request.data.get('criteriosEliminados')
+    newEscala = request.data.get('newEscala')
 
     rubrica = get_object_or_404(rubrica_Evaluacion, id=id)
+
+    if(newEscala != rubrica.escala):
+        rubrica.escala = newEscala
 
     # Eliminar criterios
     for criterio in criteriosEliminados:
@@ -678,15 +682,17 @@ def guardarRubrica(request):
     rubrica_data = request.data.get('rubrica')
     criterios_data = request.data.get('criterios')
     identificacion = request.data.get('identificacion')
+    escala = request.data.get('escala')
 
     profesor = Profesor.objects.get(identificacion=identificacion)
 
     username = profesor.user.username
 
     # Crear la nueva rúbrica
-    nueva_rubrica = rubrica_Evaluacion.objects.create(nombre=rubrica_data['nombre'])
+    nueva_rubrica = rubrica_Evaluacion.objects.create(nombre=rubrica_data['nombre'], escala=escala)
 
     nueva_rubrica.autor = username
+
 
     # Crear los criterios asociados
     for criterio in criterios_data:
