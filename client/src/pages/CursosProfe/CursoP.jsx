@@ -1,42 +1,20 @@
 import "./CursoP.css";
 import NavbarProfesor from "../../components/NavbarProfesor";
-import SettingsIcon from '@mui/icons-material/Settings';
 import AddIcon from '@mui/icons-material/Add';
-import GroupsIcon from '@mui/icons-material/Groups';
 import { useNavigate } from 'react-router-dom';
 import EditNoteIcon from '@mui/icons-material/EditNote';
-import { useEffect, useState } from "react";  
-import axios from "axios";
-import Cookies from "js-cookie";
+import PropTypes from "prop-types";
+import CursosProfeComponent from "../../components/CursosProfeComponent.jsx";
 
-function CursosProfe() {
-    const [profesor, setProfesor] = useState({});
-    const [cursos, setCursos] = useState([]);
+function CursosProfe(props) {
 
-    const navigate = useNavigate();
-
-    const Rubricas = () => {
-        navigate("/Rubricas");
+    CursosProfe.propTypes = {
+        nombreProfe: PropTypes.string
     }
 
-    useEffect(() => {
-        const fetchRubrica = async () => {
-            try {
-                const response = await axios.post(
-                    "http://localhost:8000/cursos_profe/", 
-                    { identificacion: Cookies.get("identificacion") }
-                );
-                setProfesor(response.data.profesor);
-                setCursos(response.data.cursos);
-            } catch (error) {
-                console.error("Error al obtener la rubrica", error);
-            }
-        };
-        fetchRubrica();
-    }, []);
-
-    const ConfigCursos = () => {
-        navigate("/Grupos");
+    const navigate = useNavigate();
+    const Rubricas = () => {
+        navigate("/Rubricas");
     }
 
     return (
@@ -56,26 +34,17 @@ function CursosProfe() {
                 </button>
             </div>
             <div className="linea-horizontal"></div>
-            {profesor.user && (
-                <div className="corsel">
-                    <h1>Cursos de <b>{profesor.user.username}</b></h1>
-                </div>
-            )}
-            <div className="cardex4">
-                {cursos.map((curso) => (
-                    <div key={curso.id} className="cardex42">
-                        <h1>{curso.nombre}</h1>
-                        <p>Código: {curso.codigo}</p>
-                        <p>Periodo Académico: {curso.periodoAcademico}</p>
-                        <button className="button1" onClick={ConfigCursos}>
-                            <SettingsIcon sx={{ fontSize: 43 }} />
-                        </button>
-                        <button className="button2">
-                            <GroupsIcon sx={{ fontSize: 43 }} />
-                        </button>
-                    </div>
-                ))}
-                <div className="line-horizonte"></div>
+            <div className="corsel"><h1>Cursos de <b>{props.nombreProfe}</b></h1></div>
+            <div className="ListaCursosHomeProfe">
+                <CursosProfeComponent Estado={true}
+                    nombreCurso="Desarrollo de software 1"
+                    configurarCursos="/grupos" />
+                <CursosProfeComponent Estado={false}
+                    nombreCurso="Simulacion y computacion numerica"
+                    configurarCursos="/grupos" />
+                <CursosProfeComponent Estado={true}
+                    nombreCurso="Desarrollo de software 2"
+                    configurarCursos="/grupos" />
             </div>
         </div>
     );
