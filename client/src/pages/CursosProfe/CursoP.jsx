@@ -16,7 +16,7 @@ function CursosProfe(props) {
     }
 
     const [cursos, setCursos] = useState([]);   
-    const [profesor, setProfesor] = useState({});
+    const [profesor, setProfesor] = useState(null);
 
     useEffect(() => {
         const fetchRubrica = async () => {
@@ -34,13 +34,15 @@ function CursosProfe(props) {
         fetchRubrica();
     }, []);
 
-    const ConfigCursos = () => {
-        navigate("/Grupos");
-    }
-
     const navigate = useNavigate();
+
     const Rubricas = () => {
         navigate("/Rubricas");
+    }
+
+
+    const ConfigCursos = (cursoId) => {
+        navigate(`/Grupos/${cursoId}`);
     }
 
     return (
@@ -60,14 +62,18 @@ function CursosProfe(props) {
                 </button>
             </div>
             <div className="linea-horizontal"></div>
-            <div className="corsel"><h1>Cursos de <b>{props.nombreProfe}</b></h1></div>
+            {profesor && (
+                <div className="corsel">
+                    <h1>Cursos de <b>{profesor.user?.first_name}</b></h1>
+                </div>
+            )}
             <div className="ListaCursosHomeProfe">
                 {cursos.map((curso) => (
                     <CursosProfeComponent
                         key={curso.id}
                         Estado={curso.estado}
                         nombreCurso={curso.nombre}
-                        configurarCursos="/grupos"
+                        configurarCursos={() => ConfigCursos(curso.id)}
                     />
                 ))}
             </div>

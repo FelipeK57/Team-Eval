@@ -831,6 +831,30 @@ def cursos_profesor(request):
     serializer = CursosSerializer(cursos, many=True)
     return Response({"cursos": serializer.data, "profesor": serializerpro.data},status=status.HTTP_200_OK)
 
+@api_view(['POST'])
+def grupos_cursos(request):
+    id = request.data.get('id') 
+    curso = Cursos.objects.get(id=id)
+    grupos = []
+    for evaluacion in curso.evaluaciones.all():
+        grupos.extend(evaluacion.grupo.all())
+    
+    serializer = GrupoSerializer(grupos, many=True)
+    return Response({"grupos": serializer.data},status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def Estudiantes_grupos(request):
+    id_grupo = request.data.get('id') 
+    try:
+        grupo = Grupo.objects.get(id=id_grupo)
+    except Grupo.DoesNotExist:
+        return Response({"error": "El grupo no existe."}, status=status.HTTP_404_NOT_FOUND)
+    
+    estudiantes_grupo = grupo.estudiantes.all()
+    serializer = EstudianteSerializer(estudiantes_grupo, many=True)
+    
+    return Response({"estudiantes": serializer.data}, status=status.HTTP_200_OK)
+
 
 
     

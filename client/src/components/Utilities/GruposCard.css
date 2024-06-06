@@ -10,18 +10,18 @@
 .header {
     background-color: #004080;
     color: white;
-    padding: 1px;
-    font-size: 0.9rem;
+    padding: 10px; /* Aumentado el padding para mejor presentación */
+    font-size: 1.2rem; /* Ajustado el tamaño de fuente */
     text-align: center;
-    font-family: Mulish !important;
-
+    font-family: 'Mulish', sans-serif; /* Asegurando la familia de fuente correcta */
 }
 
 .content {
     display: flex;
+    flex-direction: column; /* Asegura que los elementos estén en columna */
     padding: 10px;
-    font-family: Mulish !important;
-    font-size: 0.8rem;
+    font-family: 'Mulish', sans-serif;
+    font-size: 0.9rem;
     margin-left: 15px;
 }
 
@@ -55,4 +55,11 @@
 
 .botonsillo:hover {
     transform: scale(1.1);
+}
+
+.content .estudiante h1 {
+    flex-grow: 1;
+    margin: 0;
+    color: black;
+    font-size: 1.5rem; /* Ajustado el tamaño de fuente */
 }
