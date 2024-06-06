@@ -39,6 +39,9 @@ from evaluacion.models import evaluacion
 from informesindividuales.models import InformesIndividuales
 from informesindividuales.serializer import InformesIndividualesSerializer
 
+class ImportarCursosException(Exception):
+    pass
+
 @api_view(['POST'])
 def login(request):
     codigo = request.data.get('codigo')
@@ -169,9 +172,14 @@ def realizar_calificacion(request):
 @api_view(['POST'])
 def import_cursos(request):
     admin = get_object_or_404(administrador, codigo='5775')
-    admin.importar_cursos(request.FILES['file'])
-    message = admin.importar_cursos(request.FILES['file'])
-    return Response({"message": str(message)},status=status.HTTP_200_OK)
+    
+    try:
+        message = admin.importar_cursos(request.FILES['file'])
+        return Response({"message": str(message)}, status=status.HTTP_200_OK)
+    except ImportarCursosException as e:
+        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        return Response({"error": "Error inesperado: " + str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['POST'])
 def import_estudiantes(request):

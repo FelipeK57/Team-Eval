@@ -5,10 +5,15 @@ from estudiantes.models import Estudiante
 from profesor.models import Profesor
 from openpyxl import load_workbook
 from django.shortcuts import get_object_or_404
+from django.core.exceptions import ValidationError
+
+class ImportarCursosException(Exception):
+    pass
 # Create your models here.
 class administrador(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     codigo = models.PositiveBigIntegerField(null=True)
+
 
     def importar_cursos(self, file):
         wb = load_workbook(file)
@@ -21,7 +26,7 @@ class administrador(models.Model):
         curso_periodo = hoja['F2'].value
         
         if(curso_codigo == celda_nula or curso_nombre == celda_nula or curso_periodo == celda_nula):
-            return "Campos de cursos vacios"
+            raise ImportarCursosException("Campos de cursos vacíos")
         
         profesor_identificacion = hoja['B3'].value
         profesor_nombre = hoja['C3'].value
@@ -29,7 +34,10 @@ class administrador(models.Model):
         profesor_email = hoja['E3'].value
         
         if(profesor_apellido == celda_nula or profesor_nombre == celda_nula or profesor_email == celda_nula or profesor_identificacion == celda_nula):
-            return "Campos de profesor vacios"
+            raise ImportarCursosException("Campos de profesor vacios")
+
+        if(Cursos.objects.filter(codigo=curso_codigo).exists()):
+            raise ImportarCursosException("El curso ya existe")
 
         username_p = profesor_nombre + ' ' + profesor_apellido
         
@@ -44,9 +52,7 @@ class administrador(models.Model):
         if creado:
             nuevo_profesor.save()
         
-        nuevo_curso, creado = Cursos.objects.get_or_create(nombre=curso_nombre, codigo=curso_codigo, estado=True, periodoAcademico=curso_periodo, profesor=nuevo_profesor)
-        if creado:
-            nuevo_curso.save()
+        nuevo_curso = Cursos.objects.create(nombre=curso_nombre, codigo=curso_codigo, estado=True, periodoAcademico=curso_periodo, profesor=nuevo_profesor)
 
         for fila in hoja.iter_rows(min_row=4, values_only=True):
             estudiante_codigo = fila[0]
@@ -58,7 +64,7 @@ class administrador(models.Model):
                 return 'Importe realizado'
             
             if(estudiante_apellido == celda_nula or estudiante_codigo == celda_nula or estudiante_email == celda_nula or estudiante_nombre == celda_nula):
-                return "Campos de estudiantes vacios"
+                raise ImportarCursosException("Campos de estudiantes vacios")
             
             username_e = estudiante_nombre + ' ' + estudiante_apellido
             
