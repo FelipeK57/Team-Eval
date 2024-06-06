@@ -78,6 +78,7 @@ urlpatterns = [
     re_path(r'^realizar_calificacion/$', views.realizar_calificacion),
     re_path(r'^grupos_curso/$', views.grupos_cursos),
     re_path(r'^estudiantes_grupos/$', views.Estudiantes_grupos),
+    re_path(r'^estudiantes_sin_grupo/$', views.estudiantes_singrupo),
 ]
 
 

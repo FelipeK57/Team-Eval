@@ -17,6 +17,7 @@ function Grupos(props) {
     const [cursos, setCursos] = useState([]);   
     const [profesor, setProfesor] = useState(null);
     const [estudiantes, setEstudiantes] = useState([]);
+    const [estudiantes_sin_grupo, setEstudiantes_sin_grupo] = useState([]);
 
     Grupos.propTypes = {
         materia: PropTypes.string.isRequired
@@ -34,13 +35,11 @@ function Grupos(props) {
                 "http://localhost:8000/estudiantes_grupos/", 
                 { id : id}
             );
-            setEstudiantes(response.data.estudiantes);
+            setEstudiantes(Array.isArray(response.data.estudiantes) ? response.data.estudiantes : []);
         } catch (error) {
             console.error("Error al obtener los estudiantes  ", error);
         }
     };
-    
-
 
     useEffect(() => {
         const fetchRubrica = async () => {
@@ -58,6 +57,23 @@ function Grupos(props) {
         fetchRubrica();
     }, []);
 
+    
+
+    useEffect(() => {
+        const fetchestudiantes= async () => {
+            try {
+                const response = await axios.post(
+                    "http://localhost:8000/estudiantes_sin_grupo/", 
+                    { id : cursoId  }
+                );
+                setEstudiantes_sin_grupo(response.data.estudiantes);
+            } catch (error) {
+                console.error("Error al obtener los estudiantes  ", error);
+            }
+        };
+        fetchestudiantes();
+    }, []);
+
 
 
     return (
@@ -72,7 +88,7 @@ function Grupos(props) {
             <GruposCard1 id = {cursoId} onSelectTeam={handleSelectdTeam}  />
             </div>
             <div className="lel"> 
-            <GruposCard3 estudiante="Miguel Angulo" />
+            <GruposCard3 estudiantes={estudiantes_sin_grupo} />
             </div>
             <div className="conio"> 
             <Button2 Boton2="Guardar Cambios" color="rgb(15, 65, 118)" fontColor="white" onClick={SeleccionarRubrica}  />

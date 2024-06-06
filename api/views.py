@@ -855,6 +855,29 @@ def Estudiantes_grupos(request):
     
     return Response({"estudiantes": serializer.data}, status=status.HTTP_200_OK)
 
+@api_view(['POST'])
+def estudiantes_singrupo(request):
+    id_curso = request.data.get('id')
+    curso = Cursos.objects.get(id=id_curso)
+    
+    # Todos los estudiantes del curso
+    est_curso = set(curso.estudiantes.all())
+    
+    # Todos los estudiantes en grupos del curso
+    est_en_grupo = set()
+    for evaluacion in curso.evaluaciones.all():
+        for grupo in evaluacion.grupo.all():
+            est_en_grupo.update(grupo.estudiantes.all())
+    
+    # Estudiantes sin grupo
+    est_sin_grupo = est_curso - est_en_grupo
+
+    serializer = EstudianteSerializer(est_sin_grupo, many=True)
+    return Response({"estudiantes": serializer.data}, status=status.HTTP_200_OK)
+
+    
+    
+
 
 
     
