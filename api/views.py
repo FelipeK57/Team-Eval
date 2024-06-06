@@ -626,8 +626,9 @@ def editar_Student(request):
 def editar_curso(request):
     nombre = request.data.get('nombre')
     codigo = request.data.get('codigo')
-    newCodigo = request.data.get('newCodigo')  # Asegúrate de que esto coincide con lo que envías desde el frontend
+    newCodigo = request.data.get('newCodigo')
     periodo = request.data.get('periodo')
+    profe_id = request.data.get('profe')
 
     curso = get_object_or_404(Cursos, codigo=codigo)
     
@@ -648,11 +649,23 @@ def editar_curso(request):
         curso.periodoAcademico = periodo
         changes_made = True
 
+    if profe_id:
+        profesor = get_object_or_404(Profesor, id=profe_id)
+        curso.profesor = profesor
+        changes_made = True
+
     if changes_made:
         curso.save()
         return Response({"message": "Datos del curso editados exitosamente"}, status=status.HTTP_200_OK)
     else:
         return Response({"error": "No se proporcionaron datos para editar"}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def listar_profesores(request):
+    profesores = Profesor.objects.all()
+    data = [{"id": prof.id, "nombre": prof.nombre, "apellido": prof.apellido} for prof in profesores]
+    return Response({"profesores": data}, status=status.HTTP_200_OK)
+
     
 
 @api_view(['GET'])

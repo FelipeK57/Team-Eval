@@ -10,9 +10,12 @@ function EditarCurso() {
   const [cursoNombre, setCursoNombre] = useState(Cookies.get("nombreCurso"));
   const [cursoCodigo, setCursoCodigo] = useState(Cookies.get("codigoCurso"));
   const [periodo, setPeriodo] = useState(Cookies.get("periodoCurso"));
+  const [profesor, setProfesor] = useState(Cookies.get("profesor"));
   const [open, setOpen] = useState(false);
   const [advice, setAdvice] = useState("");
   const navigate = useNavigate();
+
+  console.log("profesor del curso:", profesor);
 
   const importarE = (e) => {
     navigate("/ImportarEstudiantes");
@@ -26,7 +29,7 @@ function EditarCurso() {
     setCursoCodigo(e.target.value);
   };
 
-  const handlePeriodoChange = (e) => {
+  const handlesetPeriodo = (e) => {
     setPeriodo(e.target.value);
   };
 
@@ -34,7 +37,7 @@ function EditarCurso() {
     e.preventDefault();
     setOpen(false);
     navigate("/CursosAdmin");
-    
+
   };
 
   const handleClick = async (e) => {
@@ -45,13 +48,14 @@ function EditarCurso() {
         nombre: cursoNombre,
         newCodigo: cursoCodigo,
         periodo: periodo,
+        profe: Cookies.get("profesor_id"),
       });
       setAdvice("Curso editado con éxito");
       setOpen(true);
       Cookies.remove("nombreCurso");
       Cookies.remove("codigoCurso");
       Cookies.remove("periodoCurso");
-      
+
     } catch (error) {
       setAdvice(error.response?.data?.error || "Error al editar el curso");
       setOpen(true);
@@ -62,24 +66,29 @@ function EditarCurso() {
     <div className="Contenedor">
       <NoQuieroCrearMasNavbars />
       <CardForm
-        Title="Editar curso"
+        Title="Editar Curso"
         Label1="Nombre"
         Field1=""
         valueField1={cursoNombre}
         onChangeField1={handleNombreChange}
         Label2="Codigo"
         type2="text"
-        Field2=""
         valueField2={cursoCodigo}
         onChangeField2={handleCodigoChange}
-        Label3="Periodo"
+        Field2=""
+        Label3="Profesor"
         type3="text"
+        valueField3={profesor}
+        onChangeField3={handlesetPeriodo}
         Field3=""
-        valueField3={periodo}
-        onChangeField3={handlePeriodoChange}
         onClick={handleClick}
-        redirect={importarE}
-        Btn2={true}
+        Combo={true}
+        value={profesor}
+        Label4="Periodo"
+        type4="text"
+        valueField4={periodo}
+        onChangeField4={handlesetPeriodo}
+        Field4=""
       />
       <PopUp
         open={open}

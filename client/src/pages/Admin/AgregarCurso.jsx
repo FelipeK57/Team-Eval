@@ -56,7 +56,7 @@ function AgregarCurso() {
         periodo: Periodo,
         profe: Cookies.get("profesor_id"),
       });
-      console.log(response.data);
+      console.log(Periodo);
       setAdvice("Curso agregado con exito");
       popup(e);
       Cookies.remove("profesor_id");

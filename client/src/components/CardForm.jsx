@@ -22,6 +22,11 @@ function CardForm(props) {
           name: `${profesor.user.first_name} ${profesor.user.last_name}`
         }));
         setProfesores(profesoresData);
+        const profesorId = Cookies.get("profesor_id");
+        if (profesorId) {
+          const selected = profesoresData.find(prof => prof.id === parseInt(profesorId));
+          setSelectedProfesor(selected);
+        }
       } catch (error) {
         console.error("Error al obtener los profesores:", error);
       }
@@ -37,6 +42,7 @@ function CardForm(props) {
     if (newValue) {
       setSelectedProfesor(newValue);
       Cookies.set("profesor_id", newValue.id, { expires: 1 });
+      props.onChangeField3(newValue);
     }
   };
 
@@ -114,6 +120,7 @@ function CardForm(props) {
                       open={open}
                       clearOnBlur={false}
                       clearOnEscape={false}
+                      value={selectedProfesor}
                       sx={{
                         display: "flex",
                         "& input": {
