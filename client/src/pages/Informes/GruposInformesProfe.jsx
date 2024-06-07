@@ -19,7 +19,7 @@ function GruposInformesProfe(props) {
             <div className="GruposInformesProfe">
                 <div className="GruposInformesProfeTitle">
                     <h1>Informe final</h1>
-                    <h1>{props.NombreMateria}</h1>
+                    <h1>{props.NombreMateria}Materia</h1>
                 </div>
                 <div className="GruposInformesProfeBody">
                     <h1 className="GruposInformesProfeBodyTitle">Grupos de trabajo</h1>

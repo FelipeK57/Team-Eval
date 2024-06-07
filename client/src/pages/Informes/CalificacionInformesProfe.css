@@ -1,0 +1,16 @@
+.CalificacionInformesProfeContainer{
+    display: flex;
+    width: 98vw;
+    height: 98vh;
+    margin: auto;
+}
+
+.CalificacionInformesProfeTitle{
+    display: flex;
+    margin-top: 15vh;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 165.750px;
+}

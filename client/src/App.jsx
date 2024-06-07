@@ -47,6 +47,7 @@ import SeleccionEvaluacion from "./pages/Estudiantes/SeleccionEvaluacion.jsx";
 import InformesProfe from "./pages/Informes/InformesProfe.jsx";
 import GruposInformesProfe from "./pages/Informes/GruposInformesProfe.jsx";
 import IntegrantesInformesProfe from "./pages/Informes/IntegrantesInformesProfe.jsx";
+import CalificacionInformesProfe from "./pages/Informes/CalificacionInformesProfe.jsx";
 function App() {
   return (
     <BrowserRouter>
@@ -92,6 +93,7 @@ function App() {
         <Route path="/InformesProfe" element={<InformesProfe materia="Matematicas"/>} />
         <Route path="/GruposInformesProfe" element={<GruposInformesProfe/>} />
         <Route path="/IntegrantesInformesProfe" element={<IntegrantesInformesProfe/>} />
+        <Route path="/CalificacionInformesProfe" element={<CalificacionInformesProfe/>} />
 
         <Route path="/Cursos" element={<CursosEstudiante />} />
         <Route path="/Curso" element={<Curso />} />
