@@ -26,7 +26,7 @@ const GruposCard1 = ({ id, onSelectTeam }) => {
         }
     };
     fetchRubrica();
-  }, [id]); // Agregamos `id` como dependencia para el useEffect
+  }, [id]); 
 
   return (
     <div className="teams-container">

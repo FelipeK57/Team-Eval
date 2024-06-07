@@ -735,12 +735,11 @@ def guardar_criterios(request):
         if 'id' in criterio and criterio_Evaluacion.objects.filter(id=criterio['id']).exists():
             criterio_obj = criterio_Evaluacion.objects.get(id=criterio['id'])
             criterio_obj.descripcion = criterio['descripcion']
-            criterio_obj.valor = criterio['valor']
             criterio_obj.save()
         else:
             new = criterio_Evaluacion.objects.create(
                 descripcion=criterio['descripcion'],
-                valor=criterio['valor'],
+                valor=1,
             )
             rubrica.criterios.add(new)
 
@@ -874,6 +873,41 @@ def estudiantes_singrupo(request):
 
     serializer = EstudianteSerializer(est_sin_grupo, many=True)
     return Response({"estudiantes": serializer.data}, status=status.HTTP_200_OK)
+
+    
+@api_view(['POST'])
+def elimar_estudiante(request):
+    estudiante_id = request.data.get('estudianteId')
+    grupo_id = request.data.get('grupoId')
+
+    try:
+        estudiante = Estudiante.objects.get(id=estudiante_id)
+        grupo = Grupo.objects.get(id=grupo_id)
+        grupo.estudiantes.remove(estudiante)
+        return Response({"message": "Estudiante eliminado del grupo exitosamente"}, status=status.HTTP_200_OK)
+    except Estudiante.DoesNotExist:
+        return Response({"error": "Estudiante no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+    except Grupo.DoesNotExist:
+        return Response({"error": "Grupo no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)  
+    
+@api_view(['POST'])
+def agregar_estudiante(request):
+    estudiante_id = request.data.get('estudianteId')
+    grupo_id = request.data.get('grupoId')
+
+    try:
+        estudiante = Estudiante.objects.get(id=estudiante_id)
+        grupo = Grupo.objects.get(id=grupo_id)
+        grupo.estudiantes.add(estudiante)
+        return Response({"message": "Estudiante agregado al grupo exitosamente"}, status=status.HTTP_200_OK)
+    except Estudiante.DoesNotExist:
+        return Response({"error": "Estudiante no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+    except Grupo.DoesNotExist:
+        return Response({"error": "Grupo no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
     
     

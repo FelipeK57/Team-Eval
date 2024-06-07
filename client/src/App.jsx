@@ -87,7 +87,7 @@ function App() {
         <Route path="/Rubricas" element={<RubricasProfe />} />
         <Route path="/TablaRubricasProfe/:rubricaId" element={<TablaRubricasProfe />} />
         <Route path="/NuevaRubrica" element={<NuevaRubrica />} />
-        <Route path="/Grupos/:cursoId" element={<Grupos materia="Matematicas"/>} />
+        <Route path="/Grupos/:cursoId" element={<Grupos element={<Grupos />}/>} />
         <Route path="/SeleccionarRubrica" element={<SeleccionarRubrica materia="Matematicas"/>} />
         <Route path="/InformesProfe" element={<InformesProfe materia="Matematicas"/>} />
         <Route path="/GruposInformesProfe" element={<GruposInformesProfe/>} />

@@ -1,3 +1,4 @@
+/* General Container for Rubricas Table */
 .TablaRubricasContainer {
     display: flex;
     margin: 0;
@@ -9,7 +10,7 @@
     flex-direction: column;
 }
 
-
+/* Rubricas Specific Styling */
 .Rubricas {
     display: flex;
     flex-direction: column;
@@ -63,7 +64,6 @@
 }
 
 .RubricasTableHeader h1 {
-
     border-radius: 50px;
     width: 50%;
 }
@@ -94,11 +94,11 @@
     border-radius: 0 0 25px 0;
 }
 
-.finalLeft{
+.finalLeft {
     border-radius: 0 0 0 25px;
 }
 
-.TablaRubricas{
+.TablaRubricas {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -149,7 +149,7 @@
     transition: all 0.3s;
 }
 
-.ButtonAgregarRubricas button:hover{
+.ButtonAgregarRubricas button:hover {
     box-shadow: 0 0 0.5rem 0.5rem rgba(255, 255, 255, 0.4);
     transition: all 0.3s;
     transform: scale(1.1);
@@ -160,7 +160,7 @@
     justify-content: center;
     align-items: center;
     margin: 50px auto;
-} 
+}
 
 .ButtonGuardarRubricas button:hover {
     box-shadow: 0 0 0.5rem 0.5rem rgba(15, 65, 118, 0.4);
@@ -168,7 +168,7 @@
     transform: scale(1.1);
 }
 
-.DeleteButtonThActions{
+.DeleteButtonThActions {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -177,11 +177,11 @@
     height: 100%;
 }
 
-.DeleteButtonThActions{
+.DeleteButtonThActions {
     margin: 10px;
 }
 
-.EscalaTitleTablaRubricas{
+.EscalaTitleTablaRubricas {
     display: flex;
     font-family: Mulish;
     font-size: 1.5rem;

@@ -41,8 +41,8 @@ function CursosProfe(props) {
     }
 
 
-    const ConfigCursos = (cursoId) => {
-        navigate(`/Grupos/${cursoId}`);
+    const ConfigCursos = (cursoId, nombre) => {
+        navigate(`/Grupos/${cursoId}`, { state: { materia: nombre } });
     }
 
     return (
@@ -73,7 +73,7 @@ function CursosProfe(props) {
                         key={curso.id}
                         Estado={curso.estado}
                         nombreCurso={curso.nombre}
-                        configurarCursos={() => ConfigCursos(curso.id)}
+                        configurarCursos={() => ConfigCursos(curso.id, curso.nombre)}
                     />
                 ))}
             </div>

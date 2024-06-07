@@ -15,7 +15,7 @@ const GruposCard = ({ titulo, estudiantes, eliminar }) => {
             <h1>{estudiante.user.first_name}</h1>
             {estudiante.user.first_name && (
               <div className="chimichanga">
-                <button className="botonsillo" onClick={() => eliminar(estudiante.user.id)}>
+                <button className="botonsillo" onClick={() => eliminar(estudiante.id)}>
                   <DeleteIcon sx={{ fontSize: 36 }} />
                 </button>
               </div>
