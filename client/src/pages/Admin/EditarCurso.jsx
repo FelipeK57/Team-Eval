@@ -39,6 +39,12 @@ function EditarCurso() {
 
   const handleClick = async (e) => {
     e.preventDefault();
+
+    if (!cursoNombre || !cursoCodigo || !periodo) {
+      setAdvice("Todos los campos son obligatorios"); 
+      setOpen(true);
+      return;
+    } 
     try {
       await axios.post("http://localhost:8000/Editar_curso/", {
         codigo: Cookies.get("codigoCurso"),

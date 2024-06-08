@@ -96,10 +96,11 @@ function TablaRubricasProfe(props) {
                 id: rubricaId,
                 criterios: criterios,
                 criteriosEliminados: criteriosEliminados,
-                newEscala : escala
+                newEscala : escala,
+                identificacion : Cookies.get("identificacion"),
             }
             );
-            setAdvice("Rubrica guardada");
+            setAdvice(response.data.message);
             setOpen(!open);
         } catch (error) {
             setAdvice("Error al guardar la rubrica (Falta criterio o valor)");

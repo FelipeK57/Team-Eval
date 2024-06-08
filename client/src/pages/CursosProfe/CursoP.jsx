@@ -40,6 +40,10 @@ function CursosProfe(props) {
         navigate("/Rubricas");
     }
 
+    const NuevaRubrica = () => {
+        navigate("/NuevaRubrica");
+    }
+
 
     const ConfigCursos = (cursoId, nombre) => {
         navigate(`/Grupos/${cursoId}`, { state: { materia: nombre } });
@@ -57,8 +61,9 @@ function CursosProfe(props) {
             <div className="linea-vertical"></div>
             <div className="cursed2"><h1>Crear Rubrica</h1></div>
             <div className="cardex2">
-                <button>
+                <button onClick={NuevaRubrica}>
                     <AddIcon sx={{ fontSize: 50 }} />
+                    
                 </button>
             </div>
             <div className="linea-horizontal"></div>

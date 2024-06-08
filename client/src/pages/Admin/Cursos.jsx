@@ -5,7 +5,7 @@ import "./CursosAdmin.css";
 import axios from "axios";
 import Button from "../../components/Utilities/Button";
 import ListItems from "../../components/Utilities/ListItems";
-import Cookies from 'js-cookie'
+import Cookies from 'js-cookie';
 import PopUp from "../../components/Utilities/PopUp";
 import Search from "@mui/icons-material/Search";
 import Field from "../../components/Utilities/Field";
@@ -15,6 +15,9 @@ function Cursos() {
   const [open, setOpen] = useState(false);
   const [advice, setAdvice] = useState("");
   const [searchCursos, setSearchCursos] = useState(false);
+  const [filteredCursos, setFilteredCursos] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
   const navigate = useNavigate();
 
   const AgregarCursos = () => {
@@ -22,8 +25,8 @@ function Cursos() {
   };
 
   const CursosDeshabilitados = () => {
-    navigate("/CursosDes")
-  }
+    navigate("/CursosDes");
+  };
 
   const popup = (e) => {
     e.preventDefault();
@@ -34,10 +37,9 @@ function Cursos() {
   useEffect(() => {
     const fetchStudentCourses = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:8000/cursos/"
-        );
+        const response = await axios.get("http://localhost:8000/cursos/");
         setCursos(response.data.Cursos);
+        setFilteredCursos(response.data.Cursos); // Inicialmente, los cursos filtrados son todos los cursos
       } catch (error) {
         console.error("Error al obtener los cursos:", error);
       }
@@ -54,15 +56,13 @@ function Cursos() {
   };
 
   const handleClick = async (codigo) => {
-
     try {
       const response = await axios.post("http://localhost:8000/Estadocursos/", {
         codigo: codigo,
         estado: false
-
       });
       console.log(response.data);
-      setAdvice("Curso deshabilitado   con exito");
+      setAdvice("Curso deshabilitado con éxito");
       setOpen(true);
     } catch (error) {
       console.error("Error al editar el curso:", error);
@@ -77,6 +77,17 @@ function Cursos() {
     }, 0);
   };
 
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+    if (e.target.value === "") {
+      setFilteredCursos(cursos);
+    } else {
+      setFilteredCursos(cursos.filter(curso => 
+        String(curso.codigo).toLowerCase().includes(e.target.value.toLowerCase())
+      ));
+    }
+  };
+
   return (
     <div className="ContainerCursos">
       <div className="NavBar">
@@ -88,13 +99,15 @@ function Cursos() {
           <button className="SearchButtonCursos" onClick={BuscarButton}>
             <Search sx={{ fontSize: 30, color: "white" }} />
           </button>
-          <div className={searchCursos === true ? "SearchFieldCursos Active" : "SearchFieldCursos Inactive"}
-            onBlur={() => setSearchCursos(false)}>
+          <div className={searchCursos === true ? "SearchFieldCursos Active" : "SearchFieldCursos Inactive"}>
             <Field
               LineaBoton={false}
               Boton=""
               color="rgb(15, 65, 118)"
               fontColor="white"
+              onChange={handleSearchChange}
+              placeholder="Buscar Cursos"
+              value={searchTerm}
             />
           </div>
         </div>
@@ -111,14 +124,14 @@ function Cursos() {
       <div className="CursosDes">
         <Button
           LineaBoton={false}
-          Boton="Cursos desabilitados"
+          Boton="Cursos deshabilitados"
           color="rgb(15,65,118)"
           fontColor="white"
           onClick={CursosDeshabilitados}
         />
       </div>
       <div className="ListaCursos">
-        {cursos.map((curso) => (
+        {filteredCursos.map((curso) => (
           <div key={curso.id}>
             <ListItems
               Nombre1={curso.nombre}
@@ -141,4 +154,6 @@ function Cursos() {
     </div>
   );
 }
+
 export default Cursos;
+

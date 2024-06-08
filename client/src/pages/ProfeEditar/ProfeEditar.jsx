@@ -55,6 +55,16 @@ function ProfeEditar(props) {
 
       const handleClick = async (e) => {
         e.preventDefault();
+        if (!nombre || !documento || !correo) {
+          setAdvice("Todos los campos son obligatorios");
+          popup(e);
+          return;
+        }
+        if (documento< 10000000 || documento > 99999999) {
+          setAdvice("El documento debe ser de minimo 8 digitos");
+          popup(e);
+          return;
+        }
         try {
           const response = await axios.post("http://localhost:8000/edit_profesor/", {
             identificacion: Cookies.get("profesorIdentificacion"),
