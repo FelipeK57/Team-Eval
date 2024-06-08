@@ -11,6 +11,7 @@ import ProfeEditar from "./pages/ProfeEditar/ProfeEditar";
 import CursosDes from "./pages/CursosDes/CursosDes";
 import ProfeDes from "./pages/ProfeDes/ProfeDes";
 import Grupos from "./pages/Grupos/Grupos";
+import GestionarEva from "./pages/GestionarEva/GestionarEva";
 function App() {
   return (
     <BrowserRouter>
@@ -27,6 +28,7 @@ function App() {
         <Route path="/CursosDes" element={<CursosDes />} />
         <Route path="/ProfeDes" element={<ProfeDes />} />
         <Route path="/Grupos" element={<Grupos materia="Matematicas"/>} />
+        <Route path="/GestionarEva" element={<GestionarEva />} />
       </Routes>
     </BrowserRouter>
     
