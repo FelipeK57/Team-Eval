@@ -68,7 +68,7 @@ function AgregarCurso() {
         profe: Cookies.get("profesor_id"),
       });
       console.log(response.data);
-      setAdvice("Curso agregado con exito");
+      setAdvice("Curso agregado con exito (Puede verlo en el listado de Cursos y editarlo para agregar estudiantes)");
       popup(e);
       Cookies.remove("profesor_id");
     } catch (error) {

@@ -963,14 +963,65 @@ def agregar_estudiante(request):
         return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
     
 
-
-
+@api_view(['POST'])
+def evaluaciones(request):
+    id_curso = request.data.get('id')
+    curso = Cursos.objects.get(id=id_curso)
+    evaluaciones = []
+    for evaluacion in curso.evaluaciones.all(): 
+        evaluaciones.append(evaluacion)
     
+    serializer = evaluacionSerializer(evaluaciones, many=True)
+    return Response({"evaluaciones": serializer.data}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def agregar_estudiante_curso(request):
+    estudiante_id = request.data.get('estudianteId')
+    cursoCodigo = request.data.get('cursoCodigo')
+
+    try:
+        estudiante = Estudiante.objects.get(id=estudiante_id)
+        curso = Cursos.objects.get(codigo=cursoCodigo)
+
+        if estudiante in curso.estudiantes.all():
+            return Response({"error": "El estudiante ya se encuentra en el curso"}, status=status.HTTP_400_BAD_REQUEST)
+        curso.estudiantes.add(estudiante)
+        return Response({"message": "Estudiante agregado al curso " + curso.nombre +   " exitosamente"}, status=status.HTTP_200_OK)
+    except Estudiante.DoesNotExist:
+        return Response({"error": "Estudiante no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+    except Cursos.DoesNotExist:
+        return Response({"error": "Curso no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
     
 
-
-
+@api_view(['POST'])
+def estudiantes_curso(request):
+    codigo_curso = request.data.get('codigo')
+    try:
+        curso = Cursos.objects.get(codigo=codigo_curso) 
+        ests = []
+        for est in curso.estudiantes.all():
+            ests.append(est)
+        serializer = EstudianteSerializer(ests, many=True)
+        return Response({"estudiantes": serializer.data}, status=status.HTTP_200_OK)
+    except Cursos.DoesNotExist:
+        return Response({"error": "Curso no encontrado"}, status=status.HTTP_404_NOT_FOUND)
     
+@api_view(['POST'])
+def eliminar_estudiante_curso(request):
+    estudiante_id = request.data.get('estudianteId')
+    cursoCodigo = request.data.get('cursoCodigo')
 
+    try:
+        estudiante = Estudiante.objects.get(id=estudiante_id)
+        curso = Cursos.objects.get(codigo=cursoCodigo)
 
+        if estudiante not in curso.estudiantes.all():
+            return Response({"error": "El estudiante no se encuentra en el curso"}, status=status.HTTP_400_BAD_REQUEST)
+        curso.estudiantes.remove(estudiante)
+        return Response({"message": "Estudiante eliminado del curso exitosamente"}, status=status.HTTP_200_OK)
+    except Estudiante.DoesNotExist:
+        return Response({"error": "Estudiante no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+    
     
