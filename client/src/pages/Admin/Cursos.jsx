@@ -45,11 +45,12 @@ function Cursos() {
     fetchStudentCourses();
   }, []);
 
-  const EditarCursos = (nombre, codigo, periodo, profesor) => {
+  const EditarCursos = (nombre, codigo, periodo, nombreProfesor, id_profesor) => {
     Cookies.set("nombreCurso", nombre, { expires: 1 });
     Cookies.set("codigoCurso", codigo, { expires: 1 });
     Cookies.set("periodoCurso", periodo, { expires: 1 });
-    Cookies.set("profesor", profesor, {expires:1});
+    Cookies.set("nombreProfesorCurso", nombreProfesor, { expires: 1 });
+    Cookies.set("id", id_profesor, { expires: 1 });
 
     navigate("/EditarCurso");
   };
@@ -124,7 +125,7 @@ function Cursos() {
             <ListItems
               Nombre1={curso.nombre}
               Codigo1={curso.codigo}
-              onClickEdit={() => EditarCursos(curso.nombre, curso.codigo, curso.periodoAcademico, curso.profesor.user.first_name)}
+              onClickEdit={() => EditarCursos(curso.nombre, curso.codigo, curso.periodoAcademico, `${curso.profesor.user.first_name} ${curso.profesor.user.last_name}`, curso.profesor.id)}
               onClickDelete={() => handleClick(curso.codigo)}
               Buttons={true}
             />

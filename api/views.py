@@ -651,6 +651,8 @@ def editar_curso(request):
 
     if profe_id:
         profesor = get_object_or_404(Profesor, id=profe_id)
+        if curso.profesor == profesor:
+            return Response({"error": "El profesor ya está asignado a un curso"}, status=status.HTTP_400_BAD_REQUEST)
         curso.profesor = profesor
         changes_made = True
 

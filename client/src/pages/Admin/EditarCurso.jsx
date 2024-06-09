@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState , useEffect } from "react";
 import axios from "axios";
 import CardForm from "../../components/CardForm";
 import NoQuieroCrearMasNavbars from "../../components/NoQuieroCrearMasNavbars";
@@ -10,12 +10,40 @@ function EditarCurso() {
   const [cursoNombre, setCursoNombre] = useState(Cookies.get("nombreCurso"));
   const [cursoCodigo, setCursoCodigo] = useState(Cookies.get("codigoCurso"));
   const [periodo, setPeriodo] = useState(Cookies.get("periodoCurso"));
-  const [profesor, setProfesor] = useState(Cookies.get("profesor"));
+  const [nombreProfesor, setNombreProfesor] = useState(Cookies.get("nombreProfesorCurso"));
+  const [profesor_id, setProfesorID] = useState(Cookies.get("id"));
+  const [profesores, setProfesores] = useState([]);
+  const [selectedProfesor, setSelectedProfesor] = useState(null);
   const [open, setOpen] = useState(false);
   const [advice, setAdvice] = useState("");
   const navigate = useNavigate();
 
-  console.log("profesor del curso:", profesor);
+  console.log("id del profesor:", profesor_id)
+
+  useEffect(() => {
+    const fetchProfesores = async () => {
+      try {
+        const response = await axios.get("http://localhost:8000/profesores/");
+        const profesoresData = response.data.profesores.map(profesor => ({
+          id: profesor.id,
+          name: `${profesor.user.first_name} ${profesor.user.last_name}`
+        }));
+        setProfesores(profesoresData);
+
+        // Obtener el valor inicial de las cookies
+        const profesorId = profesor_id;
+        if (profesorId) {
+          const selected = profesoresData.find(prof => prof.id === parseInt(profesorId));
+          if (selected) {
+            setSelectedProfesor(selected);
+          }
+        }
+      } catch (error) {
+        console.error("Error al obtener los profesores:", error);
+      }
+    };
+    fetchProfesores();
+  }, []);
 
   const importarE = (e) => {
     navigate("/ImportarEstudiantes");
@@ -78,12 +106,12 @@ function EditarCurso() {
         Field2=""
         Label3="Profesor"
         type3="text"
-        valueField3={profesor}
+        valueField3={selectedProfesor}
         onChangeField3={handlesetPeriodo}
         Field3=""
         onClick={handleClick}
         Combo={true}
-        value={profesor}
+        value=""
         Label4="Periodo"
         type4="text"
         valueField4={periodo}
