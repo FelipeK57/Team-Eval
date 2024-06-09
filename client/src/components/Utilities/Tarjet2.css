@@ -1,0 +1,42 @@
+
+.Tarjet2{
+    display:flex;
+      width: 300px;
+      height: 150px;
+      padding: 20px ;
+      background-color: rgb(15, 65, 118);
+      border-radius: 40px;
+      box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
+      flex-direction: column;
+      justify-content: space-between;
+      margin-left: 4.2vw;
+      margin-bottom: 20px;
+  }
+
+  .nose{
+    text-align: center;
+    align-items: center;
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: #ffffff;
+    font-family: Mulish !important;
+  }
+
+  .illo {
+    background: none;
+    border: none;
+    display: flex;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    width: 100%;
+    height: 100%;
+    transition: all 0.3s;
+    color: #ffffff;
+}
+
+.illo:hover {
+    transform: scale(1.2);
+}
+

@@ -1,26 +1,43 @@
 import React from 'react';
-import './Utilities/GruposCard.css';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import DeleteIcon from '@mui/icons-material/Delete';
+import './Utilities/GruposCard.css';
 
-const GruposCard = (props) => {
-
-  GruposCard.propTypes = {
-    titulo: PropTypes.string.isRequired,
-    estudiante: PropTypes.string.isRequired
-  }
-
+const GruposCard = ({ titulo, estudiantes, eliminar }) => {
   return (
     <div className="Ccard">
       <div className="header">
-        <h1>{props.titulo}</h1>
+        <h1>{titulo}</h1>
       </div>
       <div className="content">
-        <h1>{props.NombreEstudiante}</h1>
-        {props.NombreEstudiante ? <div className="chimichanga"><button className="botonsillo" onClick={props.eliminar}><DeleteIcon sx={{ fontSize: 36 }} /></button></div> : null}
+        {estudiantes.map((estudiante) => (
+          <div key={estudiante.user.id} className="estudiante">
+            <h1>{estudiante.user.first_name + ' ' + estudiante.user.last_name}</h1>
+            {estudiante.user.first_name && (
+              <div className="chimichanga">
+                <button className="botonsillo" onClick={() => eliminar(estudiante.id)}>
+                  <DeleteIcon sx={{ fontSize: 36 }} />
+                </button>
+              </div>
+            )}
+          </div>
+        ))}
       </div>
     </div>
   );
+};
+
+GruposCard.propTypes = {
+  titulo: PropTypes.string.isRequired,
+  estudiantes: PropTypes.arrayOf(
+    PropTypes.shape({
+      user: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        first_name: PropTypes.string.isRequired,
+      }).isRequired,
+    }).isRequired,
+  ).isRequired,
+  eliminar: PropTypes.func.isRequired,
 };
 
 export default GruposCard;

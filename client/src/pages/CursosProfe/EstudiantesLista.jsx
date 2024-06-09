@@ -1,4 +1,5 @@
-import NavbarProfesor from "../../components/NavbarProfesor";
+
+import NoQuieroCrearMasNavbars from "../../components/NoQuieroCrearMasNavbars";
 import axios from "axios";
 import Button from "../../components/Utilities/Button";
 import ListItems from "../../components/Utilities/ListItems";
@@ -7,6 +8,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PopUp from "../../components/Utilities/PopUp";
 import Cookies from 'js-cookie'
+import { useParams } from 'react-router-dom';
 
 
 function Estudiantes() {
@@ -14,10 +16,8 @@ function Estudiantes() {
     const [open, setOpen] = useState(false);
     const [advice, setAdvice] = useState("");
     const navigate = useNavigate(); 
-    //const navigate = useNavigate();
-   // const AgregarEstudiantes = () => {
-   //   navigate("/AgregarE");
-   // };
+    const { cursoCodigo } = useParams();
+ 
   
     useEffect(() => {
       const fetchEstudiantes = async () => {
@@ -47,6 +47,28 @@ function Estudiantes() {
       }
     }
 
+    const handleClick2 = async (id) => { 
+      try {
+        const response = await axios.post("http://localhost:8000/agregar_estudiante_curso/", {
+          cursoCodigo: cursoCodigo,
+          estudianteId: id
+        });
+        setAdvice(response.data.message);
+        setOpen(true);  
+      } catch (error) {
+        setAdvice(error.data.err);
+        setOpen(true);  
+      }
+    }
+
+    const BuscarButton = () => {
+      setSearchProfesores(true);
+      const searchField = document.querySelector(".SearchFieldProfesores input");
+      setTimeout(() => {
+        searchField.focus();
+      }, 0);
+    };
+
     const popup = (e) => {
       e.preventDefault();
       setOpen(!open);
@@ -64,11 +86,12 @@ function Estudiantes() {
     return (
       <div className="ContainerEstudiantes">
         <div className="NavBar">
-          <NavbarProfesor />
+          <NoQuieroCrearMasNavbars/>
         </div>
         <div className="TitleEstudiantes">
-          <h1>Estudiantes</h1>
+          <h1>Listado de Estudiantes</h1>
         </div>
+        
         <div className="Search"></div>
         <div className="AgregarListEstudiantes">
         </div>
@@ -81,7 +104,11 @@ function Estudiantes() {
                 Codigo1={estudiante.codigo}             
                 onClickEdit={() => EditarStuden(estudiante.codigo,estudiante.user.first_name, estudiante.user.email)}
                 onClickDelete={() => handleClick(estudiante.codigo)}
+                onClickAdd={() => handleClick2(estudiante.id)}
                 Buttons={true}
+                Btn3 ={true}
+                Btn1 = {true}
+                Btn2 = {true}
               />
             </div>
           ))}

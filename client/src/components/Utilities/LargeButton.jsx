@@ -12,7 +12,7 @@ function LargeButton(props) {
         <div className="LargeButton" style={props.text ? null: {padding: " 0 "}}>
             {props.text ? <h1 className="TitleLargeButton">{props.text}</h1>: null}
             {props.text ? <hr />: null}
-            <button className="ButtonLarge" onClick={props.OnClick} style={props.text ? null: {marginLeft: "8vw", marginRight: "8vw"}}>
+            <button className="ButtonLarge" onClick={props.OnClick} style={props.text ? null: {marginLeft: "auto", marginRight: "auto"}}>
                 {props.icon}
             </button>
         </div>

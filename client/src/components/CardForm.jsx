@@ -79,7 +79,11 @@ function CardForm(props) {
     valueField5: PropTypes.string,
     onClick: PropTypes.func,
     Btn2: PropTypes.bool,
+    Btn3: PropTypes.bool,
+    Btn4: PropTypes.bool,
     redirect: PropTypes.string,
+    onClick2: PropTypes.func,
+    onClick3: PropTypes.func,
   };
 
   return (
@@ -209,7 +213,18 @@ function CardForm(props) {
             </form>
             {props.Btn2 ? (
               <button onClick={props.redirect} className="AgregarEstudiantes">
+                Importar estudiantes
+              </button>
+            ) : null}
+            {props.Btn3 ? (
+              <button onClick={props.onClick2} className="AgregarEstudiantes2">
                 Agregar estudiantes
+              </button>
+            ) : null}
+
+            {props.Btn4 ? (
+              <button onClick={props.onClick3} className="AgregarEstudiantes3">
+                gestionar estudiantes
               </button>
             ) : null}
           </div>

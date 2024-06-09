@@ -52,13 +52,6 @@ function NuevaRubrica(props) {
     };
 
     const guardarRubrica = async () => {
-        for (let critero of criterios){
-            if (critero.valor > escala){
-                setAdvice("los valores del criterio no pueden ser mayor a la escala");
-                setOpen(!open);
-                return;
-            }
-        }
         try {
             const response = await axios.post(
                 "http://localhost:8000/guardarRubrica/", {
@@ -104,7 +97,6 @@ function NuevaRubrica(props) {
                                     name="nombre"
                                     onChange={(e) => handleRubricaChange('nombre', e.target.value)}
                                 /></div></th>
-                                <th className="thdos"><div className="RubricasTableHeader dos"><h1>Valor</h1></div></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -117,16 +109,6 @@ function NuevaRubrica(props) {
                                                 value={criterio.descripcion}
                                                 name="descripcion"
                                                 onChange={(e) => handleCriterioChange(criterio.id, 'descripcion', e.target.value)}
-                                            />
-                                        </div>
-                                    </td>
-                                    <td className="thright">
-                                        <div className="RubricasTableBody Right">
-                                            <Field
-                                                Tipo="Number"
-                                                value={criterio.valor}
-                                                name="valor"
-                                                onChange={(e) => handleCriterioChange(criterio.id, 'valor', e.target.value)}
                                             />
                                         </div>
                                     </td>
