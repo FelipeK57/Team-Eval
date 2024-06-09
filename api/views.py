@@ -523,6 +523,7 @@ def estudiantes(request):
 @api_view(['POST'])
 def editar_profesor(request):
     nombre = request.data.get('nombre')
+    apellido = request.data.get('apellido')
     identificacion = request.data.get('identificacion')
     newidentificacion = request.data.get('newidentificacion')
     email = request.data.get('email')
@@ -544,6 +545,10 @@ def editar_profesor(request):
 
     if nombre:
         profesor.user.first_name = nombre
+        changes_made = True
+
+    if apellido:
+        profesor.user.last_name = apellido
         changes_made = True
 
     if newidentificacion:
