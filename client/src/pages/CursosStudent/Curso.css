@@ -15,8 +15,9 @@
 }
 
 .cardi {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  align-items: center;
   position: absolute;
   width: 180px;
   top: 32%;

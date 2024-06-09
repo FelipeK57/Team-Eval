@@ -26,7 +26,7 @@ class administrador(models.Model):
         curso_periodo = hoja['F2'].value
         
         if(curso_codigo == celda_nula or curso_nombre == celda_nula or curso_periodo == celda_nula):
-            raise ImportarCursosException("Campos de cursos vacíos")
+            raise ImportarCursosException("Hay campos de curso vacíos")
         
         profesor_identificacion = hoja['B3'].value
         profesor_nombre = hoja['C3'].value
@@ -34,10 +34,13 @@ class administrador(models.Model):
         profesor_email = hoja['E3'].value
         
         if(profesor_apellido == celda_nula or profesor_nombre == celda_nula or profesor_email == celda_nula or profesor_identificacion == celda_nula):
-            raise ImportarCursosException("Campos de profesor vacios")
+            raise ImportarCursosException("Hay campos de profesor vacios")
 
         if(Cursos.objects.filter(codigo=curso_codigo).exists()):
-            raise ImportarCursosException("El curso ya existe")
+            raise ImportarCursosException("El curso ya se encuentra registrado en la base de datos")
+        
+        if(User.objects.filter(email=profesor_email).exists()):
+            raise ImportarCursosException("El correo electronico del profesor ya esta registrado")
 
         username_p = profesor_nombre + ' ' + profesor_apellido
         
@@ -64,8 +67,11 @@ class administrador(models.Model):
                 return 'Importe realizado'
             
             if(estudiante_apellido == celda_nula or estudiante_codigo == celda_nula or estudiante_email == celda_nula or estudiante_nombre == celda_nula):
-                raise ImportarCursosException("Campos de estudiantes vacios")
+                raise ImportarCursosException("Hay campos de estudiantes vacios")
             
+            if(User.objects.filter(email=estudiante_email).exists()):
+                raise ImportarCursosException(f"El correo electronico del estudiante {estudiante_nombre} ya esta registrado")
+
             username_e = estudiante_nombre + ' ' + estudiante_apellido
             
             user_estudiante, creado = User.objects.get_or_create(username=username_e, email=estudiante_email, first_name=estudiante_nombre, last_name=estudiante_apellido)
@@ -100,7 +106,10 @@ class administrador(models.Model):
                 return 'Importe realizado'
             
             if(estudiante_apellido == celda_nula or estudiante_codigo == celda_nula or estudiante_email == celda_nula or estudiante_nombre == celda_nula):
-                return "Campos de estudiantes vacios"
+                return "Hay campos de estudiantes vacios"
+            
+            if(User.objects.filter(email=estudiante_email).exists()):
+                raise ImportarCursosException(f"El correo electronico del estudiante {estudiante_nombre} ya esta registrado")
             
             username_e = estudiante_nombre + ' ' + estudiante_apellido
             
@@ -109,7 +118,6 @@ class administrador(models.Model):
                 dp_estudiante = estudiante_nombre[0] + str(estudiante_codigo) + estudiante_apellido[0]
                 user_estudiante.set_password(dp_estudiante)
                 user_estudiante.save()
-
             
             nuevo_estudiante, creado = Estudiante.objects.get_or_create(user=user_estudiante, codigo=estudiante_codigo)
             if creado:

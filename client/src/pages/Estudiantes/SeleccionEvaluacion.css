@@ -22,11 +22,12 @@
   color: white;
   border-radius: 30px;
   text-align: center;
-  height: 150px;
-}
+  width: 350px;
+  height: 180px;
+} 
 
 .container-info-evaluacion h2 {
-  margin: 10px;
+  width: 95%;
 }
 
 .container-info-evaluacion button {
@@ -42,6 +43,6 @@
 
 .container-info-evaluacion button:hover {
   box-shadow: 0px 0px 10px 1px white;
-  padding: 8px 52px 8px 52px;
+  padding: 5px 52px 5px 52px;
   transition: 200ms;
 }

@@ -60,6 +60,16 @@ function EvaluacionEstudiantes() {
   };
 
   const realizar_calificacion = async () => {
+    if (selectedEst.trim() === "") {
+      alert("Debe seleccionar un estudiante");
+      return;
+    }
+
+    if (Object.keys(selectedValues).length < dataCr.length) {
+      alert("Debe calificar todos los criterios");
+      return;
+    }
+
     try {
       const response = await axios.post(
         "http://localhost:8000/realizar_calificacion/",
@@ -83,7 +93,7 @@ function EvaluacionEstudiantes() {
   };
 
   const terminar_calificacion = () => {
-    navigate("/SeleccionEvaluacion", {state: {infoCurso}});
+    navigate("/SeleccionEvaluacion", { state: { infoCurso } });
   };
 
   return (
@@ -148,7 +158,10 @@ function EvaluacionEstudiantes() {
           Guardar calificacion de compañero actual
         </button>
         <div className="container-boton-fc">
-          <button onClick={terminar_calificacion} className="enviar-calificacion">
+          <button
+            onClick={terminar_calificacion}
+            className="enviar-calificacion"
+          >
             Terminar calificacion
           </button>
         </div>
