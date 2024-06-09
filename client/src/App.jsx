@@ -40,7 +40,6 @@ import ImportarEstudiantes from "./pages/Admin/ImportarEstudiantes.jsx";
 import RubricasProfe from "./pages/RubricasProfe/RubricasProfe.jsx";
 import TablaRubricasProfe from "./pages/RubricasProfe/TablaRubricasProfe.jsx";
 import Grupos from "./pages/Grupos/Grupos";
-<<<<<<< HEAD
 import SeleccionarRubrica from "./pages/RubricasProfe/SeleccionarRubrica.jsx";
 import NuevaRubrica from "./pages/RubricasProfe/NuevaRubrica.jsx";
 import EvaluacionEstudiantes from "./pages/Estudiantes/EvaluacionEstudiantes.jsx";
@@ -48,9 +47,8 @@ import SeleccionEvaluacion from "./pages/Estudiantes/SeleccionEvaluacion.jsx";
 import InformesProfe from "./pages/Informes/InformesProfe.jsx";
 import GruposInformesProfe from "./pages/Informes/GruposInformesProfe.jsx";
 import IntegrantesInformesProfe from "./pages/Informes/IntegrantesInformesProfe.jsx";
-=======
 import GestionarEva from "./pages/GestionarEva/GestionarEva";
->>>>>>> origin/Home2
+import EstudiantesCurso from "./pages/Admin/Estudiantes_curso.jsx";
 function App() {
   return (
     <BrowserRouter>
@@ -114,23 +112,20 @@ function App() {
         <Route path="/EditarCurso" element={<EditarCurso />} />
         <Route path="/EstudiantesDes" element={<EstudiantesDeshabilitados />} />
         <Route path="/RubricasAdmin" element={<Rubricas />} />
-        <Route path="/EstudiantesLista" element={<EstudiantesLista />} />
+        <Route path="/EstudiantesLista/:cursoCodigo" element={<EstudiantesLista />} />
         <Route path="/TablaRubricas/:rubricaId" element={<TablaRubricas Nombre="Respeto" />} />
         <Route path="/ProfeEditar" element= {<ProfeEditar profesor="Pedro Vargas"/>}/>
         <Route path="/CursosDes" element={<CursosDes />} />
         <Route path="/ProfeDes" element={<ProfeDes />} />
-<<<<<<< HEAD
         <Route path="/ImportarEstudiantes" element={<ImportarEstudiantes />} />
+        <Route path="/EstudiantesCurso/:cursoCodigo" element={<EstudiantesCurso  />} />
   
 
         
 
         <Route path="/Evaluacion" element={<EvaluacionEstudiantes />} />
         <Route path="/SeleccionEvaluacion" element={<SeleccionEvaluacion />} />
-=======
-        <Route path="/Grupos" element={<Grupos materia="Matematicas"/>} />
-        <Route path="/GestionarEva" element={<GestionarEva />} />
->>>>>>> origin/Home2
+        <Route path="/GestionarEva/:cursoId" element={<GestionarEva element={<GestionarEva />} />} />
       </Routes>
     </BrowserRouter>
   );

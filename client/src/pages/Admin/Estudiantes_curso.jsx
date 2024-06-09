@@ -3,27 +3,32 @@ import NoQuieroCrearMasNavbars from "../../components/NoQuieroCrearMasNavbars";
 import axios from "axios";
 import Button from "../../components/Utilities/Button";
 import ListItems from "../../components/Utilities/ListItems";
-import "./EstudiantesLista.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PopUp from "../../components/Utilities/PopUp";
 import Cookies from 'js-cookie'
 import { useParams } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 
 
-function Estudiantes() {
+function EstudiantesCurso() {
     const [estudiantes, setEstudiantes] = useState([]);
     const [open, setOpen] = useState(false);
     const [advice, setAdvice] = useState("");
     const navigate = useNavigate(); 
     const { cursoCodigo } = useParams();
+    const location = useLocation();
+    const materia = location.state?.materia || "Sin materia";
  
   
     useEffect(() => {
       const fetchEstudiantes = async () => {
         try {
-          const response = await axios.get(
-            "http://localhost:8000/estudiantes/"
+          const response = await axios.post(
+            "http://localhost:8000/estudiantes_curso/",
+            {
+                codigo: cursoCodigo   
+            }
           );
           setEstudiantes(response.data.estudiantes);
         } catch (error) {
@@ -33,41 +38,19 @@ function Estudiantes() {
       fetchEstudiantes();
     }, []);
 
-    const handleClick = async (codigo) => { 
+    const handleClick = async (id) => { 
       try {
-        const response = await axios.post("http://localhost:8000/editar_estado_estudiante/", {
-          codigo: codigo,
-          estado: false  // Cambia a 'false' para deshabilitar al estudiante
-        });
-        setAdvice("Estudiante deshabilitado con exito");
-        setOpen(true);  
-      } catch (error) {
-        console.error("Error al deshabilitar el estudiante", error);
-        alert("Error al deshabilitar el estudiante", error);
-      }
-    }
-
-    const handleClick2 = async (id) => { 
-      try {
-        const response = await axios.post("http://localhost:8000/agregar_estudiante_curso/", {
-          cursoCodigo: cursoCodigo,
-          estudianteId: id
+        const response = await axios.post("http://localhost:8000/eliminar_estudiante_curso/", {
+            estudianteId: id,
+            cursoCodigo: cursoCodigo
         });
         setAdvice(response.data.message);
         setOpen(true);  
       } catch (error) {
-        setAdvice(error.data.err);
-        setOpen(true);  
+        setAdvice(error.data.error);
+        setOpen(true);
       }
     }
-
-    const BuscarButton = () => {
-      setSearchProfesores(true);
-      const searchField = document.querySelector(".SearchFieldProfesores input");
-      setTimeout(() => {
-        searchField.focus();
-      }, 0);
-    };
 
     const popup = (e) => {
       e.preventDefault();
@@ -75,12 +58,6 @@ function Estudiantes() {
       window.location.reload();
   };
 
-  const EditarStuden = (codigo, nombre, email ) => {
-    Cookies.set('StudentCodigo', codigo, { expires: 1 });
-    Cookies.set('StudentNombre', nombre, { expires: 1 });
-    Cookies.set('StudentEmail', email, { expires: 1 });
-    navigate("/EditarStudent");
-  };
   
   
     return (
@@ -89,9 +66,8 @@ function Estudiantes() {
           <NoQuieroCrearMasNavbars/>
         </div>
         <div className="TitleEstudiantes">
-          <h1>Listado de Estudiantes</h1>
+          <h1>Listado de Estudiantes del Curso {materia}</h1>
         </div>
-        
         <div className="Search"></div>
         <div className="AgregarListEstudiantes">
         </div>
@@ -102,13 +78,9 @@ function Estudiantes() {
                 Nombre1={estudiante.user.first_name}
                 Nombre2={estudiante.user.last_name}
                 Codigo1={estudiante.codigo}             
-                onClickEdit={() => EditarStuden(estudiante.codigo,estudiante.user.first_name, estudiante.user.email)}
-                onClickDelete={() => handleClick(estudiante.codigo)}
-                onClickAdd={() => handleClick2(estudiante.id)}
+                onClickDelete={() => handleClick(estudiante.id)}
                 Buttons={true}
-                Btn3 ={true}
-                Btn1 = {true}
-                Btn2 = {true}
+                Btn2 ={true}
               />
             </div>
           ))}
@@ -125,4 +97,4 @@ function Estudiantes() {
     );
   }
   
-  export default Estudiantes;
+  export default EstudiantesCurso;

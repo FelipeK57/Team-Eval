@@ -139,6 +139,9 @@ function Cursos() {
               onClickEdit={() => EditarCursos(curso.nombre, curso.codigo, curso.periodoAcademico)}
               onClickDelete={() => handleClick(curso.codigo)}
               Buttons={true}
+              Btn1={true}
+              Btn2={true}
+              
             />
           </div>
         ))}

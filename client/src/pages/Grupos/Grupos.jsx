@@ -93,7 +93,7 @@ function Grupos(props) {
         <div className="Grupos">
             <NavbarProfesor />  
             <div className="holi"><h1>Configuración del curso<br/><b>{materia}</b></h1></div>     
-            <div className="hola"><h1>Grupos del Curso</h1></div>  
+            <div className="hola"><h1>Grupos del Curso <b>{materia}</b></h1></div>  
             <div className="holo"> 
             <GruposCard titulo="Integrantes" estudiantes = {estudiantes} eliminar={eliminarEstudiante}/>
             </div>

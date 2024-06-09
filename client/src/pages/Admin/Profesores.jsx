@@ -136,6 +136,8 @@ function Profesores() {
               onClickEdit={() => EditarProfesor(profesor.identificacion, profesor.user.first_name, profesor.user.email)}
               onClickDelete={() => deshabilitarProfesor(profesor.identificacion)}
               Buttons={true}
+              Btn1={true}
+              Btn2={true}
             />
           </div>
         ))}
