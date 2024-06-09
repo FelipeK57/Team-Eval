@@ -40,6 +40,7 @@ import ImportarEstudiantes from "./pages/Admin/ImportarEstudiantes.jsx";
 import RubricasProfe from "./pages/RubricasProfe/RubricasProfe.jsx";
 import TablaRubricasProfe from "./pages/RubricasProfe/TablaRubricasProfe.jsx";
 import Grupos from "./pages/Grupos/Grupos";
+<<<<<<< HEAD
 import SeleccionarRubrica from "./pages/RubricasProfe/SeleccionarRubrica.jsx";
 import NuevaRubrica from "./pages/RubricasProfe/NuevaRubrica.jsx";
 import EvaluacionEstudiantes from "./pages/Estudiantes/EvaluacionEstudiantes.jsx";
@@ -47,6 +48,9 @@ import SeleccionEvaluacion from "./pages/Estudiantes/SeleccionEvaluacion.jsx";
 import InformesProfe from "./pages/Informes/InformesProfe.jsx";
 import GruposInformesProfe from "./pages/Informes/GruposInformesProfe.jsx";
 import IntegrantesInformesProfe from "./pages/Informes/IntegrantesInformesProfe.jsx";
+=======
+import GestionarEva from "./pages/GestionarEva/GestionarEva";
+>>>>>>> origin/Home2
 function App() {
   return (
     <BrowserRouter>
@@ -115,6 +119,7 @@ function App() {
         <Route path="/ProfeEditar" element= {<ProfeEditar profesor="Pedro Vargas"/>}/>
         <Route path="/CursosDes" element={<CursosDes />} />
         <Route path="/ProfeDes" element={<ProfeDes />} />
+<<<<<<< HEAD
         <Route path="/ImportarEstudiantes" element={<ImportarEstudiantes />} />
   
 
@@ -122,6 +127,10 @@ function App() {
 
         <Route path="/Evaluacion" element={<EvaluacionEstudiantes />} />
         <Route path="/SeleccionEvaluacion" element={<SeleccionEvaluacion />} />
+=======
+        <Route path="/Grupos" element={<Grupos materia="Matematicas"/>} />
+        <Route path="/GestionarEva" element={<GestionarEva />} />
+>>>>>>> origin/Home2
       </Routes>
     </BrowserRouter>
   );
