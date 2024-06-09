@@ -18,6 +18,8 @@ function GestionarEva(props) {
             <div className="tinder1">
                 <Tarjet2 />
                 <Trajet Evalu="Insertar Evaluación" />
+
+            
             </div>
             <div className="m"><h1>Gestionar Grupos</h1></div>
             <div className="merlina">

@@ -4,7 +4,6 @@
     flex-wrap: wrap;
     flex-grow: 1;
     max-width: 98vw;
-    height: 98vh;
     flex-direction: column;
 }
 
@@ -29,7 +28,7 @@
     flex-wrap: wrap;
     max-width: 98vw;
     margin-top: 15vh;
-
+    overflow-y: auto;
 
 }
 
