@@ -49,6 +49,25 @@ function AgregarCurso() {
 
   const handleClick = async (e) => {
     e.preventDefault();
+  
+
+    const currentYear = new Date().getFullYear();
+    const validYears = [currentYear, currentYear + 1]; 
+    const formatoValido = /^\d{4}-[1-2]$/.test(Periodo);
+  
+    if (!formatoValido) {
+      setAdvice("El formato del periodo debe ser 20XX-semestre (1 o 2)");
+      popup(e);
+      return;
+    }
+  
+    const [year, semester] = Periodo.split("-").map(Number);
+  
+    if (year < currentYear || !validYears.includes(year)) {
+      setAdvice("El año ingresado no es válido. No puede ser un año ya finalizado");
+      popup(e);
+      return;
+    }
     try {
       const response = await axios.post("http://localhost:8000/nuevo_curso/", {
         nombre: nombre,
@@ -57,7 +76,7 @@ function AgregarCurso() {
         profe: Cookies.get("profesor_id"),
       });
       console.log(Periodo);
-      setAdvice("Curso agregado con exito");
+      setAdvice("Curso agregado con éxito");
       popup(e);
       Cookies.remove("profesor_id");
     } catch (error) {
@@ -69,6 +88,7 @@ function AgregarCurso() {
       popup(e);
     }
   };
+  
 
   return (
     <div className="Contenedor">

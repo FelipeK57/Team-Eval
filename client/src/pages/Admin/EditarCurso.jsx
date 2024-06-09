@@ -10,7 +10,6 @@ function EditarCurso() {
   const [cursoNombre, setCursoNombre] = useState(Cookies.get("nombreCurso"));
   const [cursoCodigo, setCursoCodigo] = useState(Cookies.get("codigoCurso"));
   const [periodo, setPeriodo] = useState(Cookies.get("periodoCurso"));
-  const [nombreProfesor, setNombreProfesor] = useState(Cookies.get("nombreProfesorCurso"));
   const [profesor_id, setProfesorID] = useState(Cookies.get("id"));
   const [profesores, setProfesores] = useState([]);
   const [selectedProfesor, setSelectedProfesor] = useState(null);
@@ -70,6 +69,24 @@ function EditarCurso() {
 
   const handleClick = async (e) => {
     e.preventDefault();
+  
+    const currentYear = new Date().getFullYear();
+    const validYears = [currentYear, currentYear + 1];
+    const formatoValido = /^\d{4}-[1-2]$/.test(periodo);
+  
+    if (!formatoValido) {
+      setAdvice("El formato del periodo debe ser 20XX-semestre (1 o 2)");
+      setOpen(true);
+      return;
+    }
+  
+    const [year, semester] = periodo.split("-").map(Number);
+  
+    if (year < currentYear || !validYears.includes(year)) {
+      setAdvice("El año ingresado no es válido. No puede ser un año ya finalizado");
+      setOpen(true);
+      return;
+    }
     try {
       await axios.post("http://localhost:8000/Editar_curso/", {
         codigo: Cookies.get("codigoCurso"),
@@ -83,7 +100,6 @@ function EditarCurso() {
       Cookies.remove("nombreCurso");
       Cookies.remove("codigoCurso");
       Cookies.remove("periodoCurso");
-
     } catch (error) {
       setAdvice(error.response?.data?.error || "Error al editar el curso");
       setOpen(true);
