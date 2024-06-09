@@ -35,7 +35,6 @@ function ProfeEditar(props) {
       }
     };
 
-<<<<<<< HEAD
     verificarSesion();
   }, [navigate]);
 
@@ -79,7 +78,6 @@ function ProfeEditar(props) {
     } catch (error) {
       setAdvice(error.response.data.error);
       popup(e);
-=======
       const handleClick = async (e) => {
         e.preventDefault();
         if (!nombre || !documento || !correo) {
@@ -108,7 +106,6 @@ function ProfeEditar(props) {
           setAdvice(error.response.data.error);
           popup(e);
       }
->>>>>>> front_back_sebas
     }
   }
 
@@ -155,5 +152,5 @@ function ProfeEditar(props) {
     </div>
   )
 }
-
+}
 export default ProfeEditar;

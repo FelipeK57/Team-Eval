@@ -49,7 +49,6 @@ function AgregarCurso() {
 
   const handleClick = async (e) => {
     e.preventDefault();
-<<<<<<< HEAD
   
 
     const currentYear = new Date().getFullYear();
@@ -66,7 +65,6 @@ function AgregarCurso() {
   
     if (year < currentYear || !validYears.includes(year)) {
       setAdvice("El año ingresado no es válido. No puede ser un año ya finalizado");
-=======
     if (!nombre || !codigo || !Periodo) {
       setAdvice("Todos los campos son obligatorios");
       popup(e);
@@ -75,7 +73,6 @@ function AgregarCurso() {
 
     if(codigo.length !== 4){
       setAdvice("El codigo debe ser de 4 digitos");
->>>>>>> front_back_sebas
       popup(e);
       return;
     }
@@ -86,13 +83,8 @@ function AgregarCurso() {
         periodo: Periodo,
         profe: Cookies.get("profesor_id"),
       });
-<<<<<<< HEAD
-      console.log(Periodo);
-      setAdvice("Curso agregado con éxito");
-=======
       console.log(response.data);
       setAdvice("Curso agregado con exito (Puede verlo en el listado de Cursos y editarlo para agregar estudiantes)");
->>>>>>> front_back_sebas
       popup(e);
       Cookies.remove("profesor_id");
     } catch (error) {
@@ -144,5 +136,5 @@ function AgregarCurso() {
     </div>
   );
 }
-
+}
 export default AgregarCurso;

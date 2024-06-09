@@ -593,6 +593,7 @@ def editar_estado_profesor(request):
 @api_view(['POST'])
 def editar_Student(request):
     nombre = request.data.get('nombre')
+    apellido = request.data.get('apellido')
     codigo = request.data.get('codigo')
     newCodigo = request.data.get('newcodigo')  # Asegúrate de que esto coincide con lo que envías desde el frontend
     email = request.data.get('email')
@@ -609,6 +610,10 @@ def editar_Student(request):
 
     if nombre:
         estudiante.user.first_name = nombre
+        changes_made = True
+
+    if apellido:
+        estudiante.user.last_name = apellido
         changes_made = True
 
     if newCodigo:
