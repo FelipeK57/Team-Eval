@@ -58,33 +58,14 @@ function ProfeEditar(props) {
   const handleEmailChange = (e) => {
     setCorreo(e.target.value);
   }
-
-  const handleClick = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post("http://localhost:8000/edit_profesor/", {
-        identificacion: Cookies.get("profesorIdentificacion"),
-        nombre: nombre,
-        apellido: apellido,
-        newidentificacion: documento,
-        email: correo
-      });
-      setAdvice("Profesor editado con exito");
-      popup(e);
-      Cookies.remove("profesorIdentificacion");
-      Cookies.remove("profesorNombre");
-      Cookies.remove("profesorEmail");
-      Cookies.remove("profesorApellido")
-    } catch (error) {
-      setAdvice(error.response.data.error);
-      popup(e);
       const handleClick = async (e) => {
         e.preventDefault();
-        if (!nombre || !documento || !correo) {
+        if(!nombre || !apellido || !documento || !correo){
           setAdvice("Todos los campos son obligatorios");
           popup(e);
           return;
         }
+        
         if (documento< 10000000 || documento > 99999999) {
           setAdvice("El documento debe ser de minimo 8 digitos");
           popup(e);
@@ -107,7 +88,7 @@ function ProfeEditar(props) {
           popup(e);
       }
     }
-  }
+  
 
 
 
@@ -152,5 +133,5 @@ function ProfeEditar(props) {
     </div>
   )
 }
-}
+
 export default ProfeEditar;
