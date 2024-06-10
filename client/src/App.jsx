@@ -49,6 +49,7 @@ import GruposInformesProfe from "./pages/Informes/GruposInformesProfe.jsx";
 import IntegrantesInformesProfe from "./pages/Informes/IntegrantesInformesProfe.jsx";
 import GestionarEva from "./pages/GestionarEva/GestionarEva";
 import EstudiantesCurso from "./pages/Admin/Estudiantes_curso.jsx";
+import EstudiantesCursoProfe from "./pages/CursosProfe/EstudiantesCursoProfe.jsx";
 function App() {
   return (
     <BrowserRouter>
@@ -94,6 +95,7 @@ function App() {
         <Route path="/InformesProfe" element={<InformesProfe materia="Matematicas"/>} />
         <Route path="/GruposInformesProfe" element={<GruposInformesProfe/>} />
         <Route path="/IntegrantesInformesProfe" element={<IntegrantesInformesProfe/>} />
+        <Route path="/EstudiantesCursoProfe" element={<EstudiantesCursoProfe/>} />
 
         <Route path="/Curso" element={<Curso />} />
         <Route path="/EditarStudent" element={<EditarStudent profesor={Cookies.get("StudentNombre")} />} />

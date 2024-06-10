@@ -23,13 +23,17 @@ function ListItems(props) {
                             <CreateIcon className='CreateIconList' sx={{ fontSize: "3rem", margin: "0 10%" }} onClick={props.onClickEdit} />
                         )}
                         {props.Btn2 && (
-                             <DeleteIcon className='CreateIconList' sx={{ fontSize: "3rem", color: "red",  }} onClick={props.onClickDelete} />
+                            <DeleteIcon className='CreateIconList' sx={{ fontSize: "3rem", color: "red", }} onClick={props.onClickDelete} />
                         )}
                         {props.Btn3 && (
                             <AddIcon className='CreateIconList'
-                            sx={{ fontSize: "3rem", color: "black" }} onClick={props.onClickAdd}
+                                sx={{ fontSize: "3rem", color: "black" }} onClick={props.onClickAdd}
                             />
                         )}
+                        {props.Grupo ?
+                            <div className='GrupoList'>
+                                <h2>{props.Grupo}</h2>
+                            </div> : null}
                     </div>
                 )}
             </div>
@@ -49,6 +53,7 @@ ListItems.propTypes = {
     Btn1: PropTypes.bool,
     Btn2: PropTypes.bool,
     Btn3: PropTypes.bool,
+    Grupo: PropTypes.string
 };
 
 export default ListItems;

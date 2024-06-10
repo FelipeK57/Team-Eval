@@ -79,6 +79,7 @@ function CursosProfe(props) {
                         Estado={curso.estado}
                         nombreCurso={curso.nombre}
                         configurarCursos={() => GestionarEva(curso.id, curso.nombre)}
+                        verEstudiantes = '/EstudiantesCursoProfe'
                     />
                 ))}
             </div>
