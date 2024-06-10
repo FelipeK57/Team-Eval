@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
 import './Utilities/DropDown.css';
+import { PropTypes } from "prop-types";
 
-const DropDown = () => {
+const DropDown = (props) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleDropDown = () => {
         setIsOpen(!isOpen);
     };
 
+    DropDown.propTypes = {
+        evaSeleccionada: PropTypes.string.isRequired
+    }
+
     return (
         <div className="dropdown">
             <button onClick={toggleDropDown} className="dropdown-button">
-                Predeterminado edición David
+                {props.evaSeleccionada ? props.evaSeleccionada : 'Seleccionar rubrica de evaluación'}
                 <span className="arrow">{isOpen ? '▲' : '▼'}</span>
             </button>
 

@@ -13,6 +13,7 @@ import ProfeDes from "./pages/ProfeDes/ProfeDes";
 import Grupos from "./pages/Grupos/Grupos";
 import GestionarEva from "./pages/GestionarEva/GestionarEva";
 import AsignarEva from "./pages/AsignarEva/AsignarEva";
+import CrearEva from "./pages/CrearEva/CrearEva";
 function App() {
   return (
     <BrowserRouter>
@@ -31,6 +32,7 @@ function App() {
         <Route path="/Grupos" element={<Grupos materia="Matematicas"/>} />
         <Route path="/GestionarEva" element={<GestionarEva />} />
         <Route path="/AsignarEva" element={<AsignarEva eva="Matematicas" combi="Pedro Vargas"/>} />
+        <Route path="/CrearEva" element={<CrearEva />} />
       </Routes>
     </BrowserRouter>
     
