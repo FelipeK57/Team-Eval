@@ -9,6 +9,7 @@ import axios from 'axios';
 import PopUp from '../../components/Utilities/PopUp';
 import { useNavigate } from 'react-router-dom';
 import Cookies from "js-cookie";
+import "../Admin/TablaRubricas.css"
 
 
 function TablaRubricasProfe(props) {
@@ -147,7 +148,7 @@ function TablaRubricasProfe(props) {
                                         </div>
                                     </td>
             
-                                    <td className="ThActions">
+                                    <td className="ThActions" style={{ position: "absolute" }}>
                                         <div className="DeleteButtonThActions">
                                             <button className="DeleteButton" onClick={() => eliminarCriterio(criterio.id)}>
                                                 <DeleteIcon sx={{ fontSize: 35, color: "red" }} />

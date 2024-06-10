@@ -112,7 +112,7 @@ function NuevaRubrica(props) {
                                             />
                                         </div>
                                     </td>
-                                    <td className="ThActions">
+                                    <td className="ThActions" style={{ position: "absolute" }}>
                                         <div className="DeleteButtonThActions">
                                             <button className="DeleteButton" onClick={() => eliminarCriterio(criterio.id)}>
                                                 <DeleteIcon sx={{ fontSize: 35, color: "red" }} />
