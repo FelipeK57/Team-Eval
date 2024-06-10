@@ -1,17 +1,36 @@
-import React from "react";
 import "./Utilities/NavbarStudent.css";
 import "../../public/Logo.png";
 import { Link } from "react-router-dom";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useNavigate } from "react-router-dom";
 
 const NavbarStudent = () => {
+
+  const navigate = useNavigate();
+
+  const BackButton = () => {
+    navigate(-1);
+  };
+
+  const Home = () => {
+    navigate('/Student');
+  };
+
   return (
     <nav className="navbar">
-      <a href="/Student" className='imagef'>
-        <img src ="../../public/flecha_volver.png" alt ="flecha_volver" />
-      </a>
-      <a href="/Student" className="image">
-        <img src="../../public/Logo.png" alt="logo" />
-      </a>
+      <div className="mimin">
+        <ArrowBackIcon className='ArrowBackIconNavA' onClick={BackButton} sx={{
+          color: "white",
+          fontSize: "5rem",
+          marginRight: "2rem",
+          alignItems: "center",
+          alignContent: "center",
+          justifyContent: "center",
+          marginBottom: "10px",
+          transition: "0.3s"
+        }} />
+        <img src="../../public/Logo.png" alt="logo" onClick={Home} style={{ cursor: "pointer" }} />
+      </div>
       <h1 href="#" className="navbarh1">
         <b>¡Estudiante!</b>
       </h1>

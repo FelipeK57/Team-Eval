@@ -1,10 +1,11 @@
-import React, { useState } from "react";
-import NavbarE from "../../components/NavbarE";
+import { useState } from "react";
 import "./EvaluacionEstudiantes.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import NavbarStudent from "../../components/NavbarStudent";
+import Button from "../../components/Utilities/Button";
 
 function EvaluacionEstudiantes() {
   const navigate = useNavigate();
@@ -83,77 +84,85 @@ function EvaluacionEstudiantes() {
   };
 
   const terminar_calificacion = () => {
-    navigate("/SeleccionEvaluacion", {state: {infoCurso}});
+    navigate("/SeleccionEvaluacion", { state: { infoCurso } });
   };
 
   return (
-    <>
-      <NavbarE />
-      <div className="description-container">
+    <div className="EvaluacionEstudiantesContainer">
+      <NavbarStudent />
+      <div className="DescripcionTitleContainer">
         <h1>Evaluacion</h1>
-        <h2>{nombreAsignatura}</h2>
-        <h3>
-          Califique a los integrantes del equipo, siendo 1 la calificacion menor
-          y siendo 4 la calificacion mayor, siguiendo el criterio en la tabla.
-        </h3>
-        <h3>Seleccione el estudiante que va a evaluar</h3>
-        <select value={selectedEst} onChange={estudiante_calificado}>
-          <option>Seleccione un estudiante</option>
-          {dataEs.map((item) => (
-            <option key={item.id} value={item.codigo}>
-              {item.user.username}
-            </option>
-          ))}
-        </select>
       </div>
-      <div className="table-container">
-        <table className="styled-table">
-          <thead>
-            <tr>
-              <th>Criterios</th>
-              <th colSpan="4">Escala</th>
-            </tr>
-          </thead>
-          <tbody>
-            {dataCr.map((item, index) => (
-              <tr key={index}>
-                <td>{item.descripcion}</td>
-                {[1, 2, 3, 4].map((value) => (
-                  <td key={value} className="scale">
-                    <button
-                      onClick={() => asignarValores(item, index, value)}
-                      style={{
-                        backgroundColor:
-                          selectedValues[index] === value ? "#0F4176" : "white",
-                        color:
-                          selectedValues[index] === value ? "white" : "black",
-                      }}
-                    >
-                      {value}
-                    </button>
-                  </td>
-                ))}
-              </tr>
+      <div className="EvaluacionEstudiantesContent">
+        <div className="description-container">
+          <div className="NombreAsignatura">
+            <h2><b>{nombreAsignatura}</b></h2>
+          </div>
+          <h3>
+            Califique a los integrantes del equipo, siendo 1 la calificacion menor
+            y siendo 4 la calificacion mayor, siguiendo el criterio en la tabla.
+          </h3>
+          <h3>Seleccione el estudiante que va a evaluar</h3>
+          <select value={selectedEst} onChange={estudiante_calificado}>
+            <option>Seleccione un estudiante</option>
+            {dataEs.map((item) => (
+              <option key={item.id} value={item.codigo}>
+                {item.user.username}
+              </option>
             ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="ev-bt-c">
-        <textarea
-          value={comentarios}
-          onChange={obtener_comentario}
-          placeholder="Escriba algun comentario (opcional)"
-        ></textarea>
-        <button onClick={realizar_calificacion} className="enviar-calificacion">
-          Guardar calificacion de compañero actual
-        </button>
-        <div className="container-boton-fc">
-          <button onClick={terminar_calificacion} className="enviar-calificacion">
-            Terminar calificacion
-          </button>
+          </select>
+          <div className="ev-bt-c">
+            <textarea
+              value={comentarios}
+              onChange={obtener_comentario}
+              placeholder="Escriba algun comentario (opcional)"
+            ></textarea>
+            <Button Boton="Guardar calificacion de compañero actual"
+              onClick={realizar_calificacion}
+              className="enviar-calificacion"
+              color="#0F4176"
+              fontColor="white" />
+              <Button Boton="Terminar calificacion"
+              color="#0F4176"
+              fontColor="white" 
+              onClick={terminar_calificacion} 
+              className="enviar-calificacion" />
+          </div>
+        </div>
+        <div className="table-container">
+          <table className="styled-table">
+            <thead>
+              <tr>
+                <th>Criterios</th>
+                <th colSpan="4">Escala</th>
+              </tr>
+            </thead>
+            <tbody>
+              {dataCr.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.descripcion}</td>
+                  {[1, 2, 3, 4].map((value) => (
+                    <td key={value} className="scale">
+                      <button
+                        onClick={() => asignarValores(item, index, value)}
+                        style={{
+                          backgroundColor:
+                            selectedValues[index] === value ? "#0F4176" : "white",
+                          color:
+                            selectedValues[index] === value ? "white" : "black",
+                        }}
+                      >
+                        {value}
+                      </button>
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

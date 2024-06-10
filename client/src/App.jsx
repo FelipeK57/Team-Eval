@@ -65,7 +65,6 @@ function App() {
         {/*Actualizacion de contraseña*/}
         <Route path="/VerificacionCorreo" element={<VerificacionCorreo />}/>
         <Route path="/CodigoVerificacion" element={<CodigoVerificacion />} />
-  
         <Route path="/CambioContraAdmin" element={<CambiarContraseñaAdmin />} />
         <Route path="/AvisoContraseña" element={<AvisoContraseña />} />
 
@@ -75,8 +74,9 @@ function App() {
         {/*Paginas Estudiante*/}
         <Route path="/Student" element={<HomeStudent />} />
         <Route path="/InformesEstudiante" element={<InformesEstudiantes />} />
-
-        <Route path="/Profesor" element={<HomeProfesor />} />
+        <Route path="/Evaluacion" element={<EvaluacionEstudiantes />} />
+        <Route path="/SeleccionEvaluacion" element={<SeleccionEvaluacion />} />
+        <Route path="/Cursos" element={<CursosEstudiante />} />
 
         <Route path="/MiCuenta" element={<MiCuenta />} />
 
@@ -93,7 +93,6 @@ function App() {
         <Route path="/GruposInformesProfe" element={<GruposInformesProfe/>} />
         <Route path="/IntegrantesInformesProfe" element={<IntegrantesInformesProfe/>} />
 
-        <Route path="/Cursos" element={<CursosEstudiante />} />
         <Route path="/Curso" element={<Curso />} />
         <Route path="/EditarStudent" element={<EditarStudent profesor={Cookies.get("StudentNombre")} />} />
 
@@ -116,12 +115,6 @@ function App() {
         <Route path="/CursosDes" element={<CursosDes />} />
         <Route path="/ProfeDes" element={<ProfeDes />} />
         <Route path="/ImportarEstudiantes" element={<ImportarEstudiantes />} />
-  
-
-        
-
-        <Route path="/Evaluacion" element={<EvaluacionEstudiantes />} />
-        <Route path="/SeleccionEvaluacion" element={<SeleccionEvaluacion />} />
       </Routes>
     </BrowserRouter>
   );
