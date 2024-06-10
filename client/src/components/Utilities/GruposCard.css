@@ -10,33 +10,51 @@
 .header {
     background-color: #004080;
     color: white;
-    padding: 10px; /* Aumentado el padding para mejor presentación */
-    font-size: 1.2rem; /* Ajustado el tamaño de fuente */
+    padding: 10px;
+    font-size: 0.75rem;
     text-align: center;
-    font-family: 'Mulish', sans-serif; /* Asegurando la familia de fuente correcta */
+    font-family: 'Mulish', sans-serif;
 }
 
 .content {
+    flex-grow: 1;
+    overflow-y: auto;
     display: flex;
-    flex-direction: column; /* Asegura que los elementos estén en columna */
+    flex-direction: column;
     padding: 10px;
     font-family: 'Mulish', sans-serif;
-    font-size: 0.9rem;
+    font-size: 1rem;
     margin-left: 15px;
+    max-height: 400px;
 }
 
 .content p {
     margin: 10px 0;
     color: black;
     font-family: Mulish !important;
-
 }
 
-.chimichanga{
-    padding:0%;
-    margin-left: auto;
-    border: none;
-    cursor: pointer;
+.estudiante {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    margin: 5px 0;
+    background-color: #b3afaf;
+    border-radius: 10px;
+    font-size: 1rem;
+    color: black;
+}
+
+.estudiante h1 {
+    flex-grow: 1;
+    margin: 0;
+    color: black;
+    font-size: 1.5rem;
+}
+
+.chimichanga {
+    display: flex;
+    align-items: center;
 }
 
 .botonsillo {
@@ -46,20 +64,10 @@
     cursor: pointer;
     justify-content: center;
     align-items: center;
-    margin-right: 10px;
-    width: 100%;
-    height: 100%;
-    transition: all 0.3s;
     color: #9e0202;
+    transition: transform 0.3s;
 }
 
 .botonsillo:hover {
     transform: scale(1.1);
-}
-
-.content .estudiante h1 {
-    flex-grow: 1;
-    margin: 0;
-    color: black;
-    font-size: 1.5rem; /* Ajustado el tamaño de fuente */
 }
