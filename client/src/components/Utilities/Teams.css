@@ -1,4 +1,4 @@
-.teams-container {
+.epa {
     width: 400px;
     height: 500px;
     background-color: #b3afaf;
@@ -9,7 +9,7 @@
     flex-direction: column;
   }
 
-  .cabeza {
+  .colombia {
     background-color: rgb(15, 65, 118);
     color: white;
     padding: 1px;
@@ -18,22 +18,28 @@
     font-family: Mulish !important;
 
 }
+
+.listoCalisto {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 10px;
+    flex-direction: column;
+}
   
-  .team {
-    display: inline-block !important;
+  .bean {
+    display: flex;
+    align-items: center;
     padding: 0px 20px;
     margin: 5px 0;
-    margin-left: 5px;
     background-color: #b3afaf;
     color: black;
-    border-radius: 20px;
+    border-radius: 10px;
     cursor: pointer;
-    font-family: Mulish !important;
-    font-size:0.8rem;
-    
+    font-family: 'Mulish', sans-serif;
+    font-size: 0.8rem;
   }
   
-  .team.selected {
+  .bean.selected {
     background-color: rgb(15, 65, 118);
     color: white;
     width: fit-content;
