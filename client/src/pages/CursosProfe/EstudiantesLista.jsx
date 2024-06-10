@@ -56,18 +56,10 @@ function Estudiantes() {
         setAdvice(response.data.message);
         setOpen(true);  
       } catch (error) {
-        setAdvice(error.data.err);
+        setAdvice(error.response.data.error);
         setOpen(true);  
       }
     }
-
-    const BuscarButton = () => {
-      setSearchProfesores(true);
-      const searchField = document.querySelector(".SearchFieldProfesores input");
-      setTimeout(() => {
-        searchField.focus();
-      }, 0);
-    };
 
     const popup = (e) => {
       e.preventDefault();
