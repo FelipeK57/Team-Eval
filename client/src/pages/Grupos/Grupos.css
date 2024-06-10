@@ -28,7 +28,7 @@
     color: #000000;
     font-family: Mulish !important;
     top: 19vh;
-    left: 41.8vw;
+    left: 40vw;
 }
 
 .holo {
@@ -64,7 +64,21 @@
 .conio{
     display: flex;
     position: absolute;
-    top: 89%;
+    top: 91%;
     right: 5%;
 }
 
+.oinoc{
+    display: flex;
+    position: absolute;
+    top: 91%;
+    right: 73.5%;
+}
+
+.input-text {
+    padding: 8px; /* Espacio interno */
+    border: 1px solid #ccc; /* Borde */
+    border-radius: 10px; /* Bordes redondeados */
+    font-size: 1rem; /* Tamaño de fuente */
+    width: 200px; /* Ancho del input */
+}

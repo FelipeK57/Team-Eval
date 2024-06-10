@@ -1,9 +1,8 @@
 import CardForm from "../../components/CardForm";
 import NoQuieroCrearMasNavbars from "../../components/NoQuieroCrearMasNavbars";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import Cookies from "js-cookie";
 import PopUp from "../../components/Utilities/PopUp";
 
@@ -26,6 +25,7 @@ function AgregarCurso() {
   const handlesetPeriodo = (e) => {
     setPeriodo(e.target.value);
   };
+
   const popup = (e) => {
     e.preventDefault();
     setOpen(!open);
@@ -49,33 +49,31 @@ function AgregarCurso() {
 
   const handleClick = async (e) => {
     e.preventDefault();
-  
 
     const currentYear = new Date().getFullYear();
     const validYears = [currentYear, currentYear + 1]; 
     const formatoValido = /^\d{4}-[1-2]$/.test(Periodo);
-  
+
     if (!formatoValido) {
       setAdvice("El formato del periodo debe ser 20XX-semestre (1 o 2)");
       popup(e);
       return;
     }
-  
-    const [year, semester] = Periodo.split("-").map(Number);
-  
+
+    const [year] = Periodo.split("-").map(Number);
+
     if (year < currentYear || !validYears.includes(year)) {
       setAdvice("El año ingresado no es válido. No puede ser un año ya finalizado");
+      popup(e);
+      return;
+    }
+
     if (!nombre || !codigo || !Periodo) {
       setAdvice("Todos los campos son obligatorios");
       popup(e);
       return;
     }
 
-    if(codigo.length !== 4){
-      setAdvice("El codigo debe ser de 4 digitos");
-      popup(e);
-      return;
-    }
     try {
       const response = await axios.post("http://localhost:8000/nuevo_curso/", {
         nombre: nombre,
@@ -84,7 +82,7 @@ function AgregarCurso() {
         profe: Cookies.get("profesor_id"),
       });
       console.log(response.data);
-      setAdvice("Curso agregado con exito (Puede verlo en el listado de Cursos y editarlo para agregar estudiantes)");
+      setAdvice("Curso agregado con éxito (Puede verlo en el listado de Cursos y editarlo para agregar estudiantes)");
       popup(e);
       Cookies.remove("profesor_id");
     } catch (error) {
@@ -96,7 +94,6 @@ function AgregarCurso() {
       popup(e);
     }
   };
-  
 
   return (
     <div className="Contenedor">
@@ -107,8 +104,8 @@ function AgregarCurso() {
         value1={nombre}
         onChangeField1={handleNombreChange}
         Field1=""
-        Label2="codigo"
-        type2="numero"
+        Label2="Código"
+        type2="text"
         value2={codigo}
         onChangeField2={handleCodigoChange}
         Field2=""
@@ -130,11 +127,11 @@ function AgregarCurso() {
         SetOpen={setOpen}
         Advice={advice}
         Width={"100%"}
-        Button1="volver"
+        Button1="Volver"
         onClick1={popup}
       />
     </div>
   );
 }
-}
+
 export default AgregarCurso;

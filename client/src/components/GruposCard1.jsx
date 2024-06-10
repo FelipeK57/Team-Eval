@@ -33,7 +33,7 @@ const GruposCard1 = ({ id, onSelectTeam }) => {
       <div className="cabeza">
         <h1>Equipos</h1>
       </div>
-      <div>
+      <div className="teams-list">
         {grupos.map((grupo) => (
           <Team
             key={grupo.id}
@@ -53,5 +53,3 @@ GruposCard1.propTypes = {
 };
 
 export default GruposCard1;
-
-

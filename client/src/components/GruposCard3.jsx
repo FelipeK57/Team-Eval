@@ -36,6 +36,7 @@ GruposCard3.propTypes = {
       user: PropTypes.shape({
         id: PropTypes.number.isRequired,
         first_name: PropTypes.string.isRequired,
+        last_name: PropTypes.string.isRequired,
       }).isRequired,
     })
   ).isRequired,
@@ -43,4 +44,3 @@ GruposCard3.propTypes = {
 };
 
 export default GruposCard3;
-

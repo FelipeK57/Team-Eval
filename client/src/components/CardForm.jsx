@@ -44,6 +44,7 @@ function CardForm(props) {
 
   const handleProfesorChange = (event, newValue) => {
     if (newValue) {
+      setSelectedProfesor(newValue);
       Cookies.set("profesor_id", newValue.id, { expires: 1 });
       props.onChangeField3(newValue);
     }
@@ -232,5 +233,3 @@ function CardForm(props) {
 }
 
 export default CardForm;
-
-

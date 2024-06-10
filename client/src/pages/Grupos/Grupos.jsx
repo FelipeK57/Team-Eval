@@ -93,7 +93,7 @@ function Grupos(props) {
         <div className="Grupos">
             <NavbarProfesor />  
             <div className="holi"><h1>Configuración del curso<br/><b>{materia}</b></h1></div>     
-            <div className="hola"><h1>Grupos del Curso <b>{materia}</b></h1></div>  
+            <div className="hola"><h1>Grupos del Curso: <b>{materia}</b></h1></div>  
             <div className="holo"> 
             <GruposCard titulo="Integrantes" estudiantes = {estudiantes} eliminar={eliminarEstudiante}/>
             </div>
@@ -106,6 +106,14 @@ function Grupos(props) {
             <div className="conio"> 
             <Button2 Boton2="Guardar Cambios" color="rgb(15, 65, 118)" fontColor="white" onClick={guardarCambios}  />
             </div>
+            <div className="oinoc"> 
+            <input type="text" className="input-text" placeholder="Nombre del estudiante"
+                />
+                <Button2 Boton2="Agregar" color="rgb(15, 65, 118)" fontColor="white" onClick=""
+                />
+            </div>
+            
+
         </div>
     )
 }
