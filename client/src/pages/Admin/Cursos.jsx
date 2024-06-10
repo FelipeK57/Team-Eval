@@ -17,6 +17,7 @@ function Cursos() {
   const [searchCursos, setSearchCursos] = useState(false);
   const [filteredCursos, setFilteredCursos] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [searchValue, setSearchValue] = useState("");
 
   const navigate = useNavigate();
 
@@ -82,9 +83,16 @@ function Cursos() {
     if (e.target.value === "") {
       setFilteredCursos(cursos);
     } else {
-      setFilteredCursos(cursos.filter(curso => 
+      setFilteredCursos(cursos.filter(curso =>
         String(curso.codigo).toLowerCase().includes(e.target.value.toLowerCase())
       ));
+    }
+    setSearchValue(e.target.value);
+  };
+
+  const handleSearchBlur = () => {
+    if (searchValue === "") {
+      setSearchCursos(false);
     }
   };
 
@@ -99,7 +107,7 @@ function Cursos() {
           <button className="SearchButtonCursos" onClick={BuscarButton}>
             <Search sx={{ fontSize: 30, color: "white" }} />
           </button>
-          <div className={searchCursos === true ? "SearchFieldCursos Active" : "SearchFieldCursos Inactive"}>
+          <div className={searchCursos === true ? "SearchFieldCursos Active" : "SearchFieldCursos Inactive"} onBlur={handleSearchBlur}>
             <Field
               LineaBoton={false}
               Boton=""
@@ -141,7 +149,7 @@ function Cursos() {
               Buttons={true}
               Btn1={true}
               Btn2={true}
-              
+
             />
           </div>
         ))}

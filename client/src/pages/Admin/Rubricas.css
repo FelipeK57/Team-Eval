@@ -28,6 +28,7 @@
 .OpcionRubricas{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 40px;
     flex-direction: row;
     height: 150px;
     width:100%;

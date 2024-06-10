@@ -18,6 +18,7 @@ function Profesores() {
   const [open, setOpen] = useState(false);
   const [advice, setAdvice] = useState("");
   const [searchProfesores, setSearchProfesores] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
 
   const AgregarProfesores = () => {
     navigate("/AgregarP");
@@ -80,9 +81,16 @@ function Profesores() {
     if (e.target.value === "") {
       setFilteredProfesores(profesores);
     } else {
-      setFilteredProfesores(profesores.filter(profesor => 
+      setFilteredProfesores(profesores.filter(profesor =>
         String(profesor.identificacion).toLowerCase().includes(e.target.value.toLowerCase())
       ));
+    }
+    setSearchValue(e.target.value);
+  };
+
+  const handleSearchBlur = () => {
+    if (searchValue === "") {
+      setSearchProfesores(false);
     }
   };
 
@@ -97,7 +105,8 @@ function Profesores() {
           <button className="SearchButtonProfesores" onClick={BuscarButton}>
             <Search sx={{ fontSize: 30, color: "white" }} />
           </button>
-          <div className={searchProfesores === true ? "SearchFieldProfesores Active" : "SearchFieldProfesores Inactive"}>
+          <div className={searchProfesores === true ? "SearchFieldProfesores Active" : "SearchFieldProfesores Inactive"}
+          onBlur={handleSearchBlur}>
             <Field
               LineaBoton={false}
               Boton=""

@@ -17,7 +17,7 @@
     display: flex;
     flex-direction: column;
     background-color: #A5A4A4;
-    width: 50%;
+    width: 60%;
     height: 60%;
     border-radius: 15px;
     margin: 0;
@@ -48,6 +48,7 @@
     justify-content: center;
     align-items: center;
     margin: 1% 0 0 0;
+    padding: 2px;
 }
 
 .FormCardForm form {
@@ -106,13 +107,18 @@
 }
 
 .AgregarEstudiantes {
-    bottom: 60px; /* Ajuste para separar los botones */
-    right: 5%;
+    bottom: 18.5px; /* Ajuste para separar los botones */
+    right: 3%;
 }
 
 .AgregarEstudiantes2 {
     bottom: 18.5px;
-    right: 5%;
+    right: 21%;
+}
+
+.AgregarEstudiantes3 {
+    bottom: 18.5px;
+    left: 3%;
 }
 
 .AgregarEstudiantes:hover,
@@ -120,4 +126,16 @@
 .AgregarEstudiantes3:hover {
     box-shadow: 0 0 0.5rem 0.5rem rgba(15, 65, 117, 0.3) !important;
     transition: all 0.3s;
+}
+
+.ComboInput .MuiAutocomplete-input{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    margin: 0;
+    padding: 5px 0px 5px 10px;
+    width: 98% !important;
+    height: 100% !important;
 }

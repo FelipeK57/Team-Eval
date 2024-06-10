@@ -119,6 +119,7 @@ function CardForm(props) {
                       clearOnBlur={false}
                       clearOnEscape={false}
                       sx={{
+                        border: "none",
                         display: "flex",
                         "& input": {
                           width: "100%",
@@ -136,20 +137,16 @@ function CardForm(props) {
                       options={profesores}
                       getOptionLabel={(option) => option.name}
                       renderInput={(params) => (
-                        <div style={{ position: "relative", width: "100%" }}>
-                          <TextField
-                            {...params}
-                            className="ComboInput"
-                            required
-                            variant="outlined"
-                          />
+                        <div ref={params.InputProps.ref} className="ComboInput" style={{ position: "relative", width: "100%" }}>
+                          <input {...params.inputProps} autoComplete="off"/>
                           <SearchIcon
                             sx={{
+                              display: "flex",
                               transition: "all 0.3s ease",
                               fontSize: "2rem",
                               position: "absolute",
                               right: "10px",
-                              top: "50%",
+                              top: "60%",
                               transform: "translateY(-50%)",
                               "&:hover": {
                                 transform: "scale(1.2) translateY(-50%)",

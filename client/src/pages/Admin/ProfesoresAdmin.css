@@ -84,3 +84,11 @@
   box-shadow: 0 0 0.5rem 0.5rem rgba(15, 65, 118, 0.5) ;
   transition: all 0.3s;
 }
+
+.CursosDes button{
+  display: flex;
+  word-wrap: none;
+  line-break: unset;
+  padding: 0 220px;
+  white-space: nowrap;
+}
