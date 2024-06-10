@@ -543,6 +543,9 @@ def editar_profesor(request):
     profesor = profesores.first()
     changes_made = False
 
+    if profesor.user.first_name == nombre and profesor.user.last_name == apellido and profesor.identificacion == identificacion and profesor.user.email == email:
+        return Response({"error": "Ningún cambio realizado"}, status=status.HTTP_400_BAD_REQUEST)
+
     if nombre:
         profesor.user.first_name = nombre
         changes_made = True
@@ -558,6 +561,10 @@ def editar_profesor(request):
     if email:
         profesor.user.email = email
         changes_made = True
+
+    if profesor.user.first_name == nombre and profesor.user.last_name == apellido and profesor.identificacion == identificacion and profesor.user.email == email:
+        return Response({"error": "Ningún cambio realizado"}, status=status.HTTP_400_BAD_REQUEST)
+
 
     if changes_made:
         profesor.user.save()  # Guardar cambios en el usuario asociado
@@ -661,10 +668,11 @@ def editar_curso(request):
 
     if profe_id:
         profesor = get_object_or_404(Profesor, id=profe_id)
-        if curso.profesor == profesor:
-            return Response({"error": "El profesor ya está asignado a un curso"}, status=status.HTTP_400_BAD_REQUEST)
         curso.profesor = profesor
         changes_made = True
+
+    
+
 
     if changes_made:
         curso.save()

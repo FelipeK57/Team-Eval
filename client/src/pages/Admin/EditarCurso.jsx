@@ -6,8 +6,6 @@ import Cookies from "js-cookie";
 import PopUp from "../../components/Utilities/PopUp";
 import { useNavigate } from "react-router-dom";
 
-
-
 function EditarCurso() {
   const [cursoNombre, setCursoNombre] = useState(Cookies.get("nombreCurso"));
   const [cursoCodigo, setCursoCodigo] = useState(Cookies.get("codigoCurso"));
@@ -18,9 +16,8 @@ function EditarCurso() {
   const [open, setOpen] = useState(false);
   const [advice, setAdvice] = useState("");
   const navigate = useNavigate();
- 
 
-  console.log("id del profesor:", profesor_id)
+  console.log("id del profesor:", Cookies.get("profesor_id"));
 
   useEffect(() => {
     const fetchProfesores = async () => {
@@ -45,7 +42,7 @@ function EditarCurso() {
       }
     };
     fetchProfesores();
-  }, []);
+  }, [profesor_id]);
 
   const importarE = (e) => {
     navigate("/ImportarEstudiantes/");
@@ -67,18 +64,21 @@ function EditarCurso() {
     setPeriodo(e.target.value);
   };
 
+  const handleProfesorChange = (newValue) => {
+    if (newValue) {
+      setProfesorID(newValue.id);
+    }
+  };
+
   const popup = (e) => {
     e.preventDefault();
     setOpen(false);
     navigate("/CursosAdmin");
-
   };
 
   const gestionarE = (e) => {
     navigate(`/EstudiantesCurso/${cursoCodigo}`, { state: { materia: cursoNombre } });
   };  
-
-
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -119,6 +119,7 @@ function EditarCurso() {
       Cookies.remove("nombreCurso");
       Cookies.remove("codigoCurso");
       Cookies.remove("periodoCurso");
+      Cookies.remove("profesor_id")
     } catch (error) {
       setAdvice(error.response?.data?.error || "Error al editar el curso");
       setOpen(true);
@@ -142,7 +143,7 @@ function EditarCurso() {
         Label3="Profesor"
         type3="text"
         valueField3={selectedProfesor}
-        onChangeField3={handlesetPeriodo}
+        onChangeField3={handleProfesorChange}
         Field3=""
         onClick={handleClick}
         Combo={true}
@@ -155,7 +156,7 @@ function EditarCurso() {
         redirect={importarE}
         Btn2={true}
         Btn3={true}
-        Btn4= {true}
+        Btn4={true}
         onClick2={agregarE}
         onClick3={gestionarE}
       />
@@ -167,9 +168,7 @@ function EditarCurso() {
         Button1="volver"
         onClick1={popup}
       />
-      
     </div>
-    
   );
 }
 
