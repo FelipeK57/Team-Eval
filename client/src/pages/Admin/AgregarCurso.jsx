@@ -49,6 +49,17 @@ function AgregarCurso() {
 
   const handleClick = async (e) => {
     e.preventDefault();
+    if (!nombre || !codigo || !Periodo) {
+      setAdvice("Todos los campos son obligatorios");
+      popup(e);
+      return;
+    }
+
+    if(codigo.length !== 4){
+      setAdvice("El codigo debe ser de 4 digitos");
+      popup(e);
+      return;
+    }
     try {
       const response = await axios.post("http://localhost:8000/nuevo_curso/", {
         nombre: nombre,
@@ -57,7 +68,7 @@ function AgregarCurso() {
         profe: Cookies.get("profesor_id"),
       });
       console.log(response.data);
-      setAdvice("Curso agregado con exito");
+      setAdvice("Curso agregado con exito (Puede verlo en el listado de Cursos y editarlo para agregar estudiantes)");
       popup(e);
       Cookies.remove("profesor_id");
     } catch (error) {

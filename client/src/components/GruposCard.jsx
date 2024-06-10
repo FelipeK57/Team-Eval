@@ -12,7 +12,7 @@ const GruposCard = ({ titulo, estudiantes, eliminar }) => {
       <div className="content">
         {estudiantes.map((estudiante) => (
           <div key={estudiante.user.id} className="estudiante">
-            <h1>{estudiante.user.first_name}</h1>
+            <h1>{estudiante.user.first_name + ' ' + estudiante.user.last_name}</h1>
             {estudiante.user.first_name && (
               <div className="chimichanga">
                 <button className="botonsillo" onClick={() => eliminar(estudiante.id)}>

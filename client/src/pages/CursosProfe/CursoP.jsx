@@ -40,9 +40,13 @@ function CursosProfe(props) {
         navigate("/Rubricas");
     }
 
+    const NuevaRubrica = () => {
+        navigate("/NuevaRubrica");
+    }
 
-    const ConfigCursos = (cursoId, nombre) => {
-        navigate(`/Grupos/${cursoId}`, { state: { materia: nombre } });
+
+    const GestionarEva = (cursoId, nombre) => {
+        navigate(`/GestionarEva/${cursoId}`, { state: { materia: nombre } });
     }
 
     return (
@@ -57,8 +61,9 @@ function CursosProfe(props) {
             <div className="linea-vertical"></div>
             <div className="cursed2"><h1>Crear Rubrica</h1></div>
             <div className="cardex2">
-                <button>
+                <button onClick={NuevaRubrica}>
                     <AddIcon sx={{ fontSize: 50 }} />
+                    
                 </button>
             </div>
             <div className="linea-horizontal"></div>
@@ -73,7 +78,7 @@ function CursosProfe(props) {
                         key={curso.id}
                         Estado={curso.estado}
                         nombreCurso={curso.nombre}
-                        configurarCursos={() => ConfigCursos(curso.id, curso.nombre)}
+                        configurarCursos={() => GestionarEva(curso.id, curso.nombre)}
                     />
                 ))}
             </div>

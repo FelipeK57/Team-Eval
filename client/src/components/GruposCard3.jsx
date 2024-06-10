@@ -12,7 +12,7 @@ const GruposCard3 = ({ estudiantes, agregar }) => {
       <div className="Plato">
         {Array.isArray(estudiantes) && estudiantes.map((estudiante) => (
           <div key={estudiante.id} className="Estudiante">
-            <h1>{estudiante.user.first_name}</h1>
+            <h1>{estudiante.user.first_name + " " + estudiante.user.last_name}</h1>
             <div className='beba'>
               <Button2
                 Boton2="+"

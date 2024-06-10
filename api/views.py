@@ -78,7 +78,7 @@ def login(request):
         value=token.key,
         httponly=False,
         secure=False,   
-        samesite='Lax',  # O 'Strict' según tus necesidades
+        samesite='Strict',  # O 'Strict' según tus necesidades
         max_age=36000  # Tiempo de expiración en segundos
     )
     return response
@@ -100,7 +100,7 @@ def login_adminte(request):
         value=token.key,
         httponly=False,
         secure=False,   
-        samesite='Lax',  # O 'Strict' según tus necesidades
+        samesite='Strict',  # O 'Strict' según tus necesidades
         max_age=36000  # Tiempo de expiración en segundos
     )
     return response
@@ -719,31 +719,85 @@ def guardar_criterios(request):
     criterios = request.data.get('criterios')
     criteriosEliminados = request.data.get('criteriosEliminados')
     newEscala = request.data.get('newEscala')
+    identificacion = request.data.get('identificacion')
+
+    profesor = get_object_or_404(Profesor, identificacion=identificacion)
+    username = profesor.user.username
 
     rubrica = get_object_or_404(rubrica_Evaluacion, id=id)
+    
 
-    if(newEscala != rubrica.escala):
-        rubrica.escala = newEscala
+    if rubrica.autor == 'admin':
+        criterios_originales = list(rubrica.criterios.all())
+        nueva_rubrica = rubrica_Evaluacion.objects.create(
+            nombre=f"{rubrica.nombre} edición {profesor.user.first_name}",
+            escala=newEscala if newEscala else rubrica.escala,
+            autor=username
+        )
 
-    # Eliminar criterios
-    for criterio in criteriosEliminados:
-        criterio_obj = get_object_or_404(criterio_Evaluacion, id=criterio['id'])
-        criterio_obj.delete()
+        for criterio_id in criteriosEliminados:
+            criterio_obj = get_object_or_404(criterio_Evaluacion, id=criterio_id)
+            criterio_obj.delete()
 
-    # Actualizar o crear criterios
-    for criterio in criterios:
-        if 'id' in criterio and criterio_Evaluacion.objects.filter(id=criterio['id']).exists():
-            criterio_obj = criterio_Evaluacion.objects.get(id=criterio['id'])
-            criterio_obj.descripcion = criterio['descripcion']
-            criterio_obj.save()
-        else:
-            new = criterio_Evaluacion.objects.create(
-                descripcion=criterio['descripcion'],
-                valor=1,
-            )
-            rubrica.criterios.add(new)
+        for criterio in criterios:
+            if 'id' in criterio and criterio_Evaluacion.objects.filter(id=criterio['id']).exists():
+                criterio_obj = criterio_Evaluacion.objects.get(id=criterio['id'])
+                new_criterio = criterio_Evaluacion.objects.create(
+                    descripcion=criterio['descripcion'],
+                    valor=0
+                )
+                nueva_rubrica.criterios.add(new_criterio)  
+            else:
+                nuevo_criterio = criterio_Evaluacion.objects.create(
+                    descripcion=criterio['descripcion'],
+                    valor=0,
+                )
+                nueva_rubrica.criterios.add(nuevo_criterio)
 
-    rubrica.save()
+        for criterio in rubrica.criterios.all():
+            rubrica.criterios.remove(criterio)
+        
+        rubrica.save()
+
+        for criterio in criterios_originales:
+            rubrica.criterios.add(criterio)
+
+        rubrica.save()
+
+        
+
+        return Response({'message': 'Rubrica editada, se ha creado una rubrica predeterminada edicion: ' + str(profesor.user.first_name)}, status=status.HTTP_201_CREATED)
+    
+    else:
+        # Actualizar la escala si ha cambiado
+        if newEscala and newEscala != rubrica.escala:
+            rubrica.escala = newEscala
+
+        # Eliminar criterios
+        for criterio in criteriosEliminados:
+            criterio_obj = get_object_or_404(criterio_Evaluacion, id=criterio['id'])
+            criterio_obj.delete()
+
+        # Actualizar o crear criterios
+        for criterio in criterios:
+            if 'id' in criterio and criterio_Evaluacion.objects.filter(id=criterio['id']).exists():
+                criterio_obj = criterio_Evaluacion.objects.get(id=criterio['id'])
+                criterio_obj.descripcion = criterio['descripcion']
+                criterio_obj.save()
+            else:
+                nuevo_criterio = criterio_Evaluacion.objects.create(
+                    descripcion=criterio['descripcion'],
+                    valor=0,
+                )
+                rubrica.criterios.add(nuevo_criterio)
+
+        rubrica.save()
+
+    return Response({'message': 'Rubrica editada correctamente'}, status=status.HTTP_200_OK)
+        
+
+
+    
 
     return Response({"message": "Criterios actualizados correctamente"}, status=status.HTTP_200_OK)
 @api_view(['GET'])
@@ -779,12 +833,11 @@ def editar_predeterminada(request):
         if 'id' in criterio and criterio_Evaluacion.objects.filter(id=criterio['id']).exists():
             criterio_obj = criterio_Evaluacion.objects.get(id=criterio['id'])
             criterio_obj.descripcion = criterio['descripcion']
-            criterio_obj.valor = criterio['valor']
             criterio_obj.save()
         else:
             new = criterio_Evaluacion.objects.create(
                 descripcion=criterio['descripcion'],
-                valor=criterio['valor'],
+                valor=0,
             )
             rubrica.criterios.add(new)
 
@@ -813,7 +866,7 @@ def guardarRubrica(request):
     for criterio in criterios_data:
         new = criterio_Evaluacion.objects.create(
             descripcion=criterio['descripcion'],
-            valor=criterio['valor'],
+            valor=0,
         )
         nueva_rubrica.criterios.add(new)
 
@@ -908,13 +961,67 @@ def agregar_estudiante(request):
         return Response({"error": "Grupo no encontrado"}, status=status.HTTP_404_NOT_FOUND)
     except Exception as e:
         return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
-
-    
     
 
+@api_view(['POST'])
+def evaluaciones(request):
+    id_curso = request.data.get('id')
+    curso = Cursos.objects.get(id=id_curso)
+    evaluaciones = []
+    for evaluacion in curso.evaluaciones.all(): 
+        evaluaciones.append(evaluacion)
+    
+    serializer = evaluacionSerializer(evaluaciones, many=True)
+    return Response({"evaluaciones": serializer.data}, status=status.HTTP_200_OK)
 
+@api_view(['POST'])
+def agregar_estudiante_curso(request):
+    estudiante_id = request.data.get('estudianteId')
+    cursoCodigo = request.data.get('cursoCodigo')
 
+    try:
+        estudiante = Estudiante.objects.get(id=estudiante_id)
+        curso = Cursos.objects.get(codigo=cursoCodigo)
+
+        if estudiante in curso.estudiantes.all():
+            return Response({"error": "El estudiante ya se encuentra en el curso"}, status=status.HTTP_400_BAD_REQUEST)
+        curso.estudiantes.add(estudiante)
+        return Response({"message": "Estudiante agregado al curso " + curso.nombre +   " exitosamente"}, status=status.HTTP_200_OK)
+    except Estudiante.DoesNotExist:
+        return Response({"error": "Estudiante no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+    except Cursos.DoesNotExist:
+        return Response({"error": "Curso no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
     
 
+@api_view(['POST'])
+def estudiantes_curso(request):
+    codigo_curso = request.data.get('codigo')
+    try:
+        curso = Cursos.objects.get(codigo=codigo_curso) 
+        ests = []
+        for est in curso.estudiantes.all():
+            ests.append(est)
+        serializer = EstudianteSerializer(ests, many=True)
+        return Response({"estudiantes": serializer.data}, status=status.HTTP_200_OK)
+    except Cursos.DoesNotExist:
+        return Response({"error": "Curso no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+    
+@api_view(['POST'])
+def eliminar_estudiante_curso(request):
+    estudiante_id = request.data.get('estudianteId')
+    cursoCodigo = request.data.get('cursoCodigo')
 
+    try:
+        estudiante = Estudiante.objects.get(id=estudiante_id)
+        curso = Cursos.objects.get(codigo=cursoCodigo)
+
+        if estudiante not in curso.estudiantes.all():
+            return Response({"error": "El estudiante no se encuentra en el curso"}, status=status.HTTP_400_BAD_REQUEST)
+        curso.estudiantes.remove(estudiante)
+        return Response({"message": "Estudiante eliminado del curso exitosamente"}, status=status.HTTP_200_OK)
+    except Estudiante.DoesNotExist:
+        return Response({"error": "Estudiante no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+    
     

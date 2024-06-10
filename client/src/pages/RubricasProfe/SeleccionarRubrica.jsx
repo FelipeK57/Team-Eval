@@ -5,6 +5,9 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { useState } from "react";
 import RubricaSeleccionable from "./RubricaSeleccionable";
 import Button from "../../components/Utilities/Button";
+import Cookies from "js-cookie";
+import axios from "axios";
+import { useEffect } from "react";
 function SeleccionarRubrica(props) {
 
     SeleccionarRubrica.propTypes = {
@@ -14,6 +17,25 @@ function SeleccionarRubrica(props) {
     }
 
     const [box, setBox] = useState(false);
+    const [rubricas, setRubricas] = useState([]);
+    const [predeterminada, setPredeterminada] = useState([]);
+
+    useEffect(() => {
+        const fetchestudiantes= async () => {
+            try {
+                const response = await axios.post(
+                    "http://localhost:8000/rubricasProfe/", 
+                    { identificacion : Cookies.get("identificacion") }    
+                );
+                setRubricas(response.data.rubricas);
+                setPredeterminada(response.data.predeterminada);
+            } catch (error) {
+                console.error("Error al obtener las rubricas  ", error);
+            }
+        };
+        fetchestudiantes();
+    }, []);
+
 
     return (
         <div className="SeleccionarRubricaContenedor">
@@ -32,14 +54,12 @@ function SeleccionarRubrica(props) {
                     </button>
                 </div>
                 <div className={box ? "ListaRubricas ShowListRubricas" : "ListaRubricas HideListRubricas"}>
-                    <RubricaSeleccionable NombreRubrica="Rubrica de ejemplo1" />
-                    <RubricaSeleccionable NombreRubrica="Rubrica de ejemplo2" />
-                    <RubricaSeleccionable NombreRubrica="Rubrica de ejemplo3" />
-                    <RubricaSeleccionable NombreRubrica="Rubrica de ejemplo4" />
-                    <RubricaSeleccionable NombreRubrica="Rubrica de ejemplo5" />
-                    <RubricaSeleccionable NombreRubrica="Rubrica de ejemplo6" />
-                    <RubricaSeleccionable NombreRubrica="Rubrica de ejemplo7" />
-                    <RubricaSeleccionable NombreRubrica="Rubrica de ejemplo8" />
+                    {rubricas.map((rubrica) => (
+                        <RubricaSeleccionable key={rubrica.id} NombreRubrica={rubrica.nombre} />
+                    ))}
+                    <RubricaSeleccionable NombreRubrica={predeterminada.nombre} />
+                   
+                    
                 </div>
             </div>
             <div className="BotonSeleccionarRubrica">
