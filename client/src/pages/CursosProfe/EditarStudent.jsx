@@ -1,5 +1,5 @@
 import "./EditarStudent.css";
-import NavbarProfesor from "../../components/NavbarProfesor";
+import NoQuieroCrearMasNavbars from "../../components/NoQuieroCrearMasNavbars";
 import Button from "../../components/Utilities/Button";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
@@ -7,9 +7,11 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import PopUp from "../../components/Utilities/PopUp";
+import CardForm from "../../components/CardForm";
 
 function EditarStudent(props) {
     const [nombre, setNombre] = useState(Cookies.get("StudentNombre"));
+    const [apellido, setApellidos] = useState(Cookies.get("StudentApellido"));
     const [documento, setDocumento] = useState(Cookies.get("StudentCodigo"));
     const [correo, setCorreo] = useState(Cookies.get("StudentEmail"));
     const [open, setOpen] = useState(false);
@@ -37,6 +39,10 @@ function EditarStudent(props) {
         setNombre(e.target.value);
     };
 
+    const handleApellidosChange = (e) => {
+        setApellidos(e.target.value);
+    }
+
     const handleCodigoChange = (e) => {
         setDocumento(e.target.value);
     };
@@ -48,10 +54,11 @@ function EditarStudent(props) {
     const handleClick = async (e) => {
         e.preventDefault();
         try {
-            
-                await axios.post("http://localhost:8000/Editar_estudiantes/", {
+
+            await axios.post("http://localhost:8000/Editar_estudiantes/", {
                 codigo: Cookies.get("StudentCodigo"),
                 nombre: nombre,
+                apellido: apellido,
                 newcodigo: documento,
                 email: correo
             });
@@ -77,29 +84,39 @@ function EditarStudent(props) {
     };
 
     return (
-        <div className="ProfeEditar">
-            <NavbarProfesor />
-            <form className="form">
-                <div className="panel">
-                    <div className="yamba"><h1>{Cookies.get("StudentNombre")}</h1></div>
-                    <div className="yemba"><h1>Nombre:</h1></div>
-                    <input type="text" className="label" required onChange={handleNombreChange} value={nombre} />
-                    <div className="yimba"><h1>Codigo:</h1></div>
-                    <input type="number" className="label1" required onChange={handleCodigoChange} value={documento} />
-                    <div className="yomba"><h1>Correo:</h1></div>
-                    <input type="email" className="label2" required onChange={handleEmailChange} value={correo} />
-                </div>
-                <div className="yumba">
-                    <Button Boton="Guardar" color="rgb(15, 65, 118)" fontColor="white" width="300px" onClick={handleClick} />
-                </div>
-            </form>
-            <PopUp
-                open={open}
+
+        <div className="Contenedor">
+            <NoQuieroCrearMasNavbars />
+            <CardForm Title={Cookies.get("StudentNombre")}
+                Label1="Nombres"
+                Type1="text"
+                valueField1={nombre}
+                onChangeField1={handleNombreChange}
+                Field1=""
+                Label2="Apellidos"
+                type2="text"
+                valueField2={apellido}
+                onChangeField2={handleApellidosChange}
+                Field2=""
+                Label3="Documento"
+                type3="text"
+                valueField3={documento}
+                onChangeField3={handleCodigoChange}
+                Field3=""
+                Label4="Correo"
+                type4="email"
+                valueField4={correo}
+                onChangeField4={handleEmailChange}
+                Field4=""
+                onClick={handleClick}
+            />
+            <PopUp open={open}
                 SetOpen={setOpen}
                 Advice={advice}
                 Width={"100%"}
                 Button1="volver"
                 onClick1={popup}
+
             />
         </div>
     );

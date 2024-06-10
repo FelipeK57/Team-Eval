@@ -1,6 +1,10 @@
 from rest_framework import serializers
 from .models import Cursos
 from evaluacion.models import evaluacion
+from profesor.models import Profesor
+from profesor.serializers import ProfesorSerializer
+
+
 from estudiantes.models import Estudiante
 from django.contrib.auth.models import User
 from evaluacion.serializers import evaluacionSerializer
@@ -17,6 +21,7 @@ class EstudianteSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class CursosSerializer(serializers.ModelSerializer):
+    profesor = ProfesorSerializer(Profesor)
     evaluaciones = evaluacionSerializer(evaluacion, many=True)
     estudiantes = EstudianteSerializer(Estudiante, many=True)
     class Meta:

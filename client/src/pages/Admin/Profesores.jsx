@@ -41,11 +41,12 @@ function Profesores() {
     fetchStudentCourses();
   }, []);
 
-  const EditarProfesor = (identificacion, nombre, email) => {
+  const EditarProfesor = (identificacion, nombre, apellido ,email) => {
     Cookies.set('profesorIdentificacion', identificacion, { expires: 1 });
     Cookies.set('profesorNombre', nombre, { expires: 1 });
+    Cookies.set('profesorApellido', apellido, { expires: 1 });
     Cookies.set('profesorEmail', email, { expires: 1 });
-    navigate("/ProfeEditar");
+    navigate("/ProfeEditar"); 
   };
 
   const deshabilitarProfesor = async (identificacion) => {
@@ -142,7 +143,7 @@ function Profesores() {
             <ListItems
               Nombre1={profesor.user.first_name}
               Codigo1={profesor.identificacion}
-              onClickEdit={() => EditarProfesor(profesor.identificacion, profesor.user.first_name, profesor.user.email)}
+              onClickEdit={() => EditarProfesor(profesor.identificacion, profesor.user.first_name, profesor.user.last_name, profesor.user.email)}
               onClickDelete={() => deshabilitarProfesor(profesor.identificacion)}
               Buttons={true}
               Btn1={true}

@@ -523,6 +523,7 @@ def estudiantes(request):
 @api_view(['POST'])
 def editar_profesor(request):
     nombre = request.data.get('nombre')
+    apellido = request.data.get('apellido')
     identificacion = request.data.get('identificacion')
     newidentificacion = request.data.get('newidentificacion')
     email = request.data.get('email')
@@ -544,6 +545,10 @@ def editar_profesor(request):
 
     if nombre:
         profesor.user.first_name = nombre
+        changes_made = True
+
+    if apellido:
+        profesor.user.last_name = apellido
         changes_made = True
 
     if newidentificacion:
@@ -588,6 +593,7 @@ def editar_estado_profesor(request):
 @api_view(['POST'])
 def editar_Student(request):
     nombre = request.data.get('nombre')
+    apellido = request.data.get('apellido')
     codigo = request.data.get('codigo')
     newCodigo = request.data.get('newcodigo')  # Asegúrate de que esto coincide con lo que envías desde el frontend
     email = request.data.get('email')
@@ -604,6 +610,10 @@ def editar_Student(request):
 
     if nombre:
         estudiante.user.first_name = nombre
+        changes_made = True
+
+    if apellido:
+        estudiante.user.last_name = apellido
         changes_made = True
 
     if newCodigo:
@@ -626,8 +636,9 @@ def editar_Student(request):
 def editar_curso(request):
     nombre = request.data.get('nombre')
     codigo = request.data.get('codigo')
-    newCodigo = request.data.get('newCodigo')  # Asegúrate de que esto coincide con lo que envías desde el frontend
+    newCodigo = request.data.get('newCodigo')
     periodo = request.data.get('periodo')
+    profe_id = request.data.get('profe')
 
     curso = get_object_or_404(Cursos, codigo=codigo)
     
@@ -648,11 +659,25 @@ def editar_curso(request):
         curso.periodoAcademico = periodo
         changes_made = True
 
+    if profe_id:
+        profesor = get_object_or_404(Profesor, id=profe_id)
+        if curso.profesor == profesor:
+            return Response({"error": "El profesor ya está asignado a un curso"}, status=status.HTTP_400_BAD_REQUEST)
+        curso.profesor = profesor
+        changes_made = True
+
     if changes_made:
         curso.save()
         return Response({"message": "Datos del curso editados exitosamente"}, status=status.HTTP_200_OK)
     else:
         return Response({"error": "No se proporcionaron datos para editar"}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def listar_profesores(request):
+    profesores = Profesor.objects.all()
+    data = [{"id": prof.id, "nombre": prof.nombre, "apellido": prof.apellido} for prof in profesores]
+    return Response({"profesores": data}, status=status.HTTP_200_OK)
+
     
 
 @api_view(['GET'])

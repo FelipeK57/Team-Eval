@@ -49,6 +49,22 @@ function AgregarCurso() {
 
   const handleClick = async (e) => {
     e.preventDefault();
+  
+
+    const currentYear = new Date().getFullYear();
+    const validYears = [currentYear, currentYear + 1]; 
+    const formatoValido = /^\d{4}-[1-2]$/.test(Periodo);
+  
+    if (!formatoValido) {
+      setAdvice("El formato del periodo debe ser 20XX-semestre (1 o 2)");
+      popup(e);
+      return;
+    }
+  
+    const [year, semester] = Periodo.split("-").map(Number);
+  
+    if (year < currentYear || !validYears.includes(year)) {
+      setAdvice("El año ingresado no es válido. No puede ser un año ya finalizado");
     if (!nombre || !codigo || !Periodo) {
       setAdvice("Todos los campos son obligatorios");
       popup(e);
@@ -80,6 +96,7 @@ function AgregarCurso() {
       popup(e);
     }
   };
+  
 
   return (
     <div className="Contenedor">
@@ -119,5 +136,5 @@ function AgregarCurso() {
     </div>
   );
 }
-
+}
 export default AgregarCurso;

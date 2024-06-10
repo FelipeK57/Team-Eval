@@ -67,9 +67,10 @@ function Estudiantes() {
       window.location.reload();
   };
 
-  const EditarStuden = (codigo, nombre, email ) => {
+  const EditarStuden = (codigo, nombre, apellido, email ) => {
     Cookies.set('StudentCodigo', codigo, { expires: 1 });
     Cookies.set('StudentNombre', nombre, { expires: 1 });
+    Cookies.set('StudentApellido', apellido, { expires: 1 });
     Cookies.set('StudentEmail', email, { expires: 1 });
     navigate("/EditarStudent");
   };
@@ -94,7 +95,7 @@ function Estudiantes() {
                 Nombre1={estudiante.user.first_name}
                 Nombre2={estudiante.user.last_name}
                 Codigo1={estudiante.codigo}             
-                onClickEdit={() => EditarStuden(estudiante.codigo,estudiante.user.first_name, estudiante.user.email)}
+                onClickEdit={() => EditarStuden(estudiante.codigo,estudiante.user.first_name, estudiante.user.last_name, estudiante.user.email)}
                 onClickDelete={() => handleClick(estudiante.codigo)}
                 onClickAdd={() => handleClick2(estudiante.id)}
                 Buttons={true}
