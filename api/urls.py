@@ -67,18 +67,44 @@ urlpatterns = [
     re_path(r'^Estadocursos/$', views.editar_estado_Curso),
     re_path(r'^cursos_deshabilitado/$', views.cursosDes),
     re_path(r'^import_estudiantes/$', views.import_estudiantes),
+<<<<<<< HEAD
     re_path(r'^obtener_evaluaciones/$', views.obtener_evaluaciones),
     re_path(r'^obtener_grupo_criterios/$', views.obtener_grupo_criterios),
     re_path(r'^realizar_calificacion/$', views.realizar_calificacion),
+=======
+>>>>>>> front_back_sebas
     re_path(r'^rubricasProfe/$', views.Rubricas_profe),
     re_path(r'^obtenerCriterios/$', views.obtener_criterios),
     re_path(r'^guardarCriterios/$', views.guardar_criterios),
     re_path(r'^guardarRubrica/$', views.guardarRubrica),
     re_path(r'^rubricasAdmin/$', views.Rubricas_admin),
     re_path(r'^TablaRubricas/$', views.editar_predeterminada),
+<<<<<<< HEAD
     re_path(r'^obtener_informe/$', views.obtener_informe),
     re_path(r'^obtener_informe_curso/$', views.obtener_informe_curso),
     re_path(r'^obtener_rubrica/$', views.obtener_rubrica),
+=======
+    path('profesores/', views.listar_profesores, name='listar_profesores'),
+    re_path(r'^cursosProfesor/$', views.cursos_profesor),
+    re_path(r'^obtener_evaluaciones/$', views.obtener_evaluaciones),
+    re_path(r'^obtener_grupo_criterios/$', views.obtener_grupo_criterios),
+    re_path(r'^realizar_calificacion/$', views.realizar_calificacion),
+    re_path(r'^grupos_curso/$', views.grupos_cursos),
+    re_path(r'^estudiantes_grupos/$', views.Estudiantes_grupos),
+    re_path(r'^estudiantes_sin_grupo/$', views.estudiantes_singrupo),
+    re_path(r'^elimar_estudiante/$', views.elimar_estudiante),
+    re_path(r'^agregar_estudiante/$', views.agregar_estudiante),
+    re_path(r'^evaluaciones/$', views.evaluaciones),
+    re_path(r'^agregar_estudiante_curso/$', views.agregar_estudiante_curso),
+    re_path(r'^estudiantes_curso/$', views.estudiantes_curso),
+    re_path(r'^eliminar_estudiante_curso/$', views.eliminar_estudiante_curso),
+    re_path(r'^crear_eva/$', views.crear_evaluacion),
+    re_path(r'^rubrica_evaluacion/$', views.evaluacion_rubrica),
+    re_path(r'^editar_eva/$', views.editar_evaluacion),
+    re_path(r'^elimar_grupo/$', views.eliminar_grupo),
+    re_path(r'^agregar_grupo/$', views.añadir_grupo),
+    
+>>>>>>> front_back_sebas
 ]
 
 

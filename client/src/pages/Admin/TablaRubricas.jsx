@@ -71,13 +71,6 @@ function TablaRubricas(props) {
     };
 
     const guardarRubrica = async () => {
-        for (let critero of criterios) {
-            if (critero.valor > escala) {
-                setAdvice("los valores del criterio no pueden ser mayor a la escala");
-                setOpen(!open);
-                return;
-            }
-        }
         try {
             const response = await axios.post(
                 "http://localhost:8000/TablaRubricas/", {
@@ -116,8 +109,7 @@ function TablaRubricas(props) {
                     <table className="RubricasTable">
                         <thead>
                             <tr>
-                                <th className="thuno"><div className="RubricasTableHeader uno"><h1>{rubrica.nombre}</h1></div></th>
-                                <th className="thdos"><div className="RubricasTableHeader dos"><h1>Valor</h1></div></th>
+                                <th className="thuno"><div className="RubricasTableHeader uno" style={{ borderRadius: criterios.length === 0 ? "25px 25px 25px 25px" : "25px 25px 0 0" }}><h1>{rubrica.nombre}</h1></div></th>
 
                             </tr>
                         </thead>
@@ -135,17 +127,7 @@ function TablaRubricas(props) {
                                             />
                                         </div>
                                     </td>
-                                    <td className="thright">
-                                        <div className="RubricasTableBody Right">
-                                            <Field
-                                                Tipo="Number"
-                                                value={criterio.valor}
-                                                name="valor"
-                                                onChange={(e) => handleCriterioChange(criterio.id, 'valor', e.target.value)}
-                                            />
-                                        </div>
-                                    </td>
-                                    <td className="ThActions">
+                                    <td className="ThActions" style={{ position: "absolute" }}>
                                         <div className="DeleteButtonThActions">
                                             <button className="DeleteButton" onClick={() => eliminarCriterio(criterio.id)}>
                                                 <DeleteIcon sx={{ fontSize: 35, color: "red" }} />

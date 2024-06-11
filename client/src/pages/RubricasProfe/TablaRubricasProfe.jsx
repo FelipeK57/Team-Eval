@@ -7,6 +7,9 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import PopUp from '../../components/Utilities/PopUp';
+import { useNavigate } from 'react-router-dom';
+import Cookies from "js-cookie";
+import "../Admin/TablaRubricas.css"
 
 
 function TablaRubricasProfe(props) {
@@ -18,6 +21,8 @@ function TablaRubricasProfe(props) {
     const [advice, setAdvice] = useState("");
     const [escala, setEscala] = useState(0);
 
+    const navigate = useNavigate();
+
     const popup = (e) => {
         e.preventDefault();
         setOpen(!open);
@@ -27,6 +32,22 @@ function TablaRubricasProfe(props) {
     const handleEscalaChange = (e) => {
         setEscala(e.target.value);
     };
+
+    useEffect(() => {
+        const verificarSesion = () => {
+          const user = Cookies.get("user");
+          const token = Cookies.get("sessionid");
+    
+          if ( user &&  token) {
+            console.log("El usuario ha iniciado sesión");
+          } else {
+            console.log("El usuario no ha iniciado sesión.");
+            navigate("/login");
+          }
+        };
+    
+        verificarSesion();
+      }, [navigate]);
 
     useEffect(() => {
         const fetchRubrica = async () => {
@@ -70,23 +91,17 @@ function TablaRubricasProfe(props) {
     };
 
     const guardarRubrica = async () => {
-        for (let critero of criterios) {
-            if (critero.valor > escala) {
-                setAdvice("los valores del criterio no pueden ser mayor a la escala");
-                setOpen(!open);
-                return;
-            }
-        }
         try {
             const response = await axios.post(
                 "http://localhost:8000/guardarCriterios/", {
                 id: rubricaId,
                 criterios: criterios,
                 criteriosEliminados: criteriosEliminados,
-                newEscala : escala
+                newEscala : escala,
+                identificacion : Cookies.get("identificacion"),
             }
             );
-            setAdvice("Rubrica guardada");
+            setAdvice(response.data.message);
             setOpen(!open);
         } catch (error) {
             setAdvice("Error al guardar la rubrica (Falta criterio o valor)");
@@ -116,8 +131,6 @@ function TablaRubricasProfe(props) {
                         <thead>
                             <tr>
                                 <th className="thuno"><div className="RubricasTableHeader uno"><h1>{rubrica.nombre}</h1></div></th>
-                                <th className="thdos"><div className="RubricasTableHeader dos"><h1>Valor</h1></div></th>
-
                             </tr>
                         </thead>
                         <tbody>
@@ -134,17 +147,8 @@ function TablaRubricasProfe(props) {
                                             />
                                         </div>
                                     </td>
-                                    <td className="thright">
-                                        <div className="RubricasTableBody Right">
-                                            <Field
-                                                Tipo="Number"
-                                                value={criterio.valor}
-                                                name="valor"
-                                                onChange={(e) => handleCriterioChange(criterio.id, 'valor', e.target.value)}
-                                            />
-                                        </div>
-                                    </td>
-                                    <td className="ThActions">
+            
+                                    <td className="ThActions" style={{ position: "absolute" }}>
                                         <div className="DeleteButtonThActions">
                                             <button className="DeleteButton" onClick={() => eliminarCriterio(criterio.id)}>
                                                 <DeleteIcon sx={{ fontSize: 35, color: "red" }} />

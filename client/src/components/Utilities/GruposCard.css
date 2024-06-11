@@ -8,49 +8,66 @@
 }
 
 .header {
-    background-color: #004080;
+    background-color: rgb(15, 65, 118);
     color: white;
-    padding: 1px;
-    font-size: 0.9rem;
+    padding: 10px;
+    font-size: 0.75rem;
     text-align: center;
-    font-family: Mulish !important;
-
+    font-family: 'Mulish', sans-serif;
 }
 
 .content {
+    flex-grow: 1;
+    overflow-y: auto;
     display: flex;
+    flex-direction: column;
     padding: 10px;
-    font-family: Mulish !important;
-    font-size: 0.8rem;
+    font-family: 'Mulish', sans-serif;
+    font-size: 1rem;
     margin-left: 15px;
+    max-height: 400px;
 }
 
 .content p {
     margin: 10px 0;
     color: black;
     font-family: Mulish !important;
-
 }
 
-.chimichanga{
-    padding:0%;
-    margin-left: auto;
-    border: none;
-    cursor: pointer;
+.estudiante {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    margin: 5px 0;
+    background-color: #b3afaf;
+    border-radius: 10px;
+    font-size: 1rem;
+    color: black;
+}
+
+.estudiante h1 {
+    flex-grow: 1;
+    margin: 0;
+    color: black;
+    font-size: 1.5rem;
+}
+
+.chimichanga {
+    display: flex;
+    align-items: center;
 }
 
 .botonsillo {
-    background: none;
+    background: white;
     border: none;
+    border-radius: 50%;
+    width: 40px;
     display: flex;
     cursor: pointer;
     justify-content: center;
     align-items: center;
-    margin-right: 10px;
-    width: 100%;
-    height: 100%;
-    transition: all 0.3s;
     color: #9e0202;
+    transition: transform 0.3s;
 }
 
 .botonsillo:hover {

@@ -1,0 +1,104 @@
+.AsignarEva {
+    display: flex;
+    flex-direction: column;
+}
+
+.michi {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tienda {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15vh;
+    font-size: 1.3rem;
+    font-family: Mulish !important;
+}
+
+.pichin {
+    position: absolute;
+    display: flex;
+    top: 17.5%;
+    left: 4.2%;
+    font-size: 1rem;
+    font-family: Mulish !important;
+}
+
+.pichin b {
+    color: rgb(15, 65, 118);
+}
+
+.desple {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2vh;
+}
+
+.titu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2vh;
+    font-size: 1rem;
+    font-family: Mulish !important;
+}
+
+.tables {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2vh;
+}
+
+.table-izq {
+    margin-right: 5vw;
+}
+
+.gorila {
+    width: 400px;
+    height: 500px;
+    background-color: #b3afaf;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.god {
+    background-color: rgb(15, 65, 118);
+    color: white;
+    padding: 1px;
+    font-size: 0.9rem;
+    text-align: center;
+    font-family: Mulish !important;
+}
+
+.zilla {
+    display: flex;
+    padding: 10px;
+    font-family: Mulish !important;
+    font-size: 0.8rem;
+    margin-left: 15px;
+}
+
+.zilla h1 {
+    flex-grow: 1;
+    margin: 0;
+    color: black;
+    font-size: 1.5rem;
+    font-family: Mulish !important;
+}
+
+.buttons-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2vh;
+}
+
+.button-container {
+    margin: 0 10px; /* Añadir espacio entre los botones */
+}

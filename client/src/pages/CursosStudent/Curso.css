@@ -19,9 +19,14 @@
   grid-template-columns: 1fr 1fr 1fr 1fr;
   align-items: center;
   position: absolute;
-  width: 180px;
+  min-width: 90vw;
+  max-width: 92vw;
   top: 32%;
   left: 4.2%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  flex-wrap: wrap;
 }
 
 .cardi12 {

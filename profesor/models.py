@@ -6,7 +6,7 @@ class Profesor(models.Model):
     telefono = models.PositiveIntegerField(null=True)
     identificacion = models.PositiveBigIntegerField(null=True)
     estado = models.BooleanField(default=True, null=False)
-    autor = models.CharField(max_length=50,null=True)
+
 
     def courses_teacher(self):
         courses = self.cursos_set.all()

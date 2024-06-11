@@ -1,12 +1,16 @@
 from rest_framework import serializers
 from .models import evaluacion
 from grupo.models import Grupo
+<<<<<<< HEAD
 from rubrica.models import rubrica_Evaluacion
+=======
+from grupo.serializer import GrupoSerializer
+from rubrica.models import rubrica_Evaluacion
+from rubrica.serializers import rubrica_EvaluacionSerializer
 
-class GrupoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Grupo
-        fields = "__all__"
+
+>>>>>>> front_back_sebas
+
 
 class RubricaSerializer(serializers.ModelSerializer):
     class Meta:
@@ -14,8 +18,13 @@ class RubricaSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class evaluacionSerializer(serializers.ModelSerializer):
+<<<<<<< HEAD
     grupo = GrupoSerializer(many=True)
     rubrica = RubricaSerializer()
+=======
+    grupo = GrupoSerializer(Grupo, many=True)
+    rubrica = rubrica_EvaluacionSerializer(rubrica_Evaluacion)
+>>>>>>> front_back_sebas
     class Meta:
         model = evaluacion
         fields = "__all__"

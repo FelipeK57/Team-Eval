@@ -2,7 +2,7 @@ import Field from "./Utilities/Field";
 import Button from "./Utilities/Button";
 import "./CardForm.css";
 import PropTypes from "prop-types";
-import { Autocomplete } from "@mui/material";
+import { Autocomplete, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -11,24 +11,43 @@ import Cookies from "js-cookie";
 function CardForm(props) {
   const [open, setOpen] = useState(false);
   const [profesores, setProfesores] = useState([]);
+  const [selectedProfesor, setSelectedProfesor] = useState(null);
 
   useEffect(() => {
-    const fetchStudentCourses = async () => {
+    const fetchProfesores = async () => {
       try {
         const response = await axios.get("http://localhost:8000/profesores/");
-        const usernames = response.data.profesores.map(
-          (profesor) => profesor.user.username
-        );
-        setProfesores(usernames);
+        const profesoresData = response.data.profesores.map(profesor => ({
+          id: profesor.id,
+          name: `${profesor.user.first_name} ${profesor.user.last_name}`
+        }));
+        setProfesores(profesoresData);
+
+        // Obtener el valor inicial de las cookies
+        const profesorId = Cookies.get("profesor_id");
+        if (profesorId) {
+          const selected = profesoresData.find(prof => prof.id === parseInt(profesorId));
+          if (selected) {
+            setSelectedProfesor(selected);
+          }
+        }
       } catch (error) {
         console.error("Error al obtener los profesores:", error);
       }
     };
-    fetchStudentCourses();
+    fetchProfesores();
   }, []);
 
   const handleCombo = () => {
     setOpen(!open);
+  };
+
+  const handleProfesorChange = (event, newValue) => {
+    if (newValue) {
+      setSelectedProfesor(newValue);
+      Cookies.set("profesor_id", newValue.id, { expires: 1 });
+      props.onChangeField3(newValue);
+    }
   };
 
   CardForm.propTypes = {
@@ -61,7 +80,11 @@ function CardForm(props) {
     valueField5: PropTypes.string,
     onClick: PropTypes.func,
     Btn2: PropTypes.bool,
+    Btn3: PropTypes.bool,
+    Btn4: PropTypes.bool,
     redirect: PropTypes.string,
+    onClick2: PropTypes.func,
+    onClick3: PropTypes.func,
   };
 
   return (
@@ -100,13 +123,14 @@ function CardForm(props) {
               {props.Label3 ? (
                 <div className="Input ProfesorForm">
                   <h2 htmlFor="Profesor">{props.Label3}</h2>
-
                   {props.Combo ? (
                     <Autocomplete
                       open={open}
                       clearOnBlur={false}
                       clearOnEscape={false}
+                      value={props.valueField3}
                       sx={{
+                        border: "none",
                         display: "flex",
                         "& input": {
                           width: "100%",
@@ -122,49 +146,33 @@ function CardForm(props) {
                       }}
                       id="custom-input-demo"
                       options={profesores}
+                      getOptionLabel={(option) => option.name}
                       renderInput={(params) => (
-                        console.log(params.inputProps.value),
-                        Cookies.set("profesor", params.inputProps.value),
-                        (
-                          <div
-                            className="InputContenedor"
-                            style={{ width: "100%" }}
-                            ref={params.InputProps.ref}
-                          >
-                            <input
-                              className="ComboInput"
-                              value={params.inputProps.value}
-                              type="text"
-                              {...params.inputProps}
-                              required
-                              onClick={() => setOpen(false)}
-                            />
-                            <SearchIcon
-                              sx={{
+                        <div ref={params.InputProps.ref} className="ComboInput" style={{ position: "relative", width: "100%" }}>
+                          <input {...params.inputProps} autoComplete="off"/>
+                          <SearchIcon
+                            sx={{
+                              display: "flex",
+                              transition: "all 0.3s ease",
+                              fontSize: "2rem",
+                              position: "absolute",
+                              right: "10px",
+                              top: "60%",
+                              transform: "translateY(-50%)",
+                              "&:hover": {
+                                transform: "scale(1.2) translateY(-50%)",
                                 transition: "all 0.3s ease",
-                                fontSize: "2rem",
-                                position: "absolute",
-                                right: "10px",
-                                top: "50%",
-                                transform: "translateY(-50%)",
-                                "&:hover": {
-                                  transform: "scale(1.2) translateY(-50%)",
-                                  transition: "all 0.3s ease",
-                                  cursor: "pointer",
-                                },
-                              }}
-                              onClick={(event) => {
-                                event.preventDefault();
-                                const input =
-                                  event.target.parentNode.firstChild;
-                                input.focus();
-                                handleCombo();
-                              }}
-                              {...params.inputProps}
-                            />
-                          </div>
-                        )
+                                cursor: "pointer",
+                              },
+                            }}
+                            onClick={(event) => {
+                              event.preventDefault();
+                              handleCombo();
+                            }}
+                          />
+                        </div>
                       )}
+                      onChange={handleProfesorChange}
                     />
                   ) : (
                     <Field
@@ -187,7 +195,6 @@ function CardForm(props) {
                   />
                 </div>
               ) : null}
-
               {props.Label5 ? (
                 <div className="Input SemestreForm">
                   <h2 htmlFor="Semestre">{props.Label5}</h2>
@@ -202,7 +209,22 @@ function CardForm(props) {
                 onClick={props.onClick}
               />
             </form>
-            {props.Btn2 ? <button onClick={props.redirect} className="AgregarEstudiantes">Agregar estudiantes</button>: null}
+            {props.Btn2 ? (
+              <button onClick={props.redirect} className="AgregarEstudiantes">
+                Importar estudiantes
+              </button>
+            ) : null}
+            {props.Btn3 ? (
+              <button onClick={props.onClick2} className="AgregarEstudiantes2">
+                Agregar estudiantes
+              </button>
+            ) : null}
+
+            {props.Btn4 ? (
+              <button onClick={props.onClick3} className="AgregarEstudiantes3">
+                gestionar estudiantes
+              </button>
+            ) : null}
           </div>
         </div>
       </div>

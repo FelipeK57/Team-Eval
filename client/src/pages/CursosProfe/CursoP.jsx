@@ -1,21 +1,56 @@
 import "./CursoP.css";
 import NavbarProfesor from "../../components/NavbarProfesor";
-
-import SettingsIcon from '@mui/icons-material/Settings';
 import AddIcon from '@mui/icons-material/Add';
-import GroupsIcon from '@mui/icons-material/Groups';
 import { useNavigate } from 'react-router-dom';
 import EditNoteIcon from '@mui/icons-material/EditNote';
+import PropTypes from "prop-types";
+import CursosProfeComponent from "../../components/CursosProfeComponent.jsx";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
 
-function CursosProfe() {
+function CursosProfe(props) {
+
+    CursosProfe.propTypes = {
+        nombreProfe: PropTypes.string
+    }
+
+    const [cursos, setCursos] = useState([]);   
+    const [profesor, setProfesor] = useState(null);
+
+    useEffect(() => {
+        const fetchRubrica = async () => {
+            try {
+                const response = await axios.post(
+                    "http://localhost:8000/cursosProfesor/", 
+                    { identificacion: Cookies.get("identificacion") }
+                );
+                setProfesor(response.data.profesor);
+                setCursos(response.data.cursos);
+            } catch (error) {
+                console.error("Error al obtener los cursos  ", error);
+            }
+        };
+        fetchRubrica();
+    }, []);
 
     const navigate = useNavigate();
+
     const Rubricas = () => {
         navigate("/Rubricas");
     }
 
-    const ConfigCursos = () => {
-        navigate("/Grupos");
+    const NuevaRubrica = () => {
+        navigate("/NuevaRubrica");
+    }
+
+
+    const GestionarEva = (cursoId, nombre) => {
+        navigate(`/GestionarEva/${cursoId}`, { state: { materia: nombre } });
+    }
+
+    const estudiantes = (cursoId) => {
+        navigate(`/EstudiantesCursoProfe/${cursoId}`);
     }
 
     return (
@@ -30,34 +65,32 @@ function CursosProfe() {
             <div className="linea-vertical"></div>
             <div className="cursed2"><h1>Crear Rubrica</h1></div>
             <div className="cardex2">
-                <button>
+                <button onClick={NuevaRubrica}>
                     <AddIcon sx={{ fontSize: 50 }} />
+                    
                 </button>
             </div>
             <div className="linea-horizontal"></div>
-            <div className="corsel"><h1>Cursos de <b>Ejemplo</b></h1></div>
-            <div className="cardex3">
-                <div className="cardex32"><h1>Ejemplo <br />Completado</h1>
-                    <button>
-                        <GroupsIcon sx={{ fontSize: 43 }} />
-                    </button>
+            {profesor && (
+                <div className="corsel">
+                    <h1>Cursos de <b>{profesor.user?.first_name}</b></h1>
                 </div>
-                <div className="line-horizonte"></div>
-            </div>
-            <div className="cardex4">
-                <div className="cardex42"><h1>Ejemplo por <br />Completar</h1>
-                    <button className="button1" onClick={ConfigCursos} >
-                        <SettingsIcon sx={{ fontSize: 43 }} />
-                    </button>
-                    <button className="button2" >
-                        <GroupsIcon sx={{ fontSize: 43 }} />
-                    </button>
-                </div>
-                <div className="line-horizonte"></div>
+            )}
+            <div className="ListaCursosHomeProfe">
+                {cursos.map((curso) => (
+                    <CursosProfeComponent
+                        key={curso.id}
+                        Estado={curso.estado}
+                        nombreCurso={curso.nombre}
+                        configurarCursos={() => GestionarEva(curso.id, curso.nombre)}
+                        onClick= {() => estudiantes(curso.id)}
+                    />
+                ))}
             </div>
         </div>
-      
-  );
+    );
 }
 
 export default CursosProfe;
+
+

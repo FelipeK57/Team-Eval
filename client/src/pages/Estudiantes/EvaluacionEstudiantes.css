@@ -1,7 +1,61 @@
+/* Description Container Specific */
+.EvaluacionEstudiantesContainer {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  margin-top: 15vh;
+  justify-content: start;
+  align-items: start;
+  flex-grow: 0;
+  flex-wrap: nowrap;
+  max-height: 80vh;
+}
+
+.DescripcionTitleContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-size: 1.2rem;
+}
+
+.EvaluacionEstudiantesContent {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: end;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+}
+
 .description-container {
+<<<<<<< HEAD
   align-items: center;
   text-align: center;
   font-weight: bold;
+=======
+  display: flex;
+  flex-direction: column;
+  min-width: 40%;
+  max-width: 40%;
+  padding: 0 20px;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  left: 1%;
+}
+
+.NombreAsignatura {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+.description-container b{
+  font-size: 2rem;
+  color: rgb(15, 65, 118);
+>>>>>>> front_back_sebas
 }
 
 .description-container select {
@@ -10,30 +64,49 @@
   font-size: 24px;
   border-radius: 10px;
   text-align: center;
-  background-color: #a5a4a4;
+  background-color: rgb(15, 65, 118);
   border-style: none;
+  cursor: pointer;
+  transition: all 0.3s;
 }
 
+/* Table Container Specific */
 .table-container {
   display: flex;
-  justify-content: center;
-  margin-top: 30px;
+  min-width: 50%;
+  max-width: 50%;
+  padding: 0 20px;
 }
 
+<<<<<<< HEAD
 .table-evaluation {
   background-color: #a5a4a4;
   border-collapse: collapse;
   width: 60%;
   height: 50%;
+=======
+.styled-table {
+  max-width: 100%;
+  min-width: 100%;
+>>>>>>> front_back_sebas
   font-size: 28px;
   font-weight: bold;
+  border-radius: 25px;
+  max-height: 100%;
+  margin: 25px 0;
+  border-collapse: separate;
+  padding: 20px 0;
 }
 
 .table-evaluation th {
   background-color: rgb(15, 65, 118);
   color: white;
+  text-align: center;
+  font-size: 1.5rem;
+  padding: 20px;
 }
 
+<<<<<<< HEAD
 .table-evaluation tr,
 td,
 th {
@@ -42,7 +115,36 @@ th {
   padding: 10px;
   border-width: 1px;
   font-size: 20px;
+=======
+.styled-table th:first-child{
+  border-top-left-radius: 25px;
+>>>>>>> front_back_sebas
 }
+
+.styled-table th:last-child{
+  border-top-right-radius: 25px;
+}
+
+.styled-table td {
+  background-color: #a5a4a4;
+  padding: 20px;
+  font-size: 1rem;
+}
+
+.styled-table td {
+  word-break: break-word;
+}
+
+.styled-table tr:last-child,
+.styled-table tr:last-child td:last-child {
+  border-bottom-right-radius: 20px;
+}
+.styled-table tr:last-child,
+.styled-table tr:last-child td:first-child {
+  border-bottom-left-radius: 20px;
+}
+
+/* Button Scaling */
 .scale button {
   font-size: 20px;
   background: white;
@@ -61,8 +163,14 @@ th {
   transition: 200ms;
 }
 
+<<<<<<< HEAD
 .ev-bt-c {
   margin-top: 20px;
+=======
+/* Evaluation Buttons Container */
+.ev-bt-c {
+  margin-top: 10px;
+>>>>>>> front_back_sebas
   margin-bottom: 10px;
   display: flex;
   align-items: center;
@@ -84,6 +192,7 @@ th {
   padding: 10px;
 }
 
+<<<<<<< HEAD
 .select-save {
   width: 100%;
   align-items: center;
@@ -93,6 +202,9 @@ th {
   gap: 10%;
 }
 
+=======
+/* Submit Button Styling */
+>>>>>>> front_back_sebas
 .enviar-calificacion {
   padding: 10px;
   font-size: 18px;
@@ -110,7 +222,39 @@ th {
   transition: 200ms;
 }
 
+<<<<<<< HEAD
+=======
+/* Container for Buttons */
+>>>>>>> front_back_sebas
 .container-boton-fc {
   display: flex;
   gap: 20px;
 }
+<<<<<<< HEAD
+=======
+
+
+.ev-bt-c textarea{
+  background-color: #A5A4A4;
+  color: black
+}
+
+.ev-bt-c button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: center;
+  width: fit-content;
+  padding: 20px;
+  flex-wrap: nowrap;
+  line-height: 100%;
+  text-overflow: 0 ;
+  white-space: nowrap;
+}
+
+.ev-bt-c button:hover{
+  box-shadow: 0px 0px 10px 1px rgb(21, 78, 139);
+  transform: scale(1.1);
+
+}
+>>>>>>> front_back_sebas
