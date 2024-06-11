@@ -32,7 +32,7 @@ function EstudiantesCursoProfe() {
                     </div>
                 </div>
             </div>
-            <div className="ListaEstudiantes">
+            <div className="ListaEstudiantesProfe">
                 <div>
                     <ListItems
                         Nombre1={"Nombre estudiante"}
