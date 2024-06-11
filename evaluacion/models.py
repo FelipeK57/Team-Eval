@@ -6,11 +6,7 @@ from informes.models import informes
 class evaluacion(models.Model):
     nombre = models.CharField(default="Evaluacion", max_length=100)
     fecha = models.DateField(null=False)
-<<<<<<< HEAD
     rubrica = models.ForeignKey(rubrica_Evaluacion,on_delete=models.CASCADE, null=False) 
-=======
-    rubrica = models.ForeignKey(rubrica_Evaluacion, on_delete=models.CASCADE) 
->>>>>>> front_back_sebas
     informe = models.ManyToManyField(informes)
     grupo = models.ManyToManyField(Grupo)
 

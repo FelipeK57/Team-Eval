@@ -1,13 +1,8 @@
 import './Utilities/NavbarProfesor.css';
 import "../../public/Logo.png";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-<<<<<<< HEAD
 import { Link, useNavigate } from 'react-router-dom';
 
-=======
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
->>>>>>> front_back_sebas
 
 const NavbarProfesor = () => {
 
@@ -35,11 +30,7 @@ const NavbarProfesor = () => {
       </div>
       <h1 href="#" className="navbh1"><b>¡Profesor!</b></h1>
       <a href="MiCuentaP" className="navba"><b>Mi Cuenta</b></a>
-<<<<<<< HEAD
       <Link to="/InformesProfesor" className="navbb"><b>Informes</b></Link>
-=======
-      <Link to="/InformesProfe" className="navbb"><b>Informes</b></Link>
->>>>>>> front_back_sebas
     </nav>
   );
 };

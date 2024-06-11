@@ -48,7 +48,7 @@ function SeleccionEvaluacion() {
       const response = await axios.post(
         "http://localhost:8000/obtener_rubrica/",
         {
-          id: evaluacion.rubrica,
+          id: evaluacion.rubrica.id,
         }
       );
       const escala = response.data.escala

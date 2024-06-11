@@ -37,36 +37,24 @@ import CursosDes from "./pages/CursosDes/CursosDes";
 import ProfeDes from "./pages/ProfeDes/ProfeDes";
 import EditarStudent from "./pages/CursosProfe/EditarStudent.jsx";
 import ImportarEstudiantes from "./pages/Admin/ImportarEstudiantes.jsx";
-<<<<<<< HEAD
 import EvaluacionEstudiantes from "./pages/Estudiantes/EvaluacionEstudiantes.jsx";
 import SeleccionEvaluacion from "./pages/Estudiantes/SeleccionEvaluacion.jsx";
-=======
->>>>>>> front_back_sebas
 import RubricasProfe from "./pages/RubricasProfe/RubricasProfe.jsx";
 import TablaRubricasProfe from "./pages/RubricasProfe/TablaRubricasProfe.jsx";
 import Grupos from "./pages/Grupos/Grupos";
 import SeleccionarRubrica from "./pages/RubricasProfe/SeleccionarRubrica.jsx";
 import NuevaRubrica from "./pages/RubricasProfe/NuevaRubrica.jsx";
-<<<<<<< HEAD
 import SeleccionInformeEvaluacion from "./pages/Informes/SeleccionInformeEvaluacion.jsx";
 import Informe from "./pages/Informes/Informe.jsx";
-import InformeProfesor from "./pages/Informes/InformeCurso.jsx";
 import InformesProfesor from "./pages/Informes/InformesProfesor.jsx";
 import SeleccionInformeEvaluacionProfesor from "./pages/Informes/SeleccionInformeEvaluacionProfesor.jsx";
 import InformeCurso from "./pages/Informes/InformeCurso.jsx";
 
-=======
-import EvaluacionEstudiantes from "./pages/Estudiantes/EvaluacionEstudiantes.jsx";
-import SeleccionEvaluacion from "./pages/Estudiantes/SeleccionEvaluacion.jsx";
-import InformesProfe from "./pages/Informes/InformesProfe.jsx";
-import GruposInformesProfe from "./pages/Informes/GruposInformesProfe.jsx";
-import IntegrantesInformesProfe from "./pages/Informes/IntegrantesInformesProfe.jsx";
 import GestionarEva from "./pages/GestionarEva/GestionarEva";
 import EstudiantesCurso from "./pages/Admin/Estudiantes_curso.jsx";
 import EstudiantesCursoProfe from "./pages/CursosProfe/EstudiantesCursoProfe.jsx";
 import AsignarEva from "./pages/AsignarEva/AsignarEva";
 import CrearEva from "./pages/CrearEva/CrearEva";
->>>>>>> front_back_sebas
 function App() {
   return (
     <BrowserRouter>
@@ -109,9 +97,6 @@ function App() {
         <Route path="/NuevaRubrica" element={<NuevaRubrica />} />
         <Route path="/Grupos/:evaId/:cursoId" element={<Grupos />} />
         <Route path="/SeleccionarRubrica" element={<SeleccionarRubrica materia="Matematicas"/>} />
-        <Route path="/InformesProfe" element={<InformesProfe materia="Matematicas"/>} />
-        <Route path="/GruposInformesProfe" element={<GruposInformesProfe/>} />
-        <Route path="/IntegrantesInformesProfe" element={<IntegrantesInformesProfe/>} />
         <Route path="/EstudiantesCursoProfe/:cursoId" element={<EstudiantesCursoProfe/>} />
 
         <Route path="/Curso" element={<Curso />} />
@@ -136,7 +121,6 @@ function App() {
         <Route path="/CursosDes" element={<CursosDes />} />
         <Route path="/ProfeDes" element={<ProfeDes />} />
         <Route path="/ImportarEstudiantes" element={<ImportarEstudiantes />} />
-<<<<<<< HEAD
 
         <Route path="/Evaluacion" element={<EvaluacionEstudiantes />} />
         <Route path="/InformeIndividual" element={<Informe/>} />
@@ -146,14 +130,12 @@ function App() {
         <Route path="/InformeEvaluacion" element={<InformeCurso />}/>        
         <Route path="/InformesProfesor" element={<InformesProfesor />}/>        
         
-=======
         <Route path="/EstudiantesCurso/:cursoCodigo" element={<EstudiantesCurso  />} />
         <Route path="/GestionarEva/:cursoId" element={<GestionarEva element={<GestionarEva />} />} />
         <Route path="/Grupos" element={<Grupos materia="Matematicas"/>} />
         <Route path="/GestionarEva" element={<GestionarEva />} />
         <Route path="/AsignarEva/:evaluacionid/:cursoId" element={<AsignarEva eva="Matematicas" combi=""/>} />
         <Route path="/CrearEva/:cursoId" element={<CrearEva />} />
->>>>>>> front_back_sebas
       </Routes>
     </BrowserRouter>
   );

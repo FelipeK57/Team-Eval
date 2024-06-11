@@ -38,14 +38,11 @@ from rubrica.serializers import rubrica_EvaluacionSerializer
 from evaluacion.models import evaluacion
 from informesindividuales.models import InformesIndividuales
 from informesindividuales.serializer import InformesIndividualesSerializer
-<<<<<<< HEAD
 from collections import defaultdict
 
 class ImportarCursosException(Exception):
     pass
-=======
 from datetime import datetime
->>>>>>> front_back_sebas
 
 @api_view(['POST'])
 def login(request):

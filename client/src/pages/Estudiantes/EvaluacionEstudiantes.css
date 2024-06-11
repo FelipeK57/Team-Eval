@@ -30,32 +30,9 @@
 }
 
 .description-container {
-<<<<<<< HEAD
   align-items: center;
   text-align: center;
   font-weight: bold;
-=======
-  display: flex;
-  flex-direction: column;
-  min-width: 40%;
-  max-width: 40%;
-  padding: 0 20px;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  left: 1%;
-}
-
-.NombreAsignatura {
-  display: flex;
-  align-content: center;
-  justify-content: center;
-}
-
-.description-container b{
-  font-size: 2rem;
-  color: rgb(15, 65, 118);
->>>>>>> front_back_sebas
 }
 
 .description-container select {
@@ -78,17 +55,11 @@
   padding: 0 20px;
 }
 
-<<<<<<< HEAD
 .table-evaluation {
   background-color: #a5a4a4;
   border-collapse: collapse;
   width: 60%;
   height: 50%;
-=======
-.styled-table {
-  max-width: 100%;
-  min-width: 100%;
->>>>>>> front_back_sebas
   font-size: 28px;
   font-weight: bold;
   border-radius: 25px;
@@ -106,7 +77,6 @@
   padding: 20px;
 }
 
-<<<<<<< HEAD
 .table-evaluation tr,
 td,
 th {
@@ -115,10 +85,6 @@ th {
   padding: 10px;
   border-width: 1px;
   font-size: 20px;
-=======
-.styled-table th:first-child{
-  border-top-left-radius: 25px;
->>>>>>> front_back_sebas
 }
 
 .styled-table th:last-child{
@@ -163,14 +129,8 @@ th {
   transition: 200ms;
 }
 
-<<<<<<< HEAD
 .ev-bt-c {
   margin-top: 20px;
-=======
-/* Evaluation Buttons Container */
-.ev-bt-c {
-  margin-top: 10px;
->>>>>>> front_back_sebas
   margin-bottom: 10px;
   display: flex;
   align-items: center;
@@ -192,7 +152,6 @@ th {
   padding: 10px;
 }
 
-<<<<<<< HEAD
 .select-save {
   width: 100%;
   align-items: center;
@@ -202,9 +161,6 @@ th {
   gap: 10%;
 }
 
-=======
-/* Submit Button Styling */
->>>>>>> front_back_sebas
 .enviar-calificacion {
   padding: 10px;
   font-size: 18px;
@@ -222,39 +178,7 @@ th {
   transition: 200ms;
 }
 
-<<<<<<< HEAD
-=======
-/* Container for Buttons */
->>>>>>> front_back_sebas
 .container-boton-fc {
   display: flex;
   gap: 20px;
 }
-<<<<<<< HEAD
-=======
-
-
-.ev-bt-c textarea{
-  background-color: #A5A4A4;
-  color: black
-}
-
-.ev-bt-c button{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  justify-self: center;
-  width: fit-content;
-  padding: 20px;
-  flex-wrap: nowrap;
-  line-height: 100%;
-  text-overflow: 0 ;
-  white-space: nowrap;
-}
-
-.ev-bt-c button:hover{
-  box-shadow: 0px 0px 10px 1px rgb(21, 78, 139);
-  transform: scale(1.1);
-
-}
->>>>>>> front_back_sebas
