@@ -15,6 +15,7 @@ import Field from "../../components/Utilities/Field";
 
 
 function Grupos(props) {
+    const { evaId } = useParams();
     const { cursoId } = useParams();
     const [estudiantes, setEstudiantes] = useState([]);
     const [estudiantes_sin_grupo, setEstudiantes_sin_grupo] = useState([]);
@@ -46,7 +47,9 @@ function Grupos(props) {
             try {
                 const response = await axios.post(
                     "http://localhost:8000/estudiantes_sin_grupo/",
-                    { id: cursoId }
+                    { idEva: evaId,
+                    idCurso: cursoId
+                     }
                 );
                 setEstudiantes_sin_grupo(response.data.estudiantes);
             } catch (error) {
@@ -86,26 +89,25 @@ function Grupos(props) {
         }
     };
 
-    const guardarCambios = () => {
-        navigate("/SeleccionarRubrica");
+    const GestionarEva = (cursoId, nombre) => {
+        navigate(`/GestionarEva/${cursoId}`, { state: { materia: nombre } });
     }
 
     return (
         <div className="Grupos">
             <NavbarProfesor />
-            <div className="holi"><h1>Configuración del curso<br /><b>{materia}</b></h1></div>
-            <div className="hola"><h1>Grupos del Curso</h1></div>
+            <div className="holi"><h1>Configuración de la evaluacion: <br /><b>{materia}</b></h1></div>
             <div className="holo">
                 <GruposCard titulo="Integrantes" estudiantes={estudiantes} eliminar={eliminarEstudiante} />
             </div>
             <div className="holu">
-                <GruposCard1 id={cursoId} onSelectTeam={handleSelectdTeam} />
+                <GruposCard1 id={evaId} onSelectTeam={handleSelectdTeam} />
             </div>
             <div className="lel">
                 <GruposCard3 estudiantes={estudiantes_sin_grupo} agregar={agregarEstudiante} />
             </div>
             <div className="conio">
-                <Button2 Boton2="Guardar Cambios" color="rgb(15, 65, 118)" fontColor="white" onClick={guardarCambios} />
+                <Button2 Boton2="Guardar Cambios" color="rgb(15, 65, 118)" fontColor="white" onClick={() => GestionarEva(cursoId, materia)} />
             </div>
             
             
