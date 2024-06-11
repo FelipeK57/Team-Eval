@@ -1,0 +1,67 @@
+.CrearEva {
+    display: flex;
+    flex-direction: column;
+}
+
+.titu1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15vh;
+    font-size: 1.3rem;
+    font-family: Mulish !important;
+}
+
+.campo {
+    border: none;
+    align-items: center;
+    justify-content: center;
+    margin-left: 50vh;
+    font-size: 2rem;
+    font-family: Mulish !important;
+    border-radius: 15px;
+    width: 50%;
+    background-color: #f0f0f0;
+    padding-left: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+.titu2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1vh;
+    font-size: 1.3rem;
+    font-family: Mulish !important;
+}
+
+.dropi {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1vh;
+}
+
+.titu3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1vh;
+    font-size: 1rem;
+    font-family: Mulish !important;
+    text-align: center;
+}
+
+.bethesda {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2vh;
+}
+
+.ubi {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 6vh;
+}

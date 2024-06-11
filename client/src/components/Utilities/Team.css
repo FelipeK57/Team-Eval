@@ -1,4 +1,5 @@
 .teams-container {
+<<<<<<< HEAD
   width: 400px;
   height: 500px;
   background-color: #b3afaf;
@@ -7,6 +8,26 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
+=======
+    width: 400px;
+    height: 500px;
+    background-color: #b3afaf;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cabeza {
+    background-color: rgb(15, 65, 118);
+    color: white;
+    padding: 1px;
+    font-size: 0.9rem;
+    text-align: center;
+    font-family: Mulish !important;
+
+>>>>>>> Home2
 }
 
 .cabeza {
