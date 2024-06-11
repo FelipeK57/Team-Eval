@@ -89,6 +89,7 @@ urlpatterns = [
     re_path(r'^crear_eva/$', views.crear_evaluacion),
     re_path(r'^rubrica_evaluacion/$', views.evaluacion_rubrica),
     re_path(r'^editar_eva/$', views.editar_evaluacion),
+    re_path(r'^elimar_grupo/$', views.eliminar_grupo),
     
 ]
 

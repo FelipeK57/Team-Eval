@@ -1119,5 +1119,16 @@ def editar_evaluacion(request):
     eva.rubrica = rubrica
     eva.save()
     return Response({"message": "Evaluacion editada exitosamente"}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def eliminar_grupo(request):
+    id = request.data.get('id')
+    grupo = Grupo.objects.get(id=id)
+    for estudiante in grupo.estudiantes.all():
+        grupo.estudiantes.remove(estudiante)
+        grupo.save()
+    
+    grupo.delete()
+    return Response({"message": "Grupo eliminado exitosamente"}, status=status.HTTP_200_OK)
     
     
