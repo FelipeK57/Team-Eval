@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import Team from './Team.jsx';
-import './Utilities/Team.css';
 import axios from "axios";
 import PropTypes from 'prop-types';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-const GruposCard1 = ({ id, onSelectTeam }) => {
+const GruposCard1 = ({ id, onSelectTeam, eliminarGrupo }) => {
   const [selectedTeam, setSelectedTeam] = useState(null);
-  const [grupos, setGrupos] = useState([]);   
+  const [grupos, setGrupos] = useState([]);
 
   const handleTeamClick = (team, grupoId) => {
     setSelectedTeam(team);
@@ -15,18 +14,18 @@ const GruposCard1 = ({ id, onSelectTeam }) => {
 
   useEffect(() => {
     const fetchRubrica = async () => {
-        try {
-            const response = await axios.post(
-                "http://localhost:8000/grupos_curso/", 
-                { id: id }
-            );
-            setGrupos(response.data.grupos);
-        } catch (error) {
-            console.error("Error al obtener los grupos  ", error);
-        }
+      try {
+        const response = await axios.post(
+          "http://localhost:8000/grupos_curso/",
+          { id: id }
+        );
+        setGrupos(response.data.grupos);
+      } catch (error) {
+        console.error("Error al obtener los grupos  ", error);
+      }
     };
     fetchRubrica();
-  }, [id]); 
+  }, [id]);
 
   return (
     <div className="teams-container">
@@ -35,12 +34,12 @@ const GruposCard1 = ({ id, onSelectTeam }) => {
       </div>
       <div className="teams-list">
         {grupos.map((grupo) => (
-          <Team
-            key={grupo.id}
-            name={grupo.nombre}
-            isSelected={selectedTeam === grupo.nombre}
-            onSelect={() => handleTeamClick(grupo.nombre, grupo.id)}
-          />
+          <div key={grupo.id} className={`elPapuContainer ${selectedTeam === grupo.nombre ? 'selected' : ''}`}>
+            <h1 onClick={() => handleTeamClick(grupo.nombre, grupo.id)}>{grupo.nombre}</h1>
+            <button className="elPapuDelete" onClick={() => eliminarGrupo(grupo.id)}>
+              <DeleteIcon sx={{ fontSize: 36 }} />
+            </button>
+          </div>
         ))}
       </div>
     </div>
@@ -49,7 +48,9 @@ const GruposCard1 = ({ id, onSelectTeam }) => {
 
 GruposCard1.propTypes = {
   id: PropTypes.string.isRequired,
-  onSelectTeam: PropTypes.func.isRequired
+  onSelectTeam: PropTypes.func.isRequired,
+  eliminarGrupo: PropTypes.func.isRequired,
 };
 
 export default GruposCard1;
+  

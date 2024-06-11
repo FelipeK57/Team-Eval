@@ -123,6 +123,7 @@ function App() {
         <Route path="/ImportarEstudiantes" element={<ImportarEstudiantes />} />
         <Route path="/EstudiantesCurso/:cursoCodigo" element={<EstudiantesCurso  />} />
         <Route path="/GestionarEva/:cursoId" element={<GestionarEva element={<GestionarEva />} />} />
+        <Route path="/Grupos" element={<Grupos materia="Matematicas"/>} />
         <Route path="/GestionarEva" element={<GestionarEva />} />
         <Route path="/AsignarEva/:evaluacionid/:cursoId" element={<AsignarEva eva="Matematicas" combi=""/>} />
         <Route path="/CrearEva/:cursoId" element={<CrearEva />} />

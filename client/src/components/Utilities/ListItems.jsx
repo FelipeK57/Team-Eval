@@ -1,4 +1,4 @@
-import DeleteIcon from '@mui/icons-material/Delete';
+import DoDisturbIcon from '@mui/icons-material/DoDisturb';
 import CreateIcon from '@mui/icons-material/Create';
 import PropTypes from 'prop-types';
 import AddIcon from '@mui/icons-material/Add';
@@ -23,7 +23,7 @@ function ListItems(props) {
                             <CreateIcon className='CreateIconList' sx={{ fontSize: "3rem", margin: "0 10%" }} onClick={props.onClickEdit} />
                         )}
                         {props.Btn2 && (
-                            <DeleteIcon className='CreateIconList' sx={{ fontSize: "3rem", color: "red", }} onClick={props.onClickDelete} />
+                            <DoDisturbIcon className='CreateIconList' sx={{ fontSize: "3rem", color: "red", }} onClick={props.onClickDelete} />
                         )}
                         {props.Btn3 && (
                             <AddIcon className='CreateIconList'

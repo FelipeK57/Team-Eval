@@ -101,7 +101,7 @@ function Grupos(props) {
                 <GruposCard titulo="Integrantes" estudiantes={estudiantes} eliminar={eliminarEstudiante} />
             </div>
             <div className="holu">
-                <GruposCard1 id={evaId} onSelectTeam={handleSelectdTeam} />
+                <GruposCard1 id={evaId} onSelectTeam={handleSelectdTeam} eliminarGrupo=" "/>
             </div>
             <div className="lel">
                 <GruposCard3 estudiantes={estudiantes_sin_grupo} agregar={agregarEstudiante} />

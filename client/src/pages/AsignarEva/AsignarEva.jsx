@@ -126,14 +126,11 @@ function AsignarEva(props) {
                     <div className="god">
                         <h1>Integrantes</h1>
                     </div>
-                    <div className="zilla">
-                        <h1>{props.combi}</h1>
-                        <ul>
-                            {estudiantes.map(estudiante => (
-                                <li key={estudiante.id}>{estudiante.user.first_name + " " + estudiante.user.last_name}</li>
-                            ))}
-                        </ul>
+                    {estudiantes.map((estudiante) => (
+                    <div key={estudiante.user.id} className="zilla">
+                        <h1>{estudiante.user.first_name + ' ' + estudiante.user.last_name}</h1>
                     </div>
+                    ))}
                 </div>
             </div>
             <div className="bbu">
