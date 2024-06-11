@@ -48,13 +48,10 @@ import InformesProfe from "./pages/Informes/InformesProfe.jsx";
 import GruposInformesProfe from "./pages/Informes/GruposInformesProfe.jsx";
 import IntegrantesInformesProfe from "./pages/Informes/IntegrantesInformesProfe.jsx";
 import GestionarEva from "./pages/GestionarEva/GestionarEva";
-<<<<<<< HEAD
 import EstudiantesCurso from "./pages/Admin/Estudiantes_curso.jsx";
 import EstudiantesCursoProfe from "./pages/CursosProfe/EstudiantesCursoProfe.jsx";
-=======
 import AsignarEva from "./pages/AsignarEva/AsignarEva";
 import CrearEva from "./pages/CrearEva/CrearEva";
->>>>>>> origin/Home2
 function App() {
   return (
     <BrowserRouter>
@@ -123,16 +120,13 @@ function App() {
         <Route path="/ProfeEditar" element= {<ProfeEditar profesor="Pedro Vargas"/>}/>
         <Route path="/CursosDes" element={<CursosDes />} />
         <Route path="/ProfeDes" element={<ProfeDes />} />
-<<<<<<< HEAD
         <Route path="/ImportarEstudiantes" element={<ImportarEstudiantes />} />
         <Route path="/EstudiantesCurso/:cursoCodigo" element={<EstudiantesCurso  />} />
         <Route path="/GestionarEva/:cursoId" element={<GestionarEva element={<GestionarEva />} />} />
-=======
         <Route path="/Grupos" element={<Grupos materia="Matematicas"/>} />
         <Route path="/GestionarEva" element={<GestionarEva />} />
         <Route path="/AsignarEva" element={<AsignarEva eva="Matematicas" combi="Pedro Vargas"/>} />
         <Route path="/CrearEva" element={<CrearEva />} />
->>>>>>> origin/Home2
       </Routes>
     </BrowserRouter>
   );
