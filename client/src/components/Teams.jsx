@@ -3,21 +3,18 @@ import './Utilities/Teams.css';
 
 const Bean = ({ name, isSelected, onSelect }) => {
   return (
-    <div className={`bean ${isSelected ? 'selected' : ''}`} onClick={() => onSelect(name)}>
+    <div className={`bean ${isSelected ? 'selected' : ''}`} onClick={onSelect}>
       <h1>{name}</h1>
     </div>
   );
 };
 
-const Teams = () => {
-  const [selectedTeams, setSelectedTeams] = useState([]);
+const Teams = ({ grupos, onSelectTeam }) => {
+  const [selectedTeam, setSelectedTeam] = useState(null);
 
-  const handleTeamClick = (bean) => {
-    setSelectedTeams(prevSelectedTeams =>
-      prevSelectedTeams.includes(bean)
-        ? prevSelectedTeams.filter(t => t !== bean)
-        : [...prevSelectedTeams, bean]
-    );
+  const handleTeamClick = (id) => {
+    setSelectedTeam(id);
+    onSelectTeam(id);
   };
 
   return (
@@ -26,19 +23,18 @@ const Teams = () => {
         <h1>Equipos</h1>
       </div>
       <div className='listoCalisto'>
-      <Bean
-        name="TeamEval 1"
-        isSelected={selectedTeams.includes('TeamEval 1')}
-        onSelect={handleTeamClick}
-      />
-      <Bean
-        name="TeamEval 2"
-        isSelected={selectedTeams.includes('TeamEval 2')}
-        onSelect={handleTeamClick}
-      />
+        {grupos.map(grupo => (
+          <Bean
+            key={grupo.id}
+            name={grupo.nombre}
+            isSelected={selectedTeam === grupo.id}
+            onSelect={() => handleTeamClick(grupo.id)}
+          />
+        ))}
       </div>
     </div>
   );
 };
 
 export default Teams;
+

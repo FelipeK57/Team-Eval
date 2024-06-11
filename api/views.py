@@ -38,6 +38,7 @@ from rubrica.serializers import rubrica_EvaluacionSerializer
 from evaluacion.models import evaluacion
 from informesindividuales.models import InformesIndividuales
 from informesindividuales.serializer import InformesIndividualesSerializer
+from datetime import datetime
 
 @api_view(['POST'])
 def login(request):
@@ -919,10 +920,10 @@ def cursos_profesor(request):
 @api_view(['POST'])
 def grupos_cursos(request):
     id = request.data.get('id') 
-    curso = Cursos.objects.get(id=id)
+    eva = evaluacion.objects.get(id=id)
     grupos = []
-    for evaluacion in curso.evaluaciones.all():
-        grupos.extend(evaluacion.grupo.all())
+    for grupo in eva.grupo.all():
+        grupos.append(grupo)
     
     serializer = GrupoSerializer(grupos, many=True)
     return Response({"grupos": serializer.data},status=status.HTTP_200_OK)
@@ -942,24 +943,34 @@ def Estudiantes_grupos(request):
 
 @api_view(['POST'])
 def estudiantes_singrupo(request):
-    id_curso = request.data.get('id')
-    curso = Cursos.objects.get(id=id_curso)
-    
-    # Todos los estudiantes del curso
-    est_curso = set(curso.estudiantes.all())
-    
-    # Todos los estudiantes en grupos del curso
-    est_en_grupo = set()
-    for evaluacion in curso.evaluaciones.all():
-        for grupo in evaluacion.grupo.all():
+    try:
+        id_eva = request.data.get('idEva')
+        curso_id = request.data.get('idCurso')
+
+        # Obtener la evaluación y el curso
+        eva = evaluacion.objects.get(id=id_eva)
+        curso = Cursos.objects.get(id=curso_id)
+        
+        # Todos los estudiantes del curso
+        est_curso = set(curso.estudiantes.all())
+        
+        # Todos los estudiantes en grupos de la evaluación
+        est_en_grupo = set()
+        for grupo in eva.grupo.all():
             est_en_grupo.update(grupo.estudiantes.all())
-    
-    # Estudiantes sin grupo
-    est_sin_grupo = est_curso - est_en_grupo
+        
+        # Estudiantes sin grupo
+        est_sin_grupo = est_curso - est_en_grupo
 
-    serializer = EstudianteSerializer(est_sin_grupo, many=True)
-    return Response({"estudiantes": serializer.data}, status=status.HTTP_200_OK)
-
+        # Serializar y devolver la respuesta
+        serializer = EstudianteSerializer(est_sin_grupo, many=True)
+        return Response({"estudiantes": serializer.data}, status=status.HTTP_200_OK)
+    except evaluacion.DoesNotExist:
+        return Response({"error": "Evaluación no encontrada"}, status=status.HTTP_404_NOT_FOUND)
+    except Cursos.DoesNotExist:
+        return Response({"error": "Curso no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
 @api_view(['POST'])
 def elimar_estudiante(request):
@@ -1056,5 +1067,24 @@ def eliminar_estudiante_curso(request):
         return Response({"message": "Estudiante eliminado del curso exitosamente"}, status=status.HTTP_200_OK)
     except Estudiante.DoesNotExist:
         return Response({"error": "Estudiante no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+    
+
+@api_view(['POST'])
+def crear_evaluacion(request):
+    nombre = request.data.get('nombre')
+    curso = Cursos.objects.get(id=request.data.get('cursoId'))
+    rubrica_id = request.data.get('rubricaId')
+    cursos = request.data.get('cursos')
+
+    rubrica = rubrica_Evaluacion.objects.get(id=rubrica_id)
+
+    eva= evaluacion.objects.create(nombre=nombre, rubrica=rubrica, fecha=datetime.now())
+
+    for n in range(int(cursos)):
+        eva.grupo.add(Grupo.objects.create(nombre="Grupo" + str(n+1), proyectoasignado= str(nombre)))
+    eva.save()
+        
+    curso.evaluaciones.add(eva)
+    return Response({"message": "Evaluacion creada exitosamente", "evaluacionId": eva.id}, status=status.HTTP_200_OK)
     
     

@@ -42,18 +42,22 @@ function GestionarEva(props) {
     const ConfigCursos = () => {
         navigate(`/Grupos/${cursoId}`, { state: { materia: materia} });
     }
+
+    const crearEva = () => {
+        navigate(`/CrearEva/${cursoId}`, { state: { materia: materia} });
+    }
     
 
 
     return (
         <div className="tinder">
             <NavbarProfesor />
-            <div className="tonder"><h1>Gestionar Evaluaciones del curso: {materia}</h1></div>
+            <div className="tonder"><h1>Gestionar Evaluaciones del curso</h1></div>
             <div className="tinder1">
-                <Tarjet2 />
+                <Tarjet2 agregar={crearEva}/>
 
                 {evaluaciones.map((evaluacion) => (
-                    <Trajet key={evaluacion.id} Evalu={evaluacion.nombre} />
+                    <Trajet key={evaluacion.id} Evalu={evaluacion.nombre} onClick={() => navigate(`/AsignarEva/${evaluacion.id}` )} />
                 ))} 
             
             </div>

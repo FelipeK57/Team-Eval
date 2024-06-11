@@ -92,7 +92,7 @@ function App() {
         <Route path="/Rubricas" element={<RubricasProfe />} />
         <Route path="/TablaRubricasProfe/:rubricaId" element={<TablaRubricasProfe />} />
         <Route path="/NuevaRubrica" element={<NuevaRubrica />} />
-        <Route path="/Grupos/:cursoId" element={<Grupos element={<Grupos />}/>} />
+        <Route path="/Grupos/:evaId/:cursoId" element={<Grupos />} />
         <Route path="/SeleccionarRubrica" element={<SeleccionarRubrica materia="Matematicas"/>} />
         <Route path="/InformesProfe" element={<InformesProfe materia="Matematicas"/>} />
         <Route path="/GruposInformesProfe" element={<GruposInformesProfe/>} />
@@ -123,10 +123,16 @@ function App() {
         <Route path="/ImportarEstudiantes" element={<ImportarEstudiantes />} />
         <Route path="/EstudiantesCurso/:cursoCodigo" element={<EstudiantesCurso  />} />
         <Route path="/GestionarEva/:cursoId" element={<GestionarEva element={<GestionarEva />} />} />
+<<<<<<< HEAD
         <Route path="/Grupos" element={<Grupos materia="Matematicas"/>} />
         <Route path="/GestionarEva" element={<GestionarEva />} />
         <Route path="/AsignarEva" element={<AsignarEva eva="Matematicas" combi="Pedro Vargas"/>} />
         <Route path="/CrearEva" element={<CrearEva />} />
+=======
+        <Route path="/GestionarEva" element={<GestionarEva />} />
+        <Route path="/AsignarEva/:evaluacionid" element={<AsignarEva eva="Matematicas" combi=""/>} />
+        <Route path="/CrearEva/:cursoId" element={<CrearEva />} />
+>>>>>>> front_back_sebas
       </Routes>
     </BrowserRouter>
   );
