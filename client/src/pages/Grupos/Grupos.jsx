@@ -11,6 +11,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import Field from "../../components/Utilities/Field";
 
 
 function Grupos(props) {
@@ -27,12 +28,12 @@ function Grupos(props) {
     }
 
 
-    const handleSelectdTeam =  async (id) => {  
-        setGrupoIdSeleccionado(id); 
+    const handleSelectdTeam = async (id) => {
+        setGrupoIdSeleccionado(id);
         try {
             const response = await axios.post(
-                "http://localhost:8000/estudiantes_grupos/", 
-                { id : id}
+                "http://localhost:8000/estudiantes_grupos/",
+                { id: id }
             );
             setEstudiantes(Array.isArray(response.data.estudiantes) ? response.data.estudiantes : []);
         } catch (error) {
@@ -41,11 +42,11 @@ function Grupos(props) {
     };
 
     useEffect(() => {
-        const fetchestudiantes= async () => {
+        const fetchestudiantes = async () => {
             try {
                 const response = await axios.post(
-                    "http://localhost:8000/estudiantes_sin_grupo/", 
-                    { id : cursoId  }
+                    "http://localhost:8000/estudiantes_sin_grupo/",
+                    { id: cursoId }
                 );
                 setEstudiantes_sin_grupo(response.data.estudiantes);
             } catch (error) {
@@ -58,31 +59,31 @@ function Grupos(props) {
     const eliminarEstudiante = (id) => {
         try {
             const response = axios.post(
-                "http://localhost:8000/elimar_estudiante/",{
-                    estudianteId: id,
-                    grupoId: grupoIdSeleccionado
-                }
+                "http://localhost:8000/elimar_estudiante/", {
+                estudianteId: id,
+                grupoId: grupoIdSeleccionado
+            }
             )
             alert("Estudiante eliminado exitosamente") + response.data;
             window.location.reload();
-    }catch (error) {
-        console.error("Error al eliminar el estudiante  ", error);
-}
+        } catch (error) {
+            console.error("Error al eliminar el estudiante  ", error);
+        }
     }
 
     const agregarEstudiante = (id) => {
         try {
             const response = axios.post(
-                "http://localhost:8000/agregar_estudiante/",{
-                    estudianteId: id,
-                    grupoId: grupoIdSeleccionado
-                }
+                "http://localhost:8000/agregar_estudiante/", {
+                estudianteId: id,
+                grupoId: grupoIdSeleccionado
+            }
             )
             alert("Estudiante agregado exitosamente");
             window.location.reload();
-    }catch (error) {
-        console.error("Error al agregar el estudiante  ", error);
-}
+        } catch (error) {
+            console.error("Error al agregar el estudiante  ", error);
+        }
     };
 
     const guardarCambios = () => {
@@ -91,20 +92,20 @@ function Grupos(props) {
 
     return (
         <div className="Grupos">
-            <NavbarProfesor />  
-            <div className="holi"><h1>Configuración del curso<br/><b>{materia}</b></h1></div>     
-            <div className="hola"><h1>Grupos del Curso: <b>{materia}</b></h1></div>  
-            <div className="holo"> 
-            <GruposCard titulo="Integrantes" estudiantes = {estudiantes} eliminar={eliminarEstudiante}/>
+            <NavbarProfesor />
+            <div className="holi"><h1>Configuración del curso<br /><b>{materia}</b></h1></div>
+            <div className="hola"><h1>Grupos del Curso</h1></div>
+            <div className="holo">
+                <GruposCard titulo="Integrantes" estudiantes={estudiantes} eliminar={eliminarEstudiante} />
             </div>
-            <div className="holu"> 
-            <GruposCard1 id = {cursoId} onSelectTeam={handleSelectdTeam}  />
+            <div className="holu">
+                <GruposCard1 id={cursoId} onSelectTeam={handleSelectdTeam} />
             </div>
-            <div className="lel"> 
-            <GruposCard3 estudiantes={estudiantes_sin_grupo} agregar={agregarEstudiante}  />
+            <div className="lel">
+                <GruposCard3 estudiantes={estudiantes_sin_grupo} agregar={agregarEstudiante} />
             </div>
-            <div className="conio"> 
-            <Button2 Boton2="Guardar Cambios" color="rgb(15, 65, 118)" fontColor="white" onClick={guardarCambios}  />
+            <div className="conio">
+                <Button2 Boton2="Guardar Cambios" color="rgb(15, 65, 118)" fontColor="white" onClick={guardarCambios} />
             </div>
             
             

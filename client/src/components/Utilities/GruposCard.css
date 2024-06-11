@@ -58,8 +58,10 @@
 }
 
 .botonsillo {
-    background: none;
+    background: white;
     border: none;
+    border-radius: 50%;
+    width: 40px;
     display: flex;
     cursor: pointer;
     justify-content: center;
