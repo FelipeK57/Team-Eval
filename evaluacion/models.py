@@ -9,6 +9,10 @@ import datetime
 class evaluacion(models.Model):
     nombre = models.CharField(default="Evaluacion",max_length=100)
     fecha = models.DateField(null=False)
-    rubrica = models.OneToOneField(rubrica_Evaluacion,on_delete=models.CASCADE, null=False) 
+    rubrica = models.ForeignKey(rubrica_Evaluacion,on_delete=models.CASCADE, null=False) 
     informe = models.ManyToManyField(informes)
     grupo = models.ManyToManyField(Grupo)
+
+    def __str__(self):
+        return self.nombre + ' rubrica ' + str(self.rubrica.nombre)
+    

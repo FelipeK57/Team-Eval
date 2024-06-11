@@ -38,6 +38,7 @@ from rubrica.serializers import rubrica_EvaluacionSerializer
 from evaluacion.models import evaluacion
 from informesindividuales.models import InformesIndividuales
 from informesindividuales.serializer import InformesIndividualesSerializer
+from collections import defaultdict
 
 class ImportarCursosException(Exception):
     pass
@@ -107,6 +108,74 @@ def login_adminte(request):
         max_age=3600  # Tiempo de expiración en segundos
     )
     return response
+
+@api_view(['POST'])
+def obtener_rubrica(request):
+    id_rubrica = request.data.get('id')
+    rubrica = rubrica_Evaluacion.objects.get(id=id_rubrica)
+    serializer = rubrica_EvaluacionSerializer(rubrica)
+    return Response({"escala": serializer.data.get("escala")}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def obtener_informe_curso(request):
+    id_eval = request.data.get('id')
+
+    evaluacion_informe = get_object_or_404(evaluacion, id=id_eval
+                                           )
+    serializer = criterio_EvaluacionSerializer(evaluacion_informe.rubrica.criterios, many=True)
+
+    informes_evaluacion = InformesIndividuales.objects.filter(id_evaluacion=id_eval)
+
+    codigos_estudiantes = informes_evaluacion.values_list('codigo_evaluado', flat=True).distinct()
+
+    estudiantes = Estudiante.objects.filter(codigo__in=codigos_estudiantes)
+    nombres_estudiantes = {estudiante.codigo: estudiante.user.username for estudiante in estudiantes}
+
+    criterios_por_estudiante = defaultdict(lambda: defaultdict(lambda: {'suma': 0, 'conteo': 0}))
+
+    for informe in informes_evaluacion:
+        codigo = informe.codigo_evaluado
+        for criterio in informe.criterios:
+            descripcion = criterio['descripcion']
+            valor = criterio['valor']
+            criterios_por_estudiante[codigo][descripcion]['suma'] += valor
+            criterios_por_estudiante[codigo][descripcion]['conteo'] += 1
+
+    promedios_estudiantes = {}
+    for codigo, criterios in criterios_por_estudiante.items():
+        promedios = {}
+        for descripcion, datos in criterios.items():
+            if datos['conteo'] > 0:
+                promedios[descripcion] = int(datos['suma'] / datos['conteo'])
+        promedios_estudiantes[codigo] = {
+            "nombre": nombres_estudiantes.get(codigo, "Nombre no encontrado"),
+            "promedios": promedios
+        }
+
+    return Response({"promedios_estudiantes": promedios_estudiantes, "criterios": serializer.data}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def obtener_informe(request):
+    codigo = request.data.get('codigo')
+    id_eval = request.data.get('id')
+
+    informes_evaluado = InformesIndividuales.objects.filter(codigo_evaluado=codigo, id_evaluacion=id_eval)
+
+    criterio_valores = defaultdict(lambda: {'suma': 0, 'conteo': 0})
+
+    for informe in informes_evaluado:
+        for criterio in informe.criterios:
+            descripcion = criterio['descripcion']
+            valor = criterio['valor']
+            criterio_valores[descripcion]['suma'] += valor
+            criterio_valores[descripcion]['conteo'] += 1
+
+    promedios = {}
+    for descripcion, datos in criterio_valores.items():
+        if datos['conteo'] > 0:
+            promedios[descripcion] = datos['suma'] // datos['conteo']
+
+    return Response({"promedios": promedios}, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
 def obtener_evaluaciones(request):
@@ -380,8 +449,6 @@ def teacher_courses(request):
     serializer = CursosSerializer(profesor.courses_teacher(), many=True)
     return Response({"cursos": serializer.data}, status=status.HTTP_200_OK)
 
-
-    
 @api_view(['POST'])
 def change_passwordA(request):
     nueva_contraseña = request.data.get('nueva_contraseña')

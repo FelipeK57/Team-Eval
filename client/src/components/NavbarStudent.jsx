@@ -18,7 +18,7 @@ const NavbarStudent = () => {
       <Link to="/MiCuenta" className="nava">
         <b>Mi Cuenta</b>
       </Link>
-      <Link to="/" className="naveb">
+      <Link to="/InformesEstudiante" className="naveb">
         <b>Informes</b>
       </Link>
     </nav>

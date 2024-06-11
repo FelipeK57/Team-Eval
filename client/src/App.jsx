@@ -44,6 +44,13 @@ import TablaRubricasProfe from "./pages/RubricasProfe/TablaRubricasProfe.jsx";
 import Grupos from "./pages/Grupos/Grupos";
 import SeleccionarRubrica from "./pages/RubricasProfe/SeleccionarRubrica.jsx";
 import NuevaRubrica from "./pages/RubricasProfe/NuevaRubrica.jsx";
+import SeleccionInformeEvaluacion from "./pages/Informes/SeleccionInformeEvaluacion.jsx";
+import Informe from "./pages/Informes/Informe.jsx";
+import InformeProfesor from "./pages/Informes/InformeCurso.jsx";
+import InformesProfesor from "./pages/Informes/InformesProfesor.jsx";
+import SeleccionInformeEvaluacionProfesor from "./pages/Informes/SeleccionInformeEvaluacionProfesor.jsx";
+import InformeCurso from "./pages/Informes/InformeCurso.jsx";
+
 function App() {
   return (
     <BrowserRouter>
@@ -112,9 +119,12 @@ function App() {
         <Route path="/ImportarEstudiantes" element={<ImportarEstudiantes />} />
 
         <Route path="/Evaluacion" element={<EvaluacionEstudiantes />} />
+        <Route path="/InformeIndividual" element={<Informe/>} />
         <Route path="/SeleccionEvaluacion" element={<SeleccionEvaluacion />} />
-  
-
+        <Route path="/SeleccionInformeEvaluacion" element={<SeleccionInformeEvaluacion />} />
+        <Route path="/SeleccionInformeEvaluacionProfesor" element={<SeleccionInformeEvaluacionProfesor />} />
+        <Route path="/InformeEvaluacion" element={<InformeCurso />}/>        
+        <Route path="/InformesProfesor" element={<InformesProfesor />}/>        
         
       </Routes>
     </BrowserRouter>

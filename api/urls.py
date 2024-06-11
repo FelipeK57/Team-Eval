@@ -29,6 +29,7 @@ urlpatterns = [
     path('estudiantes/', include('estudiantes.urls')),
     path('profesor/', include('profesor.urls')),
     path('rubrica/', include('rubrica.urls')),
+    path('informesindv/', include('informesindividuales.urls')),
     path('estudiantes-deshabilitados/', views.estudiantes_deshabilitados, name='estudiantes_deshabilitados'),
     re_path(r'^loginProfesor/$', views.loginProfesor),
     re_path(r'^registerProfesor/$', views.registerProfesor),
@@ -75,7 +76,9 @@ urlpatterns = [
     re_path(r'^guardarRubrica/$', views.guardarRubrica),
     re_path(r'^rubricasAdmin/$', views.Rubricas_admin),
     re_path(r'^TablaRubricas/$', views.editar_predeterminada),
-    
+    re_path(r'^obtener_informe/$', views.obtener_informe),
+    re_path(r'^obtener_informe_curso/$', views.obtener_informe_curso),
+    re_path(r'^obtener_rubrica/$', views.obtener_rubrica),
 ]
 
 

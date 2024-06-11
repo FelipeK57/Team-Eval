@@ -1,11 +1,11 @@
 import Cookies from "js-cookie";
 import CursoModelo from "../../components/CursoModulo";
 import { useState, useEffect } from "react";
-import NavbarE from "../../components/NavbarE";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import NavbarProfesor from "../../components/NavbarProfesor";
 
-function InformesEstudiantes() {
+function InformesProfesor() {
   const navigate = useNavigate();
   const [cursos, setCursos] = useState([]);
   const [cursoSeleccionado, setCursoSeleccionado] = useState();
@@ -14,16 +14,16 @@ function InformesEstudiantes() {
     const infoCurso = curso;
     setCursoSeleccionado(infoCurso);
     localStorage.setItem("nombre_curso", curso.nombre);
-    navigate("/SeleccionInformeEvaluacion", { state: { infoCurso } });
+    navigate("/SeleccionInformeEvaluacionProfesor", { state: { infoCurso } });
   };
 
   useEffect(() => {
     const fetchStudentCourses = async () => {
       try {
         const response = await axios.post(
-          "http://localhost:8000/student_courses/",
+          "http://localhost:8000/teacher_courses/",
           {
-            codigo: Cookies.get("codigo"),
+            identificacion: Cookies.get("identificacion"),
           }
         );
         setCursos(response.data.cursos);
@@ -36,11 +36,9 @@ function InformesEstudiantes() {
 
   return (
     <div className="Contenedor">
-      <NavbarE />
+      <NavbarProfesor />
       <div className="cursi">
-        <h1>
-          Informes de <b>{Cookies.get("nombre")}</b>
-        </h1>
+        <h1>Informes de cursos</h1>
       </div>
       <div className="cardi">
         {cursos.map((curso) => (
@@ -57,4 +55,4 @@ function InformesEstudiantes() {
   );
 }
 
-export default InformesEstudiantes;
+export default InformesProfesor;

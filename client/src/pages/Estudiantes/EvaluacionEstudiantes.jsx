@@ -11,7 +11,7 @@ function EvaluacionEstudiantes() {
   const nombreAsignatura = localStorage.getItem("nombre_curso");
   const location = useLocation();
   const { state } = location;
-  const { infoEvaluacion, infoCurso } = state || {};
+  const { infoEvaluacion, infoCurso, escala } = state || {};
   const [dataCr, setDataCr] = useState([]);
   const [dataEs, setDataEs] = useState([]);
   const [selectedEst, setSelectedEst] = useState("");
@@ -104,45 +104,58 @@ function EvaluacionEstudiantes() {
         <h2>{nombreAsignatura}</h2>
         <h3>
           Califique a los integrantes del equipo, siendo 1 la calificacion menor
-          y siendo 4 la calificacion mayor, siguiendo el criterio en la tabla.
+          y siendo {escala} la calificacion mayor, siguiendo el criterio en la
+          tabla.
         </h3>
         <h3>Seleccione el estudiante que va a evaluar</h3>
-        <select value={selectedEst} onChange={estudiante_calificado}>
-          <option>Seleccione un estudiante</option>
-          {dataEs.map((item) => (
-            <option key={item.id} value={item.codigo}>
-              {item.user.username}
-            </option>
-          ))}
-        </select>
+        <div className="select-save">
+          <select value={selectedEst} onChange={estudiante_calificado}>
+            <option>Seleccione un estudiante</option>
+            {dataEs.map((item) => (
+              <option key={item.id} value={item.codigo}>
+                {item.user.username}
+              </option>
+            ))}
+          </select>
+          <button
+            onClick={realizar_calificacion}
+            className="enviar-calificacion"
+          >
+            Guardar esta calificación
+          </button>
+        </div>
       </div>
       <div className="table-container">
         <table className="table-evaluation">
           <thead>
             <tr>
               <th>Criterios</th>
-              <th colSpan="4">Escala</th>
+              <th colSpan={escala}>Escala</th>
             </tr>
           </thead>
           <tbody>
             {dataCr.map((item, index) => (
               <tr key={index}>
                 <td>{item.descripcion}</td>
-                {[1, 2, 3, 4].map((value) => (
-                  <td key={value} className="scale">
-                    <button
-                      onClick={() => asignarValores(item, index, value)}
-                      style={{
-                        backgroundColor:
-                          selectedValues[index] === value ? "#0F4176" : "white",
-                        color:
-                          selectedValues[index] === value ? "white" : "black",
-                      }}
-                    >
-                      {value}
-                    </button>
-                  </td>
-                ))}
+                {Array.from({ length: escala }, (_, value) => value + 1).map(
+                  (value) => (
+                    <td key={value} className="scale">
+                      <button
+                        onClick={() => asignarValores(item, index, value)}
+                        style={{
+                          backgroundColor:
+                            selectedValues[index] === value
+                              ? "#0F4176"
+                              : "white",
+                          color:
+                            selectedValues[index] === value ? "white" : "black",
+                        }}
+                      >
+                        {value}
+                      </button>
+                    </td>
+                  )
+                )}
               </tr>
             ))}
           </tbody>
@@ -154,9 +167,6 @@ function EvaluacionEstudiantes() {
           onChange={obtener_comentario}
           placeholder="Escriba algun comentario (opcional)"
         ></textarea>
-        <button onClick={realizar_calificacion} className="enviar-calificacion">
-          Guardar calificacion de compañero actual
-        </button>
         <div className="container-boton-fc">
           <button
             onClick={terminar_calificacion}
