@@ -1130,5 +1130,13 @@ def eliminar_grupo(request):
     
     grupo.delete()
     return Response({"message": "Grupo eliminado exitosamente"}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def añadir_grupo(request):
+    id = request.data.get('id')
+    eva = evaluacion.objects.get(id=id)
+    eva.grupo.create(nombre="Grupo" + str(len(eva.grupo.all())+1), proyectoasignado=eva.nombre)
+    eva.save()
+    return Response({"message": "Grupo agregado exitosamente"}, status=status.HTTP_200_OK)
     
     

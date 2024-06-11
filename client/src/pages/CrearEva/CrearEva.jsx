@@ -79,7 +79,7 @@ function CrearEva() {
                     SetOpen={setOpen}
                     Advice={advice}
                     Width={"100%"}
-                    Button1="Ir a gestionar los grupos"   
+                    Button1="Ir a grupos"   
                     onClick1={popup}
                 />
             </div>

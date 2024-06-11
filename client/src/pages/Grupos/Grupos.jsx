@@ -104,6 +104,19 @@ function Grupos(props) {
         }
     }
 
+    const añadirGrupo = () => {
+        try {
+            const response = axios.post(
+                "http://localhost:8000/agregar_grupo/", {
+                    id: evaId
+            }
+            )
+            window.location.reload();
+        } catch (error) {
+            console.error("Error al anhadir el grupo  ", error);
+        }
+    }
+
     return (
         <div className="Grupos">
             <NavbarProfesor />
@@ -112,14 +125,10 @@ function Grupos(props) {
                 <GruposCard titulo="Integrantes" estudiantes={estudiantes} eliminar={eliminarEstudiante} />
             </div>
             <div className="holu">
-<<<<<<< HEAD
                 <GruposCard1 id={evaId} onSelectTeam={handleSelectdTeam} eliminarGrupo={eliminarGrupo}/>
-=======
-                <GruposCard1 id={evaId} onSelectTeam={handleSelectdTeam} eliminarGrupo=" "/>
                 <div className="ButtonAgregarRubricas">
-                    <button onClick=" "><AddIcon /></button>
+                    <button onClick={añadirGrupo}><AddIcon /></button>
                 </div>
->>>>>>> origin/corrigiendo_errorcillos2
             </div>
             <div className="lel">
                 <GruposCard3 estudiantes={estudiantes_sin_grupo} agregar={agregarEstudiante} />

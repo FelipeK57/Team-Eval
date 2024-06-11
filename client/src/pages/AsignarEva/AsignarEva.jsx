@@ -135,11 +135,20 @@ function AsignarEva(props) {
             </div>
             <div className="buttons-row">
                 <div className="button-container">
-                    <Button2 Boton2="Guardar Cambios" color="rgb(15, 65, 118)" fontColor="white" width="250px" />
+                    <Button2 Boton2="Guardar Cambios" color="rgb(15, 65, 118)" fontColor="white" width="250px" onClick={handleClick} />
                 </div>
                 <div className="button-container">
-                    <Button2 Boton2="gestionar grupos" color="rgb(15, 65, 118)" fontColor="white" width="250px" />
+                    <Button2 Boton2="gestionar grupos" color="rgb(15, 65, 118)" fontColor="white" width="250px" onClick={gestionar} />
                 </div>
+            </div>
+            <div>
+                <PopUp open={open}
+                    SetOpen={setOpen}
+                    Advice={advice}
+                    Width={"100%"}
+                    Button1="volver"   
+                    onClick1={popup}
+                />
             </div>
         </div>
     );
