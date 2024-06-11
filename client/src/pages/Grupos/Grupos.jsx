@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import Field from "../../components/Utilities/Field";
-
+import AddIcon from '@mui/icons-material/Add';
 
 function Grupos(props) {
     const { evaId } = useParams();
@@ -102,6 +102,9 @@ function Grupos(props) {
             </div>
             <div className="holu">
                 <GruposCard1 id={evaId} onSelectTeam={handleSelectdTeam} eliminarGrupo=" "/>
+                <div className="ButtonAgregarRubricas">
+                    <button onClick=" "><AddIcon /></button>
+                </div>
             </div>
             <div className="lel">
                 <GruposCard3 estudiantes={estudiantes_sin_grupo} agregar={agregarEstudiante} />
