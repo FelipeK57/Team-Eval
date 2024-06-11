@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import Team from './Team.jsx';
+import './Utilities/Team.css';
 import axios from "axios";
 import PropTypes from 'prop-types';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -54,4 +56,3 @@ GruposCard1.propTypes = {
 };
 
 export default GruposCard1;
-  

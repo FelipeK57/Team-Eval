@@ -12,19 +12,10 @@
 .cabeza {
   background-color: rgb(15, 65, 118);
   color: white;
-  padding: 1px;
+  padding: 10px;
   font-size: 0.9rem;
   text-align: center;
-  font-family: Mulish !important;
-}
-
-.cabeza {
-  background-color: #004080;
-  color: white;
-  padding: 10px;
-  font-size: 0.75rem;
-  text-align: center;
-  font-family: 'Mulish', sans-serif;
+  font-family: Mulish, sans-serif;
 }
 
 .teams-list {
@@ -36,7 +27,7 @@
 .elPapuContainer {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Alinea elementos a los extremos */
+  justify-content: space-between;
   padding: 10px;
   margin: 5px 0;
   background-color: #b3afaf;
@@ -50,9 +41,9 @@
 }
 
 .elPapuContainer h1 {
-  flex-grow: 1; /* Hace que el título ocupe el espacio disponible */
+  flex-grow: 1;
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.5rem; /* Ajusta el tamaño de la fuente aquí */
   color: black;
 }
 
