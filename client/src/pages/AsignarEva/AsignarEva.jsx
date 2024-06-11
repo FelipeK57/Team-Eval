@@ -79,6 +79,9 @@ function AsignarEva(props) {
             <div className="bbu">
                 <Button2 Boton2="Guardar Cambios" color="rgb(15, 65, 118)" fontColor="white" width="250px" />
             </div>
+            <div className="pepe">
+                <Button2 Boton2="gestionar grupos" />
+            </div>
         </div>
     );
 }
