@@ -87,6 +87,8 @@ urlpatterns = [
     re_path(r'^estudiantes_curso/$', views.estudiantes_curso),
     re_path(r'^eliminar_estudiante_curso/$', views.eliminar_estudiante_curso),
     re_path(r'^crear_eva/$', views.crear_evaluacion),
+    re_path(r'^rubrica_evaluacion/$', views.evaluacion_rubrica),
+    re_path(r'^editar_eva/$', views.editar_evaluacion),
     
 ]
 

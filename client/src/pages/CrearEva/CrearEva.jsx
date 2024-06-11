@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import PopUp from "../../components/Utilities/PopUp";
 
 function CrearEva() {
     const { cursoId } = useParams();
@@ -14,6 +15,8 @@ function CrearEva() {
     const [numeroGrupos, setNumeroGrupos] = useState("");
     const [rubricaNombre, setRubricaNombre] = useState("");
     const [evaId, setEvaId] = useState("");
+    const [open, setOpen] = useState(false);
+    const [advice, setAdvice] = useState("");
     const navigate = useNavigate();
 
     const handleClick = async () => {
@@ -27,8 +30,9 @@ function CrearEva() {
             }
             );
             setEvaId(response.data.evaluacionId);
-            alert(response.data.message);
-            navigate(`/Grupos/${response.data.evaluacionId}/${cursoId}`, { state: { materia: nombre } });
+            setAdvice(response.data.message);
+            setOpen(true);
+           
             
         } catch (error) {
             console.error("Error al crear la evaluación  ", error);
@@ -38,6 +42,12 @@ function CrearEva() {
     const handleSelectRubrica = (id, nombre) => {
         setRubrica(id);
         setRubricaNombre(nombre);
+    };
+
+    const popup = (e) => {
+        e.preventDefault();
+        setOpen(!open);
+        navigate(`/Grupos/${evaId}/${cursoId}`, { state: { materia: nombre } });
     };
 
     return (
@@ -63,6 +73,15 @@ function CrearEva() {
             </div>
             <div className="ubi">
                 <Button2 Boton2="Crear Evaluación" color="rgb(15, 65, 118)" fontColor="white" width="200px" onClick={handleClick} />
+            </div>
+            <div>
+                <PopUp open={open}
+                    SetOpen={setOpen}
+                    Advice={advice}
+                    Width={"100%"}
+                    Button1="Ir a gestionar los grupos"   
+                    onClick1={popup}
+                />
             </div>
         </div>
     );

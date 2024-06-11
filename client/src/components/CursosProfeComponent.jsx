@@ -9,16 +9,16 @@ function CursosProfeComponent(props) {
         Estado: PropTypes.array.isRequired,
         configurarCursos: PropTypes.func,
         nombreCurso: PropTypes.string,
-        verEstudiantes: PropTypes.func
+        verEstudiantes: PropTypes.func,
+        onClick: PropTypes.func
+
     }
 
     const navigate = useNavigate();
 
 
 
-    const VerEstudiantes = () =>{
-        navigate(`${props.verEstudiantes}`);
-    }
+   
 
     return (
         <div>
@@ -29,7 +29,7 @@ function CursosProfeComponent(props) {
                         <button className="button1" onClick={props.configurarCursos} >
                             <SettingsIcon sx={{ fontSize: 43 }} />
                         </button>
-                        <button className="button2" onClick={VerEstudiantes}>
+                        <button className="button2" onClick={props.onClick}>
                             <GroupsIcon sx={{ fontSize: 43 }} />
                         </button>
                     </div>
@@ -38,7 +38,7 @@ function CursosProfeComponent(props) {
                 <div className="cardex32"><h1>{props.nombreCurso}</h1>
                     <hr className='line-horizonte' />
                     <div className="buttonsCursosProfeComponent">
-                        <button onClick={VerEstudiantes}>
+                        <button onClick={props.onClick}>
                             <GroupsIcon sx={{ fontSize: 43 }} />
                         </button>
                     </div>

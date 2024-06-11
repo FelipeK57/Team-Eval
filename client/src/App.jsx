@@ -97,7 +97,7 @@ function App() {
         <Route path="/InformesProfe" element={<InformesProfe materia="Matematicas"/>} />
         <Route path="/GruposInformesProfe" element={<GruposInformesProfe/>} />
         <Route path="/IntegrantesInformesProfe" element={<IntegrantesInformesProfe/>} />
-        <Route path="/EstudiantesCursoProfe" element={<EstudiantesCursoProfe/>} />
+        <Route path="/EstudiantesCursoProfe/:cursoId" element={<EstudiantesCursoProfe/>} />
 
         <Route path="/Curso" element={<Curso />} />
         <Route path="/EditarStudent" element={<EditarStudent profesor={Cookies.get("StudentNombre")} />} />
@@ -124,7 +124,7 @@ function App() {
         <Route path="/EstudiantesCurso/:cursoCodigo" element={<EstudiantesCurso  />} />
         <Route path="/GestionarEva/:cursoId" element={<GestionarEva element={<GestionarEva />} />} />
         <Route path="/GestionarEva" element={<GestionarEva />} />
-        <Route path="/AsignarEva/:evaluacionid" element={<AsignarEva eva="Matematicas" combi=""/>} />
+        <Route path="/AsignarEva/:evaluacionid/:cursoId" element={<AsignarEva eva="Matematicas" combi=""/>} />
         <Route path="/CrearEva/:cursoId" element={<CrearEva />} />
       </Routes>
     </BrowserRouter>

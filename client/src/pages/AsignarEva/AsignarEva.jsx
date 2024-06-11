@@ -7,16 +7,59 @@ import DropDown from "../../components/DropDown";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import PopUp from '../../components/Utilities/PopUp';
 
 function AsignarEva(props) {
     const [grupos, setGrupos] = useState([]);  
     const [grupoIdSeleccionado, setGrupoIdSeleccionado] = useState(null);
     const [estudiantes, setEstudiantes] = useState([]);
+    const [rubricaNombre, setRubricaNombre] = useState("");
+    const [rubrica, setRubrica] = useState("");
+    const [nombreEva, setNombreEva] = useState("");
+    const [open, setOpen] = useState(false);
+    const [advice, setAdvice] = useState("");
+    const navigate = useNavigate();
     const { evaluacionid } = useParams();
+    const { cursoId } = useParams();
 
     AsignarEva.propTypes = {
         eva: PropTypes.string.isRequired,
         combi: PropTypes.string.isRequired
+    }
+
+    
+    useEffect(() => {
+        const fetchGrupos = async () => {
+            try {
+                const response = await axios.post(
+                    "http://localhost:8000/rubrica_evaluacion/", 
+                    { idEva: evaluacionid }
+                );
+                setRubricaNombre(response.data.evaluacion.rubrica.nombre);
+                setNombreEva(response.data.evaluacion.nombre);
+            } catch (error) {
+                console.error("Error al obtener los grupos  ", error);
+            }
+        };
+        fetchGrupos();
+    }, [evaluacionid]); 
+
+    const handleClick = async () => {
+        try {
+            const response = await axios.post(
+                "http://localhost:8000/editar_eva/", 
+                { 
+                    idEva: evaluacionid,
+                    idRubrica: rubrica
+                }
+            );
+            setAdvice(response.data.message);
+            setOpen(true);
+           
+        } catch (error) {
+            console.error("Error al asignar la evaluación  ", error);
+        }
     }
 
     useEffect(() => {
@@ -47,6 +90,23 @@ function AsignarEva(props) {
         }
     };
 
+    const popup = (e) => {
+        e.preventDefault();
+        setOpen(!open);
+        window.location.reload();
+    };
+
+    const handleSelectRubrica = (id, nombre) => {
+        setRubrica(id);
+        setRubricaNombre(nombre);
+    };
+
+    const gestionar = () => {
+        navigate(`/Grupos/${evaluacionid}/${cursoId}`, { state: { materia: nombreEva } });
+    }
+
+
+
     return (
         <div className="AsignarEva">
             <div className="michi">
@@ -54,9 +114,9 @@ function AsignarEva(props) {
             </div>
             <div className="titus">
                 <div className="tienda"><h1>Elija la rubrica de evaluación</h1></div>
-                <div className="pichin"><h1>Editar evaluación <br /><b>{props.eva}</b></h1></div>
+                <div className="pichin"><h1>Editar evaluación <br /><b>{nombreEva}</b></h1></div>
             </div>
-            <div className="desple"><DropDown /></div>
+            <div className="desple"><DropDown  evaSeleccionada={rubricaNombre} onSelectRubrica={handleSelectRubrica}/></div>
             <div className="titu"><h1>Grupos que van a ser evaluados</h1></div>
             <div className="tables">
                 <div className="table-izq">
@@ -70,17 +130,26 @@ function AsignarEva(props) {
                         <h1>{props.combi}</h1>
                         <ul>
                             {estudiantes.map(estudiante => (
-                                <li key={estudiante.id}>{estudiante.user.first_name + " " + estudiante.user.last_name   }</li>
+                                <li key={estudiante.id}>{estudiante.user.first_name + " " + estudiante.user.last_name}</li>
                             ))}
                         </ul>
                     </div>
                 </div>
             </div>
             <div className="bbu">
-                <Button2 Boton2="Guardar Cambios" color="rgb(15, 65, 118)" fontColor="white" width="250px" />
+                <Button2 Boton2="Guardar Cambios" color="rgb(15, 65, 118)" fontColor="white" width="250px" onClick={handleClick} />
             </div>
             <div className="pepe">
-                <Button2 Boton2="gestionar grupos" />
+                <Button2 Boton2="gestionar grupos"  onClick={gestionar}  />
+            </div>
+            <div>
+                <PopUp open={open}
+                    SetOpen={setOpen}
+                    Advice={advice}
+                    Width={"100%"}
+                    Button1="volver"
+                    onClick1={popup}
+                />
             </div>
         </div>
     );

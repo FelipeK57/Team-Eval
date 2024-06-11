@@ -39,9 +39,7 @@ function GestionarEva(props) {
         fetchEvaluaciones();
     }, []);
     
-    const ConfigCursos = () => {
-        navigate(`/Grupos/${cursoId}`, { state: { materia: materia} });
-    }
+
 
     const crearEva = () => {
         navigate(`/CrearEva/${cursoId}`, { state: { materia: materia} });
@@ -57,15 +55,9 @@ function GestionarEva(props) {
                 <Tarjet2 agregar={crearEva}/>
 
                 {evaluaciones.map((evaluacion) => (
-                    <Trajet key={evaluacion.id} Evalu={evaluacion.nombre} onClick={() => navigate(`/AsignarEva/${evaluacion.id}` )} />
+                    <Trajet key={evaluacion.id} Evalu={evaluacion.nombre} onClick={() => navigate(`/AsignarEva/${evaluacion.id}/${cursoId}` )} />
                 ))} 
             
-            </div>
-            <div className="m"><h1>Gestionar Grupos</h1></div>
-            <div className="merlina">
-                <div className="blinblin" >
-                    <GroupIcon sx={{ fontSize: 80 }}  onClick={ConfigCursos}/>
-                </div>
             </div>
         </div>
 

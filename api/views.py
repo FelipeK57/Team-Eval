@@ -1041,7 +1041,21 @@ def agregar_estudiante_curso(request):
 
 @api_view(['POST'])
 def estudiantes_curso(request):
+    
     codigo_curso = request.data.get('codigo')
+    curso_id = request.data.get('id')
+
+    if curso_id is not None:
+        try:
+            curso = Cursos.objects.get(id=curso_id) 
+            ests = []
+            for est in curso.estudiantes.all():
+                ests.append(est)
+            serializer = EstudianteSerializer(ests, many=True)
+            return Response({"estudiantes": serializer.data}, status=status.HTTP_200_OK)
+        except Cursos.DoesNotExist:
+            return Response({"error": "Curso no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+    
     try:
         curso = Cursos.objects.get(codigo=codigo_curso) 
         ests = []
@@ -1086,5 +1100,24 @@ def crear_evaluacion(request):
         
     curso.evaluaciones.add(eva)
     return Response({"message": "Evaluacion creada exitosamente", "evaluacionId": eva.id}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def evaluacion_rubrica(request):
+    id_eva = request.data.get('idEva')
+    eva = evaluacion.objects.get(id=id_eva)
+
+    serializer = evaluacionSerializer(eva, many=False)
+
+    return Response({"evaluacion": serializer.data}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def editar_evaluacion(request):
+    idEva = request.data.get('idEva')
+    eva = evaluacion.objects.get(id=idEva)
+    idRubrica = request.data.get('idRubrica')
+    rubrica = rubrica_Evaluacion.objects.get(id=idRubrica)
+    eva.rubrica = rubrica
+    eva.save()
+    return Response({"message": "Evaluacion editada exitosamente"}, status=status.HTTP_200_OK)
     
     
