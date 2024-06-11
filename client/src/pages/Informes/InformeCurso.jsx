@@ -60,7 +60,7 @@ function InformeCurso() {
                     <td>{id}</td>
                     <td>{estudiante.nombre}</td>
                     {criterios.map((criterio) => (
-                      <td key={criterio.id} className="value-informe">
+                      <td key={criterio.id}>
                         {estudiante.promedios[criterio.descripcion] ?? "N/A"}
                       </td>
                     ))}
