@@ -1,8 +1,4 @@
 .teams-container {
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> front_back_sebas
   width: 400px;
   height: 500px;
   background-color: #b3afaf;
@@ -11,29 +7,15 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-<<<<<<< HEAD
-=======
-=======
-    width: 400px;
-    height: 500px;
-    background-color: #b3afaf;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-  }
+}
 
-  .cabeza {
-    background-color: rgb(15, 65, 118);
-    color: white;
-    padding: 1px;
-    font-size: 0.9rem;
-    text-align: center;
-    font-family: Mulish !important;
-
->>>>>>> origin/Home2
->>>>>>> front_back_sebas
+.cabeza {
+  background-color: rgb(15, 65, 118);
+  color: white;
+  padding: 1px;
+  font-size: 0.9rem;
+  text-align: center;
+  font-family: Mulish !important;
 }
 
 .cabeza {
@@ -51,20 +33,43 @@
   padding: 10px;
 }
 
-.team {
+.elPapuContainer {
   display: flex;
   align-items: center;
+  justify-content: space-between; /* Alinea elementos a los extremos */
   padding: 10px;
   margin: 5px 0;
   background-color: #b3afaf;
-  color: black;
   border-radius: 10px;
   cursor: pointer;
-  font-family: 'Mulish', sans-serif;
-  font-size: 0.8rem;
 }
 
-.team.selected {
+.elPapuContainer.selected {
   background-color: rgb(15, 65, 118);
   color: white;
+}
+
+.elPapuContainer h1 {
+  flex-grow: 1; /* Hace que el título ocupe el espacio disponible */
+  margin: 0;
+  font-size: 1.5rem;
+  color: black;
+}
+
+.elPapuDelete {
+  background: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  color: #9e0202;
+  transition: transform 0.3s;
+}
+
+.elPapuDelete:hover {
+  transform: scale(1.1);
 }

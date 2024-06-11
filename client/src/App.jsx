@@ -123,16 +123,10 @@ function App() {
         <Route path="/ImportarEstudiantes" element={<ImportarEstudiantes />} />
         <Route path="/EstudiantesCurso/:cursoCodigo" element={<EstudiantesCurso  />} />
         <Route path="/GestionarEva/:cursoId" element={<GestionarEva element={<GestionarEva />} />} />
-<<<<<<< HEAD
         <Route path="/Grupos" element={<Grupos materia="Matematicas"/>} />
-        <Route path="/GestionarEva" element={<GestionarEva />} />
-        <Route path="/AsignarEva" element={<AsignarEva eva="Matematicas" combi="Pedro Vargas"/>} />
-        <Route path="/CrearEva" element={<CrearEva />} />
-=======
         <Route path="/GestionarEva" element={<GestionarEva />} />
         <Route path="/AsignarEva/:evaluacionid" element={<AsignarEva eva="Matematicas" combi=""/>} />
         <Route path="/CrearEva/:cursoId" element={<CrearEva />} />
->>>>>>> front_back_sebas
       </Routes>
     </BrowserRouter>
   );
