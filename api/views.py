@@ -70,22 +70,13 @@ def login(request):
 
     # Devolver respuesta con el token y los datos del usuario
     response = Response({
-        "token": token.key,
+        "sessionid": token.key,
         "estudiante": serializer.data,
         "nombre": estudiante.user.first_name,
         "apellido": estudiante.user.last_name,
         "email": estudiante.user.email,
         "username": estudiante.user.username
     }, status=status.HTTP_200_OK)
-
-    response.set_cookie(
-        key='sessionid',
-        value=token.key,
-        httponly=False,
-        secure=False,   
-        samesite='Strict',  # O 'Strict' según tus necesidades
-        max_age=36000  # Tiempo de expiración en segundos
-    )
     return response
 
 @api_view(['POST'])
@@ -98,16 +89,8 @@ def login_adminte(request):
         
     token, created = Token.objects.get_or_create(user=admin.user)
     serializer = AdministradorSerializer(admin)
-    response =  Response({"token": token.key, "user": serializer.data }, status=status.HTTP_200_OK)
+    response =  Response({"sessionid": token.key, "user": serializer.data }, status=status.HTTP_200_OK)
 
-    response.set_cookie(
-        key='sessionid',
-        value=token.key,
-        httponly=False,
-        secure=False,   
-        samesite='Strict',  # O 'Strict' según tus necesidades
-        max_age=36000  # Tiempo de expiración en segundos
-    )
     return response
 
 @api_view(['POST'])
@@ -323,16 +306,8 @@ def loginProfesor(request):
     serializer = ProfesorSerializer(profesor)
 
     # Devolver respuesta con el token y los datos del usuario
-    response = Response({"token": token.key, "user": serializer.data}, status=status.HTTP_200_OK)
+    response = Response({"sessionid": token.key, "user": serializer.data}, status=status.HTTP_200_OK)
 
-    response.set_cookie(
-        key='sessionid',
-        value=token.key,
-        httponly=False,
-        secure=False,   
-        samesite='Lax',  # O 'Strict' según tus necesidades
-        max_age=3600  # Tiempo de expiración en segundos
-    )
     return response
 
 
@@ -830,11 +805,18 @@ def obtener_criterios(request):
     # Serializar la rubrica y los criterios asociados
     rubrica_serializer = rubrica_EvaluacionSerializer(rubrica)
     criterios_serializer = criterio_EvaluacionSerializer(rubrica.criterios.all(), many=True)
+     
+    iniciada = False
 
+    if evaluacion.objects.filter(rubrica=rubrica).exists():
+        iniciada = True
+    
+    
     # Combinar la información de la rubrica y los criterios en un solo diccionario de respuesta
     data = {
         'rubrica': rubrica_serializer.data,
-        'criterios': criterios_serializer.data
+        'criterios': criterios_serializer.data,
+        'iniciada': iniciada
     }
 
     return Response(data)
@@ -846,12 +828,9 @@ def guardar_criterios(request):
     criteriosEliminados = request.data.get('criteriosEliminados')
     newEscala = request.data.get('newEscala')
     identificacion = request.data.get('identificacion')
-
     profesor = get_object_or_404(Profesor, identificacion=identificacion)
     username = profesor.user.username
-
     rubrica = get_object_or_404(rubrica_Evaluacion, id=id)
-    
 
     if rubrica.autor == 'admin':
         criterios_originales = list(rubrica.criterios.all())
@@ -860,10 +839,6 @@ def guardar_criterios(request):
             escala=newEscala if newEscala else rubrica.escala,
             autor=username
         )
-
-        for criterio_id in criteriosEliminados:
-            criterio_obj = get_object_or_404(criterio_Evaluacion, id=criterio_id)
-            criterio_obj.delete()
 
         for criterio in criterios:
             if 'id' in criterio and criterio_Evaluacion.objects.filter(id=criterio['id']).exists():
@@ -880,6 +855,10 @@ def guardar_criterios(request):
                 )
                 nueva_rubrica.criterios.add(nuevo_criterio)
 
+        for criterio in criteriosEliminados:
+            criterio_obj = get_object_or_404(criterio_Evaluacion, id=criterio['id'])
+            nueva_rubrica.criterios.remove(criterio_obj)
+
         for criterio in rubrica.criterios.all():
             rubrica.criterios.remove(criterio)
         
@@ -893,7 +872,6 @@ def guardar_criterios(request):
         
 
         return Response({'message': 'Rubrica editada, se ha creado una rubrica predeterminada edicion: ' + str(profesor.user.first_name)}, status=status.HTTP_201_CREATED)
-    
     else:
         # Actualizar la escala si ha cambiado
         if newEscala and newEscala != rubrica.escala:
@@ -925,7 +903,7 @@ def guardar_criterios(request):
 
     
 
-    return Response({"message": "Criterios actualizados correctamente"}, status=status.HTTP_200_OK)
+
 @api_view(['GET'])
 def Rubricas_admin(request):
     predeterminada = rubrica_Evaluacion.objects.filter(autor="admin").first()
@@ -973,6 +951,7 @@ def editar_predeterminada(request):
 
 @api_view(['POST'])
 def guardarRubrica(request):
+
     rubrica_data = request.data.get('rubrica')
     criterios_data = request.data.get('criterios')
     identificacion = request.data.get('identificacion')
@@ -1197,10 +1176,15 @@ def crear_evaluacion(request):
 def evaluacion_rubrica(request):
     id_eva = request.data.get('idEva')
     eva = evaluacion.objects.get(id=id_eva)
+    iniciado = False
+    infor  = InformesIndividuales.objects.filter(id_evaluacion=id_eva)
+    if infor:
+        iniciado = True
 
+   
     serializer = evaluacionSerializer(eva, many=False)
 
-    return Response({"evaluacion": serializer.data}, status=status.HTTP_200_OK)
+    return Response({"evaluacion": serializer.data, "iniciado": iniciado}, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 def editar_evaluacion(request):
@@ -1230,5 +1214,27 @@ def añadir_grupo(request):
     eva.grupo.create(nombre="Grupo" + str(len(eva.grupo.all())+1), proyectoasignado=eva.nombre)
     eva.save()
     return Response({"message": "Grupo agregado exitosamente"}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def eliminar_rubrica(request):
+    id = request.data.get('id')
+    try:
+        rubrica = rubrica_Evaluacion.objects.get(id=id)
+    except rubrica_Evaluacion.DoesNotExist:
+        return Response({"error": "Rúbrica no encontrada"}, status=status.HTTP_404_NOT_FOUND)
+
+    if rubrica.autor == "admin":
+        return Response({"error": "No se puede eliminar una rúbrica predeterminada"}, status=status.HTTP_400_BAD_REQUEST)
+    
+    try:
+        eva = evaluacion.objects.get(rubrica=rubrica)
+        if InformesIndividuales.objects.filter(id_evaluacion=eva.id).exists():
+            return Response({"error": "No se puede eliminar una rúbrica que está siendo evaluada"}, status=status.HTTP_400_BAD_REQUEST)
+    except evaluacion.DoesNotExist:
+        # Si no existe una evaluación asociada, podemos proceder a eliminar la rúbrica
+        eva = None
+
+    rubrica.delete()
+    return Response({"message": "Rúbrica eliminada exitosamente"}, status=status.HTTP_200_OK)
     
     

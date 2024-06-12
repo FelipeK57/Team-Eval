@@ -56,13 +56,11 @@ function AgregarProfesor() {
 
     const handleClick = async (e) => {
         if (nombres === "" || apellidos === "" || documento === "" || email === "") {
-            setAdvice("Por favor, rellene todos los campos.");
-            popup(e);
             return;
         }
         if(documento< 10000000 || documento > 9999999999){
             setAdvice("El documento debe ser de minimo 8 digitos");
-            popup(e);
+            setOpen(true);
             return;
         }
         e.preventDefault();
@@ -75,7 +73,7 @@ function AgregarProfesor() {
         });
         console.log(response.data);
         setAdvice("Profesor agregado con exito");
-        popup(e);
+        setOpen(true);
         
 
     } catch (error) {
@@ -84,7 +82,7 @@ function AgregarProfesor() {
         } else {
             setAdvice("Error al agregar el profesor");
         }
-        popup(e);
+        setOpen(true);
     }
 
     }
@@ -122,7 +120,7 @@ function AgregarProfesor() {
                 Advice={advice}
                 Width={"100%"}
                 Button1="volver"
-               onClick1={popup}
+               onClick1={() => navigate(-1)}
                 
             />
         </div>

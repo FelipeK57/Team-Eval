@@ -12,12 +12,6 @@ function LoginAdmin() {
     const [codigo, setCodigo] = useState("");
     const [advice, setAdvice] = useState("");
 
-    const axiosInstance = axios.create({
-        withCredentials: true, // Habilitar envío de cookies
-        headers: {
-          'X-CSRFToken': Cookies.get('csrftoken'), // Incluir el CSRF token
-      },
-    });
    
 
     const handlePasswordChange = (e) => {
@@ -39,13 +33,14 @@ function LoginAdmin() {
         e.preventDefault();
 
         try{
-            const response = await axiosInstance.post("http://localhost:8000/login_admin/", {
+            const response = await axios.post("http://localhost:8000/login_admin/", {
                 codigo: codigo,
                 password: password,
             });
             Cookies.set("user", response.data.user.user.username, { expires: 1 });
             Cookies.set("loggedIn", "true", { expires: 1 }); // Indica que el usuario ha iniciado sesión
-            Cookies.set("codigo", response.data.user.codigo);
+            Cookies.set("codigo", response.data.user.codigo, { expires: 1 });
+            Cookies.set("sessionid", response.data.sessionid, { expires: 1 });
             navigate('/Admin')
         }catch(error){
             setAdvice("Credenciales incorrectas");

@@ -20,14 +20,13 @@ function TablaRubricasProfe(props) {
     const [open, setOpen] = useState(false);
     const [advice, setAdvice] = useState("");
     const [escala, setEscala] = useState(0);
+    const [iniciada, setIniciada] = useState(false);
 
     const navigate = useNavigate();
 
-    const popup = (e) => {
-        e.preventDefault();
-        setOpen(!open);
-
-    };
+    const volver = () => {
+    navigate(-1);
+  };
 
     const handleEscalaChange = (e) => {
         setEscala(e.target.value);
@@ -59,6 +58,7 @@ function TablaRubricasProfe(props) {
                 );
                 setRubrica(response.data.rubrica);
                 setCriterios(response.data.criterios);
+                setIniciada(response.data.iniciada);
             } catch (error) {
                 console.error("Error al obtener la rubrica", error);
             }
@@ -91,6 +91,33 @@ function TablaRubricasProfe(props) {
     };
 
     const guardarRubrica = async () => {
+        if (criterios.length === 0) {
+            setAdvice("Falta agregar minimo un criterio");
+            setOpen(!open);
+            return;
+        }
+        if (escala === 0) {
+            setAdvice("Falta agregar escala");
+            setOpen(!open);
+            return;
+        }
+        if (escala < 0 ) {
+            setAdvice("La escala no puede ser negativa");
+            setOpen(!open);
+            return;
+        }
+        if (escala > 10) {
+            setAdvice("La escala no puede ser mayor a 10");
+            setOpen(!open);
+            return;
+        }
+        for (let criterio of criterios) {
+            if (criterio.descripcion.trim() === '' ) { 
+                setAdvice("Falta agregar descripción a los criterios");
+                setOpen(!open);
+                return;
+            }
+        }
         try {
             const response = await axios.post(
                 "http://localhost:8000/guardarCriterios/", {
@@ -104,9 +131,35 @@ function TablaRubricasProfe(props) {
             setAdvice(response.data.message);
             setOpen(!open);
         } catch (error) {
-            setAdvice("Error al guardar la rubrica (Falta criterio o valor)");
+            if (error.response && error.response.data && error.response.data.error) {
+                setAdvice(error.response.data.error);
+            } else {
+                setAdvice("Error al guardar"); 
+            }
+            setOpen(true);
+            }
+        
+    };
+
+
+    const eliminarRubrica = async () => {
+        try {
+            const response = await axios.post(
+                "http://localhost:8000/elimar_rubrica/", {
+                id: rubricaId
+            }
+            );
+            setAdvice(response.data.message);
             setOpen(!open);
-        }
+        } catch (error) {
+            if (error.response && error.response.data && error.response.data.error) {
+                setAdvice(error.response.data.error);
+            } else {
+                setAdvice("Error al eliminar"); 
+            }
+            setOpen(true);
+            }
+        
     };
 
     return (
@@ -163,9 +216,18 @@ function TablaRubricasProfe(props) {
                 <div className="ButtonAgregarRubricas">
                     <button onClick={agregarCriterio}><AddIcon /></button>
                 </div>
-                <div className="ButtonGuardarRubricas">
+                {iniciada && rubrica.autor != "admin" ? (
+                    <div className="iniciada">
+                        <h2>Esta rubrica esta asignada a una evaluacion, no se pueden editar los parámetros</h2>
+                    </div>
+                ) : (
+                    <div className="ButtonGuardarRubricas">
                     <Button Boton="Guardar" color="rgb(15, 65, 118)" fontColor="white" onClick={guardarRubrica} />
+                    <Button Boton="Eliminar" color="rgb(171, 57, 33)" fontColor="white" onClick={eliminarRubrica}  />
                 </div>
+                )
+                }
+                
             </div>
             <div>
                 <PopUp open={open}
@@ -173,7 +235,7 @@ function TablaRubricasProfe(props) {
                     Advice={advice}
                     Width={"100%"}
                     Button1="volver"
-                    onClick1={popup}
+                    onClick1={volver}
 
                 />
             </div>

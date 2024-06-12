@@ -46,11 +46,7 @@ function ProfeEditar(props) {
     setApellidos(e.target.value);
   }
 
-  const popup = (e) => {
-    e.preventDefault();
-    setOpen(!open);
-  };
-
+  
   const handleDocumentoChange = (e) => {
     setDocumento(e.target.value);
   }
@@ -66,7 +62,7 @@ function ProfeEditar(props) {
           return;
         }
         
-        if (documento< 10000000 || documento > 99999999) {
+        if (documento< 10000000 || documento > 9999999999) {
           setAdvice("El documento debe ser de minimo 8 digitos");
           popup(e);
           return;
@@ -79,13 +75,13 @@ function ProfeEditar(props) {
             email: correo
           });
           setAdvice("Profesor editado con exito");
-          popup(e);
+          setOpen(true);
           Cookies.remove("profesorIdentificacion"); 
           Cookies.remove("profesorNombre"); 
           Cookies.remove("profesorEmail");  
         } catch (error) {
           setAdvice(error.response.data.error);
-          popup(e);
+          setOpen(true);
       }
     }
   
@@ -127,7 +123,7 @@ function ProfeEditar(props) {
         Advice={advice}
         Width={"100%"}
         Button1="volver"
-        onClick1={popup}
+        onClick1={() => navigate(-1)}
 
       />
     </div>
