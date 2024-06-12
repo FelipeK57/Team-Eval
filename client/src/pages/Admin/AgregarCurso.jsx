@@ -10,6 +10,7 @@ function AgregarCurso() {
   const [nombre, setNombre] = useState("");
   const [codigo, setCodigo] = useState("");
   const [Periodo, setPeriodo] = useState("");
+  const [profe, setProfe] = useState(Cookies.get("profesor_id") || ""); // Asegurarse de que el profesor esté disponible
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [advice, setAdvice] = useState("");
@@ -26,9 +27,19 @@ function AgregarCurso() {
     setPeriodo(e.target.value);
   };
 
-  const popup = (e) => {
+  const popup = () => {
+    setOpen(true);
+  };
+
+  const closePopupAndNavigate = (e) => {
     e.preventDefault();
-    setOpen(!open);
+    setOpen(false);
+    navigate("/CursosAdmin");
+  };
+
+  const closePopup = (e) => {
+    e.preventDefault();
+    setOpen(false);
   };
 
   useEffect(() => {
@@ -49,14 +60,30 @@ function AgregarCurso() {
 
   const handleClick = async (e) => {
     e.preventDefault();
+    
+    // Limpiar mensaje de advice antes de realizar verificaciones
+    setAdvice("");
+
+    if (!nombre || !codigo || !Periodo) {
+      setAdvice("Todos los campos son obligatorios");
+      popup();
+      return;
+    }
 
     const currentYear = new Date().getFullYear();
-    const validYears = [currentYear, currentYear + 1]; 
+    const validYears = [currentYear, currentYear + 1];
     const formatoValido = /^\d{4}-[1-2]$/.test(Periodo);
+
+    const caracteresEspeciales = /[^a-zA-Z0-9]/.test(codigo);
+    if (caracteresEspeciales) {
+      setAdvice("El código no debe contener caracteres especiales.");
+      popup();
+      return;
+    }
 
     if (!formatoValido) {
       setAdvice("El formato del periodo debe ser 20XX-semestre (1 o 2)");
-      popup(e);
+      popup();
       return;
     }
 
@@ -64,13 +91,7 @@ function AgregarCurso() {
 
     if (year < currentYear || !validYears.includes(year)) {
       setAdvice("El año ingresado no es válido. No puede ser un año ya finalizado");
-      popup(e);
-      return;
-    }
-
-    if (!nombre || !codigo || !Periodo) {
-      setAdvice("Todos los campos son obligatorios");
-      popup(e);
+      popup();
       return;
     }
 
@@ -79,11 +100,11 @@ function AgregarCurso() {
         nombre: nombre,
         codigo: codigo,
         periodo: Periodo,
-        profe: Cookies.get("profesor_id"),
+        profe: profe,
       });
       console.log(response.data);
       setAdvice("Curso agregado con éxito (Puede verlo en el listado de Cursos y editarlo para agregar estudiantes)");
-      popup(e);
+      setOpen(true);
       Cookies.remove("profesor_id");
     } catch (error) {
       if (error.response && error.response.data && error.response.data.error) {
@@ -91,7 +112,15 @@ function AgregarCurso() {
       } else {
         setAdvice("Error al agregar el curso");
       }
-      popup(e);
+      popup();
+    }
+  };
+
+  const handlePopupClick = (e) => {
+    e.preventDefault();
+    setOpen(false);
+    if (advice.includes("Curso agregado con éxito")) {
+      navigate("/CursosAdmin");
     }
   };
 
@@ -128,7 +157,7 @@ function AgregarCurso() {
         Advice={advice}
         Width={"100%"}
         Button1="Volver"
-        onClick1={popup}
+        onClick1={handlePopupClick}
       />
     </div>
   );

@@ -17,8 +17,6 @@ function EditarCurso() {
   const [advice, setAdvice] = useState("");
   const navigate = useNavigate();
 
-  console.log("id del profesor:", Cookies.get("profesor_id"));
-
   useEffect(() => {
     const fetchProfesores = async () => {
       try {
@@ -29,7 +27,6 @@ function EditarCurso() {
         }));
         setProfesores(profesoresData);
 
-        // Obtener el valor inicial de las cookies
         const profesorId = profesor_id;
         if (profesorId) {
           const selected = profesoresData.find(prof => prof.id === parseInt(profesorId));
@@ -67,62 +64,82 @@ function EditarCurso() {
   const handleProfesorChange = (newValue) => {
     if (newValue) {
       setProfesorID(newValue.id);
+      setSelectedProfesor(newValue);
     }
   };
 
-  const popup = (e) => {
+  const popup = () => {
+    setOpen(true);
+  };
+
+  const closePopup = (e) => {
     e.preventDefault();
     setOpen(false);
-    navigate("/CursosAdmin");
   };
 
   const gestionarE = (e) => {
     navigate(`/EstudiantesCurso/${cursoCodigo}`, { state: { materia: cursoNombre } });
-  };  
+  };
 
   const handleClick = async (e) => {
     e.preventDefault();
-  
-    const currentYear = new Date().getFullYear();
-    const validYears = [currentYear, currentYear + 1];
-    const formatoValido = /^\d{4}-[1-2]$/.test(periodo);
-  
-    if (!formatoValido) {
-      setAdvice("El formato del periodo debe ser 20XX-semestre (1 o 2)");
-      setOpen(true);
-      return;
-    }
-  
-    const [year, semester] = periodo.split("-").map(Number);
-  
-    if (year < currentYear || !validYears.includes(year)) {
-      setAdvice("El año ingresado no es válido. No puede ser un año ya finalizado");
-      setOpen(true);
+
+    if (!cursoNombre || !cursoCodigo || !periodo || !profesor_id) {
+      setAdvice("Todos los campos son obligatorios");
+      popup();
       return;
     }
 
-    if (!cursoNombre || !cursoCodigo || !periodo) {
-      setAdvice("Todos los campos son obligatorios"); 
-      setOpen(true);
+    const caracteresEspeciales = /[^a-zA-Z0-9]/.test(cursoCodigo);
+    if (caracteresEspeciales) {
+      setAdvice("El código no debe contener caracteres especiales.");
+      popup();
       return;
-    } 
+    }
+
+    const currentYear = new Date().getFullYear();
+    const validYears = [currentYear, currentYear + 1];
+    const formatoValido = /^\d{4}-[1-2]$/.test(periodo);
+
+    if (!formatoValido) {
+      setAdvice("El formato del periodo debe ser 20XX-semestre (1 o 2)");
+      popup();
+      return;
+    }
+
+    const [year] = periodo.split("-").map(Number);
+
+    if (year < currentYear || !validYears.includes(year)) {
+      setAdvice("El año ingresado no es válido. No puede ser un año ya finalizado");
+      popup();
+      return;
+    }
+
     try {
       await axios.post("http://localhost:8000/Editar_curso/", {
         codigo: Cookies.get("codigoCurso"),
         nombre: cursoNombre,
         newCodigo: cursoCodigo,
         periodo: periodo,
-        profe: Cookies.get("profesor_id"),
+        profe: profesor_id,
       });
       setAdvice("Curso editado con éxito");
-      setOpen(true);
+      popup();
       Cookies.remove("nombreCurso");
       Cookies.remove("codigoCurso");
       Cookies.remove("periodoCurso");
-      Cookies.remove("profesor_id")
+      Cookies.remove("profesor_id");
     } catch (error) {
       setAdvice(error.response?.data?.error || "Error al editar el curso");
-      setOpen(true);
+      popup();
+    }
+  };
+
+  const handlePopupClick = (e) => {
+    e.preventDefault();
+    setOpen(false);
+    if (advice === "Curso editado con éxito") {
+      navigate("/CursosAdmin");
     }
   };
 
@@ -165,8 +182,8 @@ function EditarCurso() {
         SetOpen={setOpen}
         Advice={advice}
         Width={"100%"}
-        Button1="volver"
-        onClick1={popup}
+        Button1="Volver"
+        onClick1={handlePopupClick}
       />
     </div>
   );

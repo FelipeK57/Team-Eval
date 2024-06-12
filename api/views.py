@@ -744,6 +744,9 @@ def editar_curso(request):
     
     if codigo != newCodigo and Cursos.objects.filter(codigo=newCodigo).exists():
         return Response({"error": "Ya existe un curso con el código proporcionado"}, status=status.HTTP_400_BAD_REQUEST)
+    
+    if codigo == newCodigo and curso.nombre == nombre and curso.periodoAcademico == periodo and curso.profesor.id == profe_id:
+        return Response({"error": "Ningun cambio realizado"}, status=status.HTTP_400_BAD_REQUEST)
 
     changes_made = False
 

@@ -20,6 +20,10 @@ function CrearEva() {
     const navigate = useNavigate();
 
     const handleClick = async () => {
+        if(numeroGrupos<0 || numeroGrupos > 10){
+            alert("el numero de grupos es incorrecto (negativo o mayor a 10)");
+            return;
+        }
         try {
             const response = await axios.post(
                 "http://localhost:8000/crear_eva/", {
