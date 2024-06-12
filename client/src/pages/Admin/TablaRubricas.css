@@ -25,7 +25,6 @@
     font-size: 1.5rem;
     color: #000;
     margin: 20vh auto 0 auto;
-    border: none;
 }
 
 .RubricasTable {
@@ -183,3 +182,4 @@
     align-content: center;
     justify-content: center;
 }
+
