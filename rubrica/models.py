@@ -8,5 +8,5 @@ class rubrica_Evaluacion(models.Model):
     autor = models.CharField(max_length=50, null=True)
 
     def __str__(self):
-        return self.nombre
+        return self.nombre + " escala " + str(self.escala)
     

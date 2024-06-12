@@ -13,7 +13,7 @@ function CursoModelo(props) {
   };
   const estadoCurso = () => {
     if (props.state === false) {
-      return <h1>Terminado</h1>;
+      return <h2>Terminado</h2>;
     } else {
       return (
         <Button LineaBoton={false} Boton="ir" onClick={props.onClick} />
@@ -23,7 +23,7 @@ function CursoModelo(props) {
 
   return (
     <div className={colorCurso()}>
-      <h1>{props.name}</h1>
+      <h2>{props.name}</h2>
       <hr style={{ width: "100%" }}></hr>
       <div className="estadoButton">{estadoCurso()}</div>
     </div>

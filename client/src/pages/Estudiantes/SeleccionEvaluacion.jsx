@@ -42,16 +42,28 @@ function SeleccionEvaluacion() {
     fetchEvaluaciones();
   }, [infoCurso]);
 
-  const obtenerEvaluacion = (evaluacion) => {
+  const obtenerEvaluacion = async (evaluacion) => {
     const infoEvaluacion = evaluacion.id;
-    navigate("/Evaluacion", { state: { infoEvaluacion, infoCurso } });
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/obtener_rubrica/",
+        {
+          id: evaluacion.rubrica,
+        }
+      );
+      const escala = response.data.escala
+      console.log(escala);
+      navigate("/Evaluacion", { state: { infoEvaluacion, infoCurso, escala } });
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   return (
     <>
       <NavbarStudent />
       <div className="container-evaluaciones-main">
-        <h1>Evaluaciones por realizar:</h1>
+        <h1>Evaluaciones por realizar</h1>
         {evaluaciones.length > 0 ? (
           <div className="container-evaluacion">
             {evaluaciones.map((evaluacion, index) => (
@@ -65,7 +77,7 @@ function SeleccionEvaluacion() {
             ))}
           </div>
         ) : (
-          <p>No hay evaluaciones por realizar.</p>
+          <h3>No hay evaluaciones por realizar.</h3>
         )}
       </div>
     </>

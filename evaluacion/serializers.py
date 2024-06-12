@@ -8,9 +8,14 @@ from rubrica.serializers import rubrica_EvaluacionSerializer
 
 
 
+class RubricaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = rubrica_Evaluacion
+        fields = "__all__"
+
 class evaluacionSerializer(serializers.ModelSerializer):
-    grupo = GrupoSerializer(Grupo, many=True)
-    rubrica = rubrica_EvaluacionSerializer(rubrica_Evaluacion)
+    grupo = GrupoSerializer(many=True)
+    rubrica = RubricaSerializer()
     class Meta:
         model = evaluacion
         fields = "__all__"

@@ -29,6 +29,7 @@ urlpatterns = [
     path('estudiantes/', include('estudiantes.urls')),
     path('profesor/', include('profesor.urls')),
     path('rubrica/', include('rubrica.urls')),
+    path('informesindv/', include('informesindividuales.urls')),
     path('estudiantes-deshabilitados/', views.estudiantes_deshabilitados, name='estudiantes_deshabilitados'),
     re_path(r'^loginProfesor/$', views.loginProfesor),
     re_path(r'^registerProfesor/$', views.registerProfesor),
@@ -66,6 +67,9 @@ urlpatterns = [
     re_path(r'^Estadocursos/$', views.editar_estado_Curso),
     re_path(r'^cursos_deshabilitado/$', views.cursosDes),
     re_path(r'^import_estudiantes/$', views.import_estudiantes),
+    re_path(r'^obtener_evaluaciones/$', views.obtener_evaluaciones),
+    re_path(r'^obtener_grupo_criterios/$', views.obtener_grupo_criterios),
+    re_path(r'^realizar_calificacion/$', views.realizar_calificacion),
     re_path(r'^rubricasProfe/$', views.Rubricas_profe),
     re_path(r'^obtenerCriterios/$', views.obtener_criterios),
     re_path(r'^guardarCriterios/$', views.guardar_criterios),
@@ -92,6 +96,9 @@ urlpatterns = [
     re_path(r'^elimar_grupo/$', views.eliminar_grupo),
     re_path(r'^agregar_grupo/$', views.añadir_grupo),
     
+    re_path(r'^obtener_informe/$', views.obtener_informe),
+    re_path(r'^obtener_informe_curso/$', views.obtener_informe_curso),
+    re_path(r'^obtener_rubrica/$', views.obtener_rubrica),
 ]
 
 
