@@ -6,4 +6,4 @@ class rubrica_EvaluacionSerializer(serializers.ModelSerializer):
     criterios = criterio_EvaluacionSerializer(many=True)    
     class Meta:
         model = rubrica_Evaluacion
-        fields = '__all__'
+        fields = ['id', 'nombre', 'escala', 'criterios', 'autor']

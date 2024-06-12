@@ -38,6 +38,10 @@ from rubrica.serializers import rubrica_EvaluacionSerializer
 from evaluacion.models import evaluacion
 from informesindividuales.models import InformesIndividuales
 from informesindividuales.serializer import InformesIndividualesSerializer
+from collections import defaultdict
+
+class ImportarCursosException(Exception):
+    pass
 from datetime import datetime
 
 @api_view(['POST'])
@@ -106,6 +110,74 @@ def login_adminte(request):
     )
     return response
 
+@api_view(['POST'])
+def obtener_rubrica(request):
+    id_rubrica = request.data.get('id')
+    rubrica = rubrica_Evaluacion.objects.get(id=id_rubrica)
+    serializer = rubrica_EvaluacionSerializer(rubrica)
+    return Response({"escala": serializer.data.get("escala")}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def obtener_informe_curso(request):
+    id_eval = request.data.get('id')
+
+    evaluacion_informe = get_object_or_404(evaluacion, id=id_eval
+                                           )
+    serializer = criterio_EvaluacionSerializer(evaluacion_informe.rubrica.criterios, many=True)
+
+    informes_evaluacion = InformesIndividuales.objects.filter(id_evaluacion=id_eval)
+
+    codigos_estudiantes = informes_evaluacion.values_list('codigo_evaluado', flat=True).distinct()
+
+    estudiantes = Estudiante.objects.filter(codigo__in=codigos_estudiantes)
+    nombres_estudiantes = {estudiante.codigo: estudiante.user.username for estudiante in estudiantes}
+
+    criterios_por_estudiante = defaultdict(lambda: defaultdict(lambda: {'suma': 0, 'conteo': 0}))
+
+    for informe in informes_evaluacion:
+        codigo = informe.codigo_evaluado
+        for criterio in informe.criterios:
+            descripcion = criterio['descripcion']
+            valor = criterio['valor']
+            criterios_por_estudiante[codigo][descripcion]['suma'] += valor
+            criterios_por_estudiante[codigo][descripcion]['conteo'] += 1
+
+    promedios_estudiantes = {}
+    for codigo, criterios in criterios_por_estudiante.items():
+        promedios = {}
+        for descripcion, datos in criterios.items():
+            if datos['conteo'] > 0:
+                promedios[descripcion] = int(datos['suma'] / datos['conteo'])
+        promedios_estudiantes[codigo] = {
+            "nombre": nombres_estudiantes.get(codigo, "Nombre no encontrado"),
+            "promedios": promedios
+        }
+
+    return Response({"promedios_estudiantes": promedios_estudiantes, "criterios": serializer.data}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def obtener_informe(request):
+    codigo = request.data.get('codigo')
+    id_eval = request.data.get('id')
+
+    informes_evaluado = InformesIndividuales.objects.filter(codigo_evaluado=codigo, id_evaluacion=id_eval)
+
+    criterio_valores = defaultdict(lambda: {'suma': 0, 'conteo': 0})
+
+    for informe in informes_evaluado:
+        for criterio in informe.criterios:
+            descripcion = criterio['descripcion']
+            valor = criterio['valor']
+            criterio_valores[descripcion]['suma'] += valor
+            criterio_valores[descripcion]['conteo'] += 1
+
+    promedios = {}
+    for descripcion, datos in criterio_valores.items():
+        if datos['conteo'] > 0:
+            promedios[descripcion] = datos['suma'] // datos['conteo']
+
+    return Response({"promedios": promedios}, status=status.HTTP_200_OK)
+
 @api_view(['GET'])
 def obtener_evaluaciones(request):
     codigo = request.data.get('codigo')
@@ -170,9 +242,14 @@ def realizar_calificacion(request):
 @api_view(['POST'])
 def import_cursos(request):
     admin = get_object_or_404(administrador, codigo='5775')
-    admin.importar_cursos(request.FILES['file'])
-    message = admin.importar_cursos(request.FILES['file'])
-    return Response({"message": str(message)},status=status.HTTP_200_OK)
+    
+    try:
+        message = admin.importar_cursos(request.FILES['file'])
+        return Response({"message": str(message)}, status=status.HTTP_200_OK)
+    except ImportarCursosException as e:
+        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        return Response({"error": "Error inesperado: " + str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['POST'])
 def import_estudiantes(request):
@@ -373,8 +450,6 @@ def teacher_courses(request):
     serializer = CursosSerializer(profesor.courses_teacher(), many=True)
     return Response({"cursos": serializer.data}, status=status.HTTP_200_OK)
 
-
-    
 @api_view(['POST'])
 def change_passwordA(request):
     nueva_contraseña = request.data.get('nueva_contraseña')
@@ -1041,7 +1116,21 @@ def agregar_estudiante_curso(request):
 
 @api_view(['POST'])
 def estudiantes_curso(request):
+    
     codigo_curso = request.data.get('codigo')
+    curso_id = request.data.get('id')
+
+    if curso_id is not None:
+        try:
+            curso = Cursos.objects.get(id=curso_id) 
+            ests = []
+            for est in curso.estudiantes.all():
+                ests.append(est)
+            serializer = EstudianteSerializer(ests, many=True)
+            return Response({"estudiantes": serializer.data}, status=status.HTTP_200_OK)
+        except Cursos.DoesNotExist:
+            return Response({"error": "Curso no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+    
     try:
         curso = Cursos.objects.get(codigo=codigo_curso) 
         ests = []
@@ -1086,5 +1175,43 @@ def crear_evaluacion(request):
         
     curso.evaluaciones.add(eva)
     return Response({"message": "Evaluacion creada exitosamente", "evaluacionId": eva.id}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def evaluacion_rubrica(request):
+    id_eva = request.data.get('idEva')
+    eva = evaluacion.objects.get(id=id_eva)
+
+    serializer = evaluacionSerializer(eva, many=False)
+
+    return Response({"evaluacion": serializer.data}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def editar_evaluacion(request):
+    idEva = request.data.get('idEva')
+    eva = evaluacion.objects.get(id=idEva)
+    idRubrica = request.data.get('idRubrica')
+    rubrica = rubrica_Evaluacion.objects.get(id=idRubrica)
+    eva.rubrica = rubrica
+    eva.save()
+    return Response({"message": "Evaluacion editada exitosamente"}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def eliminar_grupo(request):
+    id = request.data.get('id')
+    grupo = Grupo.objects.get(id=id)
+    for estudiante in grupo.estudiantes.all():
+        grupo.estudiantes.remove(estudiante)
+        grupo.save()
+    
+    grupo.delete()
+    return Response({"message": "Grupo eliminado exitosamente"}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def añadir_grupo(request):
+    id = request.data.get('id')
+    eva = evaluacion.objects.get(id=id)
+    eva.grupo.create(nombre="Grupo" + str(len(eva.grupo.all())+1), proyectoasignado=eva.nombre)
+    eva.save()
+    return Response({"message": "Grupo agregado exitosamente"}, status=status.HTTP_200_OK)
     
     

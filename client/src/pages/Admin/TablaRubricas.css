@@ -25,6 +25,7 @@
     font-size: 1.5rem;
     color: #000;
     margin: 20vh auto 0 auto;
+    border: none;
 }
 
 .RubricasTable {
@@ -32,6 +33,11 @@
     min-width: 60%;
     max-width: 60%;
     height: 100%;
+<<<<<<< HEAD
+    border: none !important;
+    border-collapse: collapse;
+
+=======
     border-collapse: separate;
     word-break: break-all;
 }
@@ -39,6 +45,7 @@
 
 .RubricasTable tr:last-child .Left{
     border-radius: 0 0 25px 25px;
+>>>>>>> front_back_sebas
 }
 
 .RubricasTableHeader {

@@ -35,7 +35,7 @@ function ImportarCursos() {
       );
       alert(response.data.message);
     } catch (error) {
-      alert("ERROR DEL SERVIDOR");
+      alert(error.response.data.error);
     }
   };
 

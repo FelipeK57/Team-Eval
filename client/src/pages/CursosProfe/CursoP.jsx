@@ -49,6 +49,10 @@ function CursosProfe(props) {
         navigate(`/GestionarEva/${cursoId}`, { state: { materia: nombre } });
     }
 
+    const estudiantes = (cursoId) => {
+        navigate(`/EstudiantesCursoProfe/${cursoId}`);
+    }
+
     return (
         <div className="CursosProfe">
             <NavbarProfesor />
@@ -79,7 +83,7 @@ function CursosProfe(props) {
                         Estado={curso.estado}
                         nombreCurso={curso.nombre}
                         configurarCursos={() => GestionarEva(curso.id, curso.nombre)}
-                        verEstudiantes = '/EstudiantesCursoProfe'
+                        onClick= {() => estudiantes(curso.id)}
                     />
                 ))}
             </div>

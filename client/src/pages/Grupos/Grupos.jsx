@@ -57,7 +57,7 @@ function Grupos(props) {
             }
         };
         fetchestudiantes();
-    }, []);
+    }, [evaId, cursoId]);
 
     const eliminarEstudiante = (id) => {
         try {
@@ -67,7 +67,6 @@ function Grupos(props) {
                 grupoId: grupoIdSeleccionado
             }
             )
-            alert("Estudiante eliminado exitosamente") + response.data;
             window.location.reload();
         } catch (error) {
             console.error("Error al eliminar el estudiante  ", error);
@@ -82,7 +81,6 @@ function Grupos(props) {
                 grupoId: grupoIdSeleccionado
             }
             )
-            alert("Estudiante agregado exitosamente");
             window.location.reload();
         } catch (error) {
             console.error("Error al agregar el estudiante  ", error);
@@ -93,6 +91,32 @@ function Grupos(props) {
         navigate(`/GestionarEva/${cursoId}`, { state: { materia: nombre } });
     }
 
+    const eliminarGrupo = (id) => {
+        try {
+            const response = axios.post(
+                "http://localhost:8000/elimar_grupo/", {
+                id: id
+            }
+            )
+            window.location.reload();
+        } catch (error) {
+            console.error("Error al eliminar el grupo  ", error);
+        }
+    }
+
+    const añadirGrupo = () => {
+        try {
+            const response = axios.post(
+                "http://localhost:8000/agregar_grupo/", {
+                    id: evaId
+            }
+            )
+            window.location.reload();
+        } catch (error) {
+            console.error("Error al anhadir el grupo  ", error);
+        }
+    }
+
     return (
         <div className="Grupos">
             <NavbarProfesor />
@@ -101,9 +125,9 @@ function Grupos(props) {
                 <GruposCard titulo="Integrantes" estudiantes={estudiantes} eliminar={eliminarEstudiante} />
             </div>
             <div className="holu">
-                <GruposCard1 id={evaId} onSelectTeam={handleSelectdTeam} eliminarGrupo=" "/>
+                <GruposCard1 id={evaId} onSelectTeam={handleSelectdTeam} eliminarGrupo={eliminarGrupo}/>
                 <div className="ButtonAgregarRubricas">
-                    <button onClick=" "><AddIcon /></button>
+                    <button onClick={añadirGrupo}><AddIcon /></button>
                 </div>
             </div>
             <div className="lel">

@@ -5,20 +5,15 @@
   justify-content: center;
   color: white;
   background-color: #0f4176;
-  min-width: 280px;
-  max-width: 400px;
-  min-height: 160px;
-  max-height:  500px;
+  width: 380px;
+  height: 190px;
   border-radius: 40px;
-  margin: 20px 10px 20px 20px;
+  margin: 15px;
   flex-wrap: nowrap;
-  padding: 20px;
-  flex-grow: 0;
-  margin-bottom: auto;
 }
 
-.curso-en-curso h1 , .curso-terminado h1 {
-  flex-wrap: nowrap;
+.curso-en-curso h2{
+  width: 95%;
   text-align: center;
   font-size: 1.5rem;
 }
@@ -39,7 +34,7 @@
 }
 .link-evaluacion:hover {
   box-shadow: 0px 0px 10px 1px white;
-  padding: 8px 52px 8px 52px;
+  padding: 5px 52px 5px 52px;
   transition: 200ms;
 }
 

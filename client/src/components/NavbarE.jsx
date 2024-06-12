@@ -1,22 +1,30 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./NavbarE.css";
 
 function NavbarE() {
+  const navigate = useNavigate();
+
+  const back = () => {
+    navigate(-1);
+  };
+
   return (
     <div className="navbar-c">
       <div className="default-nav">
-        <Link to="/Student">
-          <img src="../../public/flecha_volver.png" alt="flecha_volver" />
-        </Link>
+        <img onClick={back} src="../../public/flecha_volver.png" alt="flecha_volver" />
         <Link to="/Student">
           <img src="../../public/Logo.png" alt="logo" />
         </Link>
       </div>
-      <h1>Estudiante</h1>
+      <h1 className="user-sign">¡Estudiante!</h1>
       <div className="student-nav">
-        <h1>Informes</h1>
-        <h1>Mi Cuenta</h1>
+        <Link to="/InformesEstudiante">
+          <h1>Informes</h1>
+        </Link>
+        <Link to="/MiCuenta">
+          <h1>Mi Cuenta</h1>
+        </Link>
       </div>
     </div>
   );
