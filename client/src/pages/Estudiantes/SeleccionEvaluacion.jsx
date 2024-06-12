@@ -1,10 +1,10 @@
+import React from "react";
+import NavbarE from "../../components/NavbarE";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./SeleccionEvaluacion.css";
 import axios from "axios";
 import Cookies from "js-cookie";
-import NavbarStudent from "../../components/NavbarStudent";
-import Button from "../../components/Utilities/Button";
 
 function SeleccionEvaluacion() {
   const navigate = useNavigate();
@@ -61,7 +61,7 @@ function SeleccionEvaluacion() {
 
   return (
     <>
-      <NavbarStudent />
+      <NavbarE />
       <div className="container-evaluaciones-main">
         <h1>Evaluaciones por realizar</h1>
         {evaluaciones.length > 0 ? (
@@ -70,9 +70,9 @@ function SeleccionEvaluacion() {
               <div className="container-info-evaluacion" key={index}>
                 <h2>{evaluacion.nombre}</h2>
                 <hr></hr>
-                <div className="container-button-evaluacion">
-                  <Button Boton="Realizar" onClick={() => obtenerEvaluacion(evaluacion)}/>
-                </div>
+                <button onClick={() => obtenerEvaluacion(evaluacion)}>
+                  Realizar
+                </button>
               </div>
             ))}
           </div>
@@ -85,3 +85,4 @@ function SeleccionEvaluacion() {
 }
 
 export default SeleccionEvaluacion;
+

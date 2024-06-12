@@ -72,7 +72,7 @@ function CrearEva() {
                 <input type="number" className="campo" required onChange={(e) => setNumeroGrupos(e.target.value)} />
             </div>
             <div className="ubi">
-                <Button2 Boton2="Crear Evaluación" color="rgb(15, 65, 118)" fontColor="white" width="200px" onClick={handleClick} />
+                <Button2 Boton2="Crear Evaluación" color="rgb(15, 65, 118)" fontColor="white" width="280px" onClick={handleClick} />
             </div>
             <div>
                 <PopUp open={open}

@@ -1,7 +1,5 @@
 import React from "react";
 import "../components/CursoModelo.css";
-import { Link } from "react-router-dom";
-import Button from "./Utilities/Button"; 
 
 function CursoModelo(props) {
   const colorCurso = () => {
@@ -16,7 +14,9 @@ function CursoModelo(props) {
       return <h2>Terminado</h2>;
     } else {
       return (
-        <Button LineaBoton={false} Boton="ir" onClick={props.onClick} />
+        <button className="link-evaluacion" onClick={props.onClick}>
+          Ir
+        </button>
       );
     }
   };
@@ -25,7 +25,7 @@ function CursoModelo(props) {
     <div className={colorCurso()}>
       <h2>{props.name}</h2>
       <hr style={{ width: "100%" }}></hr>
-      <div className="estadoButton">{estadoCurso()}</div>
+      <div>{estadoCurso()}</div>
     </div>
   );
 }
