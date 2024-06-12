@@ -2,6 +2,7 @@ import NoQuieroCrearMasNavbars from "../../components/NoQuieroCrearMasNavbars";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import { useState } from "react";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 function ImportarEstudiantes() {
   const [file, setFile] = useState(null);
@@ -12,8 +13,6 @@ function ImportarEstudiantes() {
 
   const sendFile = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("file", file);
 
     if (!file) {
       alert("No se ha seleccionado ningún archivo");
@@ -27,14 +26,19 @@ function ImportarEstudiantes() {
       return;
     }
 
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("codigo", Cookies.get("codigo"));
+
     try {
-      const response = await axios.post(
-        "http://localhost:8000/import_estudiantes/",
-        formData
-      );
+      const response = await axios.post("http://localhost:8000/import_estudiantes/", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      });
       alert(response.data.message);
     } catch (error) {
-      alert("ERROR DEL SERVIDOR");
+      alert(error.response.data.error);
     }
   };
   return (

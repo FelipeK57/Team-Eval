@@ -241,22 +241,39 @@ def realizar_calificacion(request):
 
 @api_view(['POST'])
 def import_cursos(request):
-    admin = get_object_or_404(administrador, codigo='5775')
+    if 'file' not in request.FILES:
+        return Response({"error": "No file provided"}, status=status.HTTP_400_BAD_REQUEST)
     
+    if 'codigo' not in request.data:
+        return Response({"error": "No codigo provided"}, status=status.HTTP_400_BAD_REQUEST)
     try:
+        admin = get_object_or_404(administrador, codigo=request.data.get('codigo'))
         message = admin.importar_cursos(request.FILES['file'])
+    
         return Response({"message": str(message)}, status=status.HTTP_200_OK)
     except ImportarCursosException as e:
         return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
     except Exception as e:
         return Response({"error": "Error inesperado: " + str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
 @api_view(['POST'])
 def import_estudiantes(request):
-    admin = get_object_or_404(administrador, codigo='5775')
-    admin.importar_estudiantes(request.FILES['file'])
-    message = admin.importar_estudiantes(request.FILES['file'])
-    return Response({"message": str(message)},status=status.HTTP_200_OK)
+    if 'file' not in request.FILES:
+        return Response({"error": "No file provided"}, status=status.HTTP_400_BAD_REQUEST)
+    
+    if 'codigo' not in request.data:
+        return Response({"error": "No codigo provided"}, status=status.HTTP_400_BAD_REQUEST)
+    try:
+        admin = get_object_or_404(administrador, codigo=request.data.get('codigo'))
+        message = admin.importar_estudiantes(request.FILES['file'])
+    
+        return Response({"message": str(message)}, status=status.HTTP_200_OK)
+    except ImportarCursosException as e:
+        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        return Response({"error": "Error inesperado: " + str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
     
 @api_view(['POST'])
 def register(request):

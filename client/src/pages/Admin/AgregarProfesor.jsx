@@ -60,7 +60,7 @@ function AgregarProfesor() {
             popup(e);
             return;
         }
-        if(documento< 10000000 || documento > 99999999){
+        if(documento< 10000000 || documento > 9999999999){
             setAdvice("El documento debe ser de minimo 8 digitos");
             popup(e);
             return;

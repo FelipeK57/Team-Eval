@@ -3,6 +3,7 @@ import { useState } from "react";
 import "./ImportarCursos.css";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import NoQuieroCrearMasNavbars from "../../components/NoQuieroCrearMasNavbars";
+import Cookies from "js-cookie";
 
 function ImportarCursos() {
   const [file, setFile] = useState(null);
@@ -13,8 +14,6 @@ function ImportarCursos() {
 
   const sendFile = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("file", file);
 
     if (!file) {
       alert("No se ha seleccionado ningún archivo");
@@ -28,16 +27,22 @@ function ImportarCursos() {
       return;
     }
 
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("codigo", Cookies.get("codigo"));
+
     try {
-      const response = await axios.post(
-        "http://localhost:8000/import_cursos/",
-        formData
-      );
+      const response = await axios.post("http://localhost:8000/import_cursos/", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      });
       alert(response.data.message);
     } catch (error) {
       alert(error.response.data.error);
     }
   };
+
 
   return (
     <div className="ImportarCursosContainer">

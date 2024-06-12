@@ -14,7 +14,7 @@ function EvaluacionEstudiantes() {
   const { infoEvaluacion, infoCurso, escala } = state || {};
   const [dataCr, setDataCr] = useState([]);
   const [dataEs, setDataEs] = useState([]);
-  const [selectedEst, setSelectedEst] = useState("");
+  const [selectedEst, setSelectedEst] = useState(null);
   const [selectedValues, setSelectedValues] = useState({});
   const [comentarios, setComentarios] = useState("");
   const [refresh, setRefresh] = useState(false);
@@ -60,9 +60,11 @@ function EvaluacionEstudiantes() {
   };
 
   const realizar_calificacion = async () => {
-    if (selectedEst.trim() === "") {
+    if (selectedEst.trim() === "Seleccione un estudiante") {
       alert("Debe seleccionar un estudiante");
+      console.log(selectedEst);
       return;
+      
     }
 
     if (Object.keys(selectedValues).length < dataCr.length) {

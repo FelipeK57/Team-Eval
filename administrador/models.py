@@ -39,10 +39,8 @@ class administrador(models.Model):
         if(Cursos.objects.filter(codigo=curso_codigo).exists()):
             raise ImportarCursosException("El curso ya se encuentra registrado en la base de datos")
         
-        if(User.objects.filter(email=profesor_email).exists()):
-            raise ImportarCursosException("El correo electronico del profesor ya esta registrado")
 
-        username_p = profesor_nombre + ' ' + profesor_apellido
+        username_p = profesor_nombre + str(profesor_identificacion)
         
         user_profesor, creado = User.objects.get_or_create(username=username_p, email=profesor_email, first_name=profesor_nombre, last_name=profesor_apellido)
         
@@ -68,9 +66,6 @@ class administrador(models.Model):
             
             if(estudiante_apellido == celda_nula or estudiante_codigo == celda_nula or estudiante_email == celda_nula or estudiante_nombre == celda_nula):
                 raise ImportarCursosException("Hay campos de estudiantes vacios")
-            
-            if(User.objects.filter(email=estudiante_email).exists()):
-                raise ImportarCursosException(f"El correo electronico del estudiante {estudiante_nombre} ya esta registrado")
 
             username_e = estudiante_nombre + ' ' + estudiante_apellido
             

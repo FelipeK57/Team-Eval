@@ -24,7 +24,7 @@
   height: 50px;
   width: 1000px;
   text-align: center;
-  font-size: 16px;
+  font-size: 20px;
   padding: 5px;
   background-color: rgb(15, 65, 118);
   color: white;
@@ -38,5 +38,5 @@ th {
   border-style: solid;
   border-color: white;
   border-width: 1px;
-  font-size: 15px;
+  font-size: 20px;
 }
