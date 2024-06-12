@@ -47,7 +47,6 @@ function Rubricas() {
                 </div>
                 <div className="OpcionRubricas">
                     <LargeButton icon={<Edit />} text={rubricapre.nombre} OnClick={() => Rubrica(rubricapre.id)} />
-                    <LargeButton icon={<AddIcon/>} text="Agregar nueva rubrica" OnClick={() => navigate("/TablaRubricas")} />
                 </div>
             </div>
         </div>

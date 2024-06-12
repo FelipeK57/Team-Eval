@@ -2,7 +2,7 @@ import Field from "./Utilities/Field";
 import Button from "./Utilities/Button";
 import "./CardForm.css";
 import PropTypes from "prop-types";
-import { Autocomplete, TextField } from "@mui/material";
+import { Autocomplete} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -85,6 +85,7 @@ function CardForm(props) {
     redirect: PropTypes.string,
     onClick2: PropTypes.func,
     onClick3: PropTypes.func,
+    TypeCombo: PropTypes.string,
   };
 
   return (
@@ -104,7 +105,7 @@ function CardForm(props) {
                   <Field
                     onChange={props.onChangeField1}
                     Campo={`${props.Field1}`}
-                    Tipo={`${props.Type1}`}
+                    Tipo={props.Type1}
                     value={props.valueField1}
                   />
                 </div>
@@ -149,7 +150,7 @@ function CardForm(props) {
                       getOptionLabel={(option) => option.name}
                       renderInput={(params) => (
                         <div ref={params.InputProps.ref} className="ComboInput" style={{ position: "relative", width: "100%" }}>
-                          <input {...params.inputProps} autoComplete="off"/>
+                          <input {...params.inputProps} autoComplete="off" type={props.TypeCombo}/>
                           <SearchIcon
                             sx={{
                               display: "flex",
@@ -178,7 +179,7 @@ function CardForm(props) {
                     <Field
                       onChange={props.onChangeField3}
                       Campo={`${props.Field3}`}
-                      Tipo={`${props.Type3}`}
+                      Tipo={props.Type3 === "number" ? "number" : "text"}
                       value={props.valueField3}
                     />
                   )}
