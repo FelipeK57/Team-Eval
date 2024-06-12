@@ -52,6 +52,38 @@ function NuevaRubrica(props) {
     };
 
     const guardarRubrica = async () => {
+        if (rubrica.nombre.trim() === 'Ingrese aqui el nombre') {
+            setAdvice("Falta agregar nombre");
+            setOpen(!open);
+            return;
+        }
+        if (criterios.length === 0) {
+            setAdvice("Falta agregar minimo un criterio");
+            setOpen(!open); 
+            return;
+        }
+        for (let criterio of criterios) {
+            if (criterio.descripcion.trim() === '' ) { 
+                setAdvice("Falta agregar descripción a los criterios");
+                setOpen(!open);
+                return;
+            }
+        }
+        if (escala === 0) {
+            setAdvice("Falta agregar escala");
+            setOpen(!open);
+            return;
+        }
+        if (escala < 0 ) {
+            setAdvice("La escala no puede ser negativa");
+            setOpen(!open);
+            return;
+        }
+        if (escala > 10) {
+            setAdvice("La escala no puede ser mayor a 10");
+            setOpen(!open);
+            return;
+        }
         try {
             const response = await axios.post(
                 "http://localhost:8000/guardarRubrica/", {

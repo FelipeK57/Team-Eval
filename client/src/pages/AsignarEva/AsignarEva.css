@@ -103,3 +103,7 @@
 .button-container {
     margin: 0 10px; /* Añadir espacio entre los botones */
 }
+
+.mensaje-evaluacion-iniciada{
+    text-align: center;
+}
