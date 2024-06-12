@@ -1,11 +1,10 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import NavbarE from "../../components/NavbarE";
 import "./EvaluacionEstudiantes.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import NavbarStudent from "../../components/NavbarStudent";
-import Button from "../../components/Utilities/Button";
 
 function EvaluacionEstudiantes() {
   const navigate = useNavigate();
@@ -98,9 +97,9 @@ function EvaluacionEstudiantes() {
   };
 
   return (
-    <div className="EvaluacionEstudiantesContainer">
-      <NavbarStudent />
-      <div className="DescripcionTitleContainer">
+    <>
+      <NavbarE />
+      <div className="description-container">
         <h1>Evaluacion</h1>
         <h2>{nombreAsignatura}</h2>
         <h3>
@@ -177,7 +176,7 @@ function EvaluacionEstudiantes() {
           </button>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

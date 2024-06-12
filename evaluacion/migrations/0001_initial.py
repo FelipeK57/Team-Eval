@@ -11,7 +11,6 @@ class Migration(migrations.Migration):
     dependencies = [
         ('grupo', '0001_initial'),
         ('informes', '0001_initial'),
-        ('rubrica', '0001_initial'),
     ]
 
     operations = [
