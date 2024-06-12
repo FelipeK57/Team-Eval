@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
+import InfoMessage from "../../components/Utilities/InfoMessage";
 
 function RubricasProfe() {
 
@@ -60,10 +62,12 @@ function RubricasProfe() {
       <NavbarProfesor />
       <div className="TitleRubricas">
         <h1>Editar Rubricas</h1>
+        
       </div>
       <div className="OpcionesRubricas">
         <div className="NombreRubricas">
           <h1>Rubrica predeterminada</h1>
+          <InfoMessage Message="El nombre ha cambiado debido a que has hecho cambios respecto a la predeterminada original"/>
         </div>
         <div className="OpcionRubricas">
           <div className="RubricaItem">

@@ -1,0 +1,55 @@
+.Info{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+.InfoButtonRubricas{
+    background-color: white;
+    border: none;
+    color: black;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    border-radius: 100%;
+    width: 32px;
+    height: 30px;
+    margin-left: 10px;
+    transition: all 0.3s;
+}
+
+.InfoButtonRubricas:hover{
+    transform: scale(1.1);
+}
+
+.InfoMessage{
+    display: flex;
+    position: absolute;
+    background-color: white;
+    min-width: 300px;
+    max-width: 300px;
+    justify-content: justify;
+    align-items: center;
+    padding: 10px;
+    border-radius: 50px 50px 50px 0;
+    clip-path: polygon(0 0, 100% 0%, 100% 100%, 4% 96%, 0 100%, 0% 95%);
+    font-family: Mulish;
+    white-space: pre-line;
+    left: 40px;
+    bottom: 60px;
+    transition: all 0.3s;
+    z-index: 9999;
+}
+
+.NombreRubricas{
+    background-color: transparent;
+}
+
+.show{
+    opacity: 1;
+}
+
+.hide{
+    opacity: 0;
+}
