@@ -1,7 +1,7 @@
 import React from "react";
 import NavbarE from "../../components/NavbarE";
 import { useLocation, useNavigate } from "react-router-dom";
-import "../Estudiantes/SeleccionEvaluacion.css";
+import "../Informes/seleccioninforme.css";
 
 function SeleccionInformeEvaluacion() {
   const navigate = useNavigate();
