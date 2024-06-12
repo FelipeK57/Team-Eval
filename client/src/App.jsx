@@ -49,7 +49,6 @@ import Informe from "./pages/Informes/Informe.jsx";
 import InformesProfesor from "./pages/Informes/InformesProfesor.jsx";
 import SeleccionInformeEvaluacionProfesor from "./pages/Informes/SeleccionInformeEvaluacionProfesor.jsx";
 import InformeCurso from "./pages/Informes/InformeCurso.jsx";
-
 import GestionarEva from "./pages/GestionarEva/GestionarEva";
 import EstudiantesCurso from "./pages/Admin/Estudiantes_curso.jsx";
 import EstudiantesCursoProfe from "./pages/CursosProfe/EstudiantesCursoProfe.jsx";

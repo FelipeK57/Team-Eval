@@ -1,33 +1,3 @@
-/* Description Container Specific */
-.EvaluacionEstudiantesContainer {
-  display: flex;
-  flex-direction: column;
-  max-width: 100%;
-  margin-top: 15vh;
-  justify-content: start;
-  align-items: start;
-  flex-grow: 0;
-  flex-wrap: nowrap;
-  max-height: 80vh;
-}
-
-.DescripcionTitleContainer{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  font-size: 1.2rem;
-}
-
-.EvaluacionEstudiantesContent {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  justify-content: end;
-  overflow-y: auto;
-  overflow-x: hidden;
-  scrollbar-width: thin;
-}
 
 .description-container {
   align-items: center;
