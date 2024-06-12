@@ -100,13 +100,14 @@ function AgregarProfesor() {
                 value1={nombres}
                 onChangeField1={handleNombresChange}
                 Field1=""
+                Type1="text"
                 Label2="Apellidos"
-                type2="text"
+                Type2="text"
                 value2={apellidos}
                 onChangeField2={handleApellidosChange}
                 Field2=""
                 Label3="Documento"
-                type3="text"
+                Type3="number"
                 value3={documento}
                 onChangeField3={handleDocumentoChange}
                 Field3=""

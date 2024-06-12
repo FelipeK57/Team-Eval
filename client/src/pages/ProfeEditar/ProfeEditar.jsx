@@ -111,7 +111,7 @@ function ProfeEditar(props) {
         onChangeField2={handleApellidosChange}
         Field2=""
         Label3="Documento"
-        type3="text"
+        type3="number"
         valueField3={documento}
         onChangeField3={handleDocumentoChange}
         Field3=""

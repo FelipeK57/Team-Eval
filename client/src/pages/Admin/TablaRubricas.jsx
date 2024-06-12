@@ -102,6 +102,7 @@ function TablaRubricas(props) {
                             CampoColor="black"
                             Tipo="Number"
                             onChange={handleEscalaChange}
+                            type="number"
                         />
                     </div>
                 </div>
