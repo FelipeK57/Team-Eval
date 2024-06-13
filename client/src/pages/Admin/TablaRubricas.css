@@ -21,14 +21,16 @@
 
 .TitleTablaRubricas {
     display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
     font-family: Mulish;
     font-size: 1.5rem;
     color: #000;
-    margin: 20vh auto 0 auto;
+    margin-top: 130px;
 }
 
 .RubricasTable {
-    margin: 0 50px;
     min-width: 60%;
     max-width: 60%;
     height: 100%;
@@ -64,6 +66,7 @@
 }
 
 .RubricasTableHeader h1 {
+    color: black;
     border-radius: 25px;
     width: 50%;
 }
@@ -109,6 +112,17 @@
     margin-right: auto;
 }
 
+.delete-button-rubricas{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.inputs-rubricas{
+    width: 90%;
+}
+
 .DeleteButton {
     background-color: rgb(255, 255, 255);
     color: black;
@@ -131,7 +145,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 50px auto;
+    margin: 20px auto;
 }
 
 .ButtonAgregarRubricas button {
@@ -155,7 +169,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 50px auto;
 }
 
 .ButtonGuardarRubricas button:hover {
@@ -179,6 +192,7 @@
 
 .EscalaTitleTablaRubricas {
     display: flex;
+    width: 120px;
     font-family: Mulish;
     font-size: 1.5rem;
     color: #000;
