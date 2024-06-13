@@ -59,7 +59,12 @@ function TablaRubricas(props) {
     ]);
   };
 
-<<<<<<< HEAD
+  useEffect(() => {
+    if (rubrica.escala !== undefined) {
+      setEscala(rubrica.escala);
+    }
+  }, [rubrica]);
+
   const eliminarCriterio = (id) => {
     const criterioEliminado = criterios.find((criterio) => criterio.id === id);
     if (criterioEliminado) {
@@ -140,7 +145,7 @@ function TablaRubricas(props) {
                       />
                     </div>
                   </td>
-                  <td className="ThActions" >
+                  <td className="ThActions">
                     <div className="delete-button-rubricas">
                       <button
                         className="DeleteButton"
@@ -184,136 +189,3 @@ function TablaRubricas(props) {
 }
 
 export default TablaRubricas;
-=======
-    useEffect(() => {
-        if (rubrica.escala !== undefined) {
-            setEscala(rubrica.escala);
-        }
-    }, [rubrica]);
-
-    const agregarCriterio = () => {
-        setCriterios([...criterios, { id: Date.now(), descripcion: "", valor: "" }]);
-    };
-
-    const eliminarCriterio = (id) => {
-        const criterioEliminado = criterios.find(criterio => criterio.id === id);
-        if (criterioEliminado) {
-            setCriteriosEliminados([...criteriosEliminados, criterioEliminado]);
-        }
-        setCriterios(criterios.filter(criterio => criterio.id !== id));
-    };
-
-    const handleCriterioChange = (id, field, value) => {
-        setCriterios(criterios.map(criterio =>
-            criterio.id === id ? { ...criterio, [field]: value } : criterio
-        ));
-    };
-
-    const guardarRubrica = async () => {
-        try {
-            const response = await axios.post(
-                "http://localhost:8000/TablaRubricas/", {
-                id: rubricaId,
-                criterios: criterios,
-                criteriosEliminados: criteriosEliminados,
-                newEscala : escala
-            }
-            );
-            setAdvice("Rubrica guardada");
-            setOpen(!open);
-        } catch (error) {
-            setAdvice("Error al guardar la rubrica (Falta criterio o valor)");
-            setOpen(!open);
-        }
-    };
-
-    return (
-        <div className="TablaRubricasContainer">
-          <div className="NavBar">
-            <NoQuieroCrearMasNavbars />
-          </div>
-          <div className="Rubricas">
-            <div className="TitleTablaRubricas">
-              <h1>{rubrica.nombre}</h1>
-              <div className="EscalaTitleTablaRubricas">
-                <Field
-                  value={escala}
-                  CampoColor="black"
-                  Tipo="Number"
-                  onChange={handleEscalaChange}
-                />
-              </div>
-            </div>
-            <div className="TablaRubricas">
-              <table className="table-evaluation">
-                <thead>
-                  <tr>
-                    <th colSpan={2}>
-                      <h1>{rubrica.nombre}</h1>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {criterios.map((criterio) => (
-                    <tr key={criterio.id}>
-                      <td className="inputs-rubricas">
-                        <div className="RubricasTableBody Left">
-                          <Field
-                            Tipo="text"
-                            value={criterio.descripcion}
-                            name="descripcion"
-                            onChange={(e) =>
-                              handleCriterioChange(
-                                criterio.id,
-                                "descripcion",
-                                e.target.value
-                              )
-                            }
-                          />
-                        </div>
-                      </td>
-                      <td className="ThActions" >
-                        <div className="delete-button-rubricas">
-                          <button
-                            className="DeleteButton"
-                            onClick={() => eliminarCriterio(criterio.id)}
-                          >
-                            <DeleteIcon sx={{ fontSize: 35, color: "red" }} />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <div className="ButtonAgregarRubricas">
-              <button onClick={agregarCriterio}>
-                <AddIcon />
-              </button>
-            </div>
-            <div className="ButtonGuardarRubricas">
-              <Button
-                Boton="Guardar"
-                color="rgb(15, 65, 118)"
-                fontColor="white"
-                onClick={guardarRubrica}
-              />
-            </div>
-          </div>
-          <div>
-            <PopUp
-              open={open}
-              SetOpen={setOpen}
-              Advice={advice}
-              Width={"100%"}
-              Button1="volver"
-              onClick1={popup}
-            />
-          </div>
-        </div>
-      );
-    }
-    
-export default TablaRubricas;
->>>>>>> merge

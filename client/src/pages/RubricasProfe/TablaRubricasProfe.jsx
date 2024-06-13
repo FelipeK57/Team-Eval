@@ -12,7 +12,6 @@ import Cookies from "js-cookie";
 import "../Admin/TablaRubricas.css";
 
 function TablaRubricasProfe(props) {
-<<<<<<< HEAD
   const { rubricaId } = useParams();
   const [rubrica, setRubrica] = useState({});
   const [criterios, setCriterios] = useState([]);
@@ -20,49 +19,17 @@ function TablaRubricasProfe(props) {
   const [open, setOpen] = useState(false);
   const [advice, setAdvice] = useState("");
   const [escala, setEscala] = useState(0);
-=======
-    const { rubricaId } = useParams();
-    const [rubrica, setRubrica] = useState({});
-    const [criterios, setCriterios] = useState([]);
-    const [criteriosEliminados, setCriteriosEliminados] = useState([]);
-    const [open, setOpen] = useState(false);
-    const [advice, setAdvice] = useState("");
-    const [escala, setEscala] = useState(0);
-    const [iniciada, setIniciada] = useState(false);
->>>>>>> merge
+  const [iniciada, setIniciada] = useState(false);
+
+  const handleEscalaChange = (e) =>{
+    setEscala(e.target.value)
+  }
 
   const navigate = useNavigate();
 
-<<<<<<< HEAD
-  const popup = (e) => {
-    e.preventDefault();
-    setOpen(!open);
-  };
-
-  const handleEscalaChange = (e) => {
-    setEscala(e.target.value);
-  };
-
-  useEffect(() => {
-    const verificarSesion = () => {
-      const user = Cookies.get("user");
-      const token = Cookies.get("sessionid");
-
-      if (user && token) {
-        console.log("El usuario ha iniciado sesión");
-      } else {
-        console.log("El usuario no ha iniciado sesión.");
-        navigate("/login");
-      }
-    };
-=======
-    const volver = () => {
+  const volver = () => {
     navigate(-1);
   };
->>>>>>> merge
-
-    verificarSesion();
-  }, [navigate]);
 
   useEffect(() => {
     const fetchRubrica = async () => {
@@ -72,46 +39,13 @@ function TablaRubricasProfe(props) {
           {
             id: rubricaId,
           }
-<<<<<<< HEAD
         );
         setRubrica(response.data.rubrica);
         setCriterios(response.data.criterios);
+        setIniciada(response.data.iniciada);
       } catch (error) {
         console.error("Error al obtener la rubrica", error);
       }
-=======
-        };
-    
-        verificarSesion();
-      }, [navigate]);
-
-    useEffect(() => {
-        const fetchRubrica = async () => {
-            try {
-                const response = await axios.post(
-                    "http://localhost:8000/obtenerCriterios/", {
-                    id: rubricaId,
-                }
-                );
-                setRubrica(response.data.rubrica);
-                setCriterios(response.data.criterios);
-                setIniciada(response.data.iniciada);
-            } catch (error) {
-                console.error("Error al obtener la rubrica", error);
-            }
-        };
-        fetchRubrica();
-    }, [rubricaId]);
-
-    useEffect(() => {
-        if (rubrica.escala !== undefined) {
-            setEscala(rubrica.escala);
-        }
-    }, [rubrica]);
-
-    const agregarCriterio = () => {
-        setCriterios([...criterios, { id: Date.now(), descripcion: "", valor: "" }]);
->>>>>>> merge
     };
     fetchRubrica();
   }, [rubricaId]);
@@ -129,186 +63,34 @@ function TablaRubricasProfe(props) {
     ]);
   };
 
-<<<<<<< HEAD
-  const eliminarCriterio = (id) => {
-    const criterioEliminado = criterios.find((criterio) => criterio.id === id);
-    if (criterioEliminado) {
-      setCriteriosEliminados([...criteriosEliminados, criterioEliminado]);
-    }
-    setCriterios(criterios.filter((criterio) => criterio.id !== id));
-  };
-=======
-    const guardarRubrica = async () => {
-        if (criterios.length === 0) {
-            setAdvice("Falta agregar minimo un criterio");
-            setOpen(!open);
-            return;
-        }
-        if (escala === 0) {
-            setAdvice("Falta agregar escala");
-            setOpen(!open);
-            return;
-        }
-        if (escala < 0 ) {
-            setAdvice("La escala no puede ser negativa");
-            setOpen(!open);
-            return;
-        }
-        if (escala > 10) {
-            setAdvice("La escala no puede ser mayor a 10");
-            setOpen(!open);
-            return;
-        }
-        for (let criterio of criterios) {
-            if (criterio.descripcion.trim() === '' ) { 
-                setAdvice("Falta agregar descripción a los criterios");
-                setOpen(!open);
-                return;
-            }
-        }
-        try {
-            const response = await axios.post(
-                "http://localhost:8000/guardarCriterios/", {
-                id: rubricaId,
-                criterios: criterios,
-                criteriosEliminados: criteriosEliminados,
-                newEscala : escala,
-                identificacion : Cookies.get("identificacion"),
-            }
-            );
-            setAdvice(response.data.message);
-            setOpen(!open);
-        } catch (error) {
-            if (error.response && error.response.data && error.response.data.error) {
-                setAdvice(error.response.data.error);
-            } else {
-                setAdvice("Error al guardar"); 
-            }
-            setOpen(true);
-            }
-        
-    };
-
-
-    const eliminarRubrica = async () => {
-        try {
-            const response = await axios.post(
-                "http://localhost:8000/elimar_rubrica/", {
-                id: rubricaId
-            }
-            );
-            setAdvice(response.data.message);
-            setOpen(!open);
-        } catch (error) {
-            if (error.response && error.response.data && error.response.data.error) {
-                setAdvice(error.response.data.error);
-            } else {
-                setAdvice("Error al eliminar"); 
-            }
-            setOpen(true);
-            }
-        
-    };
-
-    return (
-            <div className="TablaRubricasContainer">
-              <div className="NavBar">
-                <NavbarProfesor />
-              </div>
-              <div className="Rubricas">
-                <div className="TitleTablaRubricas">
-                  <h1>{rubrica.nombre}</h1>
-                  <div className="EscalaTitleTablaRubricas">
-                    <Field
-                      value={escala}
-                      CampoColor="black"
-                      Tipo="Number"
-                      onChange={handleEscalaChange}
-                    />
-                  </div>
-                </div>
-                <div className="TablaRubricas">
-                  <table className="table-evaluation">
-                    <thead>
-                      <tr>
-                        <th colSpan={2}>
-                          <h1>{rubrica.nombre}</h1>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {criterios.map((criterio) => (
-                        <tr key={criterio.id}>
-                          <td className="inputs-rubricas">
-                            <div className="RubricasTableBody Left">
-                              <Field
-                                Tipo="text"
-                                value={criterio.descripcion}
-                                name="descripcion"
-                                onChange={(e) =>
-                                  handleCriterioChange(
-                                    criterio.id,
-                                    "descripcion",
-                                    e.target.value
-                                  )
-                                }
-                              />
-                            </div>
-                          </td>
-                          <td className="ThActions" >
-                            <div className="delete-button-rubricas">
-                              <button
-                                className="DeleteButton"
-                                onClick={() => eliminarCriterio(criterio.id)}
-                              >
-                                <DeleteIcon sx={{ fontSize: 35, color: "red" }} />
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-        
-                <div className="ButtonAgregarRubricas">
-                    <button onClick={agregarCriterio}><AddIcon /></button>
-                </div>
-                {iniciada && rubrica.autor != "admin" ? (
-                    <div className="iniciada">
-                        <h2>Esta rubrica esta asignada a una evaluacion, no se pueden editar los parámetros</h2>
-                    </div>
-                ) : (
-                    <div className="ButtonGuardarRubricas">
-                    <Button Boton="Guardar" color="rgb(15, 65, 118)" fontColor="white" onClick={guardarRubrica} />
-                    <Button Boton="Eliminar" color="rgb(171, 57, 33)" fontColor="white" onClick={eliminarRubrica}  />
-                </div>
-                )
-                }
-                
-            </div>
-            <div>
-                <PopUp open={open}
-                    SetOpen={setOpen}
-                    Advice={advice}
-                    Width={"100%"}
-                    Button1="volver"
-                    onClick1={volver}
-
-                />
-            </div>
-        </div>
->>>>>>> merge
-
-  const handleCriterioChange = (id, field, value) => {
-    setCriterios(
-      criterios.map((criterio) =>
-        criterio.id === id ? { ...criterio, [field]: value } : criterio
-      )
-    );
-  };
-
   const guardarRubrica = async () => {
+    if (criterios.length === 0) {
+      setAdvice("Falta agregar minimo un criterio");
+      setOpen(!open);
+      return;
+    }
+    if (escala === 0) {
+      setAdvice("Falta agregar escala");
+      setOpen(!open);
+      return;
+    }
+    if (escala < 0) {
+      setAdvice("La escala no puede ser negativa");
+      setOpen(!open);
+      return;
+    }
+    if (escala > 10) {
+      setAdvice("La escala no puede ser mayor a 10");
+      setOpen(!open);
+      return;
+    }
+    for (let criterio of criterios) {
+      if (criterio.descripcion.trim() === "") {
+        setAdvice("Falta agregar descripción a los criterios");
+        setOpen(!open);
+        return;
+      }
+    }
     try {
       const response = await axios.post(
         "http://localhost:8000/guardarCriterios/",
@@ -323,8 +105,32 @@ function TablaRubricasProfe(props) {
       setAdvice(response.data.message);
       setOpen(!open);
     } catch (error) {
-      setAdvice("Error al guardar la rubrica (Falta criterio o valor)");
+      if (error.response && error.response.data && error.response.data.error) {
+        setAdvice(error.response.data.error);
+      } else {
+        setAdvice("Error al guardar");
+      }
+      setOpen(true);
+    }
+  };
+
+  const eliminarRubrica = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/elimar_rubrica/",
+        {
+          id: rubricaId,
+        }
+      );
+      setAdvice(response.data.message);
       setOpen(!open);
+    } catch (error) {
+      if (error.response && error.response.data && error.response.data.error) {
+        setAdvice(error.response.data.error);
+      } else {
+        setAdvice("Error al eliminar");
+      }
+      setOpen(true);
     }
   };
 
@@ -349,10 +155,8 @@ function TablaRubricasProfe(props) {
           <table className="table-evaluation">
             <thead>
               <tr>
-                <th colSpan={2} className="thuno">
-                  <div className="RubricasTableHeader uno">
-                    <h1>{rubrica.nombre}</h1>
-                  </div>
+                <th colSpan={2}>
+                  <h1>{rubrica.nombre}</h1>
                 </th>
               </tr>
             </thead>
@@ -375,7 +179,6 @@ function TablaRubricasProfe(props) {
                       />
                     </div>
                   </td>
-
                   <td className="ThActions">
                     <div className="delete-button-rubricas">
                       <button
@@ -391,19 +194,35 @@ function TablaRubricasProfe(props) {
             </tbody>
           </table>
         </div>
+
         <div className="ButtonAgregarRubricas">
           <button onClick={agregarCriterio}>
             <AddIcon />
           </button>
         </div>
-        <div className="ButtonGuardarRubricas">
-          <Button
-            Boton="Guardar"
-            color="rgb(15, 65, 118)"
-            fontColor="white"
-            onClick={guardarRubrica}
-          />
-        </div>
+        {iniciada && rubrica.autor != "admin" ? (
+          <div className="iniciada">
+            <h2>
+              Esta rubrica esta asignada a una evaluacion, no se pueden editar
+              los parámetros
+            </h2>
+          </div>
+        ) : (
+          <div className="ButtonGuardarRubricas">
+            <Button
+              Boton="Guardar"
+              color="rgb(15, 65, 118)"
+              fontColor="white"
+              onClick={guardarRubrica}
+            />
+            <Button
+              Boton="Eliminar"
+              color="rgb(171, 57, 33)"
+              fontColor="white"
+              onClick={eliminarRubrica}
+            />
+          </div>
+        )}
       </div>
       <div>
         <PopUp
@@ -412,7 +231,7 @@ function TablaRubricasProfe(props) {
           Advice={advice}
           Width={"100%"}
           Button1="volver"
-          onClick1={popup}
+          onClick1={volver}
         />
       </div>
     </div>
