@@ -4,6 +4,7 @@
   align-items: center;
   height: 100%;
   width: 100%;
+  overflow-x: hidden !important;
 }
 
 .TitleEstudiantes {
@@ -14,7 +15,10 @@
   align-items: center;
   justify-content: start;
   width: 80%;
+  max-width: 80%;
   transition: all 0.3s;
+  overflow-y: hidden;
+  overflow-x: hidden !important;
 }
 
 .ListaEstudiantes {
@@ -27,7 +31,7 @@
   font-size: 1.5rem;
   margin-top: 20vh;
   color: #0f4175;
-  left: 80%;
+  left: 65%;
   height: 0;
 }
 
@@ -75,6 +79,11 @@
   height: 3rem;
   font-size: 1.5rem;
   transition: all 0.3s;
+  align-items: center;
+}
+
+.SearchFieldEstudiantes input {
+  padding:10px;
 }
 
 .SearchFieldEstudiantes .InputContenedorE {
@@ -120,4 +129,19 @@
       transform: translateX(-100%);
       width: 0;
   }
+}
+
+.ListaEstudiantes{
+  overflow-x: hidden;
+}
+
+.AgregarListEstudiantes .Boton{
+  width: unset;
+  white-space: nowrap;
+  transition: all 0.3s;
+}
+
+.AgregarListEstudiantes button:hover{
+  transform: scale(1.1);
+  box-shadow: 0 0 0.5rem 0.5rem rgba(15, 65, 118, 0.5);
 }

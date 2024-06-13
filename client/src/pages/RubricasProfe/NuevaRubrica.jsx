@@ -79,8 +79,14 @@ function NuevaRubrica(props) {
             setOpen(!open);
             return;
         }
-        if (escala > 10) {
-            setAdvice("La escala no puede ser mayor a 10");
+        if (escala > 5) {
+            setAdvice("La escala no puede ser mayor a 5");
+            setOpen(!open);
+            return;
+        }
+
+        if (escala < 2) {
+            setAdvice("La escala no puede ser menor a 2");
             setOpen(!open);
             return;
         }

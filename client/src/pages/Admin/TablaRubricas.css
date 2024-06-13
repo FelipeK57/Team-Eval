@@ -53,6 +53,7 @@
     margin: 0;
     align-items: center;
     justify-content: center;
+    width: ;
 }
 
 .uno {
@@ -65,7 +66,9 @@
 
 .RubricasTableHeader h1 {
     border-radius: 25px;
-    width: 50%;
+    min-width: 50%;
+    white-space: nowrap;
+    padding:0 20px 0 20px;
 }
 
 .RubricasTableHeader tr {
@@ -187,6 +190,14 @@
     align-items: center;
     align-content: center;
     justify-content: center;
+}
+
+.thleft{
+    padding: 0 5px 0 5px !important;
+}
+
+.thleft{
+    padding: 0 5px 0 5px !important;
 }
 
 .iniciada {

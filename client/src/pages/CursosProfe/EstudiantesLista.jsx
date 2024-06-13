@@ -107,6 +107,10 @@ function Estudiantes() {
     setSearchValue(e.target.value);
   };
 
+  const EstidiantesDeshabilitados = () => {
+    navigate("/EstudiantesDes");
+  };
+
 
   return (
     <div className="ContainerEstudiantes">
@@ -116,23 +120,30 @@ function Estudiantes() {
       <div className="TitleEstudiantes">
         <h1>Listado de Estudiantes</h1>
         <div className="SearchEstudiantes">
-        <button className="SearchButtonEstudiantes" onClick={BuscarButton}>
-          <Search sx={{ fontSize: 30, color: "white" }} />
-        </button>
-        <div className={searchEstudiantess === true ? "SearchFieldEstudiantes ActiveE" : "SearchFieldEstudiantes InactiveE"} onBlur={handleSearchBlur}>
-          <Field
-            LineaBoton={false}
-            Boton=""
-            color="rgb(15, 65, 118)"
-            fontColor="white"
-            onChange={handleSearchChange}
-            placeholder="Buscar Estudiantes"
-            value={searchTerm}
-          />
+          <button className="SearchButtonEstudiantes" onClick={BuscarButton}>
+            <Search sx={{ fontSize: 30, color: "white" }} />
+          </button>
+          <div className={searchEstudiantess === true ? "SearchFieldEstudiantes ActiveE" : "SearchFieldEstudiantes InactiveE"} onBlur={handleSearchBlur}>
+            <Field
+              LineaBoton={false}
+              Boton=""
+              color="rgb(15, 65, 118)"
+              fontColor="white"
+              onChange={handleSearchChange}
+              placeholder="Buscar Estudiantes"
+              value={searchTerm}
+            />
+          </div>
         </div>
       </div>
-      </div>
       <div className="AgregarListEstudiantes">
+        <Button
+          LineaBoton={false}
+          Boton="Estudiantes Deshabilitados"
+          color="rgb(15, 65, 118)"
+          fontColor="white"
+          onClick={EstidiantesDeshabilitados}
+        />
       </div>
       <div className="ListaEstudiantes">
         {filteredEstudiantes.map((estudiante) => (
