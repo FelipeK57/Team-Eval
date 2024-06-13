@@ -86,7 +86,7 @@ const closePopup = () => {
                   value={props.valueField2}
                 />
                 {props.ForgotPassword ? (
-                  <Link to={"/VerificacionCorreo"}>Olvido su contrasena?</Link>
+                  <Link to={"/VerificacionCorreo"}>Olvido su contraseña?</Link>
                 ) : null}
                 <Button
                   onClick={handleButtonClick}
