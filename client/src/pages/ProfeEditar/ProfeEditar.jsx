@@ -11,15 +11,13 @@ import PopUp from "../../components/Utilities/PopUp";
 import CardForm from "../../components/CardForm";
 
 function ProfeEditar(props) {
-
   const [nombre, setNombre] = useState(Cookies.get("profesorNombre"));
   const [apellido, setApellidos] = useState(Cookies.get("profesorApellido"));
   const [documento, setDocumento] = useState(Cookies.get("profesorIdentificacion"));
   const [correo, setCorreo] = useState(Cookies.get("profesorEmail"));
   const [open, setOpen] = useState(false);
   const [advice, setAdvice] = useState("");
-
-
+  const [success, setSuccess] = useState(false); // Estado para rastrear si el profesor se editó con éxito
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -46,11 +44,6 @@ function ProfeEditar(props) {
     setApellidos(e.target.value);
   }
 
-  const popup = (e) => {
-    e.preventDefault();
-    setOpen(!open);
-  };
-
   const handleDocumentoChange = (e) => {
     setDocumento(e.target.value);
   }
@@ -58,43 +51,99 @@ function ProfeEditar(props) {
   const handleEmailChange = (e) => {
     setCorreo(e.target.value);
   }
-      const handleClick = async (e) => {
-        e.preventDefault();
-        if(!nombre || !apellido || !documento || !correo){
-          setAdvice("Todos los campos son obligatorios");
-          popup(e);
-          return;
-        }
-        
-        if (documento< 10000000 || documento > 99999999) {
-          setAdvice("El documento debe ser de minimo 8 digitos");
-          popup(e);
-          return;
-        }
-        try {
-          const response = await axios.post("http://localhost:8000/edit_profesor/", {
-            identificacion: Cookies.get("profesorIdentificacion"),
-            nombre: nombre,
-            newidentificacion: documento,
-            email: correo
-          });
-          setAdvice("Profesor editado con exito");
-          popup(e);
-          Cookies.remove("profesorIdentificacion"); 
-          Cookies.remove("profesorNombre"); 
-          Cookies.remove("profesorEmail");  
-        } catch (error) {
-          setAdvice(error.response.data.error);
-          popup(e);
-      }
-    }
-  
 
+  const popup = () => {
+    setOpen(true);
+  };
+
+  const closePopupAndNavigate = (e) => {
+    e.preventDefault();
+    setOpen(false);
+    navigate("/CursosAdmin");
+  };
+
+  const closePopup = (e) => {
+    e.preventDefault();
+    setOpen(false);
+  };
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    setSuccess(false); // Restablecer el estado de éxito a falso al hacer clic
+
+    // Validar que los campos no estén vacíos
+    if (nombre === "" || apellido === "" || documento === "" || correo === "") {
+      setAdvice("Por favor, rellene todos los campos.");
+      popup();
+      return;
+    }
+
+    // Validar que ni el nombre ni el apellido contengan números
+    if (/^\d+$/.test(nombre) || /^\d+$/.test(apellido)) {
+      setAdvice("El nombre o apellido no pueden contener números.");
+      popup();
+      return;
+    }
+
+    // Validar el formato del correo electrónico
+    if (!/^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$/.test(correo)) {
+      setAdvice("Formato de correo electrónico incorrecto.");
+      popup();
+      return;
+    }
+
+    // Validar que el documento tenga al menos 8 dígitos
+    if (documento.length < 8) {
+      setAdvice("El documento debe tener al menos 8 dígitos.");
+      popup();
+      return;
+    }
+
+    // Validar que el documento no contenga caracteres especiales
+    if (/[^a-zA-Z0-9]/.test(documento)) {
+      setAdvice("El documento no puede tener caracteres especiales.");
+      popup();
+      return;
+    }
+
+    // Validar que el documento no contenga letras
+    if (/[a-zA-Z]/.test(documento)) {
+      setAdvice("El documento no puede tener letras.");
+      popup();
+      return;
+    }
+
+    try {
+      const response = await axios.post("http://localhost:8000/edit_profesor/", {
+        identificacion: Cookies.get("profesorIdentificacion"),
+        nombre: nombre,
+        newidentificacion: documento,
+        email: correo
+      });
+      setSuccess(true); // Establecer éxito en verdadero si la solicitud es exitosa
+      setAdvice("Profesor editado con éxito");
+      setOpen(true);
+      Cookies.remove("profesorIdentificacion");
+      Cookies.remove("profesorNombre");
+      Cookies.remove("profesorEmail");
+    } catch (error) {
+      setAdvice(error.response.data.error);
+      popup();
+    }
+  }
 
 
   ProfeEditar.propTypes = {
     profesor: PropTypes.string.isRequired
   }
+
+  const handlePopupClick = (e) => {
+    e.preventDefault();
+    setOpen(false);
+    if (success) {
+      navigate("/ProfesoresAdmin");
+    }
+  };
 
   return (
     <div className="Contenedor">
@@ -111,7 +160,7 @@ function ProfeEditar(props) {
         onChangeField2={handleApellidosChange}
         Field2=""
         Label3="Documento"
-        type3="text"
+        type3="number"
         valueField3={documento}
         onChangeField3={handleDocumentoChange}
         Field3=""
@@ -122,13 +171,13 @@ function ProfeEditar(props) {
         Field4=""
         onClick={handleClick}
       />
-      <PopUp open={open}
+      <PopUp
+        open={open}
         SetOpen={setOpen}
         Advice={advice}
         Width={"100%"}
-        Button1="volver"
-        onClick1={popup}
-
+        Button1="Volver"
+        onClick1={handlePopupClick}
       />
     </div>
   )

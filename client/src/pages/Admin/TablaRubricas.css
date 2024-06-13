@@ -1,3 +1,4 @@
+Este es el css de ese archivo:
 /* General Container for Rubricas Table */
 .TablaRubricasContainer {
     display: flex;
@@ -200,5 +201,9 @@
     height: fit-content;
     align-items: center;
     align-content: center;
-    justify-content: center;
+    justify-content: center;
+}
+
+.iniciada{
+    text-align: center;
 }

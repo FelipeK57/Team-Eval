@@ -91,15 +91,13 @@ function EstudiantesCurso() {
     setSearchValue(e.target.value);
   };
 
-
-
   return (
     <div className="ContainerEstudiantes">
       <div className="NavBar">
         <NoQuieroCrearMasNavbars />
       </div>
       <div className="TitleEstudiantes">
-        <h1>Listado de Estudiantes del Curso: <br />{materia}</h1>
+        <h1>Estudiantes del Curso: {materia}</h1>
         <div className="SearchEstudiantes">
           <button className="SearchButtonEstudiantes" onClick={BuscarButton}>
             <Search sx={{ fontSize: 30, color: "white" }} />
@@ -116,8 +114,6 @@ function EstudiantesCurso() {
             />
           </div>
         </div>
-      </div>
-      <div className="AgregarListEstudiantes">
       </div>
       <div className="ListaEstudiantes">
         {filteredEstudiantes.map((estudiante) => (
@@ -139,7 +135,6 @@ function EstudiantesCurso() {
         Width={"100%"}
         Button1="volver"
         onClick1={popup}
-
       />
     </div>
   );

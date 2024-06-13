@@ -17,10 +17,21 @@ function CrearEva() {
     const [evaId, setEvaId] = useState("");
     const [open, setOpen] = useState(false);
     const [advice, setAdvice] = useState("");
+    const [mensajeBotones, setMensajeBotones] = useState("");
     const navigate = useNavigate();
 
     const handleClick = async () => {
+        if(numeroGrupos<0 || numeroGrupos > 10){
+            alert("el numero de grupos es incorrecto (negativo o mayor a 10)");
+            return;
+        }
         try {
+            if (!nombre || !rubrica || !numeroGrupos) {
+                setAdvice("Todos los campos son obligatorios");
+                setMensajeBotones("volver");
+                setOpen(true);
+                return;
+            }
             const response = await axios.post(
                 "http://localhost:8000/crear_eva/", {
                nombre: nombre,
@@ -31,6 +42,7 @@ function CrearEva() {
             );
             setEvaId(response.data.evaluacionId);
             setAdvice(response.data.message);
+            setMensajeBotones("ir a grupos");
             setOpen(true);
            
             
@@ -47,7 +59,13 @@ function CrearEva() {
     const popup = (e) => {
         e.preventDefault();
         setOpen(!open);
-        navigate(`/Grupos/${evaId}/${cursoId}`, { state: { materia: nombre } });
+        if (mensajeBotones === "ir a grupos") {
+            navigate(`/Grupos/${evaId}/${cursoId}`, { state: { materia: nombre } });
+        }
+        else if (mensajeBotones === "volver") {
+            setOpen(!open);
+        }
+        
     };
 
     return (
@@ -79,7 +97,7 @@ function CrearEva() {
                     SetOpen={setOpen}
                     Advice={advice}
                     Width={"100%"}
-                    Button1="Ir a grupos"   
+                    Button1={mensajeBotones}      
                     onClick1={popup}
                 />
             </div>

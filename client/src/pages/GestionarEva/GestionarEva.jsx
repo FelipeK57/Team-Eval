@@ -50,7 +50,7 @@ function GestionarEva(props) {
     return (
         <div className="tinder">
             <NavbarProfesor />
-            <div className="tonder"><h1>Gestionar Evaluaciones del curso</h1></div>
+            <div className="tonder"><h1>Gestionar Evaluaciones del curso: {materia}</h1></div>
             <div className="tinder1">
                 <Tarjet2 agregar={crearEva}/>
 

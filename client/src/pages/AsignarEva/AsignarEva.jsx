@@ -22,6 +22,7 @@ function AsignarEva(props) {
     const navigate = useNavigate();
     const { evaluacionid } = useParams();
     const { cursoId } = useParams();
+    const [iniciada, setIniciada] = useState(false);
 
     AsignarEva.propTypes = {
         eva: PropTypes.string.isRequired,
@@ -38,6 +39,7 @@ function AsignarEva(props) {
                 );
                 setRubricaNombre(response.data.evaluacion.rubrica.nombre);
                 setNombreEva(response.data.evaluacion.nombre);
+                setIniciada(response.data.iniciado);
             } catch (error) {
                 console.error("Error al obtener los grupos  ", error);
             }
@@ -46,6 +48,9 @@ function AsignarEva(props) {
     }, [evaluacionid]); 
 
     const handleClick = async () => {
+        if (!rubrica) {
+            navigate(-1)
+        }
         try {
             const response = await axios.post(
                 "http://localhost:8000/editar_eva/", 
@@ -93,7 +98,7 @@ function AsignarEva(props) {
     const popup = (e) => {
         e.preventDefault();
         setOpen(!open);
-        window.location.reload();
+        navigate(-1)
     };
 
     const handleSelectRubrica = (id, nombre) => {
@@ -133,14 +138,20 @@ function AsignarEva(props) {
                     ))}
                 </div>
             </div>
-            <div className="buttons-row">
-                <div className="button-container">
-                    <Button2 Boton2="Guardar Cambios" color="rgb(15, 65, 118)" fontColor="white" width="300px" onClick={handleClick} />
+            {iniciada ? (
+                <div className="mensaje-evaluacion-iniciada">
+                    <h2>Evaluación iniciada, no se pueden editar los parámetros</h2>
                 </div>
-                <div className="button-container">
-                    <Button2 Boton2="Gestionar Grupos" color="rgb(15, 65, 118)" fontColor="white" width="300px" onClick={gestionar} />
+            ) : (
+                <div className="buttons-row">
+                    <div className="button-container">
+                        <Button2 Boton2="Guardar Cambios" color="rgb(15, 65, 118)" fontColor="white" width="300px" onClick={handleClick} />
+                    </div>
+                    <div className="button-container">
+                        <Button2 Boton2="Gestionar Grupos" color="rgb(15, 65, 118)" fontColor="white" width="300px" onClick={gestionar} />
+                    </div>
                 </div>
-            </div>
+            )}
             <div>
                 <PopUp open={open}
                     SetOpen={setOpen}
@@ -155,3 +166,4 @@ function AsignarEva(props) {
 }
 
 export default AsignarEva;
+
