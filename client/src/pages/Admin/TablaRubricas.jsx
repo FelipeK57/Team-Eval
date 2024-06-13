@@ -90,76 +90,90 @@ function TablaRubricas(props) {
 
     return (
         <div className="TablaRubricasContainer">
-            <div className="NavBar">
-                <NoQuieroCrearMasNavbars/>
-            </div>
-            <div className="Rubricas">
-                <div className="TitleTablaRubricas">
-                    <h1>{rubrica.nombre}</h1>
-                    <div className="EscalaTitleTablaRubricas">
-                    <Field
-                            value={escala}
-                            CampoColor="black"
-                            Tipo="Number"
-                            onChange={handleEscalaChange}
-                            type="number"
-                        />
-                    </div>
-                </div>
-                <div className="TablaRubricas">
-                    <table className="RubricasTable">
-                        <thead>
-                            <tr>
-                                <th className="thuno"><div className="RubricasTableHeader uno" style={{ borderRadius: criterios.length === 0 ? "25px 25px 25px 25px" : "25px 25px 0 0" }}><h1>{rubrica.nombre}</h1></div></th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {criterios.map(criterio => (
-                                <tr key={criterio.id}>
-                                    <td className="thleft">
-                                        <div className="RubricasTableBody Left">
-                                            <Field
-                                                Tipo="text"
-                                                value={criterio.descripcion}
-                                                name="descripcion"
-                                                
-                                                onChange={(e) => handleCriterioChange(criterio.id, 'descripcion', e.target.value)}
-                                            />
-                                        </div>
-                                    </td>
-                                    <td className="ThActions" style={{ position: "absolute" }}>
-                                        <div className="DeleteButtonThActions">
-                                            <button className="DeleteButton" onClick={() => eliminarCriterio(criterio.id)}>
-                                                <DeleteIcon sx={{ fontSize: 35, color: "red" }} />
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-                <div className="ButtonAgregarRubricas">
-                    <button onClick={agregarCriterio}><AddIcon /></button>
-                </div>
-                <div className="ButtonGuardarRubricas">
-                    <Button Boton="Guardar" color="rgb(15, 65, 118)" fontColor="white" onClick={guardarRubrica} />
-                </div>
-            </div>
-            <div>
-                <PopUp open={open}
-                    SetOpen={setOpen}
-                    Advice={advice}
-                    Width={"100%"}
-                    Button1="volver"
-                    onClick1={popup}
-
+          <div className="NavBar">
+            <NoQuieroCrearMasNavbars />
+          </div>
+          <div className="Rubricas">
+            <div className="TitleTablaRubricas">
+              <h1>{rubrica.nombre}</h1>
+              <div className="EscalaTitleTablaRubricas">
+                <Field
+                  value={escala}
+                  CampoColor="black"
+                  Tipo="Number"
+                  onChange={handleEscalaChange}
                 />
+              </div>
             </div>
+            <div className="TablaRubricas">
+              <table className="table-evaluation">
+                <thead>
+                  <tr>
+                    <th colSpan={2}>
+                      <h1>{rubrica.nombre}</h1>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {criterios.map((criterio) => (
+                    <tr key={criterio.id}>
+                      <td className="inputs-rubricas">
+                        <div className="RubricasTableBody Left">
+                          <Field
+                            Tipo="text"
+                            value={criterio.descripcion}
+                            name="descripcion"
+                            onChange={(e) =>
+                              handleCriterioChange(
+                                criterio.id,
+                                "descripcion",
+                                e.target.value
+                              )
+                            }
+                          />
+                        </div>
+                      </td>
+                      <td className="ThActions" >
+                        <div className="delete-button-rubricas">
+                          <button
+                            className="DeleteButton"
+                            onClick={() => eliminarCriterio(criterio.id)}
+                          >
+                            <DeleteIcon sx={{ fontSize: 35, color: "red" }} />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="ButtonAgregarRubricas">
+              <button onClick={agregarCriterio}>
+                <AddIcon />
+              </button>
+            </div>
+            <div className="ButtonGuardarRubricas">
+              <Button
+                Boton="Guardar"
+                color="rgb(15, 65, 118)"
+                fontColor="white"
+                onClick={guardarRubrica}
+              />
+            </div>
+          </div>
+          <div>
+            <PopUp
+              open={open}
+              SetOpen={setOpen}
+              Advice={advice}
+              Width={"100%"}
+              Button1="volver"
+              onClick1={popup}
+            />
+          </div>
         </div>
-
-    );
-}
-
+      );
+    }
+    
 export default TablaRubricas;
