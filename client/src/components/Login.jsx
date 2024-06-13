@@ -174,7 +174,7 @@ function Login() {
                   Campo="Contraseña"
                   Tipo="password"
                 />
-                <Link to={"/VerificacionCorreo"}>Olvido su contrasena?</Link>
+                <Link to={"/VerificacionCorreo"}>Olvido su contraseña?</Link>
                 <Button
                   onClick={handleClick}
                   LineaBoton={true}
@@ -206,7 +206,7 @@ function Login() {
                   onChange={handleContraseñaChange}
                   value={password}
                 />
-                <Link to={"/VerificacionCorreo"}>Olvido su contrasena?</Link>
+                <Link to={"/VerificacionCorreo"}>Olvido su contraseña?</Link>
                 <Button
                   LineaBoton={true}
                   Boton="Iniciar sesión"
