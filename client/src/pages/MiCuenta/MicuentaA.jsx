@@ -83,7 +83,7 @@ function MiCuentaA() {
       <NoQuieroCrearMasNavbars />
       <div className="card">
         <div className="iman">
-          <img src="../../../public/219969.png" alt="usu" />
+          <img src="../../../public/Perfil.jpg" alt="usu" />
         </div>
         <div className="card2">
           <h1>{adminInfo.nombre}</h1>
