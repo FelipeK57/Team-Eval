@@ -34,9 +34,31 @@ function CambiarContraseñaAdmin() {
     setConfirmPassword(e.target.value);
   };
 
+  const validatePassword = (password) => {
+    const minLength = 8;
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasNumber = /\d/.test(password);
+    return password.length >= minLength && hasUpperCase && hasNumber;
+  };
+
   const handleClick = async (e, setAdvice, popup) => {
+
+    const user = Cookies.get("user");
+
     if (newPassword !== confirmPassword) {
-      setAdvice("las contrasenias no coinciden, por favor verifique");
+      setAdvice("las contraseñas no coinciden, por favor verifique");
+      popup(e);
+      return;
+    }
+
+    if (!validatePassword(newPassword)) {
+      setAdvice("La contraseña debe tener al menos 8 caracteres, una letra mayúscula y un número.");
+      popup(e);
+      return;
+    }
+
+    if (newPassword.includes(user)) {
+      setAdvice("La contraseña no puede contener el nombre de usuario.");
       popup(e);
       return;
     }

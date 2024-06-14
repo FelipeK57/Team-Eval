@@ -30,6 +30,12 @@ function VerificacionCorreo() {
 
     const handleClick = async (e) => {  
         e.preventDefault();
+        if (email.trim() === '' || !email.includes("@")) {
+            setMensaje("Ingresa un correo valido");    
+            setOpen(true);
+            return;
+        }
+
 
         try {
            const response =  await axios.post('http://localhost:8000/reset_password/', {
