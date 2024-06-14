@@ -84,9 +84,9 @@ function CrearEva() {
                 <DropDown evaSeleccionada={rubricaNombre} onSelectRubrica={handleSelectRubrica} />
             </div>
             <div className="titu3">
-                <h1>Cuantos grupos desea para la evaluacion</h1>
+                <h1>Cuantos grupos desea para la evaluación</h1>
             </div>
-            <div className="label89">
+            <div className="label8">
                 <input type="number" className="campo" required onChange={(e) => setNumeroGrupos(e.target.value)} />
             </div>
             <div className="ubi">
