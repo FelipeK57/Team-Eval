@@ -84,7 +84,7 @@ function EditarCurso() {
   const handleClick = async (e) => {
     e.preventDefault();
 
-    if (!cursoNombre || !cursoCodigo || !periodo || !profesor_id) {
+    if (!cursoNombre || !cursoCodigo || !periodo || profesor_id==null) {
       setAdvice("Todos los campos son obligatorios");
       popup();
       return;

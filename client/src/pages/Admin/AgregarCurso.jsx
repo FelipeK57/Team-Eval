@@ -64,7 +64,7 @@ function AgregarCurso() {
     // Limpiar mensaje de advice antes de realizar verificaciones
     setAdvice("");
 
-    if (!nombre || !codigo || !Periodo) {
+    if (!nombre || !codigo || !Periodo || profe==null) {
       setAdvice("Todos los campos son obligatorios");
       popup();
       return;
