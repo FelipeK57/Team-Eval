@@ -35,15 +35,19 @@
   gap: 20px;
 }
 
-.promedio-total {
+.promedio-total  {
   text-align: center;
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   background-color: #0f4176;
   color: white;
   padding: 10px;
-  border-radius: 15px;
+  border-radius: 25px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
 }
+
 
 .comentarios-individual {
   border-radius: 5px;
@@ -59,4 +63,5 @@
   justify-self: center;
   height: 80%;
   width: 95%;
+  
 }

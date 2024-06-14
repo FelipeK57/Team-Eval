@@ -39,6 +39,7 @@ from evaluacion.models import evaluacion
 from informesindividuales.models import InformesIndividuales
 from informesindividuales.serializer import InformesIndividualesSerializer
 from collections import defaultdict
+import math
 
 class ImportarCursosException(Exception):
     pass
@@ -121,6 +122,7 @@ def obtener_informe_curso(request):
     codigos_estudiantes = informes_evaluacion.values_list('codigo_evaluado', flat=True).distinct()
     estudiantes = Estudiante.objects.filter(codigo__in=codigos_estudiantes)
     nombres_estudiantes = {estudiante.codigo: estudiante.user.first_name for estudiante in estudiantes}
+    apellidos_estudiantes = {estudiante.codigo: estudiante.user.last_name for estudiante in estudiantes}
 
     promedios_estudiantes = {}
 
@@ -143,17 +145,17 @@ def obtener_informe_curso(request):
 
         for descripcion, datos in criterios_por_estudiante.items():
             if datos['conteo'] > 0:
-                promedio = datos['suma'] // datos['conteo']
-                promedios[descripcion] = promedio
-                suma_total += promedio
+                promedio = datos['suma'] / datos['conteo']
+                promedios[descripcion] = round(promedio, 1)
+                suma_total += round(promedio,1)
                 total_criterios += 1
 
-        total_promedio = suma_total // total_criterios if total_criterios > 0 else 0
+        total_promedio = suma_total / total_criterios if total_criterios > 0 else 0
 
         promedios_estudiantes[codigo] = {
-            "nombre": nombres_estudiantes.get(codigo, "Nombre no encontrado"),
+            "nombre": nombres_estudiantes.get(codigo, "Nombre no encontrado") + " " + apellidos_estudiantes.get(codigo, "Apellido no encontrado"),
             "promedios": promedios,
-            "total_promedio": total_promedio,
+            "total_promedio": round(total_promedio, 1),
             "comentarios": comentarios
         }
 
@@ -186,16 +188,16 @@ def obtener_informe(request):
 
     for descripcion, datos in criterio_valores.items():
         if datos['conteo'] > 0:
-            promedio = datos['suma'] // datos['conteo']
-            promedios[descripcion] = promedio
-            suma_total += promedio
+            promedio = datos['suma'] / datos['conteo']
+            promedios[descripcion] = round(promedio,1)
+            suma_total += round(promedio,1)
             total_criterios += 1
 
-    total_promedio = suma_total // total_criterios if total_criterios > 0 else 0
+    total_promedio = suma_total / total_criterios if total_criterios > 0 else 0
 
     return Response({
         "promedios": promedios,
-        "total_promedio": total_promedio,
+        "total_promedio": round(total_promedio,1),
         "comentarios": comentarios
     }, status=status.HTTP_200_OK)
 
