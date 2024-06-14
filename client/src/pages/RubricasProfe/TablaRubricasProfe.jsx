@@ -60,7 +60,7 @@ function TablaRubricasProfe(props) {
                 setCriterios(response.data.criterios);
                 setIniciada(response.data.iniciada);
             } catch (error) {
-                console.error("Error al obtener la rubrica", error);
+                console.error("Error al obtener la rúbrica", error);
             }
         };
         fetchRubrica();
@@ -228,7 +228,7 @@ function TablaRubricasProfe(props) {
                 </div>
                 {iniciada && rubrica.autor != "admin" ? (
                     <div className="iniciada">
-                        <h2>Esta rubrica esta asignada a una evaluacion, no se pueden editar los parámetros</h2>
+                        <h2>Esta rúbrica esta asignada a una evaluacion, no se pueden editar los parámetros</h2>
                     </div>
                 ) : (
                     <div className="ButtonGuardarRubricas">

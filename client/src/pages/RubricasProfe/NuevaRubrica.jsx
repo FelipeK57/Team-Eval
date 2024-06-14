@@ -103,10 +103,10 @@ function NuevaRubrica(props) {
                 escala: escala
             }
             );
-            setAdvice("Rubrica guardada");
+            setAdvice("Rúbrica guardada");
             setOpen(!open);
         } catch (error) {
-            setAdvice("Error al guardar la rubrica (Falta criterio o valor)");
+            setAdvice("Error al guardar la rúbrica (Falta criterio o valor)");
             setOpen(!open);
         }
     };
