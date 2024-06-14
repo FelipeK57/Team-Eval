@@ -118,7 +118,7 @@ function Grupos(props) {
                 <GruposCard3 estudiantes={estudiantesSinGrupo} agregar={agregarEstudiante} />
             </div>
             <div className="conio">
-                <Button2 Boton2="Guardar Cambios" color="rgb(15, 65, 118)" fontColor="white" onClick={() =>navigate(-1)} />
+                <Button2 Boton2="Guardar Cambios" color="rgb(15, 65, 118)" fontColor="white" onClick={() =>navigate(-2)} />
             </div>
         </div>
     );

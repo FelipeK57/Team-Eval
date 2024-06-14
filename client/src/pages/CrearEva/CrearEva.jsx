@@ -22,7 +22,9 @@ function CrearEva() {
 
     const handleClick = async () => {
         if(numeroGrupos<0 || numeroGrupos > 10){
-            alert("el numero de grupos es incorrecto (negativo o mayor a 10)");
+            setAdvice("La cantidad de grupos debe estar entre 0 y 10");
+            setMensajeBotones("volver");    
+            setOpen(true);
             return;
         }
         try {
