@@ -3,9 +3,17 @@ import UploadFileIcon from "@mui/icons-material/UploadFile";
 import { useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import PopUp from "../../components/Utilities/PopUp";
 
 function ImportarEstudiantes() {
+  const [open, setOpen] = useState(false);
+  const [advice, setAdvice] = useState("");
   const [file, setFile] = useState(null);
+
+  const popup = (e) => {
+    e.preventDefault();
+    setOpen(!open);
+  };
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -15,14 +23,16 @@ function ImportarEstudiantes() {
     e.preventDefault();
 
     if (!file) {
-      alert("No se ha seleccionado ningún archivo");
+      setAdvice("No se ha seleccionado ningún archivo");
+      popup(e);
       return;
     }
 
     const fileType = file.name.split(".").pop();
 
     if (fileType !== "xlsx") {
-      alert("El archivo debe ser de tipo .xlsx");
+      setAdvice("El archivo debe ser tipo .xlsx");
+      popup(e);
       return;
     }
 
@@ -31,14 +41,20 @@ function ImportarEstudiantes() {
     formData.append("codigo", Cookies.get("codigo"));
 
     try {
-      const response = await axios.post("http://localhost:8000/import_estudiantes/", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data"
+      const response = await axios.post(
+        "http://localhost:8000/import_estudiantes/",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
-      });
-      alert(response.data.message);
+      );
+      setAdvice(response.data.message);
+      popup(e);
     } catch (error) {
-      alert(error.response.data.error);
+      setAdvice(error.response.data.error);
+      popup(e);
     }
   };
   return (
@@ -91,6 +107,14 @@ function ImportarEstudiantes() {
           />
         </div>
       </div>
+      <PopUp
+        open={open}
+        SetOpen={setOpen}
+        Advice={advice}
+        Width={"100%"}
+        Button1="Volver"
+        onClick1={popup}
+      />
     </div>
   );
 }
