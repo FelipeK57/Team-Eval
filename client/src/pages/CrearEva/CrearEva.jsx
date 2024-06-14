@@ -78,7 +78,7 @@ function CrearEva() {
                 <input type="text" className="campo" required onChange={(e) => setNombre(e.target.value)} />
             </div>
             <div className="titu2">
-                <h1>Elija la rubrica de evaluación</h1>
+                <h1>Elija la rúbrica de evaluación</h1>
             </div>
             <div className="dropi">
                 <DropDown evaSeleccionada={rubricaNombre} onSelectRubrica={handleSelectRubrica} />

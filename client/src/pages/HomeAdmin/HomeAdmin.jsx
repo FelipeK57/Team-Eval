@@ -83,7 +83,7 @@ function HomeAdmin() {
         </button>
       </div>
       <div className="coron2">
-        <h1>Rubricas</h1>
+        <h1>Rúbricas</h1>
       </div>
       <div className="coronel3">
         <button onClick={Profesores}>

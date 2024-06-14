@@ -56,14 +56,14 @@ function CursosProfe(props) {
     return (
         <div className="CursosProfe">
             <NavbarProfesor />
-            <div className="cursed"><h1>Editar Rubricas <br />Predeterminadas</h1></div>
+            <div className="cursed"><h1>Editar Rúbricas <br />Predeterminadas</h1></div>
             <div className="cardex">
                 <button onClick={Rubricas}>
                     <EditNoteIcon sx={{ fontSize: 50 }} />
                 </button>
             </div>
             <div className="linea-vertical"></div>
-            <div className="cursed2"><h1>Crear Rubrica</h1></div>
+            <div className="cursed2"><h1>Crear Rúbrica</h1></div>
             <div className="cardex2">
                 <button onClick={NuevaRubrica}>
                     <AddIcon sx={{ fontSize: 50 }} />

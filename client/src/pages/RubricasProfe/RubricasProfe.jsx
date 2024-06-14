@@ -59,18 +59,18 @@ function RubricasProfe() {
     <div className="RubricasContainer">
       <NavbarProfesor />
       <div className="TitleRubricas">
-        <h1>Editar Rubricas</h1>
+        <h1>Editar Rúbricas</h1>
       </div>
       <div className="OpcionesRubricas">
         <div className="NombreRubricas">
-          <h1>Rubrica predeterminada</h1>
+          <h1>Rúbrica predeterminada</h1>
         </div>
         <div className="OpcionRubricas">
           <div className="RubricaItem">
             <LargeButton icon={<Edit />} text={rubricapre.nombre} OnClick={() => Rubrica(rubricapre.id)} />
           </div>
           <div className="RubricaItem">
-            <LargeButton icon={<AddIcon />} text="Agregar nueva rubrica" OnClick={() => NuevaRubrica()} />
+            <LargeButton icon={<AddIcon />} text="Agregar nueva rúbrica" OnClick={() => NuevaRubrica()} />
           </div>
         </div>
       </div>

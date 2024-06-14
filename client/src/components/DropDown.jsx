@@ -42,7 +42,7 @@ const DropDown = (props) => {
     return (
         <div className="dropdown">
             <button onClick={toggleDropDown} className="dropdown-button">
-                {props.evaSeleccionada ? props.evaSeleccionada : 'Seleccionar rubrica de evaluación'}
+                {props.evaSeleccionada ? props.evaSeleccionada : 'Seleccionar rúbrica de evaluación'}
                 <span className="arrow">{isOpen ? '▲' : '▼'}</span>
             </button>
 

@@ -1213,7 +1213,7 @@ def crear_evaluacion(request):
     eva.save()
         
     curso.evaluaciones.add(eva)
-    return Response({"message": "Evaluacion creada exitosamente", "evaluacionId": eva.id}, status=status.HTTP_200_OK)
+    return Response({"message": "Evaluación creada exitosamente", "evaluacionId": eva.id}, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 def evaluacion_rubrica(request):

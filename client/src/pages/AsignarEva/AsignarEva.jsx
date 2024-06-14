@@ -118,7 +118,7 @@ function AsignarEva(props) {
                 <NavbarProfesor />
             </div>
             <div className="titus">
-                <div className="tienda"><h1>Elija la rubrica de evaluación</h1></div>
+                <div className="tienda"><h1>Elija la rúbrica de evaluación</h1></div>
                 <div className="pichin"><h1>Editar evaluación <br /><b>{nombreEva}</b></h1></div>
             </div>
             <div className="desple"><DropDown  evaSeleccionada={rubricaNombre} onSelectRubrica={handleSelectRubrica}/></div>

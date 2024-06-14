@@ -118,7 +118,7 @@ function NuevaRubrica(props) {
           </div>
           <div className="Rubricas">
             <div className="TitleTablaRubricas">
-              <h1>Nueva Rubrica </h1>
+              <h1>Nueva Rúbrica </h1>
               <div className="EscalaTitleTablaRubricas">
                 <Field
                   Campo="Escala"
