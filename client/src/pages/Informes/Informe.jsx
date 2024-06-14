@@ -11,6 +11,8 @@ function Informe() {
   const { state } = location;
   const { infoEvaluacion, infoCurso, nombreEvaluacion } = state || {};
   const [informe, setInforme] = useState([]);
+  const [promedioTotal, setPromedioTotal] = useState("");
+  const [comentarios, setComentarios] = useState([]);
 
   useEffect(() => {
     const fetchInforme = async () => {
@@ -23,6 +25,8 @@ function Informe() {
           }
         );
         setInforme(response.data.promedios);
+        setPromedioTotal(response.data.total_promedio);
+        setComentarios(response.data.comentarios);
       } catch (error) {
         console.error("Error al obtener el informe: ", error);
       }
@@ -41,22 +45,35 @@ function Informe() {
         <h1>Curso: {infoCurso.nombre}</h1>
         <h1>Informe de: {nombreEvaluacion}</h1>
         {informe && Object.keys(informe).length > 0 ? (
-          <table className="table-evaluation">
-            <thead>
-              <tr>
-                <th>Criterio</th>
-                <th>Promedio</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.entries(informe).map(([criterio, valor]) => (
-                <tr key={criterio}>
-                  <td>{criterio}</td>
-                  <td className="value-informe">{valor}</td>
+          <>
+            <table className="table-evaluation">
+              <thead>
+                <tr>
+                  <th>Criterio</th>
+                  <th>Promedio</th>
                 </tr>
+              </thead>
+              <tbody>
+                {Object.entries(informe).map(([criterio, valor]) => (
+                  <tr key={criterio}>
+                    <td>{criterio}</td>
+                    <td className="value-informe">{valor}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <div className="promedio">
+              <h2>Promedio total: </h2>
+              <h2 className="promedio-total">{promedioTotal}</h2>
+            </div>
+            <div className="comentarios-individual">
+              {comentarios.map((comentario, index) => (
+                <h2 key={index}>
+                  Comentario {index + 1} : {comentario}
+                </h2>
               ))}
-            </tbody>
-          </table>
+            </div>
+          </>
         ) : (
           <h2>Aún no te han calificado</h2>
         )}

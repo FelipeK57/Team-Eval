@@ -27,3 +27,36 @@
   padding: 5px 52px 5px 52px;
   transition: 200ms;
 }
+
+.promedio {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.promedio-total {
+  text-align: center;
+  width: 30px;
+  height: 30px;
+  background-color: #0f4176;
+  color: white;
+  padding: 10px;
+  border-radius: 15px;
+}
+
+.comentarios-individual {
+  border-radius: 5px;
+  background-color: #a5a4a4;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  justify-content: center;
+  width: 60%;
+}
+
+.comentarios-individual h2 {
+  justify-self: center;
+  height: 80%;
+  width: 95%;
+}

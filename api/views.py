@@ -44,6 +44,16 @@ class ImportarCursosException(Exception):
     pass
 from datetime import datetime
 
+ESCALAS = {
+    '2': {1: 'Malo', 2: 'Bien'},
+    '3': {1: 'Malo', 2: 'Regular', 3: 'Bien'},
+    '4': {1: 'Malo', 2: 'Regular', 3: 'Bien', 4: 'Muy Bien'},
+    '5': {1: 'Muy Malo', 2: 'Malo', 3: 'Regular', 4: 'Bien', 5: 'Muy Bien'}
+}
+
+def obtener_desempeno(valor, escala):
+    return ESCALAS[escala].get(valor, 'Desconocido')
+
 @api_view(['POST'])
 def login(request):
     codigo = request.data.get('codigo')
@@ -104,40 +114,54 @@ def obtener_rubrica(request):
 def obtener_informe_curso(request):
     id_eval = request.data.get('id')
 
-    evaluacion_informe = get_object_or_404(evaluacion, id=id_eval
-                                           )
+    evaluacion_informe = get_object_or_404(evaluacion, id=id_eval)
     serializer = criterio_EvaluacionSerializer(evaluacion_informe.rubrica.criterios, many=True)
 
     informes_evaluacion = InformesIndividuales.objects.filter(id_evaluacion=id_eval)
-
     codigos_estudiantes = informes_evaluacion.values_list('codigo_evaluado', flat=True).distinct()
-
     estudiantes = Estudiante.objects.filter(codigo__in=codigos_estudiantes)
-    nombres_estudiantes = {estudiante.codigo: estudiante.user.username for estudiante in estudiantes}
-
-    criterios_por_estudiante = defaultdict(lambda: defaultdict(lambda: {'suma': 0, 'conteo': 0}))
-
-    for informe in informes_evaluacion:
-        codigo = informe.codigo_evaluado
-        for criterio in informe.criterios:
-            descripcion = criterio['descripcion']
-            valor = criterio['valor']
-            criterios_por_estudiante[codigo][descripcion]['suma'] += valor
-            criterios_por_estudiante[codigo][descripcion]['conteo'] += 1
+    nombres_estudiantes = {estudiante.codigo: estudiante.user.first_name for estudiante in estudiantes}
 
     promedios_estudiantes = {}
-    for codigo, criterios in criterios_por_estudiante.items():
+
+    for codigo in codigos_estudiantes:
+        criterios_por_estudiante = defaultdict(lambda: {'suma': 0, 'conteo': 0})
+        comentarios = []
+
+        informes_estudiante = informes_evaluacion.filter(codigo_evaluado=codigo)
+        for informe in informes_estudiante:
+            comentarios.append(informe.comentarios)
+            for criterio in informe.criterios:
+                descripcion = criterio['descripcion']
+                valor = criterio['valor']
+                criterios_por_estudiante[descripcion]['suma'] += valor
+                criterios_por_estudiante[descripcion]['conteo'] += 1
+
         promedios = {}
-        for descripcion, datos in criterios.items():
+        suma_total = 0
+        total_criterios = 0
+
+        for descripcion, datos in criterios_por_estudiante.items():
             if datos['conteo'] > 0:
-                promedios[descripcion] = int(datos['suma'] / datos['conteo'])
+                promedio = datos['suma'] // datos['conteo']
+                promedios[descripcion] = promedio
+                suma_total += promedio
+                total_criterios += 1
+
+        total_promedio = suma_total // total_criterios if total_criterios > 0 else 0
+
         promedios_estudiantes[codigo] = {
             "nombre": nombres_estudiantes.get(codigo, "Nombre no encontrado"),
-            "promedios": promedios
+            "promedios": promedios,
+            "total_promedio": total_promedio,
+            "comentarios": comentarios
         }
 
-    return Response({"promedios_estudiantes": promedios_estudiantes, "criterios": serializer.data}, status=status.HTTP_200_OK)
-
+    return Response({
+        "promedios_estudiantes": promedios_estudiantes,
+        "criterios": serializer.data
+    }, status=status.HTTP_200_OK)
+    
 @api_view(['POST'])
 def obtener_informe(request):
     codigo = request.data.get('codigo')
@@ -146,8 +170,10 @@ def obtener_informe(request):
     informes_evaluado = InformesIndividuales.objects.filter(codigo_evaluado=codigo, id_evaluacion=id_eval)
 
     criterio_valores = defaultdict(lambda: {'suma': 0, 'conteo': 0})
+    comentarios = []
 
     for informe in informes_evaluado:
+        comentarios.append(informe.comentarios)
         for criterio in informe.criterios:
             descripcion = criterio['descripcion']
             valor = criterio['valor']
@@ -155,11 +181,23 @@ def obtener_informe(request):
             criterio_valores[descripcion]['conteo'] += 1
 
     promedios = {}
+    suma_total = 0
+    total_criterios = 0
+
     for descripcion, datos in criterio_valores.items():
         if datos['conteo'] > 0:
-            promedios[descripcion] = datos['suma'] // datos['conteo']
+            promedio = datos['suma'] // datos['conteo']
+            promedios[descripcion] = promedio
+            suma_total += promedio
+            total_criterios += 1
 
-    return Response({"promedios": promedios}, status=status.HTTP_200_OK)
+    total_promedio = suma_total // total_criterios if total_criterios > 0 else 0
+
+    return Response({
+        "promedios": promedios,
+        "total_promedio": total_promedio,
+        "comentarios": comentarios
+    }, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
 def obtener_evaluaciones(request):
