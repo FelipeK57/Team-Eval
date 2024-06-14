@@ -1,19 +1,17 @@
-import "./EstudiantesCursoProfe.css"
+import "./EstudiantesCursoProfe.css";
 import NavbarProfesor from "../../components/NavbarProfesor";
 import Search from '@mui/icons-material/Search';
 import Field from "../../components/Utilities/Field";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ListItems from "../../components/Utilities/ListItems";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { useEffect } from "react";
 
 function EstudiantesCursoProfe() {
     const [searchCursos, setSearchCursos] = useState(false);
     const [estudiantes, setEstudiantes] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
     const { cursoId } = useParams();
-
-
 
     useEffect(() => {
         const fetchEstudiantes = async () => {
@@ -30,7 +28,24 @@ function EstudiantesCursoProfe() {
           }
         };
         fetchEstudiantes();
-      }, []);
+      }, [cursoId]);
+
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
+
+    const handleSearchClick = () => {
+        setSearchCursos(true);
+    };
+
+    const handleBlur = () => {
+        setSearchCursos(false);
+    };
+
+    const filteredEstudiantes = estudiantes.filter((estudiante) =>
+        `${estudiante.user.first_name} ${estudiante.user.last_name}`.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
         <div className="EstudiantesCursoProfeContainer">
             <div className="NavBar">
@@ -40,34 +55,32 @@ function EstudiantesCursoProfe() {
                 <h1>Estudiantes</h1>
 
                 <div className="SearchEstudiantes">
-                    <button className="SearchButtonEstudiantes" onClick={""}>
+                    <button className="SearchButtonEstudiantes" onClick={handleSearchClick}>
                         <Search sx={{ fontSize: 30, color: "white" }} />
                     </button>
-                    <div className={searchCursos === true ? "SearchFieldEstudiantes Active" : "SearchFieldEstudiantes Inactive"} onBlur={""}>
+                    <div className={searchCursos ? "SearchFieldEstudiantes Active" : "SearchFieldEstudiantes Inactive"} onBlur={handleBlur}>
                         <Field
                             LineaBoton={false}
                             Boton=""
                             color="rgb(15, 65, 118)"
                             fontColor="white"
-                            onChange={""}
-
-                            value={""}
+                            onChange={handleSearchChange}
+                            value={searchTerm}
                         />
                     </div>
                 </div>
             </div>
             <div className="ListaEstudiantesProfe">
-          {estudiantes.map((estudiante) => (
-            <div key={estudiante.id}>
-              <ListItems
-                Nombre1={estudiante.user.first_name}
-                Nombre2={estudiante.user.last_name}
-                Codigo1={estudiante.codigo}             
-              />
+                {filteredEstudiantes.map((estudiante) => (
+                    <div key={estudiante.id}>
+                        <ListItems
+                            Nombre1={estudiante.user.first_name}
+                            Nombre2={estudiante.user.last_name}
+                            Codigo1={estudiante.codigo}
+                        />
+                    </div>
+                ))}
             </div>
-          ))}
-        </div>
-
         </div>
     );
 }
