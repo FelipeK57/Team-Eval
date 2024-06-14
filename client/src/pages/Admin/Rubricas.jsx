@@ -23,7 +23,7 @@ function Rubricas() {
             console.log(response.data)
             setRubricapre(response.data.predeterminada);
           } catch (error) {
-            console.error("Error al obtener la rubrica", error);
+            console.error("Error al obtener la rúbrica", error);
           }
         };
         fetchRubrica();
@@ -39,11 +39,11 @@ function Rubricas() {
         <div className="RubricasContainer">
             <NoQuieroCrearMasNavbars />
             <div className="TitleRubricas">
-                <h1>Editar Rubricas </h1>
+                <h1>Editar Rúbricas </h1>
             </div>
             <div className="OpcionesRubricas">
                 <div className="NombreRubricas">
-                    <h1>Rubrica predeterminada</h1>
+                    <h1>Rúbrica predeterminada</h1>
                 </div>
                 <div className="OpcionRubricas">
                     <LargeButton icon={<Edit />} text={rubricapre.nombre} OnClick={() => Rubrica(rubricapre.id)} />

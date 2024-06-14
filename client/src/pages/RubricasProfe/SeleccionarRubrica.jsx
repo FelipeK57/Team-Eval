@@ -30,7 +30,7 @@ function SeleccionarRubrica(props) {
                 setRubricas(response.data.rubricas);
                 setPredeterminada(response.data.predeterminada);
             } catch (error) {
-                console.error("Error al obtener las rubricas  ", error);
+                console.error("Error al obtener las rúbricas  ", error);
             }
         };
         fetchestudiantes();
@@ -44,11 +44,11 @@ function SeleccionarRubrica(props) {
             </div>
             <div className="SeleccionarRubricaTitle">
                 <div className="CursoSeleccionarRubrica"><h1>Configuración del curso<br /><b>{props.materia}</b></h1></div>
-                <div className="TitleSeleccionarRubrica"><h1>Asignar rubrica al curso</h1></div>
+                <div className="TitleSeleccionarRubrica"><h1>Asignar rúbrica al curso</h1></div>
             </div>
             <div className="SeleccionarRubrica">
                 <div className={box ? "BoxRubricas Deployed" : "BoxRubricas UnDeployed"}>
-                    <h2>{props.RubricaSeleccionada ? props.RubricaSeleccionada : "Escoger una rubrica de evaluación"}</h2>
+                    <h2>{props.RubricaSeleccionada ? props.RubricaSeleccionada : "Escoger una rúbrica de evaluación"}</h2>
                     <button className="ButtonRubricas" onClick={() => setBox(!box)}>
                         <ArrowDropDownIcon sx={{ fontSize: 50, color: "white", rotate: box ? "180deg" : "0deg", transition: "all 0.3s ease-in-out" }} />
                     </button>

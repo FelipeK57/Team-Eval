@@ -41,7 +41,7 @@ function RubricasProfe() {
         setRubrica(response.data.rubricas);
         setRubricapre(response.data.predeterminada);
       } catch (error) {
-        console.error("Error al obtener la rubrica", error);
+        console.error("Error al obtener la rúbrica", error);
       }
     };
     fetchRubrica();
