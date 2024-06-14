@@ -39,7 +39,7 @@ const GruposCard1 = ({ id, onSelectTeam, eliminarGrupo }) => {
       <div className="teams-list">
         {grupos.map((grupo) => (
           <div key={grupo.id} className={`elPapuContainer ${selectedTeam === grupo.nombre ? 'selected' : ''}`}>
-            <h1 onClick={() => handleTeamClick(grupo.nombre, grupo.id)}>{grupo.nombre}</h1>
+            <h1 className='grupo-select' onClick={() => handleTeamClick(grupo.nombre, grupo.id)}>{grupo.nombre}</h1>
             <button className="elPapuDelete" onClick={() => eliminarGrupo(grupo.id)}>
               <DeleteIcon sx={{ fontSize: 36 }} />
             </button>

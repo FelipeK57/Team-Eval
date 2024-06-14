@@ -59,7 +59,7 @@ function CrearEva() {
     const popup = (e) => {
         e.preventDefault();
         setOpen(!open);
-        if (mensajeBotones === "ir a grupos") {
+        if (mensajeBotones === "Ir a grupos") {
             navigate(`/Grupos/${evaId}/${cursoId}`, { state: { materia: nombre } });
         }
         else if (mensajeBotones === "volver") {
