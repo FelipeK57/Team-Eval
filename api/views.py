@@ -121,6 +121,7 @@ def obtener_informe_curso(request):
     codigos_estudiantes = informes_evaluacion.values_list('codigo_evaluado', flat=True).distinct()
     estudiantes = Estudiante.objects.filter(codigo__in=codigos_estudiantes)
     nombres_estudiantes = {estudiante.codigo: estudiante.user.first_name for estudiante in estudiantes}
+    apellidos_estudiantes = {estudiante.codigo: estudiante.user.last_name for estudiante in estudiantes}
 
     promedios_estudiantes = {}
 
@@ -151,7 +152,7 @@ def obtener_informe_curso(request):
         total_promedio = suma_total // total_criterios if total_criterios > 0 else 0
 
         promedios_estudiantes[codigo] = {
-            "nombre": nombres_estudiantes.get(codigo, "Nombre no encontrado"),
+            "nombre": nombres_estudiantes.get(codigo, "Nombre no encontrado") + " " + apellidos_estudiantes.get(codigo, "Apellido no encontrado"),
             "promedios": promedios,
             "total_promedio": total_promedio,
             "comentarios": comentarios

@@ -45,9 +45,8 @@ function InformeCurso() {
             <table className="table-evaluation-curso">
               <thead>
                 <tr>
-                  <th>
-                    Codigo Estudiante
-                  </th>
+                  <th>Codigo Estudiante</th>
+                  <th>Nombre</th>
                   {criterios.map((criterio) => (
                     <th key={criterio.id}>{criterio.descripcion}</th>
                   ))}
@@ -59,6 +58,7 @@ function InformeCurso() {
                 {Object.entries(informe).map(([id, estudiante]) => (
                   <tr key={id}>
                     <td className="value-informe">{id}</td>
+                    <td>{estudiante.nombre}</td>
                     {criterios.map((criterio) => (
                       <td className="value-informe" key={criterio.id}>
                         {estudiante.promedios[criterio.descripcion] ?? "N/A"}
