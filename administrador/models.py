@@ -35,25 +35,30 @@ class administrador(models.Model):
         
         if(profesor_apellido == celda_nula or profesor_nombre == celda_nula or profesor_email == celda_nula or profesor_identificacion == celda_nula):
             raise ImportarCursosException("Hay campos de profesor vacios")
-
-        if(Cursos.objects.filter(codigo=curso_codigo).exists()):
-            raise ImportarCursosException("El curso ya se encuentra registrado en la base de datos")
         
-
         username_p = profesor_nombre + str(profesor_identificacion)
         
-        user_profesor, creado = User.objects.get_or_create(username=username_p, email=profesor_email, first_name=profesor_nombre, last_name=profesor_apellido)
+        try:
+            user = User.objects.get(email=profesor_email)
+            if (user.username != username_p or
+                user.first_name != profesor_nombre or
+                user.last_name != profesor_apellido):
+                raise ImportarCursosException (f"El correo electrónico de {profesor_nombre} ya está asociado a un usuario con credenciales diferentes.")
         
-        if creado:
-            dp_profesor = profesor_nombre[0] + str(profesor_identificacion) + profesor_apellido[0] 
-            user_profesor.set_password(dp_profesor)
-            user_profesor.save()
-        
-        nuevo_profesor, creado = Profesor.objects.get_or_create(user=user_profesor, identificacion=profesor_identificacion, telefono="123")
+        except User.DoesNotExist:
+            user, creado = User.objects.get_or_create(username=username_p, email=profesor_email, first_name=profesor_nombre, last_name=profesor_apellido)
+            if creado:
+                dp = profesor_nombre[0] + str(profesor_identificacion) + profesor_apellido[0]
+                user.set_password(dp)
+                user.save()
+
+        nuevo_profesor, creado = Profesor.objects.get_or_create(user=user, identificacion=profesor_identificacion)
         if creado:
             nuevo_profesor.save()
-        
-        nuevo_curso = Cursos.objects.create(nombre=curso_nombre, codigo=curso_codigo, estado=True, periodoAcademico=curso_periodo, profesor=nuevo_profesor)
+            
+        nuevo_curso, creado = Cursos.objects.get_or_create(nombre=curso_nombre, codigo=curso_codigo, estado=True, periodoAcademico=curso_periodo, profesor=nuevo_profesor)
+        if creado:
+            nuevo_curso.save()
 
         for fila in hoja.iter_rows(min_row=4, values_only=True):
             estudiante_codigo = fila[0]
@@ -62,24 +67,30 @@ class administrador(models.Model):
             estudiante_email = fila[4]
             
             if(estudiante_codigo == "Fin"):
-                return 'Importe realizado'
+                return 'Importe realizado correctamente'
             
             if(estudiante_apellido == celda_nula or estudiante_codigo == celda_nula or estudiante_email == celda_nula or estudiante_nombre == celda_nula):
                 raise ImportarCursosException("Hay campos de estudiantes vacios")
 
-            username_e = estudiante_nombre + ' ' + estudiante_apellido
+            username_e = estudiante_nombre + str(estudiante_codigo)
             
-            user_estudiante, creado = User.objects.get_or_create(username=username_e, email=estudiante_email, first_name=estudiante_nombre, last_name=estudiante_apellido)
-            if creado:
-                dp_estudiante = estudiante_nombre[0] + str(estudiante_codigo) + estudiante_apellido[0]
-                user_estudiante.set_password(dp_estudiante)
-                user_estudiante.save()
+            try:
+                user = User.objects.get(email=estudiante_email)
+                if (user.username != username_e or
+                        user.first_name != estudiante_nombre or
+                        user.last_name != estudiante_apellido):
+                    raise ImportarCursosException (f"El correo electrónico de {estudiante_nombre} {estudiante_apellido} ya está asociado a un usuario con credenciales diferentes.")
+            except User.DoesNotExist:
+                user, creado = User.objects.get_or_create(username=username_e, email=estudiante_email, first_name=estudiante_nombre, last_name=estudiante_apellido)
+                if creado:
+                    dp = estudiante_nombre[0] + str(estudiante_codigo) + estudiante_apellido[0]
+                    user.set_password(dp)
+                    user.save()
 
-            
-            nuevo_estudiante, creado = Estudiante.objects.get_or_create(user=user_estudiante, codigo=estudiante_codigo)
+            nuevo_estudiante, creado = Estudiante.objects.get_or_create(user=user, codigo=estudiante_codigo)
             if creado:
                 nuevo_estudiante.save()
-            
+
             nuevo_curso.estudiantes.add(nuevo_estudiante)
             
     def importar_estudiantes(self, file):
@@ -98,23 +109,27 @@ class administrador(models.Model):
             estudiante_email = fila[3]
             
             if(estudiante_codigo == "Fin"):
-                return 'Importe realizado'
+                return 'Importe realizado correctamente'
             
             if(estudiante_apellido == celda_nula or estudiante_codigo == celda_nula or estudiante_email == celda_nula or estudiante_nombre == celda_nula):
-                return "Hay campos de estudiantes vacios"
+                raise ImportarCursosException("Hay campos de estudiantes vacios")
+
+            username_e = estudiante_nombre + str(estudiante_codigo)
             
-            if(User.objects.filter(email=estudiante_email).exists()):
-                raise ImportarCursosException(f"El correo electronico del estudiante {estudiante_nombre} ya esta registrado")
-            
-            username_e = estudiante_nombre + ' ' + estudiante_apellido
-            
-            user_estudiante, creado = User.objects.get_or_create(username=username_e, email=estudiante_email, first_name=estudiante_nombre, last_name=estudiante_apellido)
-            if creado:
-                dp_estudiante = estudiante_nombre[0] + str(estudiante_codigo) + estudiante_apellido[0]
-                user_estudiante.set_password(dp_estudiante)
-                user_estudiante.save()
-            
-            nuevo_estudiante, creado = Estudiante.objects.get_or_create(user=user_estudiante, codigo=estudiante_codigo)
+            try:
+                user = User.objects.get(email=estudiante_email)
+                if (user.username != username_e or
+                        user.first_name != estudiante_nombre or
+                        user.last_name != estudiante_apellido):
+                    raise ImportarCursosException (f"El correo electrónico de {estudiante_nombre} {estudiante_apellido} ya está asociado a un usuario con credenciales diferentes.")
+            except User.DoesNotExist:
+                user, creado = User.objects.get_or_create(username=username_e, email=estudiante_email, first_name=estudiante_nombre, last_name=estudiante_apellido)
+                if creado:
+                    dp = estudiante_nombre[0] + str(estudiante_codigo) + estudiante_apellido[0]
+                    user.set_password(dp)
+                    user.save()
+
+            nuevo_estudiante, creado = Estudiante.objects.get_or_create(user=user, codigo=estudiante_codigo)
             if creado:
                 nuevo_estudiante.save()
             

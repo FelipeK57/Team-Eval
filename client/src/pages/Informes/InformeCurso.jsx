@@ -22,9 +22,7 @@ function InformeCurso() {
           }
         );
         setCriterios(response.data.criterios);
-        console.log(criterios);
         setInforme(response.data.promedios_estudiantes);
-        console.log(informe);
       } catch (error) {
         console.log(error);
       }
@@ -47,23 +45,29 @@ function InformeCurso() {
             <table className="table-evaluation-curso">
               <thead>
                 <tr>
-                  <th>Codigo</th>
-                  <th>Nombre</th>
+                  <th>
+                    Codigo Estudiante
+                  </th>
                   {criterios.map((criterio) => (
                     <th key={criterio.id}>{criterio.descripcion}</th>
                   ))}
+                  <th>Promedio total</th>
+                  <th>Comentarios</th>
                 </tr>
               </thead>
               <tbody>
                 {Object.entries(informe).map(([id, estudiante]) => (
                   <tr key={id}>
-                    <td>{id}</td>
-                    <td>{estudiante.nombre}</td>
+                    <td className="value-informe">{id}</td>
                     {criterios.map((criterio) => (
                       <td className="value-informe" key={criterio.id}>
                         {estudiante.promedios[criterio.descripcion] ?? "N/A"}
                       </td>
                     ))}
+                    <td className="value-informe">
+                      {estudiante.total_promedio}
+                    </td>
+                    <td>{estudiante.comentarios.join(", ")}</td>
                   </tr>
                 ))}
               </tbody>

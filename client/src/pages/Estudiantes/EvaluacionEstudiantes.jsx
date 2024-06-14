@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import PopUp from "../../components/Utilities/PopUp.jsx";
 
 function EvaluacionEstudiantes() {
   const navigate = useNavigate();
@@ -14,10 +15,17 @@ function EvaluacionEstudiantes() {
   const { infoEvaluacion, infoCurso, escala } = state || {};
   const [dataCr, setDataCr] = useState([]);
   const [dataEs, setDataEs] = useState([]);
-  const [selectedEst, setSelectedEst] = useState(null);
+  const [selectedEst, setSelectedEst] = useState("");
   const [selectedValues, setSelectedValues] = useState({});
   const [comentarios, setComentarios] = useState("");
   const [refresh, setRefresh] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [advice, setAdvice] = useState("");
+
+  const popup = (e) => {
+    e.preventDefault();
+    setOpen(!open);
+  };
 
   const asignarValores = (item, index, value) => {
     setSelectedValues((prevValues) => ({
@@ -59,16 +67,16 @@ function EvaluacionEstudiantes() {
     console.log(selectedEst);
   };
 
-  const realizar_calificacion = async () => {
-    if (selectedEst.trim() === "Seleccione un estudiante") {
-      alert("Debe seleccionar un estudiante");
-      console.log(selectedEst);
+  const realizar_calificacion = async (e) => {
+    if (selectedEst.trim() === "") {
+      setAdvice("Debe seleccionar un estudiante.");
+      popup(e);
       return;
-      
     }
 
     if (Object.keys(selectedValues).length < dataCr.length) {
-      alert("Debe calificar todos los criterios");
+      setAdvice("Debe calificar todos los criterios.");
+      popup(e);
       return;
     }
 
@@ -83,8 +91,9 @@ function EvaluacionEstudiantes() {
           criterios: dataCr,
         }
       );
-      alert("evaluacion guardada exitosamente");
-      setSelectedEst("");
+      setAdvice("Evaluación guardada exitosamente.");
+      popup(e);
+      setSelectedEst(null);
       setRefresh(!refresh);
       setSelectedValues({});
       setComentarios("");
@@ -92,10 +101,6 @@ function EvaluacionEstudiantes() {
     } catch (error) {
       alert("ya ha evaluado a este estudiante antes");
     }
-  };
-
-  const terminar_calificacion = () => {
-    navigate("/SeleccionEvaluacion", { state: { infoCurso } });
   };
 
   return (
@@ -112,19 +117,13 @@ function EvaluacionEstudiantes() {
         <h3>Seleccione el estudiante que va a evaluar</h3>
         <div className="select-save">
           <select value={selectedEst} onChange={estudiante_calificado}>
-            <option>Seleccione un estudiante</option>
+            <option value={null}>Seleccione un estudiante</option>
             {dataEs.map((item) => (
               <option key={item.id} value={item.codigo}>
-                {item.user.username}
+                {item.user.first_name} {item.user.last_name}
               </option>
             ))}
           </select>
-          <button
-            onClick={realizar_calificacion}
-            className="enviar-calificacion"
-          >
-            Guardar esta calificación
-          </button>
         </div>
       </div>
       <div className="table-container">
@@ -171,13 +170,21 @@ function EvaluacionEstudiantes() {
         ></textarea>
         <div className="container-boton-fc">
           <button
-            onClick={terminar_calificacion}
+            onClick={realizar_calificacion}
             className="enviar-calificacion"
           >
-            Terminar calificacion
+            Guardar esta calificación
           </button>
         </div>
       </div>
+      <PopUp
+        open={open}
+        SetOpen={setOpen}
+        Advice={advice}
+        Width={"100%"}
+        Button1="Volver"
+        onClick1={popup}
+      />
     </>
   );
 }
