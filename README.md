@@ -5,3 +5,4 @@ equipos en contextos educativos. La aplicación permite a
 profesores y estudiantes medir y mejorar la contribución
 individual a los proyectos de grupo, proporcionando una
 retroalimentación constructiva y detallada.
+# Imagenes de la web
