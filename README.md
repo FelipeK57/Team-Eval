@@ -19,6 +19,6 @@ retroalimentación constructiva y detallada.
 # Perfil
 ![img](images/i6.png)
 # Pagina de inicio del profesor
-![img](images/i7.png)
-# Retroalimentación de todo el curso
 ![img](images/i8.png)
+# Retroalimentación de todo el curso
+![img](images/i7.png)
